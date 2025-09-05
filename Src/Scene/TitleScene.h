@@ -1,6 +1,6 @@
 #pragma once
 #include "SceneBase.h"
-
+#include "../Common/Sprite.h"
 
 class TitleScene : public SceneBase
 {
@@ -21,10 +21,12 @@ public:
 
 private:
 
-	int img_;
+	//サウンド
 	int se_;
 	int bgm_;
 
+	//画像
+	Sprite testSprite_;
 
 	//更新関数
 	void NormalUpdate(void) override;

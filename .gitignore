@@ -1,3 +1,7 @@
+Log.txt/
+.vs/
+x64/
+
 # Prerequisites
 *.d
 
