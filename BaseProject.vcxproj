@@ -19,6 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Resource\ResourceVertexShader.cpp" />
+    <ClCompile Include="Src\Resource\ResourcePixelShader.cpp" />
+    <ClCompile Include="Src\Resource\ResourceSound.cpp" />
+    <ClCompile Include="Src\Resource\ResourceFont.cpp" />
+    <ClCompile Include="Src\Resource\ResourceEffect.cpp" />
+    <ClCompile Include="Src\Resource\ResourceSprite.cpp" />
+    <ClCompile Include="Src\Resource\ResourceTexture.cpp" />
+    <ClCompile Include="Src\Resource\ResourceModel.cpp" />
+    <ClCompile Include="Src\Resource\ResourceBase.cpp" />
     <ClCompile Include="Src\Object\2D\Common\SpriteAnimationController.cpp" />
     <ClCompile Include="Src\Object\2D\CoreBase.cpp" />
     <ClCompile Include="Src\Manager\Resource\SoundManager.cpp" />
@@ -55,6 +64,15 @@
     <ClCompile Include="Src\Utility\UtilityDraw.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Resource\ResourceVertexShader.h" />
+    <ClInclude Include="Src\Resource\ResourcePixelShader.h" />
+    <ClInclude Include="Src\Resource\ResourceSound.h" />
+    <ClInclude Include="Src\Resource\ResourceFont.h" />
+    <ClInclude Include="Src\Resource\ResourceEffect.h" />
+    <ClInclude Include="Src\Resource\ResourceSprite.h" />
+    <ClInclude Include="Src\Resource\ResourceTexture.h" />
+    <ClInclude Include="Src\Resource\ResourceModel.h" />
+    <ClInclude Include="Src\Resource\ResourceBase.h" />
     <ClInclude Include="Src\Object\2D\Common\SpriteAnimationController.h" />
     <ClInclude Include="Src\Object\2D\CoreBase.h" />
     <ClInclude Include="Src\Manager\Resource\SoundManager.h" />

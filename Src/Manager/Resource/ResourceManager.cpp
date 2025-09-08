@@ -1,29 +1,140 @@
 #include <DxLib.h>
+#include <nlohmann/json.hpp>
+#include <fstream>
+#include <iostream>
+#include <vector>
+#include <cassert>
 #include "../../Application.h"
-#include "Resource.h"
+#include "../../Utility/UtilityCommon.h"
+#include "../../Resource/ResourceBase.h"
+#include "../../Resource/ResourceEffect.h"
+#include "../../Resource/ResourceFont.h"
+#include "../../Resource/ResourceModel.h"
+#include "../../Resource/ResourcePixelShader.h"
+#include "../../Resource/ResourceSound.h"
+#include "../../Resource/ResourceSprite.h"
+#include "../../Resource/ResourceTexture.h"
+#include "../../Resource/ResourceVertexShader.h"
 #include "ResourceManager.h"
+
+// JSON名前空間
+using json = nlohmann::json;
+
+// 文字列からenum の対応表
+static const std::unordered_map<std::string, ResourceBase::RESOURCE_TYPE> RESOURCE_TYPE_MAP =
+{
+	{"model", ResourceBase::RESOURCE_TYPE::MODEL},
+	{"sprite", ResourceBase::RESOURCE_TYPE::SPRITE},
+	{"texture", ResourceBase::RESOURCE_TYPE::TEXTUR},
+	{"sound", ResourceBase::RESOURCE_TYPE::SOUND},
+	{"font", ResourceBase::RESOURCE_TYPE::FONT},
+	{"effect", ResourceBase::RESOURCE_TYPE::EFFECT},
+	{"pixelShader", ResourceBase::RESOURCE_TYPE::PIXEL_SHADER},
+	{"vertexShader", ResourceBase::RESOURCE_TYPE::VERTEX_SHADER}
+};
 
 void ResourceManager::Init(void)
 {
-	static std::wstring PATH_IMG = Application::PATH_IMAGE;
-	static std::wstring PATH_MDL = Application::PATH_MODEL;
-	static std::wstring PATH_EFF = Application::PATH_EFFECT;
-	static std::wstring PATH_SE = Application::PATH_SOUND + L"SE/";
-	static std::wstring PATH_BGM = Application::PATH_SOUND + L"BGM/";
+	//ローカル変数を定義
+	int divX = -1;
+	int divY = -1;
+	int sizeX = -1;
+	int sizeY = -1;
+	int sceneId = -1;
+	std::string key = "";
+	std::string stringType = "";
+	std::wstring path = L"";
+	std::wstring fontName = L"";
 
-	std::unique_ptr<Resource> res;
+	//JSONファイルからリソース情報を読み込む
+	//JSONファイル読み込み
+	std::ifstream ifs((Application::PATH_JSON + L"Resource.json").c_str());
+	
+	//読み込めない場合アサート
+	assert(ifs.is_open(), "ファイルが開けません");
+	
+	json j;
+	ifs >> j;
 
-	res = std::make_unique<Resource>(Resource::TYPE::IMG, PATH_IMG + L"test.png");
-	resourcesMap_.emplace(SRC::TEST_IMG, std::move(res));
+	//配列を走査
+	for (auto& res : j["resources"])
+	{
+		//共通項目の情報受け取り
+		key = res["key"].get<std::string>();
+		stringType = res["type"].get<std::string>();
+		path = UtilityCommon::GetWStringFromString(res["path"].get<std::string>());
+		sceneId = res["sceneId"].get<int>();
 
-	res = std::make_unique<Resource>(Resource::TYPE::SOUND, PATH_SE + L"Test.mp3");
-	resourcesMap_.emplace(SRC::TEST_SE, std::move(res));
+		//列挙型へ変換
+		auto it = RESOURCE_TYPE_MAP.find(stringType);
+		assert(it != RESOURCE_TYPE_MAP.end(), "登録されてない種類です");
+		ResourceBase::RESOURCE_TYPE type = it->second;
+		
+		//情報の格納
+		std::unique_ptr<ResourceBase> resource;
+		switch (type)
+		{
+		case ResourceBase::RESOURCE_TYPE::MODEL:
+			resource = make_unique<ResourceModel>(type, path, sceneId);
+			break;
 
-	res = std::make_unique<Resource>(Resource::TYPE::SOUND, PATH_BGM + L"Test.wav");
-	resourcesMap_.emplace(SRC::TEST_BGM, std::move(res));
+		case ResourceBase::RESOURCE_TYPE::TEXTUR:
+			resource = make_unique<ResourceTexture>(type, path, sceneId);
+			break;
+
+		case ResourceBase::RESOURCE_TYPE::SPRITE:
+			divX = res["divX"].get<int>();
+			divY = res["divY"].get<int>();
+			sizeX = res["sizeX"].get<int>();
+			sizeY= res["sizeY"].get<int>();
+			resource = make_unique<ResourceSprite>(type, path, sceneId, divX, divY, sizeX, sizeY);
+			break;
+
+		case ResourceBase::RESOURCE_TYPE::EFFECT:
+			resource = make_unique<ResourceEffect>(type, path, sceneId);
+			break;
+
+		case ResourceBase::RESOURCE_TYPE::SOUND:
+			resource = make_unique<ResourceSound>(type, path, sceneId);
+			break;
+
+		case ResourceBase::RESOURCE_TYPE::FONT:
+			fontName = UtilityCommon::GetWStringFromString(res["fontName"].get<std::string>());
+			resource = make_unique<ResourceSound>(type, path, sceneId, fontName);
+			break;
+
+		case ResourceBase::RESOURCE_TYPE::PIXEL_SHADER:
+			resource = make_unique<ResourceModel>(type, path, sceneId);
+			break;
+
+		case ResourceBase::RESOURCE_TYPE::VERTEX_SHADER:
+			resource = make_unique<ResourceModel>(type, path, sceneId);
+			break;
+
+		default:
+			break;
+		}
+
+		//マップに格納
+		resourcesMap_.emplace(key, resource);
+	}
+
+	//共通項目のリソースを読み込む
+	for (auto& p : resourcesMap_)
+	{
+		//共通項目のリソースを読み込む
+		if (p.second->GetSceneId() == 0)
+		{
+			p.second->Load();
+		}
+
+		//コピーコンストラクタ
+		loadedMap_.emplace(p.first, *p.second);
+	}
+
 }
 
-void ResourceManager::SceneChangeRelease(void)
+void ResourceManager::Release(void)
 {
 	for (auto& p : loadedMap_)
 	{
@@ -31,81 +142,51 @@ void ResourceManager::SceneChangeRelease(void)
 	}
 
 	loadedMap_.clear();
-}
-
-void ResourceManager::Release(void)
-{
-	SceneChangeRelease();
 	resourcesMap_.clear();
 }
 
-const Resource& ResourceManager::Load(SRC src)
+void ResourceManager::SceneChangeResource(const int nextSceneId)
 {
-	Resource& res = _Load(src);
-	if (res.type_ == Resource::TYPE::NONE)
+	// 現在読み込んだリソースを解放
+	for (auto it = loadedMap_.begin(); it != loadedMap_.end(); )
 	{
-		return dummy_;
+		// 共通リソース以外を破棄する
+		if (it->second.GetSceneId() != 0)
+		{
+			it->second.Release();
+			it = loadedMap_.erase(it); // eraseして次へ
+		}
+		else
+		{
+			++it; // 共通リソースは残す
+		}
 	}
-	return res;
+
+	// 次のシーンのリソースを読み込む
+	for (auto& p : resourcesMap_)
+	{
+		// 指定したシーンのリソースだけロード
+		if (p.second->GetSceneId() == nextSceneId)
+		{
+			p.second->Load();
+			loadedMap_.emplace(p.first, *p.second);
+		}
+	}
 }
 
-int ResourceManager::LoadModelDuplicate(SRC src)
+const ResourceBase& ResourceManager::GetResource(const std::string& key) const
 {
-	Resource& res = _Load(src);
-	if (res.type_ == Resource::TYPE::NONE)
-	{
-		return -1;
-	}
+	//リソースを探す
+	const auto& res = loadedMap_.find(key);
 
-	int duId = MV1DuplicateModel(res.handleId_);
-	res.duplicateModelIds_.push_back(duId);
+	//取得できないときアサート
+	assert(res != loadedMap_.end(), "指定したキーのリソースは取得できないです");
 
-	return duId;
-}
-
-int ResourceManager::LoadSoundDuplicate(SRC src)
-{
-	Resource& res = _Load(src);
-	if (res.type_ == Resource::TYPE::NONE)
-	{
-		return -1;
-	}
-
-	int duId = DuplicateSoundMem(res.handleId_);
-	res.duplicateModelIds_.push_back(duId);
-
-	return duId;
+	//リソースを返す
+	return res->second;
 }
 
 ResourceManager::ResourceManager(void)
 {
-
-}
-
-Resource& ResourceManager::_Load(SRC src)
-{
-
-	// ロード済みチェック
-	const auto& lPair = loadedMap_.find(src);
-	if (lPair != loadedMap_.end())
-	{
-		return lPair->second;
-	}
-
-	// リソース登録チェック
-	const auto& rPair = resourcesMap_.find(src);
-	if (rPair == resourcesMap_.end())
-	{
-		// 登録されていない
-		return dummy_;
-	}
-
-	// ロード処理
-	rPair->second->Load();
-
-	// 念のためコピーコンストラクタ
-	loadedMap_.emplace(src, *rPair->second);
-
-	return *rPair->second;
 
 }

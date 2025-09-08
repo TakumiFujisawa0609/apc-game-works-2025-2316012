@@ -26,7 +26,7 @@ void TitleScene::Load(void)
 	buttnFontHandle_ = CreateFontToHandle(FontManager::FONT_DOT.c_str(), FONT_SIZE, 0);
 
 	auto& res = ResourceManager::GetInstance();
-	img_ = res.Load(ResourceManager::SRC::TEST_IMG).handleId_;
+	img_ = res.GetResource("testImage").GetHandle();
 	se_ = res.LoadSoundDuplicate(ResourceManager::SRC::TEST_SE);
 	bgm_ = res.LoadSoundDuplicate(ResourceManager::SRC::TEST_BGM);
 
