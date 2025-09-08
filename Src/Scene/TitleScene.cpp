@@ -22,11 +22,12 @@ TitleScene::~TitleScene(void)
 
 void TitleScene::Load(void)
 {
-	//フォントの登録
-	buttnFontHandle_ = CreateFontToHandle(FontManager::FONT_DOT.c_str(), FONT_SIZE, 0);
+	//親クラスの読み込み
+	SceneBase::Load();
 
+	//リソースの設定
 	auto& res = ResourceManager::GetInstance();
-	img_ = res.Load(ResourceManager::SRC::TEST_IMG).handleId_;
+	testSprite_.handleId = res.Load(ResourceManager::SRC::TEST_IMG).handleId_;
 	se_ = res.LoadSoundDuplicate(ResourceManager::SRC::TEST_SE);
 	bgm_ = res.LoadSoundDuplicate(ResourceManager::SRC::TEST_BGM);
 
@@ -37,6 +38,9 @@ void TitleScene::Load(void)
 
 void TitleScene::Init(void)
 {
+	//画像位置設定
+	testSprite_.pos = { Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y };
+
 	SoundManager::GetInstance().Play(bgm_);
 }
 
@@ -67,15 +71,7 @@ void TitleScene::NormalDraw(void)
 		true
 	);
 
-	DrawRotaGraph(
-		Application::SCREEN_HALF_X,
-		Application::SCREEN_HALF_Y,
-		1.0f,
-		0.0f,
-		img_,
-		true,
-		false
-	);
+	testSprite_.DrawRota();
 
 	DrawFormatString(
 		0, 0,

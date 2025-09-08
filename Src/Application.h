@@ -57,9 +57,6 @@ private:
 	//FPS
 	std::unique_ptr<FpsControl> fps_;
 
-	//フォント
-	std::unique_ptr<FontManager> fontMng_;
-
 	//コンストラクタ
 	Application();
 

@@ -44,7 +44,11 @@ bool Application::Init()
 
 	// リソース管理初期化
 	ResourceManager::CreateInstance();
-	ResourceManager::GetInstance().Init();
+	ResourceManager::GetInstance().Init();	
+	
+	// シーン管理初期化
+	FontManager::CreateInstance();
+	FontManager::GetInstance().Init();
 
 	// シーン管理初期化
 	SceneManager::CreateInstance();		
@@ -53,10 +57,6 @@ bool Application::Init()
 	// FPS初期化
 	fps_ = std::make_unique<FpsControl>();
 	fps_->Init();
-
-	// フォント管理初期化
-	fontMng_ = std::make_unique<FontManager>();
-	fontMng_->Init();
 
 	return true;
 }
@@ -86,22 +86,22 @@ void Application::Run()
 
 		ScreenFlip();
 	}
-
 }
 
 bool Application::Release()
 {
-	//各クラスのリソースの破棄
-	InputManager::GetInstance().Release();
+	//各クラスのリソースの破棄	
+	SceneManager::GetInstance().Release();	
+	FontManager::GetInstance().Release();	
 	ResourceManager::GetInstance().Release();
-	SceneManager::GetInstance().Release();
+	InputManager::GetInstance().Release();
 
 	//インスタンスの破棄
-	fontMng_->Destroy();
-	InputManager::GetInstance().Destroy();
-	ResourceManager::GetInstance().Destroy();
 	SceneManager::GetInstance().Destroy();
-
+	FontManager::GetInstance().Destroy();
+	ResourceManager::GetInstance().Destroy();
+	InputManager::GetInstance().Destroy();
+	
 	// Effekseerを終了する。
 	Effkseer_End();
 
@@ -117,7 +117,6 @@ bool Application::Release()
 Application::Application()
 {
 	fps_ = nullptr;
-	fontMng_ = nullptr;
 }
 
 void Application::InitEffekseer()

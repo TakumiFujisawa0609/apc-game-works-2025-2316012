@@ -1,10 +1,12 @@
 #pragma once
 #include<functional>
 #include "../Application.h"
+#include "../Common/CharacterString.h"
 
 class SceneManager;
 class ResourceManager;
 class InputManager;
+class FontManager;
 
 class SceneBase
 {
@@ -47,6 +49,7 @@ protected:
 	ResourceManager& resMng_;
 	InputManager& inputMng_;
 	SceneManager& scnMng_;
+	FontManager& fontMng_;
 
 	//更新処理管理
 	std::function<void(void)> updataFunc_;
@@ -55,8 +58,8 @@ protected:
 	//ローディング経過時間
 	float loadingTime_;
 
-	//選択ボタンフォントハンドル
-	int buttnFontHandle_;
+	//ローディング文字列
+	CharacterString loadingString_;
 
 	//更新関数
 	virtual void LoadingUpdate(void);

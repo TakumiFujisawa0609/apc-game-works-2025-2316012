@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Common\CharacterString.cpp" />
+    <ClCompile Include="Src\Common\Sprite.cpp" />
     <ClCompile Include="Src\Object\2D\Common\SpriteAnimationController.cpp" />
     <ClCompile Include="Src\Object\2D\CoreBase.cpp" />
     <ClCompile Include="Src\Manager\Resource\SoundManager.cpp" />
@@ -55,6 +57,8 @@
     <ClCompile Include="Src\Utility\UtilityDraw.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Common\CharacterString.h" />
+    <ClInclude Include="Src\Common\Sprite.h" />
     <ClInclude Include="Src\Object\2D\Common\SpriteAnimationController.h" />
     <ClInclude Include="Src\Object\2D\CoreBase.h" />
     <ClInclude Include="Src\Manager\Resource\SoundManager.h" />

@@ -22,8 +22,8 @@ GameScene::~GameScene(void)
 
 void GameScene::Load(void)
 {
-	//フォントの登録
-	buttnFontHandle_ = CreateFontToHandle(FontManager::FONT_DOT.c_str(), FONT_SIZE, 0);
+	//親クラスの読み込み
+	SceneBase::Load();
 
 	//ポーズ画面のリソース
 	pauseScene_ = std::make_shared<PauseScene>();

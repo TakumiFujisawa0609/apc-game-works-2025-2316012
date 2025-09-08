@@ -3,6 +3,7 @@
 #include "../Manager/Generic/SceneManager.h"
 #include "../Manager/Generic/InputManager.h"
 #include "../Manager/Resource/ResourceManager.h"
+#include "../Manager/Resource/FontManager.h"
 #include "../Utility/UtilityCommon.h"
 #include "SceneBase.h"
 
@@ -10,18 +11,22 @@ SceneBase::SceneBase(void) :
 	resMng_(ResourceManager::GetInstance())
 	,scnMng_(SceneManager::GetInstance())
 	,inputMng_(InputManager::GetInstance())
+	,fontMng_(FontManager::GetInstance())
 {
-	buttnFontHandle_ = -1;
 	loadingTime_ = -1;
 }
 
 SceneBase::~SceneBase(void)
 {
-	DeleteFontToHandle(buttnFontHandle_); //フォントの削除
 }
 
 void SceneBase::Load(void)
 {
+	//ローディング用文字列設定
+	loadingString_.fontHandle_ = fontMng_.CreateMyFont(FontManager::FONT_TYPE::BANANA, 32, 0);
+	loadingString_.color_ = UtilityCommon::WHITE;
+	loadingString_.pos_ = { LOADING_STRING_POS_X, LOADING_STRING_POS_Y };
+	loadingString_.srt_ = L"Now loading";
 }
 
 void SceneBase::Init(void)
@@ -86,13 +91,16 @@ void SceneBase::DrawNowLoading(void)
 	int count = static_cast<int>(time / COMMA_TIME);
 	count %= COMMA_MAX_NUM;
 
-	std::wstring loadStr = L"Now loading";
+	loadingString_.srt_ = L"Now Loading";
 	std::wstring dotStr = L".";
 
+	//テキストの設定
 	for (int i = 0; i < count; i++)
 	{
-		loadStr += dotStr;
+		loadingString_.srt_ += dotStr;
 	}
-	DrawStringToHandle(LOADING_STRING_POS_X, LOADING_STRING_POS_Y, loadStr.c_str(), 0xffffff, buttnFontHandle_);
+
+	//文字の描画
+	loadingString_.Draw();
 
 }
