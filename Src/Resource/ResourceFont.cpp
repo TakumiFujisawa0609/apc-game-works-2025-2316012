@@ -1,4 +1,4 @@
-#include <wingdi.h>
+#include <windows.h>
 #include "ResourceFont.h"
 
 ResourceFont::ResourceFont(const RESOURCE_TYPE type, const std::wstring path, const int sceneId, const std::wstring fontName) :

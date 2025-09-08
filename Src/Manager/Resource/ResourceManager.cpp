@@ -48,7 +48,7 @@ void ResourceManager::Init(void)
 
 	//JSONファイルからリソース情報を読み込む
 	//JSONファイル読み込み
-	std::ifstream ifs((Application::PATH_JSON + L"Resource.json").c_str());
+	std::ifstream ifs((Application::PATH_JSON + L"Resources.json").c_str());
 	
 	//読み込めない場合アサート
 	assert(ifs.is_open(), "ファイルが開けません");
@@ -100,7 +100,7 @@ void ResourceManager::Init(void)
 
 		case ResourceBase::RESOURCE_TYPE::FONT:
 			fontName = UtilityCommon::GetWStringFromString(res["fontName"].get<std::string>());
-			resource = make_unique<ResourceSound>(type, path, sceneId, fontName);
+			resource = make_unique<ResourceFont>(type, path, sceneId, fontName);
 			break;
 
 		case ResourceBase::RESOURCE_TYPE::PIXEL_SHADER:
@@ -116,7 +116,7 @@ void ResourceManager::Init(void)
 		}
 
 		//マップに格納
-		resourcesMap_.emplace(key, resource);
+		resourcesMap_.emplace(key, std::move(resource));
 	}
 
 	//共通項目のリソースを読み込む
@@ -125,20 +125,20 @@ void ResourceManager::Init(void)
 		//共通項目のリソースを読み込む
 		if (p.second->GetSceneId() == 0)
 		{
-			p.second->Load();
+			//読み込み処理
+			p.second->Load();		
+			
+			//コピーコンストラクタ
+			loadedMap_.emplace(p.first, p.second.get());
 		}
-
-		//コピーコンストラクタ
-		loadedMap_.emplace(p.first, *p.second);
 	}
-
 }
 
 void ResourceManager::Release(void)
 {
 	for (auto& p : loadedMap_)
 	{
-		p.second.Release();
+		p.second->Release();
 	}
 
 	loadedMap_.clear();
@@ -151,9 +151,9 @@ void ResourceManager::SceneChangeResource(const int nextSceneId)
 	for (auto it = loadedMap_.begin(); it != loadedMap_.end(); )
 	{
 		// 共通リソース以外を破棄する
-		if (it->second.GetSceneId() != 0)
+		if (it->second->GetSceneId() != 0)
 		{
-			it->second.Release();
+			it->second->Release();
 			it = loadedMap_.erase(it); // eraseして次へ
 		}
 		else
@@ -169,21 +169,49 @@ void ResourceManager::SceneChangeResource(const int nextSceneId)
 		if (p.second->GetSceneId() == nextSceneId)
 		{
 			p.second->Load();
-			loadedMap_.emplace(p.first, *p.second);
+			loadedMap_.emplace(p.first, p.second.get());
 		}
 	}
 }
 
-const ResourceBase& ResourceManager::GetResource(const std::string& key) const
+const int ResourceManager::GetHandle(const std::string key) const
 {
 	//リソースを探す
 	const auto& res = loadedMap_.find(key);
 
 	//取得できないときアサート
-	assert(res != loadedMap_.end(), "指定したキーのリソースは取得できないです");
+	assert(res != loadedMap_.end() && "指定したキーのリソースは取得できないです");
 
 	//リソースを返す
-	return res->second;
+	return res->second->GetHandle();
+}
+
+const int* ResourceManager::GetHandles(const std::string key) const
+{
+	// リソースを探す
+	auto it = loadedMap_.find(key);
+	assert(it != loadedMap_.end() && "指定したキーのリソースは取得できないです");
+
+	// dynamic_cast で派生型にキャスト
+	auto sprite = dynamic_cast<ResourceSprite*>(it->second);
+	assert(sprite && "リソースの型が ResourceSprite ではありません");
+
+	// ハンドルIDを返す
+	return sprite->GetHandleIds();
+}
+
+const std::wstring ResourceManager::GetFontName(const std::string key) const
+{
+	// リソースを探す
+	auto it = loadedMap_.find(key);
+	assert(it != loadedMap_.end() && "指定したキーのリソースは取得できないです");
+
+	// dynamic_cast で派生型にキャスト
+	auto font = dynamic_cast<ResourceFont*>(it->second);
+	assert(font && "リソースの型が ResourceFont ではありません");
+
+	// ハンドルIDを返す
+	return font->GetFontName();
 }
 
 ResourceManager::ResourceManager(void)

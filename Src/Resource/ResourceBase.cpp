@@ -7,7 +7,3 @@ ResourceBase::ResourceBase(const RESOURCE_TYPE type, const std::wstring path, co
 {
 	handleId_ = -1;
 }
-
-ResourceBase::~ResourceBase()
-{
-}

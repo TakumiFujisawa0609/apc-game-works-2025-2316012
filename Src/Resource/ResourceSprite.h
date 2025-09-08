@@ -32,6 +32,12 @@ public:
 	/// </summary>
 	void Release()override;
 
+	/// <summary>
+	/// ハンドルIDを返す
+	/// </summary>
+	/// <returns>ハンドルID</returns>
+	const int* GetHandleIds() const { return handleIds_; }
+
 private:
 
 	//画像

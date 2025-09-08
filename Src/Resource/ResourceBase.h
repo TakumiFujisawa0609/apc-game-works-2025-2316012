@@ -33,7 +33,7 @@ public:
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	virtual ~ResourceBase() = default;
+	virtual ~ResourceBase() {};
 
 	/// <summary>
 	/// 読み込み処理

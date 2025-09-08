@@ -17,6 +17,9 @@ ResourceSprite::~ResourceSprite()
 
 void ResourceSprite::Load()
 {
+	// •ªŠ„”‚É‰‚¶‚Äƒƒ‚ƒŠŠm•Û
+	handleIds_ = new int[divX_ * divY_];
+
 	LoadDivGraph(
 		path_.c_str(),
 		divX_ * divY_,

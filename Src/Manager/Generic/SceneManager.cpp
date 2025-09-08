@@ -5,8 +5,10 @@
 #include "../../Scene/GameScene.h"
 #include "../Resource/ResourceManager.h"
 #include "../Resource/SoundManager.h"
-#include "SceneManager.h"
+#include "../Resource/FontManager.h"
 #include "Camera.h"
+#include "SceneManager.h"
+
 
 void SceneManager::Init(void)
 {
@@ -24,6 +26,9 @@ void SceneManager::Init(void)
 
 	//サウンド管理生成
 	SoundManager::CreateInstance();
+
+	//フォント管理クラス生成
+	FontManager::CreateInstance();
 
 	//シーン遷移中
 	isSceneChanging_ = true;
@@ -169,6 +174,7 @@ void SceneManager::PopScene()
 void SceneManager::Release(void)
 {
 	//全てのシーンで使うシングルトンクラスやリソースはここで解放する
+	FontManager::GetInstance().Destroy();
 	SoundManager::GetInstance().Destroy();
 }
 
@@ -222,8 +228,8 @@ void SceneManager::ResetDeltaTime(void)
 
 void SceneManager::DoChangeScene(SCENE_ID sceneId)
 {
-	// リソースの解放
-	ResourceManager::GetInstance().SceneChangeRelease();
+	//シーン変更によるリソースの処理
+	ResourceManager::GetInstance().SceneChangeResource(static_cast<int>(sceneId));
 
 	// シーンを変更する
 	sceneId_ = sceneId;

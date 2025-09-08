@@ -40,8 +40,8 @@ PauseScene::~PauseScene(void)
 
 void PauseScene::Load(void)
 {
-	imgTest_ = resMng_.Load(ResourceManager::SRC::TEST_IMG).handleId_;
-	pauseFont_ = fontMng_.CreateMyFont(FontManager::FONT_TYPE::HANAZOME, FONT_SIZE, FONT_THICK);
+	imgTest_ = resMng_.GetHandle("testImage");
+	pauseFont_ = fontMng_.CreateMyFont(resMng_.GetFontName("fontHanazome"), FONT_SIZE, FONT_THICK);
 }
 
 void PauseScene::Init(void)

@@ -45,10 +45,6 @@ bool Application::Init()
 	// リソース管理初期化
 	ResourceManager::CreateInstance();
 	ResourceManager::GetInstance().Init();	
-	
-	// シーン管理初期化
-	FontManager::CreateInstance();
-	FontManager::GetInstance().Init();
 
 	// シーン管理初期化
 	SceneManager::CreateInstance();		
@@ -92,13 +88,11 @@ bool Application::Release()
 {
 	//各クラスのリソースの破棄	
 	SceneManager::GetInstance().Release();	
-	FontManager::GetInstance().Release();	
 	ResourceManager::GetInstance().Release();
 	InputManager::GetInstance().Release();
 
 	//インスタンスの破棄
 	SceneManager::GetInstance().Destroy();
-	FontManager::GetInstance().Destroy();
 	ResourceManager::GetInstance().Destroy();
 	InputManager::GetInstance().Destroy();
 	

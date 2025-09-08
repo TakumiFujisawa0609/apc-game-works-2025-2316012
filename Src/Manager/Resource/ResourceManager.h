@@ -4,6 +4,16 @@
 #include "../../Template/Singleton.h"
 #include "../../Resource/ResourceBase.h"
 
+class ResourceBase;
+//class ResourceModel;
+//class ResourceTexture;
+//class ResourceSprite;
+//class ResourceEffect;
+//class ResourceSound;
+//class ResourceFont;
+//class ResourcePixelShader;
+//class ResourceVertexShader;
+
 class ResourceManager : public Singleton<ResourceManager>
 {
 
@@ -32,15 +42,31 @@ public:
 	/// <summary>
 	/// 指定したキーのリソースを返す
 	/// </summary>
-	const ResourceBase& GetResource(const std::string& key) const;
+	/// <param name="key">リソースキー</param>
+	/// <returns>リソースのハンドル</returns>
+	const int GetHandle(const std::string key)const;
 
-private
+	/// <summary>
+	/// 指定したキーのリソースを返す
+	/// </summary>
+	/// <param name="key">リソースキー</param>
+	/// <returns>リソースのハンドル(主にスプライト)</returns>
+	const int* GetHandles(const std::string key)const;
+
+	/// <summary>
+	/// 指定したキーのフォントの名前を返す
+	/// </summary>
+	/// <param name="key">リソースキー</param>
+	/// <returns>フォントの名前</returns>
+	const std::wstring GetFontName(const std::string key)const;
+
+private:
 
 	// リソース管理の対象
 	std::unordered_map<std::string, std::unique_ptr<ResourceBase>> resourcesMap_;
 
 	// 読み込み済みリソース
-	std::unordered_map<std::string, ResourceBase&> loadedMap_;
+	std::unordered_map<std::string, ResourceBase*> loadedMap_;
 
 	// デフォルトコンストラクタをprivateにして、
 	// 外部から生成できない様にする

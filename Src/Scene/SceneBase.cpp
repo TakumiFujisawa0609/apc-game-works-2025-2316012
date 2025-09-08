@@ -23,7 +23,7 @@ SceneBase::~SceneBase(void)
 void SceneBase::Load(void)
 {
 	//ローディング用文字列設定
-	loadingString_.fontHandle_ = fontMng_.CreateMyFont(FontManager::FONT_TYPE::BANANA, 32, 0);
+	loadingString_.fontHandle_ = fontMng_.CreateMyFont(resMng_.GetFontName("fontDot"), 32, 0);
 	loadingString_.color_ = UtilityCommon::WHITE;
 	loadingString_.pos_ = { LOADING_STRING_POS_X, LOADING_STRING_POS_Y };
 	loadingString_.srt_ = L"Now loading";
