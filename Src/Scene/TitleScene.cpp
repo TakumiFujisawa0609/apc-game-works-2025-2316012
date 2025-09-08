@@ -27,7 +27,7 @@ void TitleScene::Load(void)
 
 	//ƒŠƒ\[ƒX‚Ìİ’è
 	auto& res = ResourceManager::GetInstance();
-	testSprite_.handleId = res.Load(ResourceManager::SRC::TEST_IMG).handleId_;
+	img_ = res.GetResource("testImage").GetHandle();
 	se_ = res.LoadSoundDuplicate(ResourceManager::SRC::TEST_SE);
 	bgm_ = res.LoadSoundDuplicate(ResourceManager::SRC::TEST_BGM);
 

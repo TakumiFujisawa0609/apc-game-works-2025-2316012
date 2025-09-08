@@ -1,8 +1,8 @@
 #pragma once
-#include <map>
+#include <unordered_map>
 #include <string>
 #include "../../Template/Singleton.h"
-#include "Resource.h"
+#include "../../Resource/ResourceBase.h"
 
 class ResourceManager : public Singleton<ResourceManager>
 {
@@ -12,27 +12,10 @@ class ResourceManager : public Singleton<ResourceManager>
 public:
 
 	/// <summary>
-	/// リソース名
-	/// </summary>
-	enum class SRC
-	{
-		NONE,
-		TEST_IMG,
-		TEST_SE,
-		TEST_BGM,
-	};
-
-	/// <summary>
 	/// 初期化
 	/// </summary>
 	/// <param name=""></param>
 	void Init(void);
-
-	/// <summary>
-	/// 解放(シーン切替時に一旦解放)
-	/// </summary>
-	/// <param name=""></param>
-	void SceneChangeRelease(void);
 
 	/// <summary>
 	/// リソースの完全解放
@@ -41,42 +24,26 @@ public:
 	void Release(void);
 
 	/// <summary>
-	/// リソースのロード
+	/// シーン変更の処理
 	/// </summary>
-	/// <param name="src">読み込むリソース</param>
-	/// <returns>リソース</returns>
-	const Resource& Load(SRC src);
+	/// <param name="nextSceneId">次シーンのID</param>
+	void SceneChangeResource(const int nextSceneId);
 
 	/// <summary>
-	/// リソースの複製ロード(モデル用)
+	/// 指定したキーのリソースを返す
 	/// </summary>
-	/// <param name="src">複製したいリソース</param>
-	/// <returns>複製したリソース</returns>
-	int LoadModelDuplicate(SRC src);
+	const ResourceBase& GetResource(const std::string& key) const;
 
-	/// <summary>
-	/// リソースの複製ロード(音源用)
-	/// </summary>
-	/// <param name="src">複製したいリソース</param>
-	/// <returns>複製したリソース</returns>
-	int LoadSoundDuplicate(SRC src);
-
-private:
+private
 
 	// リソース管理の対象
-	std::map<SRC, std::unique_ptr<Resource>> resourcesMap_;
+	std::unordered_map<std::string, std::unique_ptr<ResourceBase>> resourcesMap_;
 
 	// 読み込み済みリソース
-	std::map<SRC, Resource&> loadedMap_;
-
-	Resource dummy_;
+	std::unordered_map<std::string, ResourceBase&> loadedMap_;
 
 	// デフォルトコンストラクタをprivateにして、
 	// 外部から生成できない様にする
 	ResourceManager(void);
 	~ResourceManager(void) = default;
-
-	// 内部ロード
-	Resource& _Load(SRC src);
-
 };
