@@ -1,8 +1,10 @@
 #include <chrono>
 #include <DxLib.h>
 #include <EffekseerForDXLib.h>
-#include "../../Scene/TitleScene.h"
-#include "../../Scene/GameScene.h"
+#include "../../Scene/SceneTitle.h"
+#include "../../Scene/SceneMenu.h"
+#include "../../Scene/SceneGame.h"
+#include "../../Scene/SceneResult.h"
 #include "../Resource/ResourceManager.h"
 #include "../Resource/SoundManager.h"
 #include "../Resource/FontManager.h"
@@ -245,10 +247,10 @@ void SceneManager::DoChangeScene(SCENE_ID sceneId)
 	switch (sceneId_)
 	{
 	case SCENE_ID::TITLE:
-		CreateScene(std::make_unique<TitleScene>());
+		CreateScene(std::make_unique<SceneTitle>());
 		break;
 	case SCENE_ID::GAME:
-		CreateScene(std::make_unique<GameScene>());
+		CreateScene(std::make_unique<SceneGame>());
 		break;
 	}
 

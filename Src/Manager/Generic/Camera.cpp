@@ -3,7 +3,7 @@
 #include <EffekseerForDXLib.h>
 #include "../../Utility/Utility3D.h"
 #include "../../Utility//UtilityCommon.h"
-#include "../../Object/3D/Common/Transform.h"
+#include "../../Object/Common/Transform.h"
 #include "Camera.h"
 
 Camera::Camera(void)

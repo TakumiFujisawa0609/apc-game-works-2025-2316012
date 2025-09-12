@@ -1,4 +1,4 @@
-#include "PauseScene.h"
+#include "ScenePause.h"
 #include <DxLib.h>
 #include "../Application.h"
 #include "../Manager/Resource/ResourceManager.h"
@@ -7,12 +7,12 @@
 #include "../Manager/Generic/InputManager.h"
 #include "../Utility/UtilityCommon.h"
 
-PauseScene::PauseScene(void)
+ScenePause::ScenePause(void)
 {
 	//更新関数のセット
-	updataFunc_ = std::bind(&PauseScene::NormalUpdate, this);
+	updataFunc_ = std::bind(&ScenePause::NormalUpdate, this);
 	//描画関数のセット
-	drawFunc_ = std::bind(&PauseScene::NormalDraw, this);
+	drawFunc_ = std::bind(&ScenePause::NormalDraw, this);
 
 	imgTest_ = -1;
 	pauseFont_ = -1;
@@ -34,22 +34,22 @@ PauseScene::PauseScene(void)
 	};
 }
 
-PauseScene::~PauseScene(void)
+ScenePause::~ScenePause(void)
 {
 }
 
-void PauseScene::Load(void)
+void ScenePause::Load(void)
 {
 	imgTest_ = resMng_.GetHandle("testImage");
 	pauseFont_ = fontMng_.CreateMyFont(resMng_.GetFontName("fontHanazome"), FONT_SIZE, FONT_THICK);
 }
 
-void PauseScene::Init(void)
+void ScenePause::Init(void)
 {	
 	
 }
 
-void PauseScene::NormalUpdate(void)
+void ScenePause::NormalUpdate(void)
 {
 	if (inputMng_.IsTrgDown(KEY_INPUT_P))
 	{
@@ -74,7 +74,7 @@ void PauseScene::NormalUpdate(void)
 	}
 }
 
-void PauseScene::NormalDraw(void)
+void ScenePause::NormalDraw(void)
 {
 	static constexpr int MARGINT = 50;
 	static constexpr int OFFSET_Y = 200;

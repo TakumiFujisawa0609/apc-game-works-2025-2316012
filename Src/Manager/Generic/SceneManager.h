@@ -24,7 +24,9 @@ public:
 	{
 		NONE,
 		TITLE,
-		GAME
+		MENU,
+		GAME,
+		RESULT
 	};
 
 	/// <summary>

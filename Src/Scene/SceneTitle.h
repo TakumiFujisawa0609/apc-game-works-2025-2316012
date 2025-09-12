@@ -1,19 +1,18 @@
 #pragma once
-#include <memory>
 #include "SceneBase.h"
+#include "../Common/Sprite.h"
+#include "../Common/CharacterString.h"
 
-class PauseScene;
-
-class GameScene : public SceneBase
+class SceneTitle : public SceneBase
 {
 
 public:
-	
+
 	// コンストラクタ
-	GameScene(void);
+	SceneTitle(void);
 
 	// デストラクタ
-	~GameScene(void);
+	~SceneTitle(void);
 
 	//読み込み処理
 	void Load(void) override;
@@ -23,10 +22,12 @@ public:
 
 private:
 
-	int frame_;
+	//サウンド
+	int se_;
+	int bgm_;
 
-	//ポーズ画面
-	std::shared_ptr<PauseScene> pauseScene_;
+	//画像
+	Sprite testSprite_;
 
 	//更新関数
 	void NormalUpdate(void) override;
@@ -36,9 +37,4 @@ private:
 
 	//処理の変更
 	void ChangeNormal(void) override;
-	
-	//デバッグ処理
-	void DebagUpdate(void);
-	void DebagDraw(void);
-
 };

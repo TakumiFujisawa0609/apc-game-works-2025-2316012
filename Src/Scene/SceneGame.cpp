@@ -1,45 +1,45 @@
-#include "GameScene.h"
+#include "SceneGame.h"
 #include <DxLib.h>
 #include "../Application.h"
 #include "../Manager/Generic/SceneManager.h"
 #include "../Manager/Generic/InputManager.h"
 #include "../Manager/Resource/ResourceManager.h"
 #include "../Manager/Resource/FontManager.h"
-#include "PauseScene.h"
+#include "ScenePause.h"
 
-GameScene::GameScene(void)
+SceneGame::SceneGame(void)
 {
 	//更新関数のセット
-	updataFunc_ = std::bind(&GameScene::LoadingUpdate, this);
+	updataFunc_ = std::bind(&SceneGame::LoadingUpdate, this);
 	//描画関数のセット
-	drawFunc_ = std::bind(&GameScene::LoadingDraw, this);
+	drawFunc_ = std::bind(&SceneGame::LoadingDraw, this);
 }
 
-GameScene::~GameScene(void)
+SceneGame::~SceneGame(void)
 {
 	//インスタンスの削除
 }
 
-void GameScene::Load(void)
+void SceneGame::Load(void)
 {
 	//親クラスの読み込み
 	SceneBase::Load();
 
 	//ポーズ画面のリソース
-	pauseScene_ = std::make_shared<PauseScene>();
-	pauseScene_->Load();
+	ScenePause_ = std::make_shared<ScenePause>();
+	ScenePause_->Load();
 }
 
-void GameScene::Init(void)
+void SceneGame::Init(void)
 {
 }
 
-void GameScene::NormalUpdate(void)
+void SceneGame::NormalUpdate(void)
 {
 	//ポーズ画面へ遷移
 	if (inputMng_.IsTrgDown(KEY_INPUT_P))
 	{
-		scnMng_.PushScene(pauseScene_);
+		scnMng_.PushScene(ScenePause_);
 		return;
 	}
 
@@ -47,20 +47,20 @@ void GameScene::NormalUpdate(void)
 	DebagUpdate();
 }
 
-void GameScene::NormalDraw(void)
+void SceneGame::NormalDraw(void)
 {
 	//デバッグ処理
 	DebagDraw();
 }
 
-void GameScene::ChangeNormal(void)
+void SceneGame::ChangeNormal(void)
 {
 	//処理変更
-	updataFunc_ = std::bind(&GameScene::NormalUpdate, this);
-	drawFunc_ = std::bind(&GameScene::NormalDraw, this);
+	updataFunc_ = std::bind(&SceneGame::NormalUpdate, this);
+	drawFunc_ = std::bind(&SceneGame::NormalDraw, this);
 }
 
-void GameScene::DebagUpdate(void)
+void SceneGame::DebagUpdate(void)
 {
 	// シーン遷移
 	InputManager& ins = InputManager::GetInstance();
@@ -71,7 +71,7 @@ void GameScene::DebagUpdate(void)
 	frame_++;
 }
 
-void GameScene::DebagDraw(void)
+void SceneGame::DebagDraw(void)
 {
 	DrawBox(
 		0,
@@ -85,7 +85,7 @@ void GameScene::DebagDraw(void)
 	DrawFormatString(
 		0, 0,
 		0x000000,
-		L"GameScene"
+		L"SceneGame"
 	);
 
 	constexpr float r = 40.0f;

@@ -1,6 +1,6 @@
 #include "ActorBase.h"
-#include "../../Manager/Resource/ResourceManager.h"
-#include "../../Manager/Generic/SceneManager.h"
+#include "../Manager/Resource/ResourceManager.h"
+#include "../Manager/Generic/SceneManager.h"
 
 ActorBase::ActorBase():
 	resMng_(ResourceManager::GetInstance()),

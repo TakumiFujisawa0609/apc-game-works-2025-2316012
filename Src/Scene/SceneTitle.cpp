@@ -6,21 +6,21 @@
 #include "../Manager/Resource/ResourceManager.h"
 #include "../Manager/Resource/SoundManager.h"
 #include "../Manager/Resource/FontManager.h"
-#include "TitleScene.h"
+#include "SceneTitle.h"
 
-TitleScene::TitleScene(void)
+SceneTitle::SceneTitle(void)
 {
 	//更新関数のセット
-	updataFunc_ = std::bind(&TitleScene::LoadingUpdate, this);
+	updataFunc_ = std::bind(&SceneTitle::LoadingUpdate, this);
 	//描画関数のセット
-	drawFunc_ = std::bind(&TitleScene::LoadingDraw, this);
+	drawFunc_ = std::bind(&SceneTitle::LoadingDraw, this);
 }
 
-TitleScene::~TitleScene(void)
+SceneTitle::~SceneTitle(void)
 {
 }
 
-void TitleScene::Load(void)
+void SceneTitle::Load(void)
 {
 	//親クラスの読み込み
 	SceneBase::Load();
@@ -36,7 +36,7 @@ void TitleScene::Load(void)
 	snd.Add(bgm_, SOUNDTYPE::BGM);
 }
 
-void TitleScene::Init(void)
+void SceneTitle::Init(void)
 {
 	//画像位置設定
 	testSprite_.pos = { Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y };
@@ -44,7 +44,7 @@ void TitleScene::Init(void)
 	SoundManager::GetInstance().Play(bgm_);
 }
 
-void TitleScene::NormalUpdate(void)
+void SceneTitle::NormalUpdate(void)
 {	
 	// シーン遷移
 	auto& snd = SoundManager::GetInstance();
@@ -60,7 +60,7 @@ void TitleScene::NormalUpdate(void)
 	}
 }
 
-void TitleScene::NormalDraw(void)
+void SceneTitle::NormalDraw(void)
 {
 	DrawBox(
 		0,
@@ -76,14 +76,14 @@ void TitleScene::NormalDraw(void)
 	DrawFormatString(
 		0, 0,
 		0x000000,
-		L"TitleScene"
+		L"SceneTitle"
 	);
 }
 
-void TitleScene::ChangeNormal(void)
+void SceneTitle::ChangeNormal(void)
 {
 	//処理変更
-	updataFunc_ = std::bind(&TitleScene::NormalUpdate, this);
-	drawFunc_ = std::bind(&TitleScene::NormalDraw, this);
+	updataFunc_ = std::bind(&SceneTitle::NormalUpdate, this);
+	drawFunc_ = std::bind(&SceneTitle::NormalDraw, this);
 }
 

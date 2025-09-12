@@ -3,7 +3,7 @@
 #include <unordered_map>
 #include "SceneBase.h"
 
-class PauseScene : public SceneBase
+class ScenePause : public SceneBase
 {
 public:
 
@@ -18,10 +18,10 @@ public:
 	static constexpr int LIST_MAX = static_cast<int>(LIST::MAX);
 
 	// コンストラクタ
-	PauseScene(void);
+	ScenePause(void);
 
 	// デストラクタ
-	~PauseScene(void) override;
+	~ScenePause(void) override;
 
 	//読み込み処理
 	void Load(void)override;
