@@ -22,11 +22,11 @@ public:
 	// ÉVÅ[Éìä«óùóp
 	enum class SCENE_ID
 	{
-		NONE,
-		TITLE,
-		MENU,
-		GAME,
-		RESULT
+		NONE	= 0,
+		TITLE	= 1,
+		MENU	= 2,
+		GAME	= 3, 
+		RESULT	= 4,
 	};
 
 	/// <summary>

@@ -40,6 +40,9 @@ public:
 
 protected:
 
+	// ローカル回転のデフォルト値(度)
+	static constexpr float DEFAULT_LOCAL_DEG_Y = 180.0f;
+
 	// シングルトン参照
 	ResourceManager& resMng_;
 	SceneManager& scnMng_;

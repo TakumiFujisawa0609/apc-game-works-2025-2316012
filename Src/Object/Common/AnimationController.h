@@ -8,38 +8,82 @@ class AnimationController
 	
 public :
 
-	// アニメーションデータ
+	/// <summary>
+	/// アニメーションデータ
+	/// </summary>
 	struct Animation
 	{
-		int model = -1;
-		int attachNo = -1;
-		int animIndex = 0;
-		float speed = 0.0f;
-		float totalTime = 0.0f;
-		float step = 0.0f;
+		int model = -1;			// モデルID
+		int attachNo = -1;		// アニメーションの種類(番号)
+		int animIndex = 0;		// アニメーションのハンドルID
+		float speed = 0.0f;		// アニメーションの長さ(秒)
+		float totalTime = 0.0f;	// アニメーションの再生時間(秒)
+		float step = 0.0f;		// アニメーションの進行度(0.0f～1.0f)
 	};
 
-	// コンストラクタ
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	/// <param name="modelId">モデルID</param>
 	AnimationController(int modelId);
-	// デストラクタ
+	
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	/// <param name=""></param>
 	~AnimationController(void);
 
-	// アニメーション追加
-	void Add(int type, const std::wstring& path, float speed);
+	/// <summary>
+	/// アニメーションの追加
+	/// </summary>
+	/// <param name="type">種類(番号)</param>
+	/// <param name="handle">アニメーションハンドル</param>
+	/// <param name="speed">アニメーション速度</param>
+	void Add(const int type, const int handle, const float speed);
 
-	// アニメーション再生
-	void Play(int type, bool isLoop = true, 
-		float startStep = 0.0f, float endStep = -1.0f, bool isStop = false, bool isForce = false);
+	/// <summary>
+	/// アニメーション再生
+	/// </summary>
+	/// <param name="type">アニメーション番号</param>
+	/// <param name="isLoop">ループ有無</param>
+	/// <param name="startStep">開始ステップ</param>
+	/// <param name="endStep">終了ステップ</param>
+	/// <param name="isStop">停止判定</param>
+	/// <param name="isForce"></param>
+	void Play(
+		const int type,
+		const bool isLoop = true,
+		const float startStep = 0.0f,
+		const float endStep = -1.0f,
+		const bool isStop = false,
+		const bool isForce = false);
 
+	/// <summary>
+	/// 更新処理
+	/// </summary>
+	/// <param name=""></param>
 	void Update(void);
 
-	// アニメーション終了後に繰り返すループステップ
-	void SetEndLoop(float startStep, float endStep, float speed);
+	/// <summary>
+	/// アニメーション終了後に繰り返すループステップ
+	/// </summary>
+	/// <param name="startStep">開始ステップ</param>
+	/// <param name="endStep">終了ステップ</param>
+	/// <param name="speed">アニメーション速度</param>
+	void SetEndLoop(const float startStep, const float endStep, const float speed);
 
-	// 再生中のアニメーション
+	/// <summary>
+	/// 再生中のアニメーションの種類を返す
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns>アニメーションの種類番号</returns>
 	int GetPlayType(void) const;
 
-	// 再生終了
+	/// <summary>
+	/// 再生終了判定
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns>trueなら終了,falseなら再生中</returns>
 	bool IsEnd(void) const;
 
 private :
@@ -66,6 +110,5 @@ private :
 
 	// 逆再生
 	float switchLoopReverse_;
-
 };
 

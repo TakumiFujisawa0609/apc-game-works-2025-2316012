@@ -9,21 +9,31 @@ class SceneGame : public SceneBase
 
 public:
 	
-	// コンストラクタ
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	/// <param name=""></param>
 	SceneGame(void);
 
-	// デストラクタ
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	/// <param name=""></param>
 	~SceneGame(void);
 
-	//読み込み処理
+	/// <summary>
+	/// 読み込み処理
+	/// </summary>
+	/// <param name=""></param>
 	void Load(void) override;
 
-	//初期化処理
+	/// <summary>
+	/// 初期化処理
+	/// </summary>
+	/// <param name=""></param>
 	void Init(void) override;
 
 private:
-
-	int frame_;
 
 	//ポーズ画面
 	std::shared_ptr<ScenePause> ScenePause_;

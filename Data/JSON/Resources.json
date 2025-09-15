@@ -48,6 +48,54 @@
       "type": "font",
       "path": "Data/Font/Hanazome.ttf",
       "fontName": "はなぞめフォント"
+    },
+    {
+      "key": "testStage",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/MainPlanet.mv1"
+    },
+    {
+      "key": "player",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Player/Player.mv1"
+    },
+    {
+      "key": "playerAnimationWalking",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Player/Animation/Walking.mv1"
+    },
+    {
+      "key": "playerAnimationSleepingIdle",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Player/Animation/SleepingIdle.mv1"
+    },
+    {
+      "key": "playerAnimationIdle",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Player/Animation/Idle.mv1"
+    },
+    {
+      "key": "playerAnimationDie",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Player/Animation/Die.mv1"
+    },
+    {
+      "key": "playerAnimationFastRun",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Player/Animation/FastRun.mv1"
+    },
+    {
+      "key": "playerAnimationJump",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Player/Animation/Jump.mv1"
     }
   ]
 }

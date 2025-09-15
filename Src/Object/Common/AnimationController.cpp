@@ -18,18 +18,17 @@ AnimationController::AnimationController(int modelId)
 
 AnimationController::~AnimationController(void)
 {
-	for (const auto& anim : animations_)
-	{
-		MV1DeleteModel(anim.second.model);
-	}
+	//for (const auto& anim : animations_)
+	//{
+	//	MV1DeleteModel(anim.second.model);
+	//}
 }
 
-void AnimationController::Add(int type, const std::wstring& path, float speed)
+void AnimationController::Add(const int type, const int handle, const float speed)
 {
-
+	// アニメーション情報の登録
 	Animation anim;
-
-	anim.model = MV1LoadModel(path.c_str());
+	anim.model = handle;
 	anim.animIndex = type;
 	anim.speed = speed;
 
@@ -46,11 +45,10 @@ void AnimationController::Add(int type, const std::wstring& path, float speed)
 		animations_[type].attachNo = anim.attachNo;
 		animations_[type].totalTime = anim.totalTime;
 	}
-
 }
 
-void AnimationController::Play(int type, bool isLoop, 
-	float startStep, float endStep, bool isStop, bool isForce)
+void AnimationController::Play(const int type, const bool isLoop, 
+	const float startStep, const float endStep, const bool isStop, const bool isForce)
 {
 
 	if (playType_ != type || isForce) {
@@ -97,7 +95,6 @@ void AnimationController::Play(int type, bool isLoop,
 		stepEndLoopEnd_ = -1.0f;
 		switchLoopReverse_ = 1.0f;
 	}
-
 }
 
 void AnimationController::Update(void)
