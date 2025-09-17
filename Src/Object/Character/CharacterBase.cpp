@@ -6,6 +6,7 @@
 
 CharacterBase::CharacterBase()
 {
+	animDefaultSpeed_ = 0.0f;
 }
 
 void CharacterBase::Init()

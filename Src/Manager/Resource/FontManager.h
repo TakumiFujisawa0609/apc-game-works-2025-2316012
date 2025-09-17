@@ -17,7 +17,7 @@ public:
 	/// <param name="size">ƒTƒCƒY</param>
 	/// <param name="thickness">‘¾‚³</param>
 	/// <returns>¶¬‚Å‚«‚½ê‡true,¸”s‚µ‚½ê‡false</returns>
-	int CreateMyFont(const std::wstring fontName, const int size, const int thickness);
+	int CreateMyFont(const std::wstring& fontName, const int size, const int thickness);
 
 	/// <summary>
 	/// ‰ğ•úˆ—

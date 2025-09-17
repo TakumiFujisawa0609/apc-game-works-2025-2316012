@@ -63,13 +63,16 @@ private:
 	STATE state_;
 
 	//アニメーション制御クラス
-	std::unique_ptr<AnimationController> animCtrl_;
+	std::unique_ptr<AnimationController> animationController_;
 
 	//状態別の更新関数マップ
 	std::unordered_map<STATE, std::function<void()>> stateUpdateFuncMap_;
 
 	//メインの更新処理
 	void UpdateMain() override;	
+
+	//更新処理の適用
+	void UpdateApply() override;
 
 	//アニメーションの初期化
 	void InitAnimation() override;

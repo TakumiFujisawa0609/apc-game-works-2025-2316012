@@ -8,7 +8,7 @@ FontManager::FontManager()
 	fontHandleMap_.clear();
 }
 
-int FontManager::CreateMyFont(const std::wstring fontName, const int size, const int thickness)
+int FontManager::CreateMyFont(const std::wstring& fontName, const int size, const int thickness)
 {
 	FontKey key{ fontName, size, thickness };  // ÉLÅ[
 

@@ -44,21 +44,21 @@ public:
 	/// </summary>
 	/// <param name="key">リソースキー</param>
 	/// <returns>リソースのハンドル</returns>
-	const int GetHandle(const std::string key)const;
+	const int GetHandle(const std::string& key)const;
 
 	/// <summary>
 	/// 指定したキーのリソースを返す
 	/// </summary>
 	/// <param name="key">リソースキー</param>
 	/// <returns>リソースのハンドル(主にスプライト)</returns>
-	const int* GetHandles(const std::string key)const;
+	const int* GetHandles(const std::string& key)const;
 
 	/// <summary>
 	/// 指定したキーのフォントの名前を返す
 	/// </summary>
 	/// <param name="key">リソースキー</param>
 	/// <returns>フォントの名前</returns>
-	const std::wstring GetFontName(const std::string key)const;
+	const std::wstring GetFontName(const std::string& key)const;
 
 private:
 

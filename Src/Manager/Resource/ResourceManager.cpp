@@ -48,7 +48,7 @@ void ResourceManager::Init(void)
 
 	//JSONファイルからリソース情報を読み込む
 	//JSONファイル読み込み
-	std::ifstream ifs((Application::PATH_JSON + L"Resources.json").c_str());
+	std::ifstream ifs((Application::PATH_JSON + "Resources.json").c_str());
 	
 	//読み込めない場合アサート
 	assert(ifs.is_open(), "ファイルが開けません");
@@ -174,7 +174,7 @@ void ResourceManager::SceneChangeResource(const int nextSceneId)
 	}
 }
 
-const int ResourceManager::GetHandle(const std::string key) const
+const int ResourceManager::GetHandle(const std::string& key) const
 {
 	//リソースを探す
 	const auto& res = loadedMap_.find(key);
@@ -186,7 +186,7 @@ const int ResourceManager::GetHandle(const std::string key) const
 	return res->second->GetHandle();
 }
 
-const int* ResourceManager::GetHandles(const std::string key) const
+const int* ResourceManager::GetHandles(const std::string& key) const
 {
 	// リソースを探す
 	auto it = loadedMap_.find(key);
@@ -200,7 +200,7 @@ const int* ResourceManager::GetHandles(const std::string key) const
 	return sprite->GetHandleIds();
 }
 
-const std::wstring ResourceManager::GetFontName(const std::string key) const
+const std::wstring ResourceManager::GetFontName(const std::string& key) const
 {
 	// リソースを探す
 	auto it = loadedMap_.find(key);

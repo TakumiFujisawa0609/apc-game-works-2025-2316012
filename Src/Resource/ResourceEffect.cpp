@@ -1,7 +1,7 @@
 #include <EffekseerForDXLib.h>
 #include "ResourceEffect.h"
 
-ResourceEffect::ResourceEffect(const RESOURCE_TYPE type, const std::wstring path, const int sceneId)	:
+ResourceEffect::ResourceEffect(const RESOURCE_TYPE type, const std::wstring& path, const int sceneId)	:
 	ResourceBase(type, path, sceneId)
 {
 }

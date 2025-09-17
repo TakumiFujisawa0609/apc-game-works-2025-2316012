@@ -2,13 +2,12 @@
 #include "ModelMaterial.h"
 
 ModelMaterial::ModelMaterial(
-	std::wstring shaderFileNameVS, int constBufFloat4SizeVS,
-	std::wstring shaderFileNamePS, int constBufFloat4SizePS)
+	int pixelShader, int constBufFloat4SizeVS,
+	int vertexShader, int constBufFloat4SizePS)
 {
 
-	// 頂点シェーダのロード
-	shaderVS_ = LoadVertexShader(
-		(Application::PATH_SHADER + shaderFileNameVS).c_str());
+	// 頂点シェーダの格納
+	shaderVS_ = vertexShader;
 
 	// 頂点定数バッファの確保サイズ(FLOAT4をいくつ作るか)
 	constBufFloat4SizeVS_ = constBufFloat4SizeVS;
@@ -18,9 +17,8 @@ ModelMaterial::ModelMaterial(
 
 
 
-	// ピクセルシェーダのロード
-	shaderPS_ = LoadPixelShader(
-		(Application::PATH_SHADER + shaderFileNamePS).c_str());
+	// ピクセルシェーダの格納
+	shaderPS_ = pixelShader;
 
 	// ピクセル定数バッファの確保サイズ(FLOAT4をいくつ作るか)
 	constBufFloat4SizePS_ = constBufFloat4SizePS;
@@ -140,8 +138,6 @@ int ModelMaterial::GetConstBufPS(void) const
 
 ModelMaterial::~ModelMaterial(void)
 {
-	DeleteShader(shaderVS_);
 	DeleteShaderConstantBuffer(constBufVS_);
-	DeleteShader(shaderPS_);
 	DeleteShaderConstantBuffer(constBufPS_);
 }

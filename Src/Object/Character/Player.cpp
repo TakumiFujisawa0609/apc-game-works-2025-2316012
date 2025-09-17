@@ -19,7 +19,7 @@ void Player::Load()
 	transform_.SetModel(resMng_.GetHandle("player"));
 
 	//アニメーションの設定
-	animCtrl_ = std::make_unique<AnimationController>(transform_.modelId);
+	animationController_ = std::make_unique<AnimationController>(transform_.modelId);
 	
 	//アニメーションの設定
 	InitAnimation();
@@ -39,18 +39,25 @@ void Player::UpdateMain()
 	stateUpdateFuncMap_[state_]();
 }
 
+void Player::UpdateApply()
+{
+	//親クラスの処理を実行
+	CharacterBase::UpdateApply();
+
+}
+
 void Player::InitAnimation()
 {
 	//アニメーションの登録
-	animCtrl_->Add(static_cast<int>(ANIM_TYPE::IDLE), resMng_.GetHandle("playerAnimationIdle"), animDefaultSpeed_);
-	animCtrl_->Add(static_cast<int>(ANIM_TYPE::WALK), resMng_.GetHandle("playerAnimationWalking"), animDefaultSpeed_);
-	animCtrl_->Add(static_cast<int>(ANIM_TYPE::RUN), resMng_.GetHandle("playerAnimationFastRun"), animDefaultSpeed_);
-	animCtrl_->Add(static_cast<int>(ANIM_TYPE::DEAD), resMng_.GetHandle("playerAnimationDie"), animDefaultSpeed_);
-	animCtrl_->Add(static_cast<int>(ANIM_TYPE::SLEEP), resMng_.GetHandle("playerAnimationSleepingIdle"), animDefaultSpeed_);
-	animCtrl_->Add(static_cast<int>(ANIM_TYPE::JUMP), resMng_.GetHandle("playerAnimationJump"), animDefaultSpeed_);
+	animationController_->Add(static_cast<int>(ANIM_TYPE::IDLE), resMng_.GetHandle("playerAnimationIdle"), animDefaultSpeed_);
+	animationController_->Add(static_cast<int>(ANIM_TYPE::WALK), resMng_.GetHandle("playerAnimationWalking"), animDefaultSpeed_);
+	animationController_->Add(static_cast<int>(ANIM_TYPE::RUN), resMng_.GetHandle("playerAnimationFastRun"), animDefaultSpeed_);
+	animationController_->Add(static_cast<int>(ANIM_TYPE::DEAD), resMng_.GetHandle("playerAnimationDie"), animDefaultSpeed_);
+	animationController_->Add(static_cast<int>(ANIM_TYPE::SLEEP), resMng_.GetHandle("playerAnimationSleepingIdle"), animDefaultSpeed_);
+	animationController_->Add(static_cast<int>(ANIM_TYPE::JUMP), resMng_.GetHandle("playerAnimationJump"), animDefaultSpeed_);
 
 	//初期アニメーション設定
-	animCtrl_->Play(static_cast<int>(ANIM_TYPE::IDLE));
+	animationController_->Play(static_cast<int>(ANIM_TYPE::IDLE));
 }
 
 void Player::RegisterStateUpdateFunc(const STATE state, std::function<void()> update)

@@ -1,7 +1,7 @@
 #include <DxLib.h>
 #include "ResourceSound.h"
 
-ResourceSound::ResourceSound(const RESOURCE_TYPE type, const std::wstring path, const int sceneId):
+ResourceSound::ResourceSound(const RESOURCE_TYPE type, const std::wstring& path, const int sceneId):
 	ResourceBase(type,path,sceneId)
 {
 }

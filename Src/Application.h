@@ -21,15 +21,15 @@ public:
 
 	// データパス関連
 	//-------------------------------------------
-	static const std::wstring PATH_IMAGE;
-	static const std::wstring PATH_MODEL;
-	static const std::wstring PATH_EFFECT;
-	static const std::wstring PATH_SOUND;
-	static const std::wstring PATH_FONT;
-	static const std::wstring PATH_TEXT;
-	static const std::wstring PATH_JSON;
-	static const std::wstring PATH_CSV;
-	static const std::wstring PATH_SHADER;
+	static const std::string PATH_IMAGE;
+	static const std::string PATH_MODEL;
+	static const std::string PATH_EFFECT;
+	static const std::string PATH_SOUND;
+	static const std::string PATH_FONT;
+	static const std::string PATH_TEXT;
+	static const std::string PATH_JSON;
+	static const std::string PATH_CSV;
+	static const std::string PATH_SHADER;
 	//-------------------------------------------
 
 	/// <summary>

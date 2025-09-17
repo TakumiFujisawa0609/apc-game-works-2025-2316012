@@ -50,10 +50,10 @@
       "fontName": "はなぞめフォント"
     },
     {
-      "key": "testStage",
+      "key": "mainStage",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/MainPlanet.mv1"
+      "path": "Data/Model/Stage/MainStage.mv1"
     },
     {
       "key": "player",

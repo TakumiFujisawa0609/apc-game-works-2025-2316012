@@ -1,12 +1,11 @@
 #include "../Application.h"
 #include "PixelMaterial.h"
 
-PixelMaterial::PixelMaterial(std::wstring shaderFileName, int constBufFloat4Size)
+PixelMaterial::PixelMaterial(int pixelShader, int constBufFloat4Size)
 {
 
-	// ピクセルシェーダのロード
-	shader_ = LoadPixelShader(
-		(Application::PATH_SHADER + shaderFileName).c_str());
+	// ピクセルシェーダの格納
+	shader_ = pixelShader;
 
 	// 定数バッファの確保サイズ(FLOAT4をいくつ作るか)
 	constBufFloat4Size_ = constBufFloat4Size;
@@ -95,6 +94,5 @@ int PixelMaterial::GetConstBuf(void) const
 
 PixelMaterial::~PixelMaterial(void)
 {
-	DeleteShader(shader_);
 	DeleteShaderConstantBuffer(constBuf_);
 }

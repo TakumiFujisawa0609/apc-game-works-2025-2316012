@@ -15,7 +15,7 @@ public:
 	/// <param name="divY">分割数Y</param>
 	/// <param name="sizeX">サイズX</param>
 	/// <param name="sizeY">サイズY</param>
-	ResourceSprite(const RESOURCE_TYPE type, const std::wstring path, const int sceneId, const int divX, const int divY, const int sizeX, const int sizeY);
+	ResourceSprite(const RESOURCE_TYPE type, const std::wstring& path, const int sceneId, const int divX, const int divY, const int sizeX, const int sizeY);
 
 	/// <summary>
 	/// デストラクタ

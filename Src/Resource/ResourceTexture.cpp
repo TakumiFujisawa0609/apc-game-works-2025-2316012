@@ -1,7 +1,7 @@
 #include <DxLib.h>
 #include "ResourceTexture.h"
 
-ResourceTexture::ResourceTexture(const RESOURCE_TYPE type, const std::wstring path, const int sceneId):
+ResourceTexture::ResourceTexture(const RESOURCE_TYPE type, const std::wstring& path, const int sceneId):
 	ResourceBase(type, path, sceneId)
 {
 }

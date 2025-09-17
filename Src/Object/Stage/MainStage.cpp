@@ -13,7 +13,7 @@ MainStage::~MainStage()
 void MainStage::Load()
 {
 	//ƒ‚ƒfƒ‹‚Ìİ’è
-	transform_.SetModel(resMng_.GetHandle("testStage"));
+	transform_.SetModel(resMng_.GetHandle("mainStage"));
 }
 
 void MainStage::DrawMain()

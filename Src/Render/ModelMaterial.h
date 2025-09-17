@@ -25,8 +25,8 @@ public:
 
 	// コンストラクタ
 	ModelMaterial(
-		std::wstring shaderFileNameVS, int constBufFloat4SizeVS,
-		std::wstring shaderFileNamePS, int constBufFloat4SizePS
+		int vertexShader, int constBufFloat4SizeVS,
+		int pixelShader, int constBufFloat4SizePS
 	);
 
 	// デストラクタ

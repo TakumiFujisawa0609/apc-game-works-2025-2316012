@@ -7,15 +7,15 @@
 #include "FpsControl/FpsControl.h"
 #include "Application.h"
 
-const std::wstring Application::PATH_IMAGE = L"Data/Image/";
-const std::wstring Application::PATH_MODEL = L"Data/Model/";
-const std::wstring Application::PATH_EFFECT = L"Data/Effect/";
-const std::wstring Application::PATH_SOUND = L"Data/Sound/";
-const std::wstring Application::PATH_FONT = L"Data/Font/";
-const std::wstring Application::PATH_TEXT = L"Data/Text/";
-const std::wstring Application::PATH_JSON = L"Data/JSON/";
-const std::wstring Application::PATH_CSV = L"Data/CSV/";
-const std::wstring Application::PATH_SHADER = L"Data/Shader/";
+const std::string Application::PATH_IMAGE = "Data/Image/";
+const std::string Application::PATH_MODEL = "Data/Model/";
+const std::string Application::PATH_EFFECT = "Data/Effect/";
+const std::string Application::PATH_SOUND = "Data/Sound/";
+const std::string Application::PATH_FONT = "Data/Font/";
+const std::string Application::PATH_TEXT = "Data/Text/";
+const std::string Application::PATH_JSON = "Data/JSON/";
+const std::string Application::PATH_CSV = "Data/CSV/";
+const std::string Application::PATH_SHADER = "Data/Shader/";
 
 bool Application::Init()
 {
