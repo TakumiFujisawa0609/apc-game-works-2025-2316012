@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include "../../Template/Singleton.h"
 
+class ParameterLoadCharacter;
 class CharacterBase;
 
 class CharacterManager : public Singleton<CharacterManager>
@@ -47,6 +48,9 @@ public:
 	CharacterBase& GetCharacter(const TYPE type) { return *characterMap_[type]; }
 
 private:
+
+	//パラメータ読み込み
+	std::unique_ptr<ParameterLoadCharacter> paramLoad_;
 
 	//キャラクターオブジェクトの管理マップ
 	std::unordered_map<TYPE, std::unique_ptr<CharacterBase>> characterMap_;

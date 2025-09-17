@@ -1,19 +1,19 @@
 #pragma once
-#include "ParametersLoadBase.h"
+#include "ParameterLoadBase.h"
 
-class ParametersLoadCharacter : public ParametersLoadBase
+class ParameterLoadCharacter : public ParameterLoadBase
 {
 public:
 
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	ParametersLoadCharacter();
+	ParameterLoadCharacter();
 	 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~ParametersLoadCharacter() override = default;
+	~ParameterLoadCharacter() override = default;
 	 
 	/// <summary>
 	/// 読み込み処理

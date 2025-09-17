@@ -56,9 +56,6 @@ protected:
 	//処理の適用
 	virtual void UpdateApply();
 
-	//デバッグの更新処理
-	virtual void UpdateDebug();
-
 	//メインの描画
 	virtual void DrawMain();
 
@@ -67,12 +64,15 @@ protected:
 
 	//UIの描画
 	virtual void DrawUI();
-	
-	//デバッグの描画処理
-	virtual void DrawDebug();
 
 	//衝突時のコールバック
 	virtual void OnCollision();
+
+	//デバッグ時の更新
+	virtual void DebugUpdate();
+
+	//デバッグ時の描画
+	virtual void DebugDraw();
 
 };
 

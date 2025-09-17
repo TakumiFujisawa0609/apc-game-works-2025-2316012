@@ -1,6 +1,6 @@
 #pragma once
 
-class SpriteAnimationController
+class ControllerSpriteAnimation
 {
 
 public:
@@ -8,12 +8,12 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	SpriteAnimationController();
+	ControllerSpriteAnimation();
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~SpriteAnimationController();
+	~ControllerSpriteAnimation();
 
 	/// <summary>
 	/// アニメーションパラメーターの設定

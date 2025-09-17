@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <vector>
 #include <Dxlib.h>
 #include "../../Template/Singleton.h"
 #include "../../Common/Vector2.h"
@@ -55,6 +56,19 @@ public:
 		LB_DOWN,		// 下
 		LB_LEFT,		// 左
 		LB_RIGHT,		// 右
+		MAX
+	};
+
+	enum class JOYPAD_STICK
+	{
+		L_STICK_UP,		//左スティック上
+		L_STICK_DOWN,	//左スティック下
+		L_STICK_LEFT,	//左スティック左
+		L_STICK_RIGHT,	//左スティック右
+		R_STICK_UP,		//右スティック上
+		R_STICK_DOWN,	//右スティック下
+		R_STICK_LEFT,	//右スティック左
+		R_STICK_RIGHT,	//右スティック右
 		MAX
 	};
 
@@ -120,7 +134,15 @@ public:
 	bool IsPadBtnTrgDown(JOYPAD_NO no, JOYPAD_BTN btn) const;
 	bool IsPadBtnTrgUp(JOYPAD_NO no, JOYPAD_BTN btn) const;
 
+	// スティックが倒されたか
+	bool IsStickNew(JOYPAD_NO no, JOYPAD_STICK stick) const;
+	bool IsStickDown(JOYPAD_NO no, JOYPAD_STICK stick) const;
+	bool IsStickUp(JOYPAD_NO no, JOYPAD_STICK stick) const;
+
 private:
+	
+	//スティックの猶予
+	static constexpr int STICK_THRESHOLD = 300;	
 
 	// キー情報
 	struct Info
@@ -130,6 +152,16 @@ private:
 		bool keyNew;		// 現フレームの押下状態
 		bool keyTrgDown;	// 現フレームでボタンが押されたか
 		bool keyTrgUp;		// 現フレームでボタンが離されたか
+	};
+
+	// スティック情報
+	struct StickInfo
+	{
+		JOYPAD_STICK key;
+		bool keyOld = false;
+		bool keyNew = false;
+		bool keyTrgDown = false;
+		bool keyTrgUp = false;
 	};
 
 	// マウス
@@ -156,6 +188,9 @@ private:
 	std::map<int, InputManager::MouseInfo> mouseInfos_;
 	InputManager::MouseInfo mouseInfoEmpty_;
 
+	// スティック情報
+	std::map<JOYPAD_NO, std::vector<InputManager::StickInfo>> stickInfos_;
+
 	// マウスカーソルの位置
 	Vector2 mousePos_;
 	
@@ -175,6 +210,9 @@ private:
 
 	// 配列の中からマウス情報を取得する
 	const InputManager::MouseInfo& FindMouse(int key) const;
+
+	// スティックの倒れ具合を取得する
+	int PadStickOverSize(const JOYPAD_NO no, const JOYPAD_STICK stick);
 
 	// 接続されたコントローラの種別を取得する
 	JOYPAD_TYPE GetJPadType(JOYPAD_NO no);

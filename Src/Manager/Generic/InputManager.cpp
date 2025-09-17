@@ -57,6 +57,19 @@ void InputManager::Init(void)
 	info.keyTrgUp = false;
 	mouseInfos_.emplace(info.key, info);
 
+	//スティック
+	InputManager::StickInfo stickInfo;
+	stickInfo = InputManager::StickInfo();
+	for (int padNo = 0; padNo <= static_cast<int>(JOYPAD_NO::PAD4); padNo++)
+	{
+		std::vector<StickInfo>sticks;
+		for (int i = 0; i < static_cast<int>(JOYPAD_STICK::MAX); i++)
+		{
+			stickInfo.key = static_cast<JOYPAD_STICK>(i);
+			sticks.push_back(stickInfo);
+		}
+		stickInfos_.emplace(static_cast<JOYPAD_NO>(padNo), sticks);
+	}
 }
 
 void InputManager::Update(void)
@@ -90,12 +103,25 @@ void InputManager::Update(void)
 	SetJPadInState(JOYPAD_NO::PAD3);
 	SetJPadInState(JOYPAD_NO::PAD4);
 
+	// スティック検知
+	for (auto& stickInfo : stickInfos_)
+	{
+		for (auto& stick : stickInfo.second)
+		{
+			int overSize = PadStickOverSize(stickInfo.first, stick.key);
+			stick.keyOld = stick.keyNew;
+			stick.keyNew = overSize > STICK_THRESHOLD;
+			stick.keyTrgDown = !stick.keyOld && stick.keyNew;
+			stick.keyTrgUp = stick.keyOld && !stick.keyNew;
+		}
+	}
 }
 
 void InputManager::Release(void)
 {
 	keyInfos_.clear();
 	mouseInfos_.clear();
+	stickInfos_.clear();
 }
 
 void InputManager::Add(int key)
@@ -367,6 +393,44 @@ InputManager::JOYPAD_IN_STATE InputManager::GetJPadInputState(JOYPAD_NO no)
 
 }
 
+int InputManager::PadStickOverSize(const JOYPAD_NO no, const JOYPAD_STICK stick)
+{
+	int ret = 0;
+	auto padInfo = GetJPadInputState(no);
+	switch (stick)
+	{
+	case JOYPAD_STICK::L_STICK_UP:
+		ret = padInfo.AKeyLY < 0 ? padInfo.AKeyLY : 0;
+		break;
+	case JOYPAD_STICK::L_STICK_DOWN:
+		ret = padInfo.AKeyLY > 0 ? padInfo.AKeyLY : 0;
+		break;
+	case JOYPAD_STICK::L_STICK_LEFT:
+		ret = padInfo.AKeyLX < 0 ? padInfo.AKeyLX : 0;
+		break;
+	case JOYPAD_STICK::L_STICK_RIGHT:
+		ret = padInfo.AKeyLX > 0 ? padInfo.AKeyLX : 0;
+		break;
+	case JOYPAD_STICK::R_STICK_UP:
+		ret = padInfo.AKeyRY < 0 ? padInfo.AKeyRY : 0;
+		break;
+	case JOYPAD_STICK::R_STICK_DOWN:
+		ret = padInfo.AKeyRY > 0 ? padInfo.AKeyRY : 0;
+		break;
+	case JOYPAD_STICK::R_STICK_LEFT:
+		ret = padInfo.AKeyRX < 0 ? padInfo.AKeyRX : 0;
+		break;
+	case JOYPAD_STICK::R_STICK_RIGHT:
+		ret = padInfo.AKeyRX > 0 ? padInfo.AKeyRX : 0;
+		break;
+	case JOYPAD_STICK::MAX:
+		break;
+	default:
+		break;
+	}
+	return abs(ret);
+}
+
 bool InputManager::IsPadBtnNew(JOYPAD_NO no, JOYPAD_BTN btn) const
 {
 	return padInfos_[static_cast<int>(no)].IsNew[static_cast<int>(btn)];
@@ -380,4 +444,64 @@ bool InputManager::IsPadBtnTrgDown(JOYPAD_NO no, JOYPAD_BTN btn) const
 bool InputManager::IsPadBtnTrgUp(JOYPAD_NO no, JOYPAD_BTN btn) const
 {
 	return padInfos_[static_cast<int>(no)].IsTrgUp[static_cast<int>(btn)];
+}
+
+bool InputManager::IsStickNew(JOYPAD_NO no, JOYPAD_STICK stick) const
+{
+	for (auto& stickInfo : stickInfos_)
+	{
+		if (stickInfo.first != no)
+		{
+			continue;
+		}
+		for (auto& stickI : stickInfo.second)
+		{
+			if (stickI.key != stick)
+			{
+				continue;
+			}
+			return stickI.keyNew;
+		}
+	}
+	return false;
+}
+
+bool InputManager::IsStickDown(JOYPAD_NO no, JOYPAD_STICK stick) const
+{
+	for (auto& stickInfo : stickInfos_)
+	{
+		if (stickInfo.first != no)
+		{
+			continue;
+		}
+		for (auto& stickI : stickInfo.second)
+		{
+			if (stickI.key != stick)
+			{
+				continue;
+			}
+			return stickI.keyTrgDown;
+		}
+	}
+	return false;
+}
+
+bool InputManager::IsStickUp(JOYPAD_NO no, JOYPAD_STICK stick) const
+{
+	for (auto& stickInfo : stickInfos_)
+	{
+		if (stickInfo.first != no)
+		{
+			continue;
+		}
+		for (auto& stickI : stickInfo.second)
+		{
+			if (stickI.key != stick)
+			{
+				continue;
+			}
+			return stickI.keyTrgUp;
+		}
+	}
+	return false;
 }

@@ -81,9 +81,6 @@
     <ClCompile Include="Src\Manager\Generic\Camera.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Common\AnimationController.cpp">
-      <Filter>ソース ファイル\Object\Common</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Object\Collider\Capsule.cpp">
       <Filter>ソース ファイル\Object\Common</Filter>
     </ClCompile>
@@ -147,7 +144,7 @@
     <ClCompile Include="Src\Core\CoreBase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\Common\SpriteAnimationController.cpp">
+    <ClCompile Include="Src\Core\Common\Controller.ControllerSpriteAnimation.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Resource\ResourceBase.cpp">
@@ -213,22 +210,25 @@
     <ClCompile Include="Src\Manager\Generic\CharacterManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Component\ComponentBase.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Component\ComponentMove.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\System\Load\ParametersLoadBase.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\System\Load\ParametersLoadCharacter.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Object\Character\Parameter\ParameterBase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Object\Character\Parameter\ParameterPlayer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Common\Controller\ControllerMove.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Common\Controller\ControllerAnimation.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\System\Load\ParameterLoadBase.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\System\Load\ParameterLoadCharacter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\System\InputPlayer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -250,9 +250,6 @@
     </ClInclude>
     <ClInclude Include="Src\Manager\Generic\Camera.h">
       <Filter>ヘッダー ファイル\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Common\AnimationController.h">
-      <Filter>ヘッダー ファイル\Object\Common</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object\Collider\Capsule.h">
       <Filter>ヘッダー ファイル\Object\Common</Filter>
@@ -467,9 +464,6 @@
     <ClInclude Include="Src\Core\CoreBase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\Common\SpriteAnimationController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Resource\ResourceBase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -533,22 +527,25 @@
     <ClInclude Include="Src\Manager\Generic\CharacterManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Component\ComponentBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Component\ComponentMove.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\System\Load\ParametersLoadBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\System\Load\ParametersLoadCharacter.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Object\Character\Parameter\ParameterBase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object\Character\Parameter\ParameterPlayer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Common\Controller\ControllerMove.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Common\Controller\ControllerAnimation.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\System\Load\ParameterLoadBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\System\Load\ParameterLoadCharacter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\System\InputPlayer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -568,5 +565,6 @@
     <None Include="Src\Shader\Common\Vertex\VertexInputType.hlsli" />
     <None Include="Src\Shader\Common\Vertex\VertexShader3DHeader.hlsli" />
     <None Include="Src\Shader\Common\VertexToPixelHeader.hlsli" />
+    <None Include="Src\Core\Common\ControllerSpriteAnimation.h" />
   </ItemGroup>
 </Project>

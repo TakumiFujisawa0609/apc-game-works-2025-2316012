@@ -28,7 +28,7 @@ void ActorBase::Update()
 	UpdateApply();
 
 #ifdef _DEBUG
-	UpdateDebug();
+	DebugUpdate();
 #endif
 }
 
@@ -41,7 +41,7 @@ void ActorBase::Draw()
 	DrawUI();
 
 #ifdef _DEBUG
-	DrawDebug();
+	DebugDraw();
 #endif 
 }
 
@@ -50,10 +50,6 @@ void ActorBase::UpdateMain()
 }
 
 void ActorBase::UpdateApply()
-{
-}
-
-void ActorBase::UpdateDebug()
 {
 }
 
@@ -69,10 +65,14 @@ void ActorBase::DrawUI()
 {
 }
 
-void ActorBase::DrawDebug()
+void ActorBase::OnCollision()
 {
 }
 
-void ActorBase::OnCollision()
+void ActorBase::DebugUpdate()
+{
+}
+
+void ActorBase::DebugDraw()
 {
 }

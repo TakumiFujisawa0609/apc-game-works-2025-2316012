@@ -5,24 +5,27 @@
 
 class ParameterBase;
 
-class ParametersLoadBase
+class ParameterLoadBase
 {
 public:
 
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	ParametersLoadBase();
+	ParameterLoadBase();
 	 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	virtual ~ParametersLoadBase() {};
+	virtual ~ParameterLoadBase() {};
 	 
 	/// <summary>
 	/// 読み込み処理
 	/// </summary>
 	virtual void Load() = 0;
+
+	// 参照ではなくポインタを返すように修正
+	ParameterBase* GetParameter(const std::string& name);
 
 protected:
 

@@ -73,14 +73,16 @@ void SceneGame::NormalUpdate(void)
 	//ステージ更新
 	StageManager::GetInstance().Update();
 
-	//デバッグ処理
+#ifdef DEBUG_ON
 	DebagUpdate();
+#endif // DEBUG_ON
 }
 
 void SceneGame::NormalDraw(void)
 {	
-	//デバッグ処理
-	DebagDraw();
+#ifdef DEBUG_ON
+	DebugDraw();
+#endif // DEBUG_ON
 	
 	//ステージ描画
 	StageManager::GetInstance().Draw();

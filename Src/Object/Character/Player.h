@@ -4,7 +4,9 @@
 #include <unordered_map>
 #include "CharacterBase.h"
 
-class AnimationController;
+class InputPlayer;
+class ParameterPlayer;
+class ControllerAnimation;
 
 class Player : public CharacterBase
 {
@@ -37,7 +39,8 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	Player();
+	/// <param name="parameter">パラメーター</param>
+	Player(ParameterPlayer& parameter);
 
 	/// <summary>
 	/// デストラクタ
@@ -56,14 +59,17 @@ public:
 
 private:
 
-	//アニメーション種類番号
-	int animType_;
-
 	//状態
 	STATE state_;
 
+	//パラメーター管理クラスの参照
+	ParameterPlayer& parameter_;
+
+	//入力管理クラス
+	std::unique_ptr<InputPlayer> inputPlayer_;
+
 	//アニメーション制御クラス
-	std::unique_ptr<AnimationController> animationController_;
+	std::unique_ptr<ControllerAnimation> animation_;
 
 	//状態別の更新関数マップ
 	std::unordered_map<STATE, std::function<void()>> stateUpdateFuncMap_;
@@ -84,6 +90,4 @@ private:
 	void UpdateNone();
 	void UpdateAlive();
 	void UpdateDead();
-
 };
-

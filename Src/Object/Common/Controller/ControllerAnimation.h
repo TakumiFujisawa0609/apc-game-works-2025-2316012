@@ -1,11 +1,11 @@
 #pragma once
 #include <string>
 #include <map>
+
 class SceneManager;
 
-class AnimationController
+class ControllerAnimation
 {
-	
 public :
 
 	/// <summary>
@@ -25,13 +25,13 @@ public :
 	/// コンストラクタ
 	/// </summary>
 	/// <param name="modelId">モデルID</param>
-	AnimationController(int modelId);
+	ControllerAnimation(int modelId);
 	
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
 	/// <param name=""></param>
-	~AnimationController(void);
+	~ControllerAnimation(void);
 
 	/// <summary>
 	/// アニメーションの追加
@@ -111,4 +111,3 @@ private :
 	// 逆再生
 	float switchLoopReverse_;
 };
-

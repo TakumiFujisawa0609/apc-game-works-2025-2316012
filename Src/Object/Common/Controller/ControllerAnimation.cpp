@@ -1,8 +1,8 @@
 #include <DxLib.h>
-#include "../../Manager/Generic/SceneManager.h"
-#include "AnimationController.h"
+#include "../../../Manager/Generic/SceneManager.h"
+#include "ControllerAnimation.h"
 
-AnimationController::AnimationController(int modelId)
+ControllerAnimation::ControllerAnimation(int modelId)
 {
 	modelId_ = modelId;
 
@@ -16,7 +16,7 @@ AnimationController::AnimationController(int modelId)
 	stepEndLoopEnd_ = 0.0f;
 }
 
-AnimationController::~AnimationController(void)
+ControllerAnimation::~ControllerAnimation(void)
 {
 	//for (const auto& anim : animations_)
 	//{
@@ -24,7 +24,7 @@ AnimationController::~AnimationController(void)
 	//}
 }
 
-void AnimationController::Add(const int type, const int handle, const float speed)
+void ControllerAnimation::Add(const int type, const int handle, const float speed)
 {
 	// アニメーション情報の登録
 	Animation anim;
@@ -47,7 +47,7 @@ void AnimationController::Add(const int type, const int handle, const float spee
 	}
 }
 
-void AnimationController::Play(const int type, const bool isLoop, 
+void ControllerAnimation::Play(const int type, const bool isLoop, 
 	const float startStep, const float endStep, const bool isStop, const bool isForce)
 {
 
@@ -97,7 +97,7 @@ void AnimationController::Play(const int type, const bool isLoop,
 	}
 }
 
-void AnimationController::Update(void)
+void ControllerAnimation::Update(void)
 {
 
 	// 経過時間の取得
@@ -171,19 +171,19 @@ void AnimationController::Update(void)
 
 }
 
-void AnimationController::SetEndLoop(float startStep, float endStep, float speed)
+void ControllerAnimation::SetEndLoop(float startStep, float endStep, float speed)
 {
 	stepEndLoopStart_ = startStep;
 	stepEndLoopEnd_ = endStep;
 	endLoopSpeed_ = speed;
 }
 
-int AnimationController::GetPlayType(void) const
+int ControllerAnimation::GetPlayType(void) const
 {
 	return playType_;
 }
 
-bool AnimationController::IsEnd(void) const
+bool ControllerAnimation::IsEnd(void) const
 {
 
 	bool ret = false;

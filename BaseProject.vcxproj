@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -19,12 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Core\Common\ControllerSpriteAnimation.cpp" />
+    <ClCompile Include="Src\Object\System\InputPlayer.cpp" />
+    <ClCompile Include="Src\Object\Common\Controller\ControllerMove.cpp" />
     <ClCompile Include="Src\Object\Character\Parameter\ParameterPlayer.cpp" />
     <ClCompile Include="Src\Object\Character\Parameter\ParameterBase.cpp" />
-    <ClCompile Include="Src\Object\System\Load\ParametersLoadCharacter.cpp" />
-    <ClCompile Include="Src\Object\System\Load\ParametersLoadBase.cpp" />
-    <ClCompile Include="Src\Component\ComponentMove.cpp" />
-    <ClCompile Include="Src\Component\ComponentBase.cpp" />
+    <ClCompile Include="Src\Object\System\Load\ParameterLoadBase.cpp" />
+    <ClCompile Include="Src\Object\System\Load\ParameterLoadCharacter.cpp" />
     <ClCompile Include="Src\Manager\Generic\CharacterManager.cpp" />
     <ClCompile Include="Src\Object\Character\Player.cpp" />
     <ClCompile Include="Src\Object\Stage\MainStage.cpp" />
@@ -44,7 +45,6 @@
     <ClCompile Include="Src\Resource\ResourceTexture.cpp" />
     <ClCompile Include="Src\Resource\ResourceModel.cpp" />
     <ClCompile Include="Src\Resource\ResourceBase.cpp" />
-    <ClCompile Include="Src\Core\Common\SpriteAnimationController.cpp" />
     <ClCompile Include="Src\Core\CoreBase.cpp" />
     <ClCompile Include="Src\Manager\Resource\SoundManager.cpp" />
     <ClCompile Include="Src\Object\ActorBase.cpp" />
@@ -65,7 +65,7 @@
     <ClCompile Include="Src\Manager\Generic\Camera.cpp" />
     <ClCompile Include="Src\Manager\Generic\InputManager.cpp" />
     <ClCompile Include="Src\Manager\Resource\ResourceManager.cpp" />
-    <ClCompile Include="Src\Object\Common\AnimationController.cpp" />
+    <ClCompile Include="Src\Object\Common\Controller\ControllerAnimation.cpp" />
     <ClCompile Include="Src\Object\Collider\Capsule.cpp" />
     <ClCompile Include="Src\Object\Collider\Collider.cpp" />
     <ClCompile Include="Src\Object\Common\Transform.cpp" />
@@ -79,12 +79,12 @@
     <ClCompile Include="Src\Manager\Generic\StageManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\System\InputPlayer.h" />
+    <ClInclude Include="Src\Object\Common\Controller\ControllerMove.h" />
     <ClInclude Include="Src\Object\Character\Parameter\ParameterPlayer.h" />
     <ClInclude Include="Src\Object\Character\Parameter\ParameterBase.h" />
-    <ClInclude Include="Src\Object\System\Load\ParametersLoadCharacter.h" />
-    <ClInclude Include="Src\Object\System\Load\ParametersLoadBase.h" />
-    <ClInclude Include="Src\Component\ComponentMove.h" />
-    <ClInclude Include="Src\Component\ComponentBase.h" />
+    <ClInclude Include="Src\Object\System\Load\ParameterLoadBase.h" />
+    <ClInclude Include="Src\Object\System\Load\ParameterLoadCharacter.h" />
     <ClInclude Include="Src\Manager\Generic\CharacterManager.h" />
     <ClInclude Include="Src\Object\Character\Player.h" />
     <ClInclude Include="Src\Object\Stage\MainStage.h" />
@@ -104,7 +104,6 @@
     <ClInclude Include="Src\Resource\ResourceTexture.h" />
     <ClInclude Include="Src\Resource\ResourceModel.h" />
     <ClInclude Include="Src\Resource\ResourceBase.h" />
-    <ClInclude Include="Src\Core\Common\SpriteAnimationController.h" />
     <ClInclude Include="Src\Core\CoreBase.h" />
     <ClInclude Include="Src\Manager\Resource\SoundManager.h" />
     <ClInclude Include="Src\Object\ActorBase.h" />
@@ -172,7 +171,7 @@
     <ClInclude Include="Src\Manager\Generic\Camera.h" />
     <ClInclude Include="Src\Manager\Generic\InputManager.h" />
     <ClInclude Include="Src\Manager\Resource\ResourceManager.h" />
-    <ClInclude Include="Src\Object\Common\AnimationController.h" />
+    <ClInclude Include="Src\Object\Common\Controller\ControllerAnimation.h" />
     <ClInclude Include="Src\Object\Collider\Capsule.h" />
     <ClInclude Include="Src\Object\Collider\Collider.h" />
     <ClInclude Include="Src\Object\Common\Transform.h" />
@@ -213,6 +212,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Src\Core\Common\ControllerSpriteAnimation.h" />
     <None Include="Src\Shader\Common\Pixel\PixelShader2DHeader.hlsli" />
     <None Include="Src\Shader\Common\Pixel\PixelShader3DHeader.hlsli" />
     <None Include="Src\Shader\Common\VertexToPixelHeader.hlsli" />
