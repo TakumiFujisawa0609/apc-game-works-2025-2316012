@@ -3,40 +3,25 @@
 
 void InputManager::Init(void)
 {
-
-	// ゲームで使用したいキーを、
-	// 事前にここで登録しておいてください
-	InputManager::GetInstance().Add(KEY_INPUT_SPACE);
-	InputManager::GetInstance().Add(KEY_INPUT_N);
-	InputManager::GetInstance().Add(KEY_INPUT_Z);
-
-	//プレイヤー操作関連
-	//---------------------------------------------------
-	//移動キー
-	InputManager::GetInstance().Add(KEY_INPUT_W);
-	InputManager::GetInstance().Add(KEY_INPUT_A);
-	InputManager::GetInstance().Add(KEY_INPUT_S);
-	InputManager::GetInstance().Add(KEY_INPUT_D);
-
-	//ダッシュ
-	InputManager::GetInstance().Add(KEY_INPUT_LSHIFT);
-	//ジャンプ
-	InputManager::GetInstance().Add(KEY_INPUT_E);
-	//ポーズ
-	InputManager::GetInstance().Add(KEY_INPUT_P);
-
-	//選択
-	InputManager::GetInstance().Add(KEY_INPUT_DOWN);
-	InputManager::GetInstance().Add(KEY_INPUT_UP);
-	InputManager::GetInstance().Add(KEY_INPUT_RIGHT);
-	InputManager::GetInstance().Add(KEY_INPUT_LEFT);
-
-	//決定
-	InputManager::GetInstance().Add(KEY_INPUT_RETURN);
+	//キーの登録
+	Add(KEY_INPUT_SPACE);
+	Add(KEY_INPUT_N);
+	Add(KEY_INPUT_Z);
+	Add(KEY_INPUT_W);
+	Add(KEY_INPUT_A);
+	Add(KEY_INPUT_S);
+	Add(KEY_INPUT_D);
+	Add(KEY_INPUT_LSHIFT);
+	Add(KEY_INPUT_E);
+	Add(KEY_INPUT_Q);
+	Add(KEY_INPUT_P);
+	Add(KEY_INPUT_DOWN);
+	Add(KEY_INPUT_UP);
+	Add(KEY_INPUT_RIGHT);
+	Add(KEY_INPUT_LEFT);
+	Add(KEY_INPUT_RETURN);
+	Add(KEY_INPUT_TAB);
 	
-	//---------------------------------------------------
-
-
 	InputManager::MouseInfo info;
 
 	// 左クリック

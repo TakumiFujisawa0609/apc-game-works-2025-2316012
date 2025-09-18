@@ -23,7 +23,7 @@ void SceneManager::Init(void)
 	fader_->Init();
 
 	// カメラ
-	camera_ = std::make_shared<Camera>();
+	camera_ = std::make_unique<Camera>();
 	camera_->Init();
 
 	//サウンド管理生成

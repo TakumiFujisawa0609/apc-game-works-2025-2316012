@@ -1,5 +1,10 @@
 #pragma once
+#include <nlohmann/json.hpp>
 #include "../ActorBase.h"
+#include "../../Common/Quaternion.h"
+
+// JSON名前空間
+using Json = nlohmann::json;
 
 class CharacterBase : public ActorBase
 {
@@ -8,7 +13,8 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	CharacterBase();
+	/// <param name="param">パラメーターデータ</param>
+	CharacterBase(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -26,10 +32,40 @@ public:
 	/// <returns>トランスフォーム</returns>
 	const Transform& GetTransform() const { return transform_; }
 
-protected:
+protected:	
 
-	//通常アニメーション速度
-	float animDefaultSpeed_;
+	// スピード
+	const float SPEED_MOVE;
+
+	// ダッシュスピード
+	const float SPEED_RUN;
+
+	// 重力
+	const float GRAVITY;
+
+	// 回転完了までの時間
+	const float TIME_ROT;
+
+	//デフォルトのアニメーション速度
+	const float ANIM_DEFAULT_SPEED;
+
+	//初期位置
+	const VECTOR INITIAL_POS;
+
+	//移動量
+	VECTOR movePower_;
+
+	//移動方向
+	VECTOR moveDir_;	
+	
+	//回転ステップ時間
+	float stepRotTime_;
+
+	//現在の回転角度Y
+	Quaternion rotY_;
+
+	//目標回転
+	Quaternion goalQuaRot_;
 
 	/// <summary>
 	/// 更新処理の適用
@@ -45,5 +81,17 @@ protected:
 	/// アニメーションの初期化
 	/// </summary>
 	virtual void InitAnimation() = 0;
+
+	/// <summary>
+	/// 回転の目標値を設定
+	/// </summary>
+	/// <param name="rotRad">回転角度</param>
+	void SetGoalRotate(double rotRad);
+
+	/// <summary>
+	/// 回転処理
+	/// </summary>
+	/// <param name=""></param>
+	void Rotate(void);
 };
 

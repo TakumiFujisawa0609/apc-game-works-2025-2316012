@@ -5,8 +5,8 @@
 #include "../../Template/Singleton.h"
 #include "../../Common/Fader.h"
 
-// 推奨しませんが、どうしても使いたい方は
-#define mainCamera SceneManager::GetInstance().GetCamera().lock()
+//カメラのマクロ
+#define mainCamera SceneManager::GetInstance().GetCamera()
 
 class SceneBase;
 class Fader;
@@ -112,7 +112,7 @@ public:
 	/// カメラを返す
 	/// </summary>
 	/// <returns>カメラ</returns>
-	const std::weak_ptr<Camera> GetCamera() const { return camera_; }
+	Camera& GetCamera() { return *camera_; }
 
 private:
 
@@ -126,7 +126,7 @@ private:
 	std::unique_ptr<Fader> fader_;
 
 	// カメラ
-	std::shared_ptr<Camera> camera_;
+	std::unique_ptr<Camera> camera_;
 
 	// シーン遷移中判定
 	bool isSceneChanging_;

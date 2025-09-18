@@ -54,8 +54,8 @@ void SceneGame::Init(void)
 	StageManager::GetInstance().Init();
 
 	//カメラ設定
-	mainCamera->SetFollow(&CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform());
-	mainCamera->ChangeMode(Camera::MODE::FOLLOW);
+	mainCamera.SetFollow(&CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform());
+	mainCamera.ChangeMode(Camera::MODE::FPS);
 }
 
 void SceneGame::NormalUpdate(void)
@@ -73,16 +73,16 @@ void SceneGame::NormalUpdate(void)
 	//ステージ更新
 	StageManager::GetInstance().Update();
 
-#ifdef DEBUG_ON
-	DebagUpdate();
-#endif // DEBUG_ON
+#ifdef _DEBUG
+	DebugUpdate();
+#endif 
 }
 
 void SceneGame::NormalDraw(void)
 {	
-#ifdef DEBUG_ON
+#ifdef _DEBUG
 	DebugDraw();
-#endif // DEBUG_ON
+#endif
 	
 	//ステージ描画
 	StageManager::GetInstance().Draw();
@@ -98,7 +98,7 @@ void SceneGame::ChangeNormal(void)
 	drawFunc_ = std::bind(&SceneGame::NormalDraw, this);
 }
 
-void SceneGame::DebagUpdate(void)
+void SceneGame::DebugUpdate(void)
 {
 	// シーン遷移
 	InputManager& ins = InputManager::GetInstance();
@@ -106,9 +106,28 @@ void SceneGame::DebagUpdate(void)
 	{
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::TITLE);
 	}
+
+	//カメラモードの変更
+	if (ins.IsTrgDown(KEY_INPUT_TAB))
+	{
+		switch (mainCamera.GetMode())
+		{
+		case Camera::MODE::FPS:
+			mainCamera.ChangeMode(Camera::MODE::FOLLOW);
+			break;
+		case Camera::MODE::FOLLOW:
+			mainCamera.ChangeMode(Camera::MODE::FREE);
+			break;
+		case Camera::MODE::FREE:
+			mainCamera.ChangeMode(Camera::MODE::FPS);
+			break;
+		default:
+			break;
+		};
+	}
 }
 
-void SceneGame::DebagDraw(void)
+void SceneGame::DebugDraw(void)
 {
 	DrawBox(
 		0,

@@ -1,33 +1,29 @@
 {
-  "player": [
-    {
-      "moveSpeed": 5,
-      "dashSpeed": 10,
-      "gravity": 25,
-      "timeRot": 1,
-      "initialPosition": {
-        "x": 0,
-        "y": 0,
-        "z": 0
-      },
-      "animationDefaultSpeed": 20,
-      "animationJumpSpeed": 60,
-      "jumpPower": 60,
-      "jumpAcceptTime": 0
-    }
-  ],
-  "enemy": [
-    {
-      "moveSpeed": 5,
-      "dashSpeed": 10,
-      "gravity": 25,
-      "timeRot": 1,
-      "initialPosition": {
-        "x": 0,
-        "y": 0,
-        "z": 0
-      },
-      "animationDefaultSpeed": 20
-    }
-  ]
+  "player": {
+    "moveSpeed": 5,
+    "dashSpeed": 10,
+    "gravity": 25,
+    "timeRot": 1,
+    "initialPosition": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "animationDefaultSpeed": 20,
+    "animationJumpSpeed": 60,
+    "jumpPower": 60,
+    "jumpAcceptTime": 0
+  },
+  "enemy": {
+    "moveSpeed": 5,
+    "dashSpeed": 10,
+    "gravity": 25,
+    "timeRot": 1,
+    "initialPosition": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "animationDefaultSpeed": 20
+  }
 }

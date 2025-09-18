@@ -1,9 +1,13 @@
 #pragma once
+#include <nlohmann/json.hpp>
 #include <memory>
 #include <unordered_map>
 #include <string>
 
 class ParameterBase;
+
+// JSON名前空間
+using Json = nlohmann::json;
 
 class ParameterLoadBase
 {
@@ -24,12 +28,16 @@ public:
 	/// </summary>
 	virtual void Load() = 0;
 
-	// 参照ではなくポインタを返すように修正
-	ParameterBase* GetParameter(const std::string& name);
+	/// <summary>
+	/// パラメーターファイルを取得
+	/// </summary>
+	/// <param name="key">取得したい要素のキー</param>
+	/// <returns>パラメータファイル</returns>
+	Json GetParameterFile(const std::string& key);
 
 protected:
 
 	//パラメーターマップ
-	std::unordered_map<std::string, std::unique_ptr<ParameterBase>> parametersMap_;
+	std::unordered_map<std::string, Json> parameterMap_;
 };
 

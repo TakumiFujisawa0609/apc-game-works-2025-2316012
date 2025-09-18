@@ -100,6 +100,33 @@ void ControllerAnimation::Play(const int type, const bool isLoop,
 void ControllerAnimation::Update(void)
 {
 
+	float deltaTime = SceneManager::GetInstance().GetDeltaTime();
+
+	// ブレンド処理
+	if (blend_.isBlending)
+	{
+		blend_.blendRate += blend_.blendSpeed * deltaTime * blendSpeed_;
+
+		//ブレンド終了判定
+		if (blend_.blendRate >= 1.0f) 
+		{
+			blend_.blendRate = 1.0f;
+			blend_.isBlending = false;
+
+			// 前のアニメを外す
+			MV1DetachAnim(modelId_, blend_.fromAttachNo);
+
+			// ブレンド終了時に playAnim_ に確定させる
+			playAnim_.attachNo = blend_.toAttachNo;
+
+			// ※再生アニメーションタイプを更新（Playの変更許可に必要）
+			playType_ = playAnim_.animIndex;
+		}
+
+		MV1SetAttachAnimBlendRate(modelId_, blend_.fromAttachNo, 1.0f - blend_.blendRate);
+		MV1SetAttachAnimBlendRate(modelId_, blend_.toAttachNo, blend_.blendRate);
+	}
+
 	// 経過時間の取得
 	float deltaTime = SceneManager::GetInstance().GetDeltaTime();
 
@@ -148,7 +175,6 @@ void ControllerAnimation::Update(void)
 						playAnim_.totalTime = stepEndLoopStart_;
 					}
 					playAnim_.speed = endLoopSpeed_;
-					
 				}
 				else
 				{
@@ -161,9 +187,7 @@ void ControllerAnimation::Update(void)
 				// ループしない
 				playAnim_.step = playAnim_.totalTime;
 			}
-
 		}
-
 	}
 
 	// アニメーション設定

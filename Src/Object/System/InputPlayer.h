@@ -8,12 +8,16 @@ class InputPlayer
 {
 public:
 
+	/// <summary>
+	/// キーの種類
+	/// </summary>
 	enum class CONFIG
 	{
 		RIGHT,
 		LEFT,
 		FORWARD,
 		BACK,
+		DASH,
 		JUMP,
 	};
 
@@ -32,7 +36,7 @@ public:
 	/// </summary>
 	/// <param name="config">種類を返す</param>
 	/// <returns>true入力中、false非入力</returns>
-	bool CheckKey(CONFIG config);
+	bool CheckKey(const CONFIG config);
 
 private:
 
@@ -46,10 +50,11 @@ private:
 	void RegisterCheckKey(const CONFIG config, std::function<bool()> func);
 
 	//キー入力チェック関数
-	bool CheckKeyRight() const;
-	bool CheckKeyLeft() const;
-	bool CheckKeyForward() const;
-	bool CheckKeyBack() const;
-	bool CheckKeyJump() const;
+	bool CheckKeyRight() const;		// 右移動
+	bool CheckKeyLeft() const;		// 左移動
+	bool CheckKeyForward() const;	// 前移動
+	bool CheckKeyBack() const;		// 後移動
+	bool CheckKeyDash() const;		// ダッシュ
+	bool CheckKeyJump() const;		// ジャンプ
 };
 

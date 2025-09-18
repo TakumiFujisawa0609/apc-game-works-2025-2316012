@@ -22,8 +22,6 @@
     <ClCompile Include="Src\Core\Common\ControllerSpriteAnimation.cpp" />
     <ClCompile Include="Src\Object\System\InputPlayer.cpp" />
     <ClCompile Include="Src\Object\Common\Controller\ControllerMove.cpp" />
-    <ClCompile Include="Src\Object\Character\Parameter\ParameterPlayer.cpp" />
-    <ClCompile Include="Src\Object\Character\Parameter\ParameterBase.cpp" />
     <ClCompile Include="Src\Object\System\Load\ParameterLoadBase.cpp" />
     <ClCompile Include="Src\Object\System\Load\ParameterLoadCharacter.cpp" />
     <ClCompile Include="Src\Manager\Generic\CharacterManager.cpp" />
@@ -81,8 +79,6 @@
   <ItemGroup>
     <ClInclude Include="Src\Object\System\InputPlayer.h" />
     <ClInclude Include="Src\Object\Common\Controller\ControllerMove.h" />
-    <ClInclude Include="Src\Object\Character\Parameter\ParameterPlayer.h" />
-    <ClInclude Include="Src\Object\Character\Parameter\ParameterBase.h" />
     <ClInclude Include="Src\Object\System\Load\ParameterLoadBase.h" />
     <ClInclude Include="Src\Object\System\Load\ParameterLoadCharacter.h" />
     <ClInclude Include="Src\Manager\Generic\CharacterManager.h" />

@@ -1,16 +1,10 @@
 #include <DxLib.h>
-#include <nlohmann/json.hpp>
 #include <fstream>
 #include <cassert>
 #include <iostream>
 #include "../../../Application.h"
 #include "../../../Utility/UtilityCommon.h"
-#include "../../Character/Parameter/ParameterBase.h"
-#include "../../Character/Parameter/ParameterPlayer.h"
 #include "ParameterLoadCharacter.h"
-
-// JSON名前空間
-using json = nlohmann::json;
 
 ParameterLoadCharacter::ParameterLoadCharacter()
 {
@@ -31,29 +25,25 @@ void ParameterLoadCharacter::Load()
         }
 
         // JSONデータのパース
-        nlohmann::json jsonData;
+        Json jsonData;
         ifs >> jsonData;
 
-        // "player"キーのデータを処理
-        if (jsonData.contains("player") && jsonData["player"].is_array())
+        //キー
+        std::string key = "";
+
+        //プレイヤーのデータを処理
+		key = "player";
+        if (jsonData.contains(key))
         {
-            for (const auto& character : jsonData["player"])
-            {
-                std::unique_ptr<ParameterBase> param = std::make_unique<ParameterPlayer>();
-                param->SetDataFile(character);
-                parametersMap_["player"] = std::move(param);
-            }
+			parameterMap_.emplace(key, jsonData[key]);
+            //parameterMap_[key] = jsonData[key];
         }
 
-        //// "enemy"キーのデータを処理
-        //if (jsonData.contains("enemy") && jsonData["enemy"].is_array())
+        ////敵のデータを処理
+        //key = "enemy";
+        //if (jsonData.contains(key) && jsonData[key].is_array())
         //{
-        //    for (const auto& character : jsonData["enemy"])
-        //    {
-        //        std::unique_ptr<ParameterBase> param = std::make_unique<ParameterEnemy>(); // enemy用のクラスを想定
-        //        param->SetDataFile(character);
-        //        parametersMap_["enemy"] = std::move(param);
-        //    }
+        //    parameterMap_[key] = jsonData[key];
         //}
 
         ifs.close();

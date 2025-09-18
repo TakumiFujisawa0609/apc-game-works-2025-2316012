@@ -39,8 +39,8 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	/// <param name="parameter">パラメーター</param>
-	Player(ParameterPlayer& parameter);
+	/// <param name="param">パラメーター</param>
+	Player(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -59,11 +59,20 @@ public:
 
 private:
 
+	// ジャンプ力
+	const float POW_JUMP;
+
+	// ジャンプ受付時間
+	const float JUMP_ACCEPT_TIME;
+
+	// ジャンプアニメーション
+	const float ANIM_JUMP_SPEED;
+
+	//ジャンプ判定
+	bool isJump_;
+
 	//状態
 	STATE state_;
-
-	//パラメーター管理クラスの参照
-	ParameterPlayer& parameter_;
 
 	//入力管理クラス
 	std::unique_ptr<InputPlayer> inputPlayer_;
@@ -87,7 +96,13 @@ private:
 	void RegisterStateUpdateFunc(const STATE state, std::function<void()> update);
 
 	//状態別更新処理	
-	void UpdateNone();
-	void UpdateAlive();
-	void UpdateDead();
+	void UpdateNone() {};	// 何もしない
+	void UpdateAlive();		// 生存状態の更新
+	void UpdateDead();		// 死亡状態の更新
+
+	//操作
+	void Process();
+
+	//着地モーションの終了
+	bool IsEndLanding();
 };

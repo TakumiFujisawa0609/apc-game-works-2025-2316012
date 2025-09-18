@@ -1,6 +1,9 @@
 #pragma once
 #include <DxLib.h>
+#include <functional>
+#include <unordered_map>
 #include "../../Common/Quaternion.h"
+
 class Transform;
 
 class Camera
@@ -21,51 +24,127 @@ public:
 	static constexpr VECTOR DEFAULT_CAMERA_POS = { 0.0f, 100.0f, -500.0f };
 
 	// 追従位置からカメラ位置までの相対座標
-	static constexpr VECTOR LOCAL_F2C_POS = { 0.0f, 50.0f, -400.0f };
+	static constexpr VECTOR LOCAL_F2C_POS_FOLLOW = { 0.0f, 50.0f, -400.0f };
+	static constexpr VECTOR LOCAL_F2C_POS_FPS = { 0.0f, 130.0f, 20.0f };
 
 	// 追従位置から注視点までの相対座標
-	static constexpr VECTOR LOCAL_F2T_POS = { 0.0f, 0.0f, 500.0f };
+	static constexpr VECTOR LOCAL_F2T_POS_FOLLOW = { 0.0f, 0.0f, 200.0f };
+	static constexpr VECTOR LOCAL_F2T_POS_FPS = { 0.0f, 0.0f, 2000.0f };
 
 	// カメラのX回転上限度角
 	static constexpr float LIMIT_X_UP_RAD = 40.0f * (DX_PI_F / 180.0f);
 	static constexpr float LIMIT_X_DW_RAD = 15.0f * (DX_PI_F / 180.0f);
+
+	//FPS視点のカメラのX回転上限度角
+	static constexpr float LIMIT_X_UP_RAD_FPS = -80.0f * (DX_PI_F / 180.0f);
+	static constexpr float LIMIT_X_DW_RAD_FPS = 70.0f * (DX_PI_F / 180.0f);
 	
-	// カメラモード
+	/// <summary>
+	/// カメラのモード
+	/// </summary>
 	enum class MODE
 	{
-		NONE,
-		FIXED_POINT,
-		FOLLOW,
-		SELF_SHOT
+		NONE,			// 初期化前
+		FIXED_POINT,	// 固定点
+		FOLLOW,			// 追従
+		FPS,			// FPS視点
+		FREE,			// 自由
 	};
 
-	Camera(void);
-	~Camera(void);
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	/// <param name=""></param>
+	Camera();
 
-	void Init(void);
-	void Update(void);
-	void SetBeforeDraw(void);
-	void Draw(void);
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	/// <param name=""></param>
+	~Camera() = default;
 
-	// カメラ位置
-	VECTOR GetPos(void) const;
-	// カメラの操作角度
-	VECTOR GetAngles(void) const;
-	// カメラの注視点
-	VECTOR GetTargetPos(void) const;
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name=""></param>
+	void Init();
 
-	// カメラ角度
-	Quaternion GetQuaRot(void) const;
-	// X回転を抜いたカメラ角度
-	Quaternion GetQuaRotOutX(void) const;
-	// カメラの前方方向
-	VECTOR GetForward(void) const;
+	/// <summary>
+	/// 更新処理
+	/// </summary>
+	/// <param name=""></param>
+	void Update(void) {};
 
-	// カメラモードの変更
+	/// <summary>
+	/// カメラの設定描画
+	/// </summary>
+	void SetBeforeDraw();	
+		
+	/// <summary>
+	/// 描画処理
+	/// </summary>
+	/// <param name=""></param>
+	void Draw() {};
+
+	/// <summary>
+	/// カメラモードの変更
+	/// </summary>
+	/// <param name="mode">カメラモード</param>
 	void ChangeMode(MODE mode);
 
-	// 追従対象の設定
+	/// <summary>
+	/// 追従対象の設定
+	/// </summary>
+	/// <param name="follow">追従対象</param>
 	void SetFollow(const Transform* follow);
+
+	/// <summary>
+	/// カメラ位置の取得
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns>カメラ位置</returns>
+	VECTOR GetPos() const;
+	
+	/// <summary>
+	/// カメラアングルの取得
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns>カメラアングル</returns>
+	VECTOR GetAngles() const;
+	
+	/// <summary>
+	/// カメラの注視点の取得
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns>カメラ注視点</returns>
+	VECTOR GetTargetPos() const;
+
+	/// <summary>
+	/// カメラ角度の取得
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns>カメラ角度</returns>
+	Quaternion GetQuaRot() const;
+	
+	/// <summary>
+	/// X回転を抜いたカメラ角度
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns> X回転を抜いたカメラ角度</returns>
+	Quaternion GetQuaRotOutX() const;
+	
+	/// <summary>
+	/// カメラの前方方向ベクトルの取得
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns>カメラの前方方向ベクトル</returns>
+	VECTOR GetForward() const;
+
+	/// <summary>
+	/// モードの取得
+	/// </summary>
+	/// <returns>モード</returns>
+	MODE GetMode() const;
 
 private:
 
@@ -93,19 +172,40 @@ private:
 	// カメラの上方向
 	VECTOR cameraUp_;
 
+	//カメラ位置までの相対座標
+	VECTOR localF2CPos_;
+
+	//注視点までの相対座標
+	VECTOR localF2TPos_;
+
+	// モード別更新ステップ関数管理
+	std::function<void()> beforeDrawFunc_;
+
+	// モード遷移処理
+	std::unordered_map<MODE, std::function<void()>> changeModeMap_;
+
 	// カメラを初期位置に戻す
-	void SetDefault(void);
+	void SetDefault();
 
 	// 追従対象との位置同期を取る
-	void SyncFollow(void);
+	void SyncFollow();
 
 	// カメラ操作
-	void ProcessRot(void);
+	void ProcessRotFollow();	// 追従モードの回転操作
+	void ProcessRotFps();		// FPSモードの回転操作
+	void ProcessRotFree();		// 自由モードの回転操作
+
+	//モード別状態遷移処理
+	void ChangeModeNone();
+	void ChangeModeFixedPoint();
+	void ChangeModeFollow();
+	void ChangeModeFps();
+	void ChangeModeFree();
 
 	// モード別更新ステップ
-	void SetBeforeDrawFixedPoint(void);
-	void SetBeforeDrawFollow(void);
-	void SetBeforeDrawSelfShot(void);
-
+	void SetBeforeDrawNone() {};
+	void SetBeforeDrawFollow();
+	void SetBeforeDrawFps();
+	void SetBeforeDrawFree();
 };
 

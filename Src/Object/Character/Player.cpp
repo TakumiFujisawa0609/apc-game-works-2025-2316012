@@ -1,11 +1,17 @@
+#include "../../Manager/Generic/SceneManager.h"
+#include "../../Manager/Generic/Camera.h"
 #include "../../Manager/Resource/ResourceManager.h"
 #include "../Common/Controller/ControllerAnimation.h"
+#include "../Utility/Utility3D.h"
+#include "../Utility/UtilityCommon.h"
 #include "../System/InputPlayer.h"
-#include "Parameter/ParameterPlayer.h"
 #include "Player.h"
 
-Player::Player(ParameterPlayer& parameter) :
-	parameter_(parameter)
+Player::Player(const Json& param) :
+	CharacterBase(param),
+	POW_JUMP(param["jumpPower"]),
+	JUMP_ACCEPT_TIME(param["jumpAcceptTime"]),
+	ANIM_JUMP_SPEED(param["animationJumpSpeed"])
 {	
 	state_ = STATE::NONE;
 	animation_ = nullptr;
@@ -57,17 +63,13 @@ void Player::UpdateApply()
 
 void Player::InitAnimation()
 {
-	//パラメーターからアニメーション速度を取得
-	float animationDefaultSpeed = parameter_.animationDefaultSpeed_;
-	float animationJumpSpeed = parameter_.animationJumpSpeed_;
-
 	//アニメーションの登録
-	animation_->Add(static_cast<int>(ANIM_TYPE::IDLE), resMng_.GetHandle("playerAnimationIdle"), animationDefaultSpeed);
-	animation_->Add(static_cast<int>(ANIM_TYPE::WALK), resMng_.GetHandle("playerAnimationWalking"), animationDefaultSpeed);
-	animation_->Add(static_cast<int>(ANIM_TYPE::RUN), resMng_.GetHandle("playerAnimationFastRun"), animationDefaultSpeed);
-	animation_->Add(static_cast<int>(ANIM_TYPE::DEAD), resMng_.GetHandle("playerAnimationDie"), animationDefaultSpeed);
-	animation_->Add(static_cast<int>(ANIM_TYPE::SLEEP), resMng_.GetHandle("playerAnimationSleepingIdle"), animationDefaultSpeed);
-	animation_->Add(static_cast<int>(ANIM_TYPE::JUMP), resMng_.GetHandle("playerAnimationJump"), animationJumpSpeed);
+	animation_->Add(static_cast<int>(ANIM_TYPE::IDLE), resMng_.GetHandle("playerAnimationIdle"), ANIM_DEFAULT_SPEED);
+	animation_->Add(static_cast<int>(ANIM_TYPE::WALK), resMng_.GetHandle("playerAnimationWalking"), ANIM_DEFAULT_SPEED);
+	animation_->Add(static_cast<int>(ANIM_TYPE::RUN), resMng_.GetHandle("playerAnimationFastRun"), ANIM_DEFAULT_SPEED);
+	animation_->Add(static_cast<int>(ANIM_TYPE::DEAD), resMng_.GetHandle("playerAnimationDie"), ANIM_DEFAULT_SPEED);
+	animation_->Add(static_cast<int>(ANIM_TYPE::SLEEP), resMng_.GetHandle("playerAnimationSleepingIdle"), ANIM_DEFAULT_SPEED);
+	animation_->Add(static_cast<int>(ANIM_TYPE::JUMP), resMng_.GetHandle("playerAnimationJump"), ANIM_JUMP_SPEED);
 
 	//初期アニメーション設定
 	animation_->Play(static_cast<int>(ANIM_TYPE::IDLE));
@@ -78,14 +80,117 @@ void Player::RegisterStateUpdateFunc(const STATE state, std::function<void()> up
 	stateUpdateFuncMap_[state] = update;
 }
 
-void Player::UpdateNone()
-{
-}
-
 void Player::UpdateAlive()
 {
+	//操作処理
+	Process();
 }
 
 void Player::UpdateDead()
 {
+}
+
+void Player::Process()
+{
+	//移動ベクトル
+	movePower_ = Utility3D::VECTOR_ZERO;
+
+	// X軸回転を除いた、重力方向に垂直なカメラ角度(XZ平面)を取得
+	Quaternion cameraRot = mainCamera.GetQuaRotOutX();
+
+	// 回転したい角度
+	double rotRad = 0;
+
+	//方向ベクトル
+	VECTOR dir = Utility3D::VECTOR_ZERO;
+
+	//右移動
+	if (inputPlayer_->CheckKey(InputPlayer::CONFIG::RIGHT))
+	{
+		rotRad = UtilityCommon::Deg2RadD(90.0);
+		dir = cameraRot.GetRight();
+	}
+
+	//左移動
+	if (inputPlayer_->CheckKey(InputPlayer::CONFIG::LEFT))
+	{
+		rotRad = UtilityCommon::Deg2RadD(270.0);
+		dir = cameraRot.GetLeft();
+	}
+
+	//前移動
+	if (inputPlayer_->CheckKey(InputPlayer::CONFIG::FORWARD))
+	{
+		rotRad = UtilityCommon::Deg2RadD(0.0);
+		dir = cameraRot.GetForward();
+	}
+
+	//後移動
+	if (inputPlayer_->CheckKey(InputPlayer::CONFIG::BACK))
+	{
+		rotRad = UtilityCommon::Deg2RadD(180.0);
+		dir = cameraRot.GetBack();
+	}
+	
+	bool isEndLanding = IsEndLanding();
+
+	//ジャンプ中じゃないかつ操作入力がされたとき
+	if (!Utility3D::EqualsVZero(dir) && (isJump_ || isEndLanding))
+	{	
+		//ダッシュ
+		bool isDash = inputPlayer_->CheckKey(InputPlayer::CONFIG::DASH);
+		
+		// 移動処理
+		float speed = SPEED_MOVE;
+
+		// ダッシュ中なら速度を変更
+		if (isDash)
+		{
+			speed = SPEED_RUN;
+		}
+
+		// 移動ベクトルの設定
+		moveDir_ = dir;
+		movePower_ = VScale(dir, speed);
+
+		// 回転処理
+		SetGoalRotate(rotRad);
+
+		if (!isJump_ && isEndLanding)
+		{
+			// アニメーション
+			if (isDash)
+			{
+				animation_->Play((int)ANIM_TYPE::RUN);
+			}
+			else
+			{
+				animation_->Play((int)ANIM_TYPE::WALK);
+			}
+		}
+	}
+	else
+	{
+		if (!isJump_ && isEndLanding)
+		{
+			animation_->Play((int)ANIM_TYPE::IDLE);
+		}
+	}
+}
+
+bool Player::IsEndLanding(void)
+{
+	// アニメーションがジャンプではない
+	if (animation_->GetPlayType() != (int)ANIM_TYPE::JUMP)
+	{
+		return true;
+	}
+
+	// アニメーションが終了しているか
+	if (animation_->IsEnd())
+	{
+		return true;
+	}
+
+	return false;
 }

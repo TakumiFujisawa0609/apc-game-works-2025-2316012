@@ -1,9 +1,11 @@
+#include <nlohmann/json.hpp>
 #include "CharacterManager.h"
 #include "../../Object/Character/CharacterBase.h"
 #include "../../Object/Character/Player.h"
-#include "../../Object/Character/Parameter/ParameterBase.h"
-#include "../../Object/Character/Parameter/ParameterPlayer.h"
 #include "../../Object/System/Load/ParameterLoadCharacter.h"
+
+// JSON名前空間
+using Json = nlohmann::json;
 
 void CharacterManager::Load()
 {
@@ -11,17 +13,8 @@ void CharacterManager::Load()
 	paramLoad_ = std::make_unique<ParameterLoadCharacter>();
 	paramLoad_->Load();
 
-	//プレイヤーパラメータを取得
-	ParameterPlayer* playerParam = nullptr;
-	ParameterBase* baseParam = paramLoad_->GetParameter("player");
-	if (baseParam != nullptr)
-	{
-		// ダウンキャスト（dynamic_castを使用するのが安全）
-		playerParam = dynamic_cast<ParameterPlayer*>(baseParam);
-	}
-
 	//プレイヤー生成
-	auto player = std::make_unique<Player>(*playerParam);
+	auto player = std::make_unique<Player>(paramLoad_->GetParameterFile("player"));
 
 	//プレイヤー読み込み
 	player->Load();

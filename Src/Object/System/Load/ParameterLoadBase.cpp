@@ -1,21 +1,21 @@
 #include "ParameterLoadBase.h"
-#include "../../Character/Parameter/ParameterBase.h"
 
 ParameterLoadBase::ParameterLoadBase()
 {
 }
 
-ParameterBase* ParameterLoadBase::GetParameter(const std::string& name)
+Json ParameterLoadBase::GetParameterFile(const std::string& key)
 {
-	// マップから要素を検索
-	auto it = parametersMap_.find(name);
+	// マップからキーに対応するJsonオブジェクトを検索
+	auto it = parameterMap_.find(key);
 
-	// 見つかった場合
-	if (it != parametersMap_.end())
+	// キーが見つかった場合
+	if (it != parameterMap_.end())
 	{
-		return it->second.get();
+		// 取得した値をそのまま返す
+		return it->second;
 	}
 
-	// 見つからない場合、nullptrを返す
-	return nullptr;
+	// キーが見つからない場合は空のJsonオブジェクトを返す
+	return Json();
 }

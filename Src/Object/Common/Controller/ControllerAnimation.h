@@ -88,14 +88,21 @@ public :
 
 private :
 
+	//ブレンド情報
+	struct BlendInfo
+	{
+		int fromAttachNo = -1;
+		int toAttachNo = -1;
+		float blendRate = 0.0f;
+		bool isBlending = false;
+		float blendSpeed = 1.0f; // 1秒で100%に
+	};
+
 	// モデルのハンドルID
 	int modelId_;
 
-	// 種類別のアニメーションデータ
-	std::map<int, Animation> animations_;
-
+	// 再生中のアニメーションデータ
 	int playType_;
-	Animation playAnim_;
 
 	// アニメーションをループするかしないか
 	bool isLoop_;
@@ -109,5 +116,14 @@ private :
 	float endLoopSpeed_;
 
 	// 逆再生
-	float switchLoopReverse_;
+	float switchLoopReverse_;	
+	
+	// アニメーション情報
+	Animation playAnim_;
+
+	// ブレンド情報
+	BlendInfo blend_;
+
+	// 種類別のアニメーションデータ
+	std::map<int, Animation> animations_;
 };

@@ -48,7 +48,7 @@ private:
 	void ChangeNormal(void) override;
 	
 	//デバッグ処理
-	void DebagUpdate(void);
-	void DebagDraw(void);
+	void DebugUpdate(void);
+	void DebugDraw(void);
 
 };
