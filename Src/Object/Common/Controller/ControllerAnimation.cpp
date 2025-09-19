@@ -54,7 +54,7 @@ void ControllerAnimation::Add(const int type, const int handle, const float spee
 }
 
 void ControllerAnimation::Play(const int type, const bool isLoop, 
-	const float startStep, const float endStep, const bool isStop, const bool isForce)
+	const float startStep, const float endStep, const float blendAnimTime, const bool isStop, const bool isForce)
 {
 	//前のアニメーションと違う、または強制再生の場合
 	if (playType_ != type || isForce) 
@@ -81,6 +81,9 @@ void ControllerAnimation::Play(const int type, const bool isLoop,
 		// アニメーション種別を変更
 		playType_ = type;
 		playAnim_ = animations_[type];
+
+		//ブレンドアニメーション時間の設定
+		blendAnimTime_ = blendAnimTime;
 
 		// 初期化
 		playAnim_.step = startStep;
@@ -166,13 +169,19 @@ void ControllerAnimation::DebugDraw(void) const
 {
 	int marginY = 20;
 	int index = 0;
+	float rate = 0.0f;
+
 	for (auto it = preBlendAnimationRateMap_.begin(); it != preBlendAnimationRateMap_.end(); )
 	{
-		DrawFormatString(0, marginY, 0xff0000,  L"animType:%d", it->first);
-		DrawFormatString(200, marginY, 0xff0000, L"blendRate:%2f", it->second);
-		marginY += 20;
+		DrawFormatString(0, 30 +marginY, 0xff0000,  L"animType:%d", it->first);
+		DrawFormatString(200, 30 + marginY, 0xff0000, L"blendRate:%2f", it->second);
+		marginY += 20;	
+		rate += it->second;
 		it++;
 	}
+	//合計
+
+	DrawFormatString(0, 0, 0xff0000, L"合計:%2f", rate);
 }
 
 void ControllerAnimation::UpdateMainAnimation(void)
@@ -251,9 +260,9 @@ void ControllerAnimation::UpdateBlendAnimation(void)
 
 	// ブレンドアニメーション率を増加
 	blendAnimRate_ += deltaTime_ * BLEND_SPEED;
-	if (blendAnimRate_ >= BLEND_ANIM_TIME)
+	if (blendAnimRate_ >= blendAnimTime_)
 	{
-		blendAnimRate_ = BLEND_ANIM_TIME;
+		blendAnimRate_ = blendAnimTime_;
 	}
 
 	//ブレンド進行率を計算
@@ -278,7 +287,7 @@ void ControllerAnimation::UpdateBlendAnimation(void)
 			it->second -= it->second * blendRate;
 
 			// ブレンドアニメーション率が0以下になったら
-			if (it->second <= 0.0001f)
+			if (it->second <= 0.0f)
 			{
 				//アニメーションのデタッチ
 				MV1DetachAnim(modelId_, it->first);

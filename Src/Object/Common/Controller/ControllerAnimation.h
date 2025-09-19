@@ -55,6 +55,7 @@ public :
 		const bool isLoop = true,
 		const float startStep = 0.0f,
 		const float endStep = -1.0f,
+		const float blendAnimTime = 1.0f,
 		const bool isStop = false,
 		const bool isForce = false);
 
@@ -86,13 +87,14 @@ public :
 	/// <returns>trueなら終了,falseなら再生中</returns>
 	bool IsEnd(void) const;
 
-
+	/// <summary>
+	/// デバッグ描画
+	/// </summary>
+	/// <param name=""></param>
 	void DebugDraw(void) const;
 
 private :
 
-	// アニメーションブレンド時間
-	static constexpr float BLEND_ANIM_TIME = 0.5f;
 
 	// ブレンド速度
 	static constexpr float BLEND_SPEED = 3.0f;
@@ -122,6 +124,9 @@ private :
 
 	//デルタタイム
 	float deltaTime_;
+
+	//ブレンドアニメーション時間
+	float blendAnimTime_;
 
 	// ブレンド
 	float blendAnimRate_;

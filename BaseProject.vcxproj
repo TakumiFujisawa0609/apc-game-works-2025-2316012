@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Common\Controller\ControllerBase.cpp" />
+    <ClCompile Include="Src\Object\Common\Controller\ControllerRotate.cpp" />
     <ClCompile Include="Src\Core\Common\ControllerSpriteAnimation.cpp" />
     <ClCompile Include="Src\Object\System\InputPlayer.cpp" />
     <ClCompile Include="Src\Object\Common\Controller\ControllerMove.cpp" />
@@ -77,6 +79,8 @@
     <ClCompile Include="Src\Manager\Generic\StageManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Common\Controller\ControllerBase.h" />
+    <ClInclude Include="Src\Object\Common\Controller\ControllerRotate.h" />
     <ClInclude Include="Src\Object\System\InputPlayer.h" />
     <ClInclude Include="Src\Object\Common\Controller\ControllerMove.h" />
     <ClInclude Include="Src\Object\System\Load\ParameterLoadBase.h" />

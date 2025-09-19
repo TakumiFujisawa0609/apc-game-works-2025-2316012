@@ -83,14 +83,17 @@ void Player::RegisterStateUpdateFunc(const STATE state, std::function<void()> up
 void Player::UpdateAlive()
 {
 	//‘€ìˆ—
-	Process();
+	ProcessMove();
+
+	//ˆÚ“®•ûŒü‚É‰ž‚¶‚½‰ñ“]
+	Rotate();
 }
 
 void Player::UpdateDead()
 {
 }
 
-void Player::Process()
+void Player::ProcessMove()
 {
 	//ˆÚ“®ƒxƒNƒgƒ‹
 	movePower_ = Utility3D::VECTOR_ZERO;
@@ -176,6 +179,10 @@ void Player::Process()
 			animation_->Play((int)ANIM_TYPE::IDLE);
 		}
 	}
+}
+
+void Player::ProcessJump()
+{
 }
 
 bool Player::IsEndLanding(void)

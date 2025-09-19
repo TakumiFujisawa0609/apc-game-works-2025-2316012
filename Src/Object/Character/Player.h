@@ -100,8 +100,11 @@ private:
 	void UpdateAlive();		// 生存状態の更新
 	void UpdateDead();		// 死亡状態の更新
 
-	//操作
-	void Process();
+	//移動操作
+	void ProcessMove();
+
+	//ジャンプ操作
+	void ProcessJump();
 
 	//着地モーションの終了
 	bool IsEndLanding();
