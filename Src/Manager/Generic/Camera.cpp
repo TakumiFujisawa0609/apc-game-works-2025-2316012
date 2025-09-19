@@ -173,15 +173,15 @@ void Camera::ProcessRotFollow(void)
 void Camera::ProcessRotFps(void)
 {
 	auto& ins = InputManager::GetInstance();
-	const float fovPer = 0.5f; // 視野角に対するマウス移動量の割合
+	const float fovPer = 0.2f; // 視野角に対するマウス移動量の割合
 
 	//マウス座標を取得
 	int mousePosX = ins.GetMousePos().x;
 	int mousePosY = ins.GetMousePos().y;
 
 	//マウスの移動量をクランプして、カメラの角度に反映する
-	mousePosY += float(std::clamp(mousePosY - Application::SCREEN_SIZE_X / 2, -120, 120)) * fovPer / GetFPS();
-	mousePosX += float(std::clamp(mousePosX - Application::SCREEN_SIZE_Y / 2, -120, 120)) * fovPer / GetFPS();
+	angles_.y += float(std::clamp(mousePosX - Application::SCREEN_SIZE_X / 2, -120, 120)) * fovPer / GetFPS();
+	angles_.x += float(std::clamp(mousePosY - Application::SCREEN_SIZE_Y / 2, -120, 120)) * fovPer / GetFPS();
 
 	// マウスの位置を画面中央に戻す
 	SetMousePoint(Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y);
@@ -191,7 +191,7 @@ void Camera::ProcessRotFps(void)
 	{
 		angles_.x = LIMIT_X_UP_RAD_FPS;
 	}
-	else if (angles_.x >= LIMIT_X_DW_RAD_FPS)
+	if (angles_.x >= LIMIT_X_DW_RAD_FPS)
 	{
 		angles_.x = LIMIT_X_DW_RAD_FPS;
 	}

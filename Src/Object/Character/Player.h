@@ -105,4 +105,7 @@ private:
 
 	//着地モーションの終了
 	bool IsEndLanding();
+
+	//デバッグ描画
+	void DebugDraw() override;
 };

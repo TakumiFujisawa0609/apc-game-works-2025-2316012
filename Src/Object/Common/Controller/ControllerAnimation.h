@@ -49,7 +49,7 @@ public :
 	/// <param name="startStep">開始ステップ</param>
 	/// <param name="endStep">終了ステップ</param>
 	/// <param name="isStop">停止判定</param>
-	/// <param name="isForce"></param>
+	/// <param name="isForce">強制再生</param>
 	void Play(
 		const int type,
 		const bool isLoop = true,
@@ -86,17 +86,16 @@ public :
 	/// <returns>trueなら終了,falseなら再生中</returns>
 	bool IsEnd(void) const;
 
+
+	void DebugDraw(void) const;
+
 private :
 
-	//ブレンド情報
-	struct BlendInfo
-	{
-		int fromAttachNo = -1;
-		int toAttachNo = -1;
-		float blendRate = 0.0f;
-		bool isBlending = false;
-		float blendSpeed = 1.0f; // 1秒で100%に
-	};
+	// アニメーションブレンド時間
+	static constexpr float BLEND_ANIM_TIME = 0.5f;
+
+	// ブレンド速度
+	static constexpr float BLEND_SPEED = 3.0f;
 
 	// モデルのハンドルID
 	int modelId_;
@@ -121,9 +120,21 @@ private :
 	// アニメーション情報
 	Animation playAnim_;
 
-	// ブレンド情報
-	BlendInfo blend_;
+	//デルタタイム
+	float deltaTime_;
+
+	// ブレンド
+	float blendAnimRate_;
+
+	//変更前のアニメーション情報
+	std::map<int, float> preBlendAnimationRateMap_;
 
 	// 種類別のアニメーションデータ
 	std::map<int, Animation> animations_;
+
+	// メインの更新処理
+	void UpdateMainAnimation(void);
+	
+	// ブレンドアニメーションの更新処理
+	void UpdateBlendAnimation(void);
 };

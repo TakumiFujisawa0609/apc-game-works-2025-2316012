@@ -194,3 +194,9 @@ bool Player::IsEndLanding(void)
 
 	return false;
 }
+
+void Player::DebugDraw()
+{
+	CharacterBase::DebugDraw();
+	animation_->DebugDraw();
+}
