@@ -23,7 +23,7 @@ public :
 		float blendRate = 0.0f;	// アニメーションブレンド進行度
 	};
 
-	static constexpr float DEFAULT_BLEND_ANIM_TIME = 1.0f;
+	static constexpr float DEFAULT_BLEND_ANIM_TIME = 2.0f;
 
 	/// <summary>
 	/// コンストラクタ

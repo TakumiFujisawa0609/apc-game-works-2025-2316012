@@ -64,6 +64,9 @@ void ControllerAnimation::Play(const std::string& type, const bool isLoop,
 
 	//再生中の種類を設定
 	playType_ = type;	
+
+	// ブレンドアニメーション率を初期化
+	blendAnimRate_ = 0.0f;
 	
 	//再生中のアニメーション情報がある場合
 	if (playAnimations_.find(playType_) != playAnimations_.end())
@@ -116,12 +119,6 @@ void ControllerAnimation::Play(const std::string& type, const bool isLoop,
 
 	// ブレンドアニメーションを追加
 	playAnimations_.emplace(playType_, anim);
-
-	// 再生予定のブレンドアニメーションは初期化
-	//playAnimations_[playType_].blendRate = 0.0f;
-
-	// ブレンドアニメーション率を初期化
-	blendAnimRate_ = 0.0f;
 
 	stepEndLoopStart_ = -1.0f;
 	stepEndLoopEnd_ = -1.0f;
