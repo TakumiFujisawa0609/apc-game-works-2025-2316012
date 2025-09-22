@@ -1,5 +1,6 @@
 #pragma once
 #include <nlohmann/json.hpp>
+#include <unordered_map>
 #include "../ActorBase.h"
 #include "../../Common/Quaternion.h"
 
@@ -34,16 +35,16 @@ public:
 
 protected:	
 
-	// スピード
+	//スピード
 	const float SPEED_MOVE;
 
-	// ダッシュスピード
+	//ダッシュスピード
 	const float SPEED_RUN;
 
-	// 重力
+	//重力
 	const float GRAVITY;
 
-	// 回転完了までの時間
+	//回転完了までの時間
 	const float TIME_ROT;
 
 	//デフォルトのアニメーション速度
@@ -52,8 +53,10 @@ protected:
 	//初期位置
 	const VECTOR INITIAL_POS;
 
-	//アニメーション種類
-	std::string animType_;
+	//アニメーション別キー
+	const std::string ANIM_IDLE = "idle";	//待機
+	const std::string ANIM_WALK = "walk";	//歩く
+	const std::string ANIM_RUN = "run";		//走る
 
 	//移動量
 	VECTOR movePower_;

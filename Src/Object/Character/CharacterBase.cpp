@@ -14,7 +14,6 @@ CharacterBase::CharacterBase(const Json& param) :
 	ANIM_DEFAULT_SPEED(param["animationDefaultSpeed"]),
 	INITIAL_POS({ param["initialPosition"]["x"],param["initialPosition"]["y"],param["initialPosition"]["z"] })
 {
-	animType_ = "";
 	stepRotTime_ = 0.0f;
 	movePower_ = Utility3D::VECTOR_ZERO;
 	moveDir_ = Utility3D::VECTOR_ZERO;

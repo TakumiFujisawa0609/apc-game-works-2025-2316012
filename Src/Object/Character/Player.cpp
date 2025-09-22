@@ -64,15 +64,15 @@ void Player::UpdateApply()
 void Player::InitAnimation()
 {
 	//アニメーションの登録
-	animation_->Add("idle", resMng_.GetHandle("playerAnimationIdle"), ANIM_DEFAULT_SPEED);
-	animation_->Add("walk", resMng_.GetHandle("playerAnimationWalking"), ANIM_DEFAULT_SPEED);
-	animation_->Add("run", resMng_.GetHandle("playerAnimationFastRun"), ANIM_DEFAULT_SPEED);
-	animation_->Add("dead", resMng_.GetHandle("playerAnimationDie"), ANIM_DEFAULT_SPEED);
-	animation_->Add("sleep", resMng_.GetHandle("playerAnimationSleepingIdle"), ANIM_DEFAULT_SPEED);
-	animation_->Add("jump", resMng_.GetHandle("playerAnimationJump"), ANIM_JUMP_SPEED);
+	animation_->Add(ANIM_IDLE, resMng_.GetHandle("playerAnimationIdle"), ANIM_DEFAULT_SPEED);
+	animation_->Add(ANIM_WALK, resMng_.GetHandle("playerAnimationWalking"), ANIM_DEFAULT_SPEED);
+	animation_->Add(ANIM_RUN, resMng_.GetHandle("playerAnimationFastRun"), ANIM_DEFAULT_SPEED);
+	animation_->Add(ANIM_DIE, resMng_.GetHandle("playerAnimationDie"), ANIM_DEFAULT_SPEED);
+	animation_->Add(ANIM_SLEEP, resMng_.GetHandle("playerAnimationSleepingIdle"), ANIM_DEFAULT_SPEED);
+	animation_->Add(ANIM_JUMP, resMng_.GetHandle("playerAnimationJump"), ANIM_JUMP_SPEED);
 
 	//初期アニメーション設定
-	animation_->Play("idle");
+	animation_->Play(ANIM_IDLE);
 }
 
 void Player::RegisterStateUpdateFunc(const STATE state, std::function<void()> update)
@@ -164,11 +164,11 @@ void Player::ProcessMove()
 			// アニメーション
 			if (isDash)
 			{
-				animation_->Play("run");
+				animation_->Play(ANIM_RUN);
 			}
 			else
 			{
-				animation_->Play("walk");
+				animation_->Play(ANIM_WALK);
 			}
 		}
 	}
@@ -176,7 +176,7 @@ void Player::ProcessMove()
 	{
 		if (!isJump_ && isEndLanding)
 		{
-			animation_->Play("idle");
+			animation_->Play(ANIM_IDLE);
 		}
 	}
 }
@@ -188,7 +188,7 @@ void Player::ProcessJump()
 bool Player::IsEndLanding(void)
 {
 	// アニメーションがジャンプではない
-	if (animation_->GetPlayType() != "jump")
+	if (animation_->GetPlayType() != ANIM_JUMP)
 	{
 		return true;
 	}

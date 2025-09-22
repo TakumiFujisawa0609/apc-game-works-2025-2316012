@@ -1,7 +1,6 @@
 #pragma once
 #include <memory>
 #include <functional>
-#include <unordered_map>
 #include "CharacterBase.h"
 
 class InputPlayer;
@@ -53,6 +52,11 @@ private:
 
 	// ジャンプアニメーション
 	const float ANIM_JUMP_SPEED;
+
+	//アニメーション別キー
+	const std::string ANIM_DIE = "die";		//死亡
+	const std::string ANIM_SLEEP = "sleep";	//眠る
+	const std::string ANIM_JUMP = "jump";	//ジャンプ
 
 	//ジャンプ判定
 	bool isJump_;
