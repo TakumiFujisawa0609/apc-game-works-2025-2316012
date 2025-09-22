@@ -1,10 +1,11 @@
 #pragma once
+#include "ControllerBase.h"
 #include <string>
 #include <map>
 
 class SceneManager;
 
-class ControllerAnimation
+class ControllerAnimation : public ControllerBase
 {
 public :
 
@@ -15,11 +16,15 @@ public :
 	{
 		int model = -1;			// モデルID
 		int attachNo = -1;		// アニメーションの種類(番号)
-		int animIndex = 0;		// アニメーションのハンドルID
+		std::string type = "";	// アニメーションの種類(名前)
 		float speed = 0.0f;		// アニメーションの長さ(秒)
 		float totalTime = 0.0f;	// アニメーションの再生時間(秒)
 		float step = 0.0f;		// アニメーションの進行度(0.0f～1.0f)
+		float blendRate = 0.0f;	// アニメーションブレンド進行度
 	};
+
+	//通常ブレンドアニメーション時間
+	static constexpr float DEFAULT_BLEND_ANIM_TIME = 1.0f;
 
 	/// <summary>
 	/// コンストラクタ
@@ -31,7 +36,7 @@ public :
 	/// デストラクタ
 	/// </summary>
 	/// <param name=""></param>
-	~ControllerAnimation(void);
+	~ControllerAnimation() override;
 
 	/// <summary>
 	/// アニメーションの追加
@@ -39,7 +44,7 @@ public :
 	/// <param name="type">種類(番号)</param>
 	/// <param name="handle">アニメーションハンドル</param>
 	/// <param name="speed">アニメーション速度</param>
-	void Add(const int type, const int handle, const float speed);
+	void Add(const std::string& type, const int handle, const float speed);
 
 	/// <summary>
 	/// アニメーション再生
@@ -51,11 +56,11 @@ public :
 	/// <param name="isStop">停止判定</param>
 	/// <param name="isForce">強制再生</param>
 	void Play(
-		const int type,
+		const std::string& type,
 		const bool isLoop = true,
 		const float startStep = 0.0f,
 		const float endStep = -1.0f,
-		const float blendAnimTime = 1.0f,
+		const float blendAnimTime = DEFAULT_BLEND_ANIM_TIME,
 		const bool isStop = false,
 		const bool isForce = false);
 
@@ -63,7 +68,7 @@ public :
 	/// 更新処理
 	/// </summary>
 	/// <param name=""></param>
-	void Update(void);
+	void Update();
 
 	/// <summary>
 	/// アニメーション終了後に繰り返すループステップ
@@ -78,32 +83,28 @@ public :
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>アニメーションの種類番号</returns>
-	int GetPlayType(void) const;
+	std::string GetPlayType() const;
 
 	/// <summary>
 	/// 再生終了判定
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>trueなら終了,falseなら再生中</returns>
-	bool IsEnd(void) const;
+	bool IsEnd();
 
 	/// <summary>
 	/// デバッグ描画
 	/// </summary>
 	/// <param name=""></param>
-	void DebugDraw(void) const;
+	void DebugDraw();
 
 private :
-
-
-	// ブレンド速度
-	static constexpr float BLEND_SPEED = 3.0f;
 
 	// モデルのハンドルID
 	int modelId_;
 
 	// 再生中のアニメーションデータ
-	int playType_;
+	std::string playType_;
 
 	// アニメーションをループするかしないか
 	bool isLoop_;
@@ -117,10 +118,7 @@ private :
 	float endLoopSpeed_;
 
 	// 逆再生
-	float switchLoopReverse_;	
-	
-	// アニメーション情報
-	Animation playAnim_;
+	float switchLoopReverse_;
 
 	//デルタタイム
 	float deltaTime_;
@@ -131,15 +129,15 @@ private :
 	// ブレンド
 	float blendAnimRate_;
 
-	//変更前のアニメーション情報
-	std::map<int, float> preBlendAnimationRateMap_;
+	// 種類別のアニメーションデータマップ
+	std::map<std::string, Animation> animations_;
 
-	// 種類別のアニメーションデータ
-	std::map<int, Animation> animations_;
+	// 再生中のアニメーションデータマップ
+	std::map<std::string, Animation> playAnimations_;
 
 	// メインの更新処理
-	void UpdateMainAnimation(void);
+	void UpdateMainAnimation();
 	
 	// ブレンドアニメーションの更新処理
-	void UpdateBlendAnimation(void);
+	void UpdateBlendAnimation();
 };

@@ -23,20 +23,6 @@ public:
 	};
 
 	/// <summary>
-	/// アニメーション種類
-	/// </summary>
-	enum class ANIM_TYPE
-	{
-		IDLE,
-		WALK,
-		RUN,
-		JUMP,
-		DEAD,
-		SLEEP,
-		MAX
-	};
-
-	/// <summary>
 	/// コンストラクタ
 	/// </summary>
 	/// <param name="param">パラメーター</param>
@@ -67,6 +53,11 @@ private:
 
 	// ジャンプアニメーション
 	const float ANIM_JUMP_SPEED;
+
+	//アニメ種別キー
+	const std::string ANIM_JUMP = "jump";	//ジャンプ
+	const std::string ANIM_DIE = "die";		//死ぬ
+	const std::string ANIM_SLEEP = "sleep";	//眠る
 
 	//ジャンプ判定
 	bool isJump_;

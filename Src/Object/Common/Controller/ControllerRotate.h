@@ -9,7 +9,7 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	ControllerRotate();
+	ControllerRotate(const float timeRot);
 
 	/// <summary>
 	/// デストラクタ
@@ -34,6 +34,9 @@ public:
 	void SetRotate(Quaternion& targetQuaternion);
 
 private:
+
+	//回転時間
+	const float TIME_ROT;
 
 	//Yの回転情報
 	Quaternion rotY_;
