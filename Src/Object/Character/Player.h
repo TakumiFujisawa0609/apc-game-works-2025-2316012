@@ -23,20 +23,6 @@ public:
 	};
 
 	/// <summary>
-	/// アニメーション種類
-	/// </summary>
-	enum class ANIM_TYPE
-	{
-		IDLE,
-		WALK,
-		RUN,
-		JUMP,
-		DEAD,
-		SLEEP,
-		MAX
-	};
-
-	/// <summary>
 	/// コンストラクタ
 	/// </summary>
 	/// <param name="param">パラメーター</param>

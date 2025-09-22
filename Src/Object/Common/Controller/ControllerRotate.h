@@ -9,12 +9,13 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	ControllerRotate();
+	/// <param name="timeRot">回転時間</param>
+	ControllerRotate(const float timeRot);
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~ControllerRotate() override;
+	~ControllerRotate() override = default;
 
 	/// <summary>
 	/// 回転処理
@@ -34,6 +35,9 @@ public:
 	void SetRotate(Quaternion& targetQuaternion);
 
 private:
+
+	//回転完了までの時間
+	const float TIME_ROT;
 
 	//Yの回転情報
 	Quaternion rotY_;

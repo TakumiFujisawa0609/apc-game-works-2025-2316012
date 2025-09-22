@@ -5,14 +5,6 @@
 #include "../../Resource/ResourceBase.h"
 
 class ResourceBase;
-//class ResourceModel;
-//class ResourceTexture;
-//class ResourceSprite;
-//class ResourceEffect;
-//class ResourceSound;
-//class ResourceFont;
-//class ResourcePixelShader;
-//class ResourceVertexShader;
 
 class ResourceManager : public Singleton<ResourceManager>
 {

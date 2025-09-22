@@ -52,6 +52,9 @@ protected:
 	//初期位置
 	const VECTOR INITIAL_POS;
 
+	//アニメーション種類
+	std::string animType_;
+
 	//移動量
 	VECTOR movePower_;
 
@@ -81,17 +84,5 @@ protected:
 	/// アニメーションの初期化
 	/// </summary>
 	virtual void InitAnimation() = 0;
-
-	/// <summary>
-	/// 回転の目標値を設定
-	/// </summary>
-	/// <param name="rotRad">回転角度</param>
-	void SetGoalRotate(double rotRad);
-
-	/// <summary>
-	/// 回転処理
-	/// </summary>
-	/// <param name=""></param>
-	void Rotate(void);
 };
 
