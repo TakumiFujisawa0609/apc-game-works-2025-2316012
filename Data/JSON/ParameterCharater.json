@@ -9,9 +9,9 @@
       "y": 0,
       "z": 0
     },
-    "animationDefaultSpeed": 20,
+    "animationDefaultSpeed": 40,
     "animationJumpSpeed": 60,
-    "jumpPower": 60,
+    "jumpAmount": 60,
     "jumpAcceptTime": 0
   },
   "enemy": {

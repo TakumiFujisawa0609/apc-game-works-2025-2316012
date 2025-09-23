@@ -1,8 +1,9 @@
 #pragma once
+#include "ControllerBase.h"
 
 class CharacterBase;
 
-class ControllerMove
+class ControllerMove : public ControllerBase
 {
 public:
 
@@ -14,29 +15,22 @@ public:
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~ControllerMove() = default;
+	virtual ~ControllerMove() override;
+
+	/// <summary>
+	/// 初期化処理
+	/// </summary>
+	virtual void Init();
 
 	/// <summary>
 	/// 更新処理
 	/// </summary>
 	/// <param name=""></param>
-	void Update(void);
+	virtual void Update(void) override;
 	
 private:
 
-	//所有者
+	// 所有者
 	CharacterBase& owner_;
-
-	// 移動速度
-	float moveSpeed_;
-	
-	// ダッシュ速度
-	float dashSpeed_;
-	
-	// 重力
-	float gravity_;
-	
-	// 回転完了までの時間
-	float timeRot_;
 };
 

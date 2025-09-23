@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include "InputManager.h"
+#include "CollisionManager.h"
 
 void InputManager::Init(void)
 {
@@ -12,6 +13,7 @@ void InputManager::Init(void)
 	Add(KEY_INPUT_S);
 	Add(KEY_INPUT_D);
 	Add(KEY_INPUT_LSHIFT);
+	Add(KEY_INPUT_RSHIFT);
 	Add(KEY_INPUT_E);
 	Add(KEY_INPUT_Q);
 	Add(KEY_INPUT_P);

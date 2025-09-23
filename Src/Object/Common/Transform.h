@@ -2,7 +2,6 @@
 #include <memory>
 #include <DxLib.h>
 #include "../Common/Quaternion.h"
-#include "../Collider/Collider.h"
 
 /// <summary>
 /// モデル制御の基本情報
@@ -44,7 +43,7 @@ public:
 	Quaternion quaRotLocal;
 
 	// コライダ
-	std::shared_ptr<Collider> collider;
+	//std::shared_ptr<Collider> collider;
 
 	/// <summary>
 	/// モデル制御の基本情報更新
@@ -53,7 +52,7 @@ public:
 	void Update(void);
 
 	void SetModel(int modelHId);
-	void MakeCollider(Collider::TYPE type);
+	//void MakeCollider(Collider::TYPE type);
 
 	// 前方方向を取得
 	VECTOR GetForward(void) const;

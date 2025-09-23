@@ -68,7 +68,7 @@ public :
 	/// 更新処理
 	/// </summary>
 	/// <param name=""></param>
-	void Update();
+	void Update() override;
 
 	/// <summary>
 	/// アニメーション終了後に繰り返すループステップ

@@ -1,6 +1,6 @@
 #include <DxLib.h>
-#include "../../../Manager/Generic/SceneManager.h"
-#include "../../../Utility/UtilityCommon.h"
+#include "../../Manager/Generic/SceneManager.h"
+#include "../../Utility/UtilityCommon.h"
 #include "ControllerAnimation.h"
 
 ControllerAnimation::ControllerAnimation(int modelId)

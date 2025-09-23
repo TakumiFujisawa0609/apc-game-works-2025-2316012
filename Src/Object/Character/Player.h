@@ -4,10 +4,6 @@
 #include <unordered_map>
 #include "CharacterBase.h"
 
-class InputPlayer;
-class ParameterPlayer;
-class ControllerAnimation;
-
 class Player : public CharacterBase
 {
 public:
@@ -22,6 +18,11 @@ public:
 		DEAD,
 	};
 
+	//アニメ種別キー
+	static const std::string ANIM_JUMP;		//ジャンプ
+	static const std::string ANIM_DIE;		//死ぬ
+	static const std::string ANIM_SLEEP;	//眠る
+
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
@@ -31,7 +32,7 @@ public:
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~Player() override = default;
+	~Player() override;
 
 	/// <summary>
 	/// 読み込み処理
@@ -43,10 +44,34 @@ public:
 	/// </summary>
 	void Init() override;
 
+	/// <summary>
+	/// ジャンプ量を返す
+	/// </summary>
+	/// <returns>ジャンプ量</returns>
+	const float GetJumpAmount() const { return JUMP_AMOUNT; }
+
+	/// <summary>
+	/// ジャンプ受付時間を返す
+	/// </summary>
+	/// <returns>ジャンプ受付時間</returns>
+	const float GetJumpAcceptTime() const { return JUMP_ACCEPT_TIME; }
+
+	/// <summary>
+	/// 現在のジャンプ力を返す
+	/// </summary>
+	/// <returns>現在のジャンプ量</returns>
+	const VECTOR GetJumpPow() const{ return jumpPow_; }
+
+	/// <summary>
+	/// ジャンプ力の設定
+	/// </summary>
+	/// <param name="jumpPow">ジャンプ力</param>
+	void SetJumpPow(const VECTOR& jumpPow) { jumpPow_ = jumpPow; }
+
 private:
 
-	// ジャンプ力
-	const float POW_JUMP;
+	// ジャンプ量
+	const float JUMP_AMOUNT;
 
 	// ジャンプ受付時間
 	const float JUMP_ACCEPT_TIME;
@@ -54,22 +79,11 @@ private:
 	// ジャンプアニメーション
 	const float ANIM_JUMP_SPEED;
 
-	//アニメ種別キー
-	const std::string ANIM_JUMP = "jump";	//ジャンプ
-	const std::string ANIM_DIE = "die";		//死ぬ
-	const std::string ANIM_SLEEP = "sleep";	//眠る
-
-	//ジャンプ判定
-	bool isJump_;
-
 	//状態
 	STATE state_;
 
-	//入力管理クラス
-	std::unique_ptr<InputPlayer> inputPlayer_;
-
-	//アニメーション制御クラス
-	std::unique_ptr<ControllerAnimation> animation_;
+	//ジャンプ力
+	VECTOR jumpPow_;
 
 	//状態別の更新関数マップ
 	std::unordered_map<STATE, std::function<void()>> stateUpdateFuncMap_;
@@ -90,15 +104,6 @@ private:
 	void UpdateNone() {};	// 何もしない
 	void UpdateAlive();		// 生存状態の更新
 	void UpdateDead();		// 死亡状態の更新
-
-	//移動操作
-	void ProcessMove();
-
-	//ジャンプ操作
-	void ProcessJump();
-
-	//着地モーションの終了
-	bool IsEndLanding();
 
 	//デバッグ描画
 	void DebugDraw() override;
