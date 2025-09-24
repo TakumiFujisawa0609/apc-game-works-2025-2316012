@@ -17,7 +17,7 @@ public:
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~ControllerRotate() override = default;
+	~ControllerRotate() override;
 
 	/// <summary>
 	/// 初期化処理

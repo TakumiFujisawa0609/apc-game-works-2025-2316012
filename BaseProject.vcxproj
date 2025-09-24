@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Collider\ColliderModel.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderCapsule.cpp" />
     <ClCompile Include="Src\Manager\Generic\CollisionManager.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderBase.cpp" />
@@ -84,9 +85,11 @@
     <ClCompile Include="Src\Manager\Generic\StageManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Collider\ColliderModel.h" />
     <ClInclude Include="Src\Object\Collider\ColliderCapsule.h" />
     <ClInclude Include="Src\Manager\Generic\CollisionManager.h" />
     <ClInclude Include="Src\Object\Collider\ColliderBase.h" />
+    <ClInclude Include="Src\Object\Collider\CollisionTag.h" />
     <ClInclude Include="Src\Object\Controller\Action\ControllerActionPlayer.h" />
     <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitBase.h" />
     <ClInclude Include="Src\Object\Controller\Action\ControllerActionBase.h" />

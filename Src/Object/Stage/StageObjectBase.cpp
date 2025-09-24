@@ -7,6 +7,10 @@ StageObjectBase::StageObjectBase()
 {
 }
 
+StageObjectBase::~StageObjectBase()
+{
+}
+
 void StageObjectBase::Init()
 {
 	transform_.quaRot = Quaternion();

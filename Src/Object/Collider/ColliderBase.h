@@ -1,4 +1,6 @@
 #pragma once
+#include "CollisionTag.h"
+#include "../Common/Transform.h"
 
 class ActorBase;
 
@@ -21,7 +23,8 @@ public:
 	/// コンストラクタ
 	/// </summary>
 	/// <param name="owner">所有者のインスタンス</param>
-	ColliderBase(ActorBase& owner);
+	/// <param name="tag">衝突物の種類</param>
+	ColliderBase(ActorBase& owner, const COLLISION_TAG tag);
 
 	/// <summary>
 	/// デストラクタ
@@ -45,10 +48,31 @@ public:
 	/// <returns>削除する場合true,そうでない場合false</returns>
 	const bool IsDelete() const { return isDelete_; }
 
+	/// <summary>
+	/// 自身のコライダー種類を返す
+	/// </summary>
+	/// <returns>種類</returns>
+	const TYPE GetType() const { return type_; }
+
+	/// <summary>
+	/// 自身の衝突物の種類を返す
+	/// </summary>
+	/// <returns>衝突物の種類</returns>
+	const COLLISION_TAG GetTag() const { return tag_; }
+
+	/// <summary>
+	/// 所有者のインスタンスを返す
+	/// </summary>
+	/// <returns>所有者のインスタンス</returns>
+	const ActorBase& GetOwner() const { return owner_; }
+
 protected:
 
 	// 所有者
 	ActorBase& owner_;
+
+	// 所有者のトランスフォーム
+	const Transform& transformOwner_;
 
 	//衝突判定
 	bool isHit_;
@@ -58,5 +82,8 @@ protected:
 
 	// 種類
 	TYPE type_;
+
+	//　衝突物の種類
+	COLLISION_TAG tag_;
 };
 

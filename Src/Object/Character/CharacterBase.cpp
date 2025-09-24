@@ -7,6 +7,7 @@
 #include "../Controller/Action/ControllerActionBase.h"
 #include "../Controller/ControllerMove.h"
 #include "../Controller/ControllerRotate.h"
+#include "../Collider/ColliderCapsule.h"
 #include "CharacterBase.h"
 
 const std::string CharacterBase::ANIM_IDLE = "idle";	// 待機
@@ -38,8 +39,17 @@ void CharacterBase::Load()
 	// 移動制御クラス
 	move_ = std::make_unique<ControllerMove>(*this);
 
-	//回転制御クラス
+	// 回転制御クラス
 	rotate_ = std::make_unique<ControllerRotate>(*this);
+
+	// コライダー生成
+	auto collider = std::make_shared<ColliderCapsule>(*this, COLLISION_TAG::PLAYER);
+	collider->SetLocalPosTop({ 0.0f, 110.0f, 0.0f });
+	collider->SetLocalPosDown({ 0.0f, 30.0f, 0.0f });
+	collider->SetRadius(20.0f);
+	
+	// 衝突判定管理クラスへの追加
+	MakeCollider(std::move(collider));
 
 	// アニメーション初期化
 	InitAnimation();

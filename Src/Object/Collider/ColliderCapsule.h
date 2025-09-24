@@ -11,7 +11,8 @@ public:
 	/// コンストラクタ
 	/// </summary>
 	/// <param name="owner">所有者のインスタンス</param>
-	ColliderCapsule(ActorBase& owner);
+	/// <param name="tag">衝突物の種類</param>
+	ColliderCapsule(ActorBase& owner, const COLLISION_TAG tag);
 
 	/// <summary>
 	/// デストラクタ
@@ -92,9 +93,6 @@ public:
 
 private:
 
-	// 所有者のトランスフォーム
-	const Transform& transformOwner_;
-	
 	// 半径
 	float radius_;	
 

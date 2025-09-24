@@ -1,6 +1,8 @@
 #pragma once
 #include "StageObjectBase.h"
 
+class ColliderModel;
+
 class MainStage : public StageObjectBase
 {
 public:

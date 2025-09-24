@@ -1,14 +1,18 @@
 #include "ActorBase.h"
 #include "../Manager/Resource/ResourceManager.h"
 #include "../Manager/Generic/SceneManager.h"
+#include "../Manager/Generic/CollisionManager.h"
 #include "../Utility/Utility3D.h"
 #include "../Utility/UtilityCommon.h"
+#include "Collider/ColliderBase.h"
 
 ActorBase::ActorBase():
 	resMng_(ResourceManager::GetInstance()),
-	scnMng_(SceneManager::GetInstance())
+	scnMng_(SceneManager::GetInstance()),
+	collMng_(CollisionManager::GetInstance())
 {
 	transform_ = {};
+	collider_ = nullptr;
 }
 
 ActorBase::~ActorBase()
@@ -78,6 +82,11 @@ void ActorBase::DrawUI()
 
 void ActorBase::OnCollision()
 {
+}
+
+void ActorBase::MakeCollider(std::shared_ptr<ColliderBase> collider)
+{
+	collMng_.Add(collider);
 }
 
 void ActorBase::DebugUpdate()

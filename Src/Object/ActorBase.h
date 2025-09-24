@@ -3,6 +3,9 @@
 
 class ResourceManager;
 class SceneManager;
+class CollisionManager;
+class ColliderBase;
+enum class COLLISION_TAG;
 
 class ActorBase
 {
@@ -52,9 +55,13 @@ protected:
 	// シングルトン参照
 	ResourceManager& resMng_;
 	SceneManager& scnMng_;
+	CollisionManager& collMng_;
 
 	// モデル制御の基本情報
 	Transform transform_;
+
+	//コライダー
+	std::shared_ptr<ColliderBase> collider_;
 
 	// トランスフォームの初期設定
 	virtual void InitTransform();
@@ -76,6 +83,9 @@ protected:
 
 	// 衝突時のコールバック
 	virtual void OnCollision();
+
+	// コライダーの生成
+	void MakeCollider(std::shared_ptr<ColliderBase> collider);
 
 	// デバッグ時の更新
 	virtual void DebugUpdate();

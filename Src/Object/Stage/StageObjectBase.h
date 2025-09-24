@@ -13,7 +13,7 @@ public:
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	virtual ~StageObjectBase() = default;
+	virtual ~StageObjectBase();
 
 	/// <summary>
 	/// 初期化処理

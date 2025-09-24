@@ -4,13 +4,13 @@
 #include "../Utility/UtilityCommon.h"
 #include "ColliderCapsule.h"
 
-ColliderCapsule::ColliderCapsule(ActorBase& owner) : 
-	ColliderBase(owner),
-	transformOwner_(owner_.GetTransform())
+ColliderCapsule::ColliderCapsule(ActorBase& owner, const COLLISION_TAG tag) : 
+	ColliderBase(owner,tag)
 {
 	radius_ = 0.0f;
 	localPosTop_ = { 0.0f, 0.0f, 0.0f };
 	localPosDown_ = { 0.0f, 0.0f, 0.0f };
+	type_ = TYPE::CAPSULE;
 }
 
 ColliderCapsule::~ColliderCapsule()
@@ -58,10 +58,11 @@ void ColliderCapsule::DebugDraw()
 	e = VAdd(pos2, VScale(dir, radius_));
 	DrawLine3D(s, e, COLOR);
 
-	constexpr float RADIUS = 10.0f;
+	constexpr float CENTER_RADIUS = 5.0f;
+	constexpr float CENTER_DIV = 10.0f;
 
 	// カプセルの中心
-	DrawSphere3D(GetCenter(), DIV_NUM, RADIUS, COLOR, COLOR, true);
+	DrawSphere3D(GetCenter(), CENTER_DIV, CENTER_RADIUS, COLOR, COLOR, true);
 }
 
 VECTOR ColliderCapsule::GetRotPos(const VECTOR& localPos) const

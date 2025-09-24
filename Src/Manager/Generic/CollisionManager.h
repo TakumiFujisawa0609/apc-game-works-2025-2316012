@@ -4,6 +4,8 @@
 #include "../../Template/Singleton.h"
 
 class ColliderBase;
+class ColliderCapsule;
+class ColliderModel;
 
 class CollisionManager : public Singleton<CollisionManager>
 {
@@ -36,7 +38,10 @@ public:
 private:
 
 	//コライダー配列
-	std::vector<std::shared_ptr<ColliderBase>>colliders_;
+	std::vector<std::weak_ptr<ColliderBase>> colliders_;
+
+	// カプセルとモデルの衝突判定
+	bool IsHitCheckModeToCapsule(std::weak_ptr<ColliderCapsule> collCapsult, std::weak_ptr<ColliderModel> collModel);
 
 	//コンストラクタ
 	CollisionManager();
