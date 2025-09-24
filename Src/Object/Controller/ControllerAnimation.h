@@ -23,7 +23,8 @@ public :
 		float blendRate = 0.0f;	// アニメーションブレンド進行度
 	};
 
-	static constexpr float DEFAULT_BLEND_ANIM_TIME = 2.0f;
+	//通常ブレンドアニメーション時間
+	static constexpr float DEFAULT_BLEND_ANIM_TIME = 1.0f;
 
 	/// <summary>
 	/// コンストラクタ
@@ -67,7 +68,7 @@ public :
 	/// 更新処理
 	/// </summary>
 	/// <param name=""></param>
-	void Update();
+	void Update() override;
 
 	/// <summary>
 	/// アニメーション終了後に繰り返すループステップ

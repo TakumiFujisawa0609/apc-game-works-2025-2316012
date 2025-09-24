@@ -16,6 +16,11 @@ public:
 	/// </summary>
 	virtual ~ControllerBase();
 
+	/// <summary>
+	/// 更新処理
+	/// </summary>
+	virtual void Update();
+
 protected:
 
 	//シーン管理クラス

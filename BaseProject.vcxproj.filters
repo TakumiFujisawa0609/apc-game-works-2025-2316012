@@ -81,12 +81,6 @@
     <ClCompile Include="Src\Manager\Generic\Camera.cpp">
       <Filter>ソース ファイル\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Collider\Capsule.cpp">
-      <Filter>ソース ファイル\Object\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\Collider\Collider.cpp">
-      <Filter>ソース ファイル\Object\Common</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Object\Common\Transform.cpp">
       <Filter>ソース ファイル\Object\Common</Filter>
     </ClCompile>
@@ -207,10 +201,10 @@
     <ClCompile Include="Src\Manager\Generic\CharacterManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Common\Controller\ControllerMove.cpp">
+    <ClCompile Include="Src\Object\Controller\ControllerMove.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Common\Controller\ControllerAnimation.cpp">
+    <ClCompile Include="Src\Object\Controller\ControllerAnimation.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Object\System\Load\ParameterLoadBase.cpp">
@@ -225,10 +219,31 @@
     <ClCompile Include="Src\Core\Common\ControllerSpriteAnimation.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Common\Controller\ControllerRotate.cpp">
+    <ClCompile Include="Src\Object\Controller\ControllerRotate.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Common\Controller\ControllerBase.cpp">
+    <ClCompile Include="Src\Object\Controller\ControllerBase.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Controller\ControllerGravity.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Controller\Action\ControllerActionBase.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitBase.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Controller\Action\ControllerActionPlayer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Collider\ColliderBase.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Manager\Generic\CollisionManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Collider\ColliderCapsule.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -250,12 +265,6 @@
     </ClInclude>
     <ClInclude Include="Src\Manager\Generic\Camera.h">
       <Filter>ヘッダー ファイル\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Collider\Capsule.h">
-      <Filter>ヘッダー ファイル\Object\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Collider\Collider.h">
-      <Filter>ヘッダー ファイル\Object\Common</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object\Common\Transform.h">
       <Filter>ヘッダー ファイル\Object\Common</Filter>
@@ -527,10 +536,10 @@
     <ClInclude Include="Src\Manager\Generic\CharacterManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Common\Controller\ControllerMove.h">
+    <ClInclude Include="Src\Object\Controller\ControllerMove.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Common\Controller\ControllerAnimation.h">
+    <ClInclude Include="Src\Object\Controller\ControllerAnimation.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object\System\Load\ParameterLoadBase.h">
@@ -542,10 +551,31 @@
     <ClInclude Include="Src\Object\System\InputPlayer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Common\Controller\ControllerRotate.h">
+    <ClInclude Include="Src\Object\Controller\ControllerRotate.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Common\Controller\ControllerBase.h">
+    <ClInclude Include="Src\Object\Controller\ControllerBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Controller\ControllerGravity.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Controller\Action\ControllerActionBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Controller\Action\ControllerActionPlayer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Collider\ColliderBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Manager\Generic\CollisionManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Collider\ColliderCapsule.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

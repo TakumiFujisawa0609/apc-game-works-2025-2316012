@@ -1,4 +1,4 @@
-#include "../../../Manager/Generic/SceneManager.h"
+#include "../../Manager/Generic/SceneManager.h"
 #include "ControllerBase.h"
 
 ControllerBase::ControllerBase() : 
@@ -7,5 +7,9 @@ ControllerBase::ControllerBase() :
 }
 
 ControllerBase::~ControllerBase()
+{
+}
+
+void ControllerBase::Update()
 {
 }

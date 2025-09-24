@@ -1,15 +1,26 @@
 #pragma once
 #include <nlohmann/json.hpp>
-#include <unordered_map>
+#include <memory>
+#include <string>
 #include "../ActorBase.h"
 #include "../../Common/Quaternion.h"
 
 // JSON名前空間
 using Json = nlohmann::json;
 
+class ControllerAnimation;
+class ControllerActionBase;
+class ControllerMove;
+class ControllerRotate;
+
 class CharacterBase : public ActorBase
 {
 public:
+
+	// アニメ種別キー
+	static const std::string ANIM_IDLE;	// 待機
+	static const std::string ANIM_WALK;	// 歩く
+	static const std::string ANIM_RUN;	// 走る
 
 	/// <summary>
 	/// コンストラクタ
@@ -21,6 +32,11 @@ public:
 	/// デストラクタ
 	/// </summary>
 	virtual ~CharacterBase() = default;
+
+	/// <summary>
+	/// 読み込み処理
+	/// </summary>
+	virtual void Load() override;
 	
 	/// <summary>
 	/// 初期化処理
@@ -28,14 +44,86 @@ public:
 	virtual void Init() override;
 
 	/// <summary>
-	/// トランスフォームを返す
+	/// 移動速度量を返す
 	/// </summary>
-	/// <returns>トランスフォーム</returns>
-	const Transform& GetTransform() const { return transform_; }
+	/// <returns>移動速度量</returns>
+	const float GetSpeedMove() const { return SPEED_MOVE; }
+
+	/// <summary>
+	/// ダッシュ速度量を返す
+	/// </summary>
+	/// <returns>ダッシュ速度量</returns>
+	const float GetSpeedRun() const { return SPEED_RUN; }
+
+	/// <summary>
+	/// 重力を返す
+	/// </summary>
+	/// <returns>重力</returns>
+	const float GetGravity() const { return GRAVITY; }
+
+	/// <summary>
+	/// 回転完了までの時間を返す
+	/// </summary>
+	/// <returns>回転完了までの時間</returns>
+	const float GetTimeRot() const { return TIME_ROT; }
+
+	/// <summary>
+	/// 現在の移動速度を返す
+	/// </summary>
+	/// <returns>現在の移動速度</returns>
+	const float GetMoveSpeed() const { return moveSpeed_; }
+
+	/// <summary>
+	/// 現在の移動方向を返す
+	/// </summary>
+	/// <returns>現在の移動方向</returns>
+	const VECTOR GetMoveDir() const { return moveDir_; }
+
+	/// <summary>
+	/// 回転角度を返す
+	/// </summary>
+	/// <returns>角度Y</returns>
+	const double& GetRotDeg() const { return rotDeg_; }
+
+	/// <summary>
+	/// アニメーション制御クラスを返す
+	/// </summary>
+	/// <returns>アニメーション制御クラス</returns>
+	ControllerAnimation& GetControllerAnimation() const { return *animation_; }
+
+	/// <summary>
+	/// 座標の設定
+	/// </summary>
+	/// <param name="pos">座標</param>
+	void SetPos(const VECTOR& pos) { transform_.pos = pos; }
+
+	/// <summary>
+	/// 回転の設定
+	/// </summary>
+	/// <param name="rot">角度</param>
+	void SetRot(const Quaternion& rot) { transform_.quaRot = rot; }
+
+	/// <summary>
+	/// 回転角度の設定
+	/// </summary>
+	/// <param name="rotDeg">回転角度</param>
+	void SetRotDeg(const double rotDeg) { rotDeg_ = rotDeg; }
+
+	/// <summary>
+	/// 移動速度の設定
+	/// </summary>
+	/// <param name="moveSpeed">移動速度</param>
+	void SetMoveSpeed(const float moveSpeed) { moveSpeed_ = moveSpeed; }
+
+	/// <summary>
+	/// 移動方向の設定
+	/// </summary>
+	/// <param name="moveDir">移動方向</param>
+	void SetMoveDir(const VECTOR& moveDir) { moveDir_ = moveDir; }
 
 protected:	
-
-	//スピード
+	
+	// スピード
 	const float SPEED_MOVE;
 
 	//ダッシュスピード
@@ -47,31 +135,32 @@ protected:
 	//回転完了までの時間
 	const float TIME_ROT;
 
-	//デフォルトのアニメーション速度
+	// デフォルトのアニメーション速度
 	const float ANIM_DEFAULT_SPEED;
 
-	//初期位置
+	// 初期位置
 	const VECTOR INITIAL_POS;
 
-	//アニメーション別キー
-	const std::string ANIM_IDLE = "idle";	//待機
-	const std::string ANIM_WALK = "walk";	//歩く
-	const std::string ANIM_RUN = "run";		//走る
+	// 回転角度(DEG)
+	double rotDeg_;
 
-	//移動量
-	VECTOR movePower_;
+	// 移動速度
+	float moveSpeed_;
 
-	//移動方向
+	// 移動方向
 	VECTOR moveDir_;	
-	
-	//回転ステップ時間
-	float stepRotTime_;
 
-	//現在の回転角度Y
-	Quaternion rotY_;
+	// アニメーション制御クラス
+	std::unique_ptr<ControllerAnimation> animation_;
 
-	//目標回転
-	Quaternion goalQuaRot_;
+	// アクション制御クラス
+	std::unique_ptr<ControllerActionBase> action_;
+
+	// 移動制御クラス
+	std::unique_ptr<ControllerMove> move_;
+
+	// 回転制御クラス
+	std::unique_ptr<ControllerRotate> rotate_;
 
 	/// <summary>
 	/// 更新処理の適用
@@ -87,5 +176,9 @@ protected:
 	/// アニメーションの初期化
 	/// </summary>
 	virtual void InitAnimation() = 0;
-};
 
+	/// <summary>
+	/// トランスフォームの初期化
+	/// </summary>
+	virtual void InitTransform() override;
+};

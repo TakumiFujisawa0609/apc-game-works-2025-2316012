@@ -1,6 +1,8 @@
 #include "ActorBase.h"
 #include "../Manager/Resource/ResourceManager.h"
 #include "../Manager/Generic/SceneManager.h"
+#include "../Utility/Utility3D.h"
+#include "../Utility/UtilityCommon.h"
 
 ActorBase::ActorBase():
 	resMng_(ResourceManager::GetInstance()),
@@ -43,6 +45,15 @@ void ActorBase::Draw()
 #ifdef _DEBUG
 	DebugDraw();
 #endif 
+}
+
+void ActorBase::InitTransform()
+{
+	transform_.quaRot = Quaternion();
+	transform_.scl = Utility3D::VECTOR_ONE;
+	transform_.quaRotLocal = Quaternion::Euler({ 0.0f, UtilityCommon::Deg2RadF(DEFAULT_LOCAL_DEG_Y), 0.0f });
+	transform_.pos = Utility3D::VECTOR_ZERO;
+	transform_.Update();
 }
 
 void ActorBase::UpdateMain()

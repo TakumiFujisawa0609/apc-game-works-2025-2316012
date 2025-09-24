@@ -1,49 +1,60 @@
 #include "../../Manager/Generic/SceneManager.h"
 #include "../../Manager/Generic/Camera.h"
 #include "../../Manager/Resource/ResourceManager.h"
-#include "../Common/Controller/ControllerAnimation.h"
+#include "../Controller/ControllerAnimation.h"
+#include "../Controller/ControllerMove.h"
+#include "../Controller/ControllerRotate.h"
+#include "../Controller/Action/ControllerActionPlayer.h"
 #include "../Utility/Utility3D.h"
 #include "../Utility/UtilityCommon.h"
 #include "../System/InputPlayer.h"
 #include "Player.h"
 
+const std::string Player::ANIM_JUMP = "jump";	//ジャンプ
+const std::string Player::ANIM_DIE = "die";		//死ぬ
+const std::string Player::ANIM_SLEEP = "sleep";	//眠る
+
 Player::Player(const Json& param) :
 	CharacterBase(param),
-	POW_JUMP(param["jumpPower"]),
+	JUMP_AMOUNT(param["jumpAmount"]),
 	JUMP_ACCEPT_TIME(param["jumpAcceptTime"]),
 	ANIM_JUMP_SPEED(param["animationJumpSpeed"])
 {	
 	state_ = STATE::NONE;
 	animation_ = nullptr;
-	inputPlayer_ = nullptr;
 
-	//状態更新関数の登録
+	// 状態更新関数の登録
 	RegisterStateUpdateFunc(STATE::NONE, std::bind(&Player::UpdateNone, this));
 	RegisterStateUpdateFunc(STATE::ALIVE, std::bind(&Player::UpdateAlive, this));
 	RegisterStateUpdateFunc(STATE::DEAD, std::bind(&Player::UpdateDead, this));
 }
 
+Player::~Player()
+{
+}
+
 void Player::Load()
 {
-	//モデルの設定
+	// モデルの設定
 	transform_.SetModel(resMng_.GetHandle("player"));
 
-	//入力管理クラスの生成
-	inputPlayer_ = std::make_unique<InputPlayer>();
+	// アクション制御クラスの生成
+	action_ = std::make_unique<ControllerActionPlayer>(*this);
+	action_->Load();
 
-	//アニメーションの設定
-	animation_ = std::make_unique<ControllerAnimation>(transform_.modelId);
-	
-	//アニメーションの設定
-	InitAnimation();
+	// 基底クラスの読み込み処理
+	CharacterBase::Load();
 }
 
 void Player::Init()
 {
-	//基底クラスの初期化
+	// 基底クラスの初期化
 	CharacterBase::Init();
 
-	//初期状態
+	// アクション制御クラスの初期化
+	action_->Init();
+
+	// 初期状態
 	state_ = STATE::ALIVE;
 }
 
@@ -54,16 +65,13 @@ void Player::UpdateMain()
 
 void Player::UpdateApply()
 {
-	//親クラスの処理を実行
+	// 親クラスの処理を実行
 	CharacterBase::UpdateApply();
-
-	//アニメーションの更新
-	animation_->Update();
 }
 
 void Player::InitAnimation()
 {
-	//アニメーションの登録
+	// アニメーションの登録
 	animation_->Add(ANIM_IDLE, resMng_.GetHandle("playerAnimationIdle"), ANIM_DEFAULT_SPEED);
 	animation_->Add(ANIM_WALK, resMng_.GetHandle("playerAnimationWalking"), ANIM_DEFAULT_SPEED);
 	animation_->Add(ANIM_RUN, resMng_.GetHandle("playerAnimationFastRun"), ANIM_DEFAULT_SPEED);
@@ -71,7 +79,7 @@ void Player::InitAnimation()
 	animation_->Add(ANIM_SLEEP, resMng_.GetHandle("playerAnimationSleepingIdle"), ANIM_DEFAULT_SPEED);
 	animation_->Add(ANIM_JUMP, resMng_.GetHandle("playerAnimationJump"), ANIM_JUMP_SPEED);
 
-	//初期アニメーション設定
+	// 初期アニメーション設定
 	animation_->Play(ANIM_IDLE);
 }
 
@@ -82,124 +90,18 @@ void Player::RegisterStateUpdateFunc(const STATE state, std::function<void()> up
 
 void Player::UpdateAlive()
 {
-	//操作処理
-	ProcessMove();
+	// アクション
+	action_->Update();
 
-	//移動方向に応じた回転
-	//Rotate();
+	// 移動
+	move_->Update();
+
+	// 回転
+	rotate_->Update();
 }
 
 void Player::UpdateDead()
 {
-}
-
-void Player::ProcessMove()
-{
-	//移動ベクトル
-	movePower_ = Utility3D::VECTOR_ZERO;
-
-	// X軸回転を除いた、重力方向に垂直なカメラ角度(XZ平面)を取得
-	Quaternion cameraRot = mainCamera.GetQuaRotOutX();
-
-	// 回転したい角度
-	double rotRad = 0;
-
-	//方向ベクトル
-	VECTOR dir = Utility3D::VECTOR_ZERO;
-
-	//右移動
-	if (inputPlayer_->CheckKey(InputPlayer::CONFIG::RIGHT))
-	{
-		rotRad = UtilityCommon::Deg2RadD(90.0);
-		dir = cameraRot.GetRight();
-	}
-
-	//左移動
-	if (inputPlayer_->CheckKey(InputPlayer::CONFIG::LEFT))
-	{
-		rotRad = UtilityCommon::Deg2RadD(270.0);
-		dir = cameraRot.GetLeft();
-	}
-
-	//前移動
-	if (inputPlayer_->CheckKey(InputPlayer::CONFIG::FORWARD))
-	{
-		rotRad = UtilityCommon::Deg2RadD(0.0);
-		dir = cameraRot.GetForward();
-	}
-
-	//後移動
-	if (inputPlayer_->CheckKey(InputPlayer::CONFIG::BACK))
-	{
-		rotRad = UtilityCommon::Deg2RadD(180.0);
-		dir = cameraRot.GetBack();
-	}
-	
-	bool isEndLanding = IsEndLanding();
-
-	//ジャンプ中じゃないかつ操作入力がされたとき
-	if (!Utility3D::EqualsVZero(dir) && (isJump_ || isEndLanding))
-	{	
-		//ダッシュ
-		bool isDash = inputPlayer_->CheckKey(InputPlayer::CONFIG::DASH);
-		
-		// 移動処理
-		float speed = SPEED_MOVE;
-
-		// ダッシュ中なら速度を変更
-		if (isDash)
-		{
-			speed = SPEED_RUN;
-		}
-
-		// 移動ベクトルの設定
-		moveDir_ = dir;
-		movePower_ = VScale(dir, speed);
-
-		// 回転処理
-		//SetGoalRotate(rotRad);
-
-		if (!isJump_ && isEndLanding)
-		{
-			// アニメーション
-			if (isDash)
-			{
-				animation_->Play(ANIM_RUN);
-			}
-			else
-			{
-				animation_->Play(ANIM_WALK);
-			}
-		}
-	}
-	else
-	{
-		if (!isJump_ && isEndLanding)
-		{
-			animation_->Play(ANIM_IDLE);
-		}
-	}
-}
-
-void Player::ProcessJump()
-{
-}
-
-bool Player::IsEndLanding(void)
-{
-	// アニメーションがジャンプではない
-	if (animation_->GetPlayType() != ANIM_JUMP)
-	{
-		return true;
-	}
-
-	// アニメーションが終了しているか
-	if (animation_->IsEnd())
-	{
-		return true;
-	}
-
-	return false;
 }
 
 void Player::DebugDraw()

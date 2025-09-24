@@ -38,6 +38,12 @@ public:
 	/// </summary>
 	virtual void Draw();
 
+	/// <summary>
+	/// トランスフォームを返す
+	/// </summary>
+	/// <returns>トランスフォーム</returns>
+	const Transform& GetTransform() const { return transform_; }
+
 protected:
 
 	// ローカル回転のデフォルト値(度)
@@ -50,29 +56,30 @@ protected:
 	// モデル制御の基本情報
 	Transform transform_;
 
-	//メインの更新処理
+	// トランスフォームの初期設定
+	virtual void InitTransform();
+
+	// メインの更新処理
 	virtual void UpdateMain();
 
-	//処理の適用
+	// 処理の適用
 	virtual void UpdateApply();
 
-	//メインの描画
+	// メインの描画
 	virtual void DrawMain();
 
-	//半透明の描画
+	// 半透明の描画
 	virtual void DrawTranslucent();
 
-	//UIの描画
+	// UIの描画
 	virtual void DrawUI();
 
-	//衝突時のコールバック
+	// 衝突時のコールバック
 	virtual void OnCollision();
 
-	//デバッグ時の更新
+	// デバッグ時の更新
 	virtual void DebugUpdate();
 
-	//デバッグ時の描画
+	// デバッグ時の描画
 	virtual void DebugDraw();
-
 };
-
