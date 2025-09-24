@@ -1,3 +1,4 @@
+#include "../../Collider/ColliderBase.h"
 #include "ControllerOnHitBase.h"
 
 ControllerOnHitBase::ControllerOnHitBase()
@@ -8,11 +9,29 @@ ControllerOnHitBase::~ControllerOnHitBase()
 {
 }
 
-void ControllerOnHitBase::Update()
-{
+void ControllerOnHitBase::OnHit(std::weak_ptr<ColliderBase>& opponentCollider)
+{       
+    auto collider = opponentCollider.lock();
+
+    // 中身の確認
+    if (!collider) 
+    {
+        // 無効なポインタの場合は何もしない
+        return; 
+    }
+
+    // 登録されていない場合
+    if (onHitMap_.count(collider->GetTag()) == 0)
+    {
+        // 処理を行わずに終了
+        return;
+    }
+
+    // 衝突物別の処理へ
+	onHitMap_[collider->GetTag()](collider->GetOwner());
 }
 
-void ControllerOnHitBase::RegisterOnHit(const std::string& tag, std::function<void()> onHit)
+void ControllerOnHitBase::RegisterOnHit(const COLLISION_TAG tag, std::function<void(const ActorBase&)> onHit)
 {
 	onHitMap_[tag] = onHit;
 }

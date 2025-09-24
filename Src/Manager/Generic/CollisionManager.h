@@ -41,7 +41,7 @@ private:
 	std::vector<std::weak_ptr<ColliderBase>> colliders_;
 
 	// カプセルとモデルの衝突判定
-	bool IsHitCheckModeToCapsule(std::weak_ptr<ColliderCapsule> collCapsult, std::weak_ptr<ColliderModel> collModel);
+	bool IsHitCheckModeToCapsule(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
 
 	//コンストラクタ
 	CollisionManager();

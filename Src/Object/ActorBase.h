@@ -42,6 +42,12 @@ public:
 	virtual void Draw();
 
 	/// <summary>
+	/// 衝突後の処理
+	/// </summary>
+	/// <param name="opponentCollider">衝突相手のコライダー</param>
+	void OnHit(std::weak_ptr<ColliderBase>& opponentCollider);
+
+	/// <summary>
 	/// トランスフォームを返す
 	/// </summary>
 	/// <returns>トランスフォーム</returns>

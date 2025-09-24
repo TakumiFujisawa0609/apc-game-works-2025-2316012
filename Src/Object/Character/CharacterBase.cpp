@@ -67,6 +67,11 @@ void CharacterBase::Init()
 	rotate_->Init();
 }
 
+void CharacterBase::OnHit(std::weak_ptr<ColliderBase>& opponentCollider)
+{
+
+}
+
 void CharacterBase::UpdateApply()
 {
 	// トランスフォームの更新

@@ -37,6 +37,12 @@ public:
 	virtual void DebugDraw() = 0;
 
 	/// <summary>
+	/// 衝突後の処理
+	/// </summary>
+	/// <param name="opponentCollider">衝突相手のインスタンス</param>
+	void OnHit(std::weak_ptr<ColliderBase>& opponentCollider);
+
+	/// <summary>
 	/// 衝突してるか返す
 	/// </summary>
 	/// <returns>衝突していたらtrue,してない場合false</returns>
@@ -83,7 +89,7 @@ protected:
 	// 種類
 	TYPE type_;
 
-	//　衝突物の種類
+	// 衝突物の種類
 	COLLISION_TAG tag_;
 };
 

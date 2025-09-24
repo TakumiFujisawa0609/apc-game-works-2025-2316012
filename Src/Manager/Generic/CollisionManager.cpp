@@ -14,18 +14,12 @@ void CollisionManager::Update()
 
 	for (int i = 0; i < size - 1; i++)
 	{
-		//コライダーが削除予定の場合
+		// コライダーが削除予定の場合
 		if (colliders_[i].lock()->IsDelete())
 		{
-			//飛ばす
+			// 飛ばす
 			continue;
 		}
-
-		// コライダーAの種類を設定
-		if (colliders_[i].lock()->GetType() == ColliderBase::TYPE::NONE) { continue; }
-		else if (colliders_[i].lock()->GetType() == ColliderBase::TYPE::MODEL) { collA = std::dynamic_pointer_cast<ColliderModel>(colliders_[i].lock()); }
-		else if (colliders_[i].lock()->GetType() == ColliderBase::TYPE::CAPSULE) { collA = std::dynamic_pointer_cast<ColliderCapsule>(colliders_[i].lock()); }
-		else if (colliders_[i].lock()->GetType() == ColliderBase::TYPE::SPHERE) { continue; }
 
 		for (int j = i + 1; j < size; j++)
 		{
@@ -36,26 +30,21 @@ void CollisionManager::Update()
 				continue;
 			}
 
+			// コライダーBの種類を設定
+			if ((colliders_[i].lock()->GetType() == ColliderBase::TYPE::MODEL || colliders_[j].lock()->GetType() == ColliderBase::TYPE::MODEL) &&
+				(colliders_[i].lock()->GetType() == ColliderBase::TYPE::CAPSULE || colliders_[j].lock()->GetType() == ColliderBase::TYPE::CAPSULE))
+			{
+				// 当たり判定
+				if (IsHitCheckModeToCapsule)
+				{
+					// それぞれの当たった処理
+					colliders_[i].lock()->OnHit(colliders_[j]);
+					colliders_[j].lock()->OnHit(colliders_[i]);
+				}
 
-			//if()
-
-			//// 当たり判定
-			//if (IsHitCheckModeToCapsule(colliders_[i].lock(), colliders_[j].lock()))
-			//{
-			//	// それぞれの当たった処理
-			//	colliders_[i].lock()->OnHit(colliders_[j]);
-			//	colliders_[j].lock()->OnHit(colliders_[i]);
-
-			//	// 当たった後の処理
-			//	if (!colliders_[i]->IsDead())
-			//	{
-			//		colliders_[i]->GetGeometry().HitAfter();
-			//	}
-			//	if (!colliders_[j]->IsDead())
-			//	{
-			//		colliders_[j]->GetGeometry().HitAfter();
-			//	}
-			//}
+				// 次へ
+				continue;
+			}
 		}
 	}
 }
@@ -85,9 +74,20 @@ void CollisionManager::Sweep()
 	colliders_.erase(it, colliders_.end());
 }
 
-bool CollisionManager::IsHitCheckModeToCapsule(std::weak_ptr<ColliderCapsule> collCapsule, std::weak_ptr<ColliderModel> collModel)
-{ 
-	//衝突判定
+bool CollisionManager::IsHitCheckModeToCapsule(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB)
+{
+	std::weak_ptr<ColliderModel> collModel;
+	std::weak_ptr<ColliderCapsule> collCapsule;
+
+	//モデルコライダーの用意
+	if (collA.lock()->GetType() == ColliderBase::TYPE::MODEL) { collModel = std::dynamic_pointer_cast<ColliderModel>(collA.lock()); }
+	else if (collB.lock()->GetType() == ColliderBase::TYPE::MODEL) { collModel = std::dynamic_pointer_cast<ColliderModel>(collB.lock()); }
+
+	//カプセルコライダーの用意
+	if (collA.lock()->GetType() == ColliderBase::TYPE::CAPSULE) { collCapsule = std::dynamic_pointer_cast<ColliderCapsule>(collA.lock()); }
+	else if (collB.lock()->GetType() == ColliderBase::TYPE::CAPSULE) { collCapsule = std::dynamic_pointer_cast<ColliderCapsule>(collB.lock()); }
+
+	// 衝突判定
 	auto it = MV1CollCheck_Capsule(
 		collModel.lock()->GetModel(),
 		-1,

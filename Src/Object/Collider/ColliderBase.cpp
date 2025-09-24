@@ -14,3 +14,9 @@ ColliderBase::ColliderBase(ActorBase& owner, COLLISION_TAG tag) :
 ColliderBase::~ColliderBase()
 {
 }
+
+void ColliderBase::OnHit(std::weak_ptr<ColliderBase>& opponentCollider)
+{
+	// 所有者のインスタンスを渡す
+	owner_.OnHit(opponentCollider);
+}

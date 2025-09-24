@@ -44,6 +44,12 @@ public:
 	virtual void Init() override;
 
 	/// <summary>
+	/// 衝突後の処理
+	/// </summary>
+	/// <param name="opponentCollider">衝突相手のコライダー</param>
+	virtual void OnHit(std::weak_ptr<ColliderBase>& opponentCollider) override;
+
+	/// <summary>
 	/// 移動速度量を返す
 	/// </summary>
 	/// <returns>移動速度量</returns>
