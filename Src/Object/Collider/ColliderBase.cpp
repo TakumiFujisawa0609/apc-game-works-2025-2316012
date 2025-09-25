@@ -19,7 +19,7 @@ void ColliderBase::DebugDraw()
 {
 }
 
-void ColliderBase::OnHit(std::weak_ptr<ColliderBase>& opponentCollider)
+void ColliderBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
 	// 所有者のインスタンスを渡す
 	owner_.OnHit(opponentCollider);

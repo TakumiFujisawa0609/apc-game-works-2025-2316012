@@ -5,6 +5,7 @@ ColliderModel::ColliderModel(ActorBase& owner, const COLLISION_TAG tag) :
 {
 	collResultPolyDim_ = {};
 	collResultPoly_ = {};
+	type_ = TYPE::MODEL;
 }
 
 ColliderModel::~ColliderModel()

@@ -13,7 +13,7 @@ void CollisionManager::Update()
 	for (int i = 0; i < size - 1; i++)
 	{
 		// コライダーが削除予定の場合
-		if (colliders_[i].lock()->IsDelete())
+		if (colliders_[i]->IsDelete())
 		{
 			// 次へ
 			continue;
@@ -22,26 +22,26 @@ void CollisionManager::Update()
 		for (int j = i + 1; j < size; j++)
 		{
 			// コライダーが削除予定の場合
-			if (colliders_[j].lock()->IsDelete())
+			if (colliders_[j]->IsDelete())
 			{
 				// 次へ
 				continue;
 			}
 
 			// 各コライダーからタグを取得
-			const auto& tag1 = colliders_[i].lock()->GetTag();
-			const auto& tag2 = colliders_[j].lock()->GetTag();
+			const auto& tag1 = colliders_[i]->GetTag();
+			const auto& tag2 = colliders_[j]->GetTag();
 
 			// 衝突判定が不要な組み合わせの場合
-			if (!collTagMatrix_[static_cast<int>(tag1)][static_cast<int>(tag1)])
+			if (!collTagMatrix_[static_cast<int>(tag1)][static_cast<int>(tag2)])
 			{
 				// 次へ
 				continue;
 			}
 
 			// 各コライダーから種類を取得
-			const auto& type1 = colliders_[i].lock()->GetType();
-			const auto& type2 = colliders_[j].lock()->GetType();
+			const auto& type1 = colliders_[i]->GetType();
+			const auto& type2 = colliders_[j]->GetType();
 
 			// 衝突判定関数を取得
 			auto& collisionFunction = collFuncMatrix_[static_cast<int>(type1)][static_cast<int>(type2)];
@@ -56,8 +56,8 @@ void CollisionManager::Update()
 			if (collisionFunction(colliders_[i], colliders_[j]))
 			{
 				// それぞれの当たった処理
-				colliders_[i].lock()->OnHit(colliders_[j]);
-				colliders_[j].lock()->OnHit(colliders_[i]);
+				colliders_[i]->OnHit(colliders_[j]);
+				colliders_[j]->OnHit(colliders_[i]);
 			}
 		}
 	}
@@ -179,6 +179,9 @@ CollisionManager::CollisionManager()
 {
 	// 衝突判定の組み合わせを初期化
 	InitTagMatrix();
+
+	// 形状別判定組み合わせを初期化
+	InitColliderMatrix();
 }
 
 CollisionManager::~CollisionManager()

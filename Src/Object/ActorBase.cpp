@@ -89,7 +89,7 @@ void ActorBase::MakeCollider(std::shared_ptr<ColliderBase> collider)
 	collMng_.Add(collider);
 }
 
-void ActorBase::OnHit(std::weak_ptr<ColliderBase>& opponentCollider)
+void ActorBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
 }
 

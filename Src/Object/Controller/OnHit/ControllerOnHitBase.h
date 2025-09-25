@@ -27,15 +27,14 @@ public:
 	/// 衝突後の処理
 	/// </summary>
 	/// <param name="opponentCollider">衝突相手のコライダー</param>
-	virtual void OnHit(std::weak_ptr<ColliderBase>& opponentCollider);
+	virtual void OnHit(const std::weak_ptr<ColliderBase>& opponentCollider);
 
 protected:
 
 	//タグ別衝突後の処理の登録
-	void RegisterOnHit(const COLLISION_TAG tag, std::function<void(std::weak_ptr<ColliderBase>&)> onHit);
+	void RegisterOnHit(const COLLISION_TAG tag, std::function<void(const std::weak_ptr<ColliderBase>&)> onHit);
 
 	//衝突後の処理を管理するマップ
-	std::unordered_map<COLLISION_TAG, std::function<void(std::weak_ptr<ColliderBase>&)>> onHitMap_;
+	std::unordered_map<COLLISION_TAG, std::function<void(const std::weak_ptr<ColliderBase>&)>> onHitMap_;
 
 };
-

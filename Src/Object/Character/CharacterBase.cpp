@@ -10,6 +10,7 @@
 #include "../Controller/ControllerGravity.h"
 #include "../Controller/OnHit/ControllerOnHitBase.h"
 #include "../Collider/ColliderCapsule.h"
+#include "../Collider/ColliderLine.h"
 #include "CharacterBase.h"
 
 const std::string CharacterBase::ANIM_IDLE = "idle";	// 待機
@@ -27,6 +28,7 @@ CharacterBase::CharacterBase(const Json& param) :
 	rotDeg_ = 0.0f;	
 	moveSpeed_ = 0.0f;
 	moveDir_ = Utility3D::VECTOR_ZERO;
+	colliderLine_ = nullptr;
 	animation_ = nullptr;
 	action_ = nullptr;
 	move_ = nullptr;
@@ -50,13 +52,17 @@ void CharacterBase::Load()
 	gravity_ = std::make_unique<ControllerGravity>(*this);
 
 	// コライダー生成
-	auto collider = std::make_shared<ColliderCapsule>(*this, COLLISION_TAG::PLAYER);
-	collider->SetLocalPosTop({ 0.0f, 110.0f, 0.0f });
-	collider->SetLocalPosDown({ 0.0f, 30.0f, 0.0f });
-	collider->SetRadius(20.0f);
+	auto colliderCapsule = std::make_shared<ColliderCapsule>(*this, COLLISION_TAG::PLAYER);
+	colliderCapsule->SetLocalPosTop({ 0.0f, 110.0f, 0.0f });
+	colliderCapsule->SetLocalPosDown({ 0.0f, 30.0f, 0.0f });
+	colliderCapsule->SetRadius(20.0f);
+	collider_ = colliderCapsule;
+
+	colliderLine_ = std::make_shared<ColliderLine>(*this, COLLISION_TAG::PLAYER);
 	
 	// 衝突判定管理クラスへの追加
-	MakeCollider(std::move(collider));
+	MakeCollider(collider_);
+	MakeCollider(colliderLine_);
 
 	// アニメーション初期化
 	InitAnimation();
@@ -74,7 +80,7 @@ void CharacterBase::Init()
 	rotate_->Init();
 }
 
-void CharacterBase::OnHit(std::weak_ptr<ColliderBase>& opponentCollider)
+void CharacterBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
 	onHit_->OnHit(opponentCollider);
 }

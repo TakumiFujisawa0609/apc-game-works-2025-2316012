@@ -7,6 +7,7 @@ ColliderLine::ColliderLine(ActorBase& owner, const COLLISION_TAG tag) :
 {
 	localPosPointHead_ = Utility3D::VECTOR_ZERO;
 	localPosPointEnd_ = Utility3D::VECTOR_ZERO;
+	type_ = TYPE::LINE;
 }
 
 ColliderLine::~ColliderLine()

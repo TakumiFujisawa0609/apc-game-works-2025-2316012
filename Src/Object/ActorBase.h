@@ -45,7 +45,7 @@ public:
 	/// 衝突後の処理
 	/// </summary>
 	/// <param name="opponentCollider">衝突相手のコライダー</param>
-	virtual void OnHit(std::weak_ptr<ColliderBase>& opponentCollider);
+	virtual void OnHit(const std::weak_ptr<ColliderBase>& opponentCollider);
 
 	/// <summary>
 	/// トランスフォームを返す

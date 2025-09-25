@@ -41,7 +41,7 @@ public:
 	/// 衝突後の処理
 	/// </summary>
 	/// <param name="opponentCollider">衝突相手のインスタンス</param>
-	void OnHit(std::weak_ptr<ColliderBase>& opponentCollider);
+	void OnHit(const std::weak_ptr<ColliderBase>& opponentCollider);
 
 	/// <summary>
 	/// 衝突してるか返す

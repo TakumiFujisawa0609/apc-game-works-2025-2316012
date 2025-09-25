@@ -9,7 +9,7 @@ ControllerOnHitBase::~ControllerOnHitBase()
 {
 }
 
-void ControllerOnHitBase::OnHit(std::weak_ptr<ColliderBase>& opponentCollider)
+void ControllerOnHitBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
 {       
     auto collider = opponentCollider.lock();
 
@@ -31,7 +31,7 @@ void ControllerOnHitBase::OnHit(std::weak_ptr<ColliderBase>& opponentCollider)
 	onHitMap_[collider->GetTag()](opponentCollider);
 }
 
-void ControllerOnHitBase::RegisterOnHit(const COLLISION_TAG tag, std::function<void(std::weak_ptr<ColliderBase>&)> onHit)
+void ControllerOnHitBase::RegisterOnHit(const COLLISION_TAG tag, std::function<void(const std::weak_ptr<ColliderBase>&)> onHit)
 {
 	onHitMap_[tag] = onHit;
 }

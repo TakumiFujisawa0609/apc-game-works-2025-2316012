@@ -9,14 +9,30 @@ ControllerOnHitPlayer::ControllerOnHitPlayer(Player& owner) :
 	owner_(owner)
 {
 	// 衝突物別関数の登録
-	RegisterOnHit(COLLISION_TAG::STAGE, [this](std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStage(opponentCollider); });
+	RegisterOnHit(COLLISION_TAG::STAGE, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStage(opponentCollider); });
 }
 
 ControllerOnHitPlayer::~ControllerOnHitPlayer()
 {
 }
 
-void ControllerOnHitPlayer::OnHitStage(std::weak_ptr<ColliderBase>& opponentCollider)
+void ControllerOnHitPlayer::OnHitStage(const std::weak_ptr<ColliderBase>& opponentCollider)
+{
+	const auto& type = opponentCollider.lock()->GetType();
+
+	// コライダーがカプセルの場合
+	if (type == ColliderBase::TYPE::CAPSULE)
+	{
+		OnHitStageCapsule(opponentCollider);
+	}
+	// コライダーがラインの場合
+	else if (type == ColliderBase::TYPE::LINE)
+	{
+		OnHitStageLine(opponentCollider);
+	}
+}
+
+void ControllerOnHitPlayer::OnHitStageCapsule(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
 	// 座標取得
 	VECTOR movedPos = owner_.GetTransform().pos;
@@ -54,7 +70,7 @@ void ControllerOnHitPlayer::OnHitStage(std::weak_ptr<ColliderBase>& opponentColl
 	MV1CollResultPolyDimTerminate(hits);
 }
 
-void ControllerOnHitPlayer::OnHitGravity(std::weak_ptr<ColliderBase>& opponentCollider)
+void ControllerOnHitPlayer::OnHitStageLine(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
 	// 座標取得
 	VECTOR movedPos = owner_.GetTransform().pos;

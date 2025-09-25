@@ -45,16 +45,13 @@ private:
 	std::vector<std::vector<std::function<bool(std::weak_ptr<ColliderBase>, std::weak_ptr<ColliderBase>)>>> collFuncMatrix_;
 
 	// コライダー配列
-	std::vector<std::weak_ptr<ColliderBase>> colliders_;	
+	std::vector<std::shared_ptr<ColliderBase>> colliders_;
 	
 	// タグのマトリックスの設定設定
 	void InitTagMatrix();
 
 	// コライダー種のマトリックス設定
 	void InitColliderMatrix();
-
-	// 代入用の空の関数
-	bool IsHit() { return false; }
 
 	// カプセルとモデルの衝突判定
 	bool IsHitCheckModeToCapsule(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);

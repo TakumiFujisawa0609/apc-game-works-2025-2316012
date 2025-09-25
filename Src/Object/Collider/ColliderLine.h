@@ -56,13 +56,13 @@ public:
 	/// 先頭の点の座標の設定
 	/// </summary>
 	/// <param name="_pos">先頭の点の座標</param>
-	void SetLocalPosPoint1(const VECTOR _pos) { localPosPointHead_ = _pos; }
+	void SetLocalPosPointHead(const VECTOR _pos) { localPosPointHead_ = _pos; }
 
 	/// <summary>
 	/// 末尾の点の座標の設定
 	/// </summary>
 	/// <param name="_pos">末尾の点の座標</param>
-	void SetLocalPosPoint2(const VECTOR _pos) { localPosPointEnd_ = _pos; }
+	void SetLocalPosPointEnd(const VECTOR _pos) { localPosPointEnd_ = _pos; }
 
 private:
 
