@@ -2,6 +2,8 @@
 #include <DxLib.h>
 #include "ControllerBase.h"
 
+class CharacterBase;
+
 class ControllerGravity : public ControllerBase
 {
 public:
@@ -9,26 +11,33 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	/// <param name="gravityPow">重力</param>
-	/// <param name="gravityDir">重力方向</param>
-	ControllerGravity(const float gravityPow, const VECTOR gravityDir);
+	/// <param name="owner">所有者のインスタンス</param>
+	ControllerGravity(CharacterBase& owner);
 	
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~ControllerGravity() = default;
+	~ControllerGravity() override;
 
 	/// <summary>
-	/// 重力の影響を加える
+	/// 更新処理
 	/// </summary>
-	/// <param name="jumpPow">ジャンプ力</param>
-	void CalcGravityPow(VECTOR& jumpPow);
+	void Update() override;
 
-private:	
+private:
+
+	// 所有者のインスタンス
+	CharacterBase& owner_;
 	
+	// 重力
+	const float GRAVITY;
+
 	//重力
 	float gravity_;
 
 	//重力方向
 	VECTOR dir_;
+
+	// 重力による移動量
+	void CalcGravityPow();
 };

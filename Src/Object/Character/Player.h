@@ -56,16 +56,16 @@ public:
 	const float GetJumpAcceptTime() const { return JUMP_ACCEPT_TIME; }
 
 	/// <summary>
-	/// 現在のジャンプ力を返す
+	/// ジャンプ判定を返す
 	/// </summary>
-	/// <returns>現在のジャンプ量</returns>
-	const VECTOR GetJumpPow() const{ return jumpPow_; }
+	/// <returns>ジャンプ判定</returns>
+	const bool IsJump() const { return isJump_; }
 
 	/// <summary>
-	/// ジャンプ力の設定
+	/// ジャンプ判定を設定
 	/// </summary>
-	/// <param name="jumpPow">ジャンプ力</param>
-	void SetJumpPow(const VECTOR& jumpPow) { jumpPow_ = jumpPow; }
+	/// <param name="isJump">ジャンプ判定</param>
+	void SetIsJump(const bool isJump) { isJump_ = isJump; }
 
 private:
 
@@ -78,11 +78,11 @@ private:
 	// ジャンプアニメーション
 	const float ANIM_JUMP_SPEED;
 
+	// ジャンプ判定
+	bool isJump_;
+
 	//状態
 	STATE state_;
-
-	//ジャンプ力
-	VECTOR jumpPow_;
 
 	//状態別の更新関数マップ
 	std::unordered_map<STATE, std::function<void()>> stateUpdateFuncMap_;

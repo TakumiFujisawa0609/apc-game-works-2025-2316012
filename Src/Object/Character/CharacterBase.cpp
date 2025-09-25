@@ -7,6 +7,8 @@
 #include "../Controller/Action/ControllerActionBase.h"
 #include "../Controller/ControllerMove.h"
 #include "../Controller/ControllerRotate.h"
+#include "../Controller/ControllerGravity.h"
+#include "../Controller/OnHit/ControllerOnHitBase.h"
 #include "../Collider/ColliderCapsule.h"
 #include "CharacterBase.h"
 
@@ -29,6 +31,8 @@ CharacterBase::CharacterBase(const Json& param) :
 	action_ = nullptr;
 	move_ = nullptr;
 	rotate_ = nullptr;
+	gravity_ = nullptr;
+	onHit_ = nullptr;
 }
 
 void CharacterBase::Load()
@@ -41,6 +45,9 @@ void CharacterBase::Load()
 
 	// 回転制御クラス
 	rotate_ = std::make_unique<ControllerRotate>(*this);
+
+	// 重力制御クラス
+	gravity_ = std::make_unique<ControllerGravity>(*this);
 
 	// コライダー生成
 	auto collider = std::make_shared<ColliderCapsule>(*this, COLLISION_TAG::PLAYER);
@@ -69,7 +76,7 @@ void CharacterBase::Init()
 
 void CharacterBase::OnHit(std::weak_ptr<ColliderBase>& opponentCollider)
 {
-
+	onHit_->OnHit(opponentCollider);
 }
 
 void CharacterBase::UpdateApply()
@@ -93,4 +100,22 @@ void CharacterBase::InitTransform()
 	transform_.quaRotLocal = Quaternion::Euler({ 0.0f, UtilityCommon::Deg2RadF(DEFAULT_LOCAL_DEG_Y), 0.0f });
 	transform_.pos = INITIAL_POS;
 	transform_.Update();
+}
+
+const float CharacterBase::GetCapsuleRadius() const
+{
+	auto cap = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
+	return cap->GetRadius();
+}
+
+const VECTOR CharacterBase::GetCapsuleTopPos() const
+{
+	auto cap = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
+	return cap->GetLocalPosTop();
+}
+
+const VECTOR CharacterBase::GetCapsuleDownPos() const
+{
+	auto cap = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
+	return cap->GetLocalPosDown();
 }

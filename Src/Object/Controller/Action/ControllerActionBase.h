@@ -35,12 +35,12 @@ public:
 	virtual void Update() override = 0;
 	
 protected:
-
-	//ˆÚ“®•ûŒü•Ê‰ñ“]Šp“x(DEG)
+	
+	// ˆÚ“®•ûŒü•Ê‰ñ“]Šp“x(DEG)
 	static constexpr double ROT_DEG_RIGHT = 90.0f;	//‰E
 	static constexpr double ROT_DEG_LEFT = 270.0f;	//¶
 	static constexpr double ROT_DEG_FRONT = 0.0f;	//‘O
-	static constexpr double ROT_DEG_BACK = 180.0f;	//Œã‚ë
+	static constexpr double ROT_DEG_BACK = 180.0f;	//Œã‚ë	
 
 private:
 

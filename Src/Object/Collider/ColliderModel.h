@@ -19,11 +19,41 @@ public:
 	~ColliderModel() override;
 
 	/// <summary>
+	/// コリジョン結果代入用ポリゴン配列を設定
+	/// </summary>
+	/// <param name="hitInfo">コリジョン結果代入用ポリゴン配列</param>
+	void SetCollResultPolyDim(const MV1_COLL_RESULT_POLY_DIM hitInfo) { collResultPolyDim_ = hitInfo; }
+
+	/// <summary>
+	/// コリジョン結果代入用ポリゴン
+	/// </summary>
+	/// <param name="hitInfo">コリジョン結果代入用ポリゴン</param>
+	void SetCollResultPoly(const MV1_COLL_RESULT_POLY hitInfo) { collResultPoly_ = hitInfo; }
+
+	/// <summary>
 	/// モデルを返す
 	/// </summary>
 	/// <returns>モデル</returns>
 	const int GetModel() const { return transformOwner_.modelId; }
 
+	/// <summary>
+	/// コリジョン結果代入用ポリゴン配列を返す
+	/// </summary>
+	/// <returns>コリジョン結果代入用ポリゴン配列</returns>
+	const MV1_COLL_RESULT_POLY_DIM GetCollResultPolyDim() const { return collResultPolyDim_; }
+
+	/// <summary>
+	/// コリジョン結果代入用ポリゴン
+	/// </summary>
+	/// <returns>コリジョン結果代入用ポリゴン</returns>
+	const MV1_COLL_RESULT_POLY GetCollResultPoly() const { return collResultPoly_; }
+
 private:
+
+	// コリジョン結果代入用ポリゴン配列
+	MV1_COLL_RESULT_POLY_DIM collResultPolyDim_;
+
+	// コリジョン結果代入用ポリゴン
+	MV1_COLL_RESULT_POLY collResultPoly_;
 };
 

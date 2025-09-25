@@ -1,23 +1,46 @@
+#include "../../Utility/Utility3D.h"
+#include "../Character/CharacterBase.h"
 #include "ControllerGravity.h"
 
-ControllerGravity::ControllerGravity(const float gravityPow, const VECTOR gravityDir) :
-	gravity_(gravityPow),
-	dir_(gravityDir)
+ControllerGravity::ControllerGravity(CharacterBase& owner) :
+	owner_(owner),
+	GRAVITY(owner_.GetGravity())
 {
 }
 
-void ControllerGravity::CalcGravityPow(VECTOR& jumpPow)
+ControllerGravity::~ControllerGravity()
 {
+}
+
+void ControllerGravity::Update()
+{
+	CalcGravityPow();
+}
+
+void ControllerGravity::CalcGravityPow()
+{
+	// 重力方向
+	VECTOR dirGravity = Utility3D::DIR_D;
+
+	// 重力の強さ
+	float gravityPow = GRAVITY;
+
+	// ジャンプ力を取得
+	VECTOR jumpPow = owner_.GetJumpPow();
+
 	// 重力
-	VECTOR gravity = VScale(dir_, gravity_);
+	VECTOR gravity = VScale(dirGravity, gravityPow);
 	jumpPow = VAdd(jumpPow, gravity);
 
 	// 最初は実装しない。地面と突き抜けることを確認する。
 	// 内積
-	float dot = VDot(dir_, jumpPow);
+	float dot = VDot(dirGravity, jumpPow);
 	if (dot >= 0.0f)
 	{
 		// 重力方向と反対方向(マイナス)でなければ、ジャンプ力を無くす
 		jumpPow = gravity;
 	}
+
+	// 設定
+	owner_.SetJumpPow(jumpPow);
 }

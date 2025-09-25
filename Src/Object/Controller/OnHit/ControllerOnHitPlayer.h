@@ -21,8 +21,12 @@ public:
 
 private:
 
+	// 所有者のインスタンス
+	Player& owner_;
+
 	// 衝突物別処理
-	void OnHitStage(const ActorBase& actor);
+	void OnHitStage(std::weak_ptr<ColliderBase>& opponentCollider);		// ステージ
+	void OnHitGravity(std::weak_ptr<ColliderBase>& opponentCollider);	// 重力
 
 };
 

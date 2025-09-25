@@ -12,6 +12,8 @@ class ControllerAnimation;
 class ControllerActionBase;
 class ControllerMove;
 class ControllerRotate;
+class ControllerGravity;
+class ControllerOnHitBase;
 
 class CharacterBase : public ActorBase
 {
@@ -77,7 +79,19 @@ public:
 	/// 現在の移動速度を返す
 	/// </summary>
 	/// <returns>現在の移動速度</returns>
-	const float GetMoveSpeed() const { return moveSpeed_; }
+	const float GetMoveSpeed() const { return moveSpeed_; }	
+	
+	/// <summary>
+	/// コライダーカプセルの半径を返す
+	/// </summary>
+	/// <returns></returns>
+	const float GetCapsuleRadius() const;
+
+	/// <summary>
+	/// 回転角度を返す
+	/// </summary>
+	/// <returns>角度Y</returns>
+	const double GetRotDeg() const { return rotDeg_; }
 
 	/// <summary>
 	/// 現在の移動方向を返す
@@ -86,10 +100,22 @@ public:
 	const VECTOR GetMoveDir() const { return moveDir_; }
 
 	/// <summary>
-	/// 回転角度を返す
+	/// 現在のジャンプ力を返す
 	/// </summary>
-	/// <returns>角度Y</returns>
-	const double& GetRotDeg() const { return rotDeg_; }
+	/// <returns>現在のジャンプ量</returns>
+	const VECTOR GetJumpPow() const { return jumpPow_; }
+
+	/// <summary>
+	/// カプセル座標の上部分を返す
+	/// </summary>
+	/// <returns>カプセル座標の上</returns>
+	const VECTOR GetCapsuleTopPos() const;
+
+	/// <summary>
+	/// カプセル座標の下部分を返す
+	/// </summary>
+	/// <returns>カプセル座標の下</returns>
+	const VECTOR GetCapsuleDownPos() const;
 
 	/// <summary>
 	/// アニメーション制御クラスを返す
@@ -127,6 +153,12 @@ public:
 	/// <param name="moveDir">移動方向</param>
 	void SetMoveDir(const VECTOR& moveDir) { moveDir_ = moveDir; }
 
+	/// <summary>
+	/// ジャン力の設定の設定
+	/// </summary>
+	/// <param name="jumpPow">ジャンプ力</param>
+	void SetJumpPow(const VECTOR& jumpPow) { jumpPow_ = jumpPow; }
+
 protected:	
 	
 	// スピード
@@ -154,7 +186,12 @@ protected:
 	float moveSpeed_;
 
 	// 移動方向
-	VECTOR moveDir_;	
+	VECTOR moveDir_;
+
+	//ジャンプ力
+	VECTOR jumpPow_;
+
+	//
 
 	// アニメーション制御クラス
 	std::unique_ptr<ControllerAnimation> animation_;
@@ -167,6 +204,12 @@ protected:
 
 	// 回転制御クラス
 	std::unique_ptr<ControllerRotate> rotate_;
+
+	// 重力制御クラス
+	std::unique_ptr<ControllerGravity> gravity_;
+
+	// 衝突後処理の制御クラス
+	std::unique_ptr<ControllerOnHitBase> onHit_;
 
 	/// <summary>
 	/// 更新処理の適用

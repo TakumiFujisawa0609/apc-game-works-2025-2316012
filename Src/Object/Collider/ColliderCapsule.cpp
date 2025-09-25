@@ -1,4 +1,3 @@
-#include <DxLib.h>
 #include "../ActorBase.h"
 #include "../Common/Transform.h"
 #include "../Utility/UtilityCommon.h"
@@ -65,10 +64,14 @@ void ColliderCapsule::DebugDraw()
 	DrawSphere3D(GetCenter(), CENTER_DIV, CENTER_RADIUS, COLOR, COLOR, true);
 }
 
-VECTOR ColliderCapsule::GetRotPos(const VECTOR& localPos) const
+VECTOR ColliderCapsule::GetPosTop(void) const
 {
-	VECTOR localRotPos = transformOwner_.quaRot.PosAxis(localPos);
-	return VAdd(transformOwner_.pos, localRotPos);
+	return GetRotPos(localPosTop_); 
+}
+
+VECTOR ColliderCapsule::GetPosDown(void) const
+{
+	return GetRotPos(localPosDown_); 
 }
 
 VECTOR ColliderCapsule::GetCenter(void) const

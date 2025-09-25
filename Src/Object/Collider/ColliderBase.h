@@ -13,10 +13,11 @@ public:
 	/// </summary>
 	enum class TYPE
 	{
-		NONE,
 		MODEL,
 		SPHERE,
 		CAPSULE,
+		LINE,
+		MAX
 	};
 
 	/// <summary>
@@ -34,7 +35,7 @@ public:
 	/// <summary>
 	/// デバッグの描画
 	/// </summary>
-	virtual void DebugDraw() = 0;
+	virtual void DebugDraw();
 
 	/// <summary>
 	/// 衝突後の処理
@@ -91,5 +92,8 @@ protected:
 
 	// 衝突物の種類
 	COLLISION_TAG tag_;
+
+	// 相対座標を回転させてワールド座標で取得する
+	VECTOR GetRotPos(const VECTOR& localPos) const;
 };
 

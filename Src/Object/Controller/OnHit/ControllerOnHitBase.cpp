@@ -28,10 +28,10 @@ void ControllerOnHitBase::OnHit(std::weak_ptr<ColliderBase>& opponentCollider)
     }
 
     // Õ“Ë•¨•Ê‚Ìˆ—‚Ö
-	onHitMap_[collider->GetTag()](collider->GetOwner());
+	onHitMap_[collider->GetTag()](opponentCollider);
 }
 
-void ControllerOnHitBase::RegisterOnHit(const COLLISION_TAG tag, std::function<void(const ActorBase&)> onHit)
+void ControllerOnHitBase::RegisterOnHit(const COLLISION_TAG tag, std::function<void(std::weak_ptr<ColliderBase>&)> onHit)
 {
 	onHitMap_[tag] = onHit;
 }

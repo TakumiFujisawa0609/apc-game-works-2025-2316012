@@ -5,6 +5,7 @@
 #include "../Manager/Generic/InputManager.h"
 #include "../Manager/Generic/StageManager.h"
 #include "../Manager/Generic/CharacterManager.h"
+#include "../Manager/Generic/CollisionManager.h"
 #include "../Manager/Resource/ResourceManager.h"
 #include "../Manager/Resource/FontManager.h"
 #include "../Utility/UtilityCommon.h"
@@ -25,18 +26,22 @@ SceneGame::~SceneGame(void)
 	//インスタンスの削除
 	StageManager::GetInstance().Destroy();
 	CharacterManager::GetInstance().Destroy();
+	CollisionManager::GetInstance().Destroy();
 }
 
 void SceneGame::Load(void)
 {
-	//親クラスの読み込み
-	SceneBase::Load();
+	// 親クラスの読み込み
+	SceneBase::Load();	
+	
+	// 衝突判定管理クラス
+	CollisionManager::CreateInstance();
 
-	//キャラクター
+	// キャラクター
 	CharacterManager::CreateInstance();
 	CharacterManager::GetInstance().Load();
 
-	//ステージ
+	// ステージ
 	StageManager::CreateInstance();
 	StageManager::GetInstance().Load();
 
@@ -47,32 +52,37 @@ void SceneGame::Load(void)
 
 void SceneGame::Init(void)
 {
-	//キャラクター管理クラス初期化
+	// キャラクター管理クラス初期化
 	CharacterManager::GetInstance().Init();
 
-	//ステージ管理クラス初期化
+	// ステージ管理クラス初期化
 	StageManager::GetInstance().Init();
 
-	//カメラ設定
+	// カメラ設定
 	mainCamera.SetFollow(&CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform());
 	mainCamera.ChangeMode(Camera::MODE::FPS);
 }
 
 void SceneGame::NormalUpdate(void)
 {
-	//ポーズ画面へ遷移
+	// ポーズ画面へ遷移
 	if (inputMng_.IsTrgDown(KEY_INPUT_P))
 	{
 		scnMng_.PushScene(ScenePause_);
 		return;
 	}
 
-	//キャラクター更新
+	// キャラクター更新
 	CharacterManager::GetInstance().Update();
 
-	//ステージ更新
+	// ステージ更新
 	StageManager::GetInstance().Update();
 
+	// 衝突判定の更新
+	CollisionManager::GetInstance().Update();
+
+	// コライダーの削除
+	CollisionManager::GetInstance().Sweep();
 #ifdef _DEBUG
 	DebugUpdate();
 #endif 
@@ -84,16 +94,16 @@ void SceneGame::NormalDraw(void)
 	DebugDraw();
 #endif
 	
-	//ステージ描画
+	// ステージ描画
 	StageManager::GetInstance().Draw();
 
-	//キャラクター描画
+	// キャラクター描画
 	CharacterManager::GetInstance().Draw();
 }
 
 void SceneGame::ChangeNormal(void)
 {
-	//処理変更
+	// 処理変更
 	updataFunc_ = std::bind(&SceneGame::NormalUpdate, this);
 	drawFunc_ = std::bind(&SceneGame::NormalDraw, this);
 }
@@ -107,7 +117,7 @@ void SceneGame::DebugUpdate(void)
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::TITLE);
 	}
 
-	//カメラモードの変更
+	// カメラモードの変更
 	if (ins.IsTrgDown(KEY_INPUT_TAB))
 	{
 		switch (mainCamera.GetMode())

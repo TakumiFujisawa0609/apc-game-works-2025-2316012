@@ -4,7 +4,9 @@
 #include "../Controller/ControllerAnimation.h"
 #include "../Controller/ControllerMove.h"
 #include "../Controller/ControllerRotate.h"
+#include "../Controller/ControllerGravity.h"
 #include "../Controller/Action/ControllerActionPlayer.h"
+#include "../Controller/OnHit/ControllerOnHitPlayer.h"
 #include "../Utility/Utility3D.h"
 #include "../Utility/UtilityCommon.h"
 #include "../System/InputPlayer.h"
@@ -20,6 +22,7 @@ Player::Player(const Json& param) :
 	JUMP_ACCEPT_TIME(param["jumpAcceptTime"]),
 	ANIM_JUMP_SPEED(param["animationJumpSpeed"])
 {	
+	isJump_ = false;
 	state_ = STATE::NONE;
 	animation_ = nullptr;
 
@@ -41,6 +44,9 @@ void Player::Load()
 	// アクション制御クラスの生成
 	action_ = std::make_unique<ControllerActionPlayer>(*this);
 	action_->Load();
+
+	// 衝突後の処理クラス
+	onHit_ = std::make_unique<ControllerOnHitPlayer>(*this);
 
 	// 基底クラスの読み込み処理
 	CharacterBase::Load();
@@ -98,6 +104,9 @@ void Player::UpdateAlive()
 
 	// 回転
 	rotate_->Update();
+
+	// 重力
+	gravity_->Update();
 }
 
 void Player::UpdateDead()

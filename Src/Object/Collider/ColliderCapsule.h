@@ -43,14 +43,14 @@ public:
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>カプセル上部</returns>
-	VECTOR GetPosTop(void) const { return GetRotPos(localPosTop_); }
+	VECTOR GetPosTop(void) const;
 
 	/// <summary>
 	/// 座標を返す
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>カプセル下部</returns>
-	VECTOR GetPosDown(void) const { return GetRotPos(localPosDown_); }
+	VECTOR GetPosDown(void) const;
 
 	/// <summary>
 	/// 半径を返す
@@ -101,7 +101,4 @@ private:
 
 	// 親からの相対位置(下側)
 	VECTOR localPosDown_;
-
-	// 相対座標を回転させてワールド座標で取得する
-	VECTOR GetRotPos(const VECTOR& localPos) const;
 };
