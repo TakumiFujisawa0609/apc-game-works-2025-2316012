@@ -17,8 +17,8 @@ void MainStage::Load()
 	transform_.SetModel(resMng_.GetHandle("mainStage"));
 
 	// コライダーの生成
-	auto collier = std::make_shared<ColliderModel>(*this, COLLISION_TAG::STAGE);
-	MakeCollider(collier);
+	collider_ = std::make_shared<ColliderModel>(*this, COLLISION_TAG::STAGE);
+	MakeCollider(collider_);
 }
 
 void MainStage::DrawMain()

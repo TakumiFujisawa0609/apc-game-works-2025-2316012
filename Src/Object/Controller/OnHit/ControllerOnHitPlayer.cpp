@@ -18,22 +18,6 @@ ControllerOnHitPlayer::~ControllerOnHitPlayer()
 
 void ControllerOnHitPlayer::OnHitStage(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
-	const auto& type = opponentCollider.lock()->GetType();
-
-	// コライダーがカプセルの場合
-	if (type == ColliderBase::TYPE::CAPSULE)
-	{
-		OnHitStageCapsule(opponentCollider);
-	}
-	// コライダーがラインの場合
-	else if (type == ColliderBase::TYPE::LINE)
-	{
-		OnHitStageLine(opponentCollider);
-	}
-}
-
-void ControllerOnHitPlayer::OnHitStageCapsule(const std::weak_ptr<ColliderBase>& opponentCollider)
-{
 	// 座標取得
 	VECTOR movedPos = owner_.GetTransform().pos;
 
@@ -50,15 +34,13 @@ void ControllerOnHitPlayer::OnHitStageCapsule(const std::weak_ptr<ColliderBase>&
 		for (int tryCnt = 0; tryCnt < 10; tryCnt++)
 		{
 			int pHit = HitCheck_Capsule_Triangle(
-				owner_.GetCapsuleTopPos(), owner_.GetCapsuleTopPos(), owner_.GetCapsuleRadius(),
+				owner_.GetCapsuleTopPos(), owner_.GetCapsuleDownPos(), owner_.GetCapsuleRadius(),
 				hit.Position[0], hit.Position[1], hit.Position[2]);
 
 			if (pHit)
 			{
+				// 位置をずらす
 				movedPos = VAdd(movedPos, VScale(hit.Normal, 1.0f));
-
-				// 移動させる
-				owner_.SetPos(movedPos);
 				continue;
 			}
 
@@ -67,29 +49,33 @@ void ControllerOnHitPlayer::OnHitStageCapsule(const std::weak_ptr<ColliderBase>&
 	}
 
 	// 検出した地面ポリゴン情報の後始末
-	MV1CollResultPolyDimTerminate(hits);
-}
+	collModel->CleaningPolyDim();
 
-void ControllerOnHitPlayer::OnHitStageLine(const std::weak_ptr<ColliderBase>& opponentCollider)
-{
+	// 重力方向
+	constexpr VECTOR GRAVITY_DIR = Utility3D::DIR_D;		// 通常の方向
+	constexpr VECTOR GRAVITY_DIR_UP = Utility3D::DIR_U;		// 反対方向
+
 	// 座標取得
-	VECTOR movedPos = owner_.GetTransform().pos;
+	constexpr float CHECK_POW = 10.0f;
+	VECTOR gravHitPosUp = VAdd(movedPos, VScale(GRAVITY_DIR_UP, owner_.GetGravity()));
+	gravHitPosUp = VAdd(gravHitPosUp, VScale(GRAVITY_DIR_UP, CHECK_POW * 2.0f));
+	VECTOR gravHitPosDown = VAdd(movedPos, VScale(GRAVITY_DIR, CHECK_POW));
 
-	// モデル用コライダーへ変換
-	auto collModel = std::dynamic_pointer_cast<ColliderModel>(opponentCollider.lock());
+	// 地面との衝突
+	auto hit = MV1CollCheck_Line(
+		collModel->GetModel(), -1, gravHitPosUp, gravHitPosDown);
 
-	// 衝突後の情報を取得
-	auto hit = collModel->GetCollResultPoly();
-
-	if (hit.HitFlag > 0 && VDot(Utility3D::DIR_D, owner_.GetJumpPow()) > 0.9f)
+	// 地面と衝突している場合
+	if (hit.HitFlag > 0 && VDot(GRAVITY_DIR, owner_.GetJumpPow()) > 0.9f)
 	{
-
 		// 衝突地点から、少し上に移動
-		movedPos = VAdd(hit.HitPosition, VScale(Utility3D::DIR_U, 2.0f));
+		movedPos = VAdd(hit.HitPosition, VScale(GRAVITY_DIR_UP, 2.0f));
 
 		// ジャンプリセット
-		owner_.SetJumpPow(Utility3D::VECTOR_ZERO);
+		owner_.SetJumpPow(Utility3D::VECTOR_ZERO);	// ジャンプ力を初期化
+		owner_.SetStepJump(0.0f);					// ステップを初期化
 
+		// ジャンプ中の時
 		if (owner_.IsJump())
 		{
 			// 着地モーション
@@ -99,4 +85,7 @@ void ControllerOnHitPlayer::OnHitStageLine(const std::weak_ptr<ColliderBase>& op
 		// ジャンプ判定の設定
 		owner_.SetIsJump(false);
 	}
+
+	// 最終的な位置を設定
+	owner_.SetPos(movedPos);
 }

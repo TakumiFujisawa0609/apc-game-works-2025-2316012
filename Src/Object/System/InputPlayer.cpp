@@ -49,5 +49,5 @@ bool InputPlayer::CheckKeyDash() const
 
 bool InputPlayer::CheckKeyJump() const
 {
-	return input_.IsTrgDown(KEY_INPUT_SPACE) || input_.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::RB_RIGHT);
+	return input_.IsNew(KEY_INPUT_SPACE) || input_.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::RB_RIGHT);
 }

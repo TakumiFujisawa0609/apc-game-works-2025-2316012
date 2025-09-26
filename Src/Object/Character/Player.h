@@ -56,6 +56,12 @@ public:
 	const float GetJumpAcceptTime() const { return JUMP_ACCEPT_TIME; }
 
 	/// <summary>
+	/// ジャンプ用ステップを返す
+	/// </summary>
+	/// <returns>ジャンプ用ステップ</returns>
+	const float GetStepJump() const { return stepJump_; }
+
+	/// <summary>
 	/// ジャンプ判定を返す
 	/// </summary>
 	/// <returns>ジャンプ判定</returns>
@@ -66,6 +72,12 @@ public:
 	/// </summary>
 	/// <param name="isJump">ジャンプ判定</param>
 	void SetIsJump(const bool isJump) { isJump_ = isJump; }
+
+	/// <summary>
+	/// ジャンプ用ステップを設定
+	/// </summary>
+	/// <param name="step">ジャンプ用ステップ</param>
+	void SetStepJump(const float step) { stepJump_ = step; }
 
 private:
 
@@ -81,6 +93,9 @@ private:
 	// ジャンプ判定
 	bool isJump_;
 
+	// ジャンプ用ステップ
+	float stepJump_;
+
 	//状態
 	STATE state_;
 
@@ -95,6 +110,9 @@ private:
 
 	//アニメーションの初期化
 	void InitAnimation() override;
+
+	//トランスフォームの初期化
+	void InitTransform() override;
 	
 	//状態別更新処理の登録
 	void RegisterStateUpdateFunc(const STATE state, std::function<void()> update);

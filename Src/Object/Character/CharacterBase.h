@@ -8,7 +8,6 @@
 // JSON名前空間
 using Json = nlohmann::json;
 
-class ColliderLine;
 class ControllerAnimation;
 class ControllerActionBase;
 class ControllerMove;
@@ -125,12 +124,6 @@ public:
 	ControllerAnimation& GetControllerAnimation() const { return *animation_; }
 
 	/// <summary>
-	/// 重力衝突用コライダーを返す
-	/// </summary>
-	/// <returns>重力衝突用コライダー</returns>
-	std::shared_ptr<ColliderLine> GetGravityCollider() { return colliderLine_; }
-
-	/// <summary>
 	/// 座標の設定
 	/// </summary>
 	/// <param name="pos">座標</param>
@@ -186,6 +179,9 @@ protected:
 	// 初期位置
 	const VECTOR INITIAL_POS;
 
+	// 初期角度
+	const VECTOR INITIAL_QUA_ROT;
+
 	// 回転角度(DEG)
 	double rotDeg_;
 
@@ -197,9 +193,6 @@ protected:
 
 	//ジャンプ力
 	VECTOR jumpPow_;
-
-	// 重力用ラインコライダー
-	std::shared_ptr<ColliderLine> colliderLine_;
 
 	// アニメーション制御クラス
 	std::unique_ptr<ControllerAnimation> animation_;
@@ -238,4 +231,9 @@ protected:
 	/// トランスフォームの初期化
 	/// </summary>
 	virtual void InitTransform() override;
+
+	/// <summary>
+	/// デバッグ時の描画
+	/// </summary>
+	void DebugDraw() override;
 };

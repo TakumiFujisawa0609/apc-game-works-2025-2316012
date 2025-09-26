@@ -22,9 +22,9 @@ Player::Player(const Json& param) :
 	JUMP_ACCEPT_TIME(param["jumpAcceptTime"]),
 	ANIM_JUMP_SPEED(param["animationJumpSpeed"])
 {	
+	stepJump_ = 0.0f;
 	isJump_ = false;
 	state_ = STATE::NONE;
-	animation_ = nullptr;
 
 	// 状態更新関数の登録
 	RegisterStateUpdateFunc(STATE::NONE, std::bind(&Player::UpdateNone, this));
@@ -89,6 +89,16 @@ void Player::InitAnimation()
 	animation_->Play(ANIM_IDLE);
 }
 
+void Player::InitTransform()
+{
+	transform_.quaRot = Quaternion();
+	transform_.scl = Utility3D::VECTOR_ONE;
+	transform_.quaRotLocal = Quaternion::Euler({ INITIAL_QUA_ROT.x, UtilityCommon::Deg2RadF(INITIAL_QUA_ROT.y), INITIAL_QUA_ROT.z });
+	transform_.pos = INITIAL_POS;
+	transform_.localPos = { 0.0f,20.0f,0.0f };
+	transform_.Update();
+}
+
 void Player::RegisterStateUpdateFunc(const STATE state, std::function<void()> update)
 {
 	stateUpdateFuncMap_[state] = update;
@@ -99,14 +109,14 @@ void Player::UpdateAlive()
 	// アクション
 	action_->Update();
 
-	// 移動
-	move_->Update();
+	// 重力
+	gravity_->Update();	
 
 	// 回転
 	rotate_->Update();
-
-	// 重力
-	gravity_->Update();
+	
+	// 移動
+	move_->Update();
 }
 
 void Player::UpdateDead()

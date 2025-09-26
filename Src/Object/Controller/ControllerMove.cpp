@@ -24,13 +24,9 @@ void ControllerMove::Update()
 	// 移動後の座標を生成
 	VECTOR movedPos = VAdd(owner_.GetTransform().pos, movePow);
 
+	// ジャンプ量を加算
+	movedPos = VAdd(movedPos, owner_.GetJumpPow());
+
 	// 座標設定
 	owner_.SetPos(movedPos);
-
-	// 重力衝突用の設定
-	const auto& coll = owner_.GetGravityCollider();
-	float checkPow = 10.0f;
-	VECTOR headPos = VAdd(movedPos, VScale(Utility3D::DIR_U, owner_.GetGravity()));
-	coll->SetLocalPosPointHead(VAdd(headPos, VScale(Utility3D::DIR_U, checkPow * 2.0f)));
-	coll->SetLocalPosPointEnd(VAdd(movedPos, VScale(Utility3D::DIR_D, checkPow)));
 }

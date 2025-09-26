@@ -19,6 +19,11 @@ public:
 	~ColliderModel() override;
 
 	/// <summary>
+	/// 判定情報配列の後始末
+	/// </summary>
+	void CleaningPolyDim();
+
+	/// <summary>
 	/// コリジョン結果代入用ポリゴン配列を設定
 	/// </summary>
 	/// <param name="hitInfo">コリジョン結果代入用ポリゴン配列</param>
@@ -40,13 +45,13 @@ public:
 	/// コリジョン結果代入用ポリゴン配列を返す
 	/// </summary>
 	/// <returns>コリジョン結果代入用ポリゴン配列</returns>
-	const MV1_COLL_RESULT_POLY_DIM GetCollResultPolyDim() const { return collResultPolyDim_; }
+	const MV1_COLL_RESULT_POLY_DIM& GetCollResultPolyDim() const{ return collResultPolyDim_; }
 
 	/// <summary>
 	/// コリジョン結果代入用ポリゴン
 	/// </summary>
 	/// <returns>コリジョン結果代入用ポリゴン</returns>
-	const MV1_COLL_RESULT_POLY GetCollResultPoly() const { return collResultPoly_; }
+	const MV1_COLL_RESULT_POLY& GetCollResultPoly() const { return collResultPoly_; }
 
 private:
 

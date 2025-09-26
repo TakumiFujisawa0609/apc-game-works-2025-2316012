@@ -23,12 +23,13 @@ CharacterBase::CharacterBase(const Json& param) :
 	GRAVITY(param["gravity"]),
 	TIME_ROT(param["timeRot"]),
 	ANIM_DEFAULT_SPEED(param["animationDefaultSpeed"]),
-	INITIAL_POS({ param["initialPosition"]["x"],param["initialPosition"]["y"],param["initialPosition"]["z"] })
+	INITIAL_POS({ param["initPos"]["x"],param["initPos"]["y"],param["initPos"]["z"] }),
+	INITIAL_QUA_ROT({ param["initQuaRot"]["x"],param["initQuaRot"]["y"],param["initQuaRot"]["z"] })
 {
 	rotDeg_ = 0.0f;	
 	moveSpeed_ = 0.0f;
 	moveDir_ = Utility3D::VECTOR_ZERO;
-	colliderLine_ = nullptr;
+	jumpPow_ = Utility3D::VECTOR_ZERO;
 	animation_ = nullptr;
 	action_ = nullptr;
 	move_ = nullptr;
@@ -57,12 +58,9 @@ void CharacterBase::Load()
 	colliderCapsule->SetLocalPosDown({ 0.0f, 30.0f, 0.0f });
 	colliderCapsule->SetRadius(20.0f);
 	collider_ = colliderCapsule;
-
-	colliderLine_ = std::make_shared<ColliderLine>(*this, COLLISION_TAG::PLAYER);
 	
 	// 衝突判定管理クラスへの追加
 	MakeCollider(collider_);
-	MakeCollider(colliderLine_);
 
 	// アニメーション初期化
 	InitAnimation();
@@ -103,25 +101,30 @@ void CharacterBase::InitTransform()
 {
 	transform_.quaRot = Quaternion();
 	transform_.scl = Utility3D::VECTOR_ONE;
-	transform_.quaRotLocal = Quaternion::Euler({ 0.0f, UtilityCommon::Deg2RadF(DEFAULT_LOCAL_DEG_Y), 0.0f });
+	transform_.quaRotLocal = Quaternion::Euler({ INITIAL_QUA_ROT.x, UtilityCommon::Deg2RadF(INITIAL_QUA_ROT.y), INITIAL_QUA_ROT.z });
 	transform_.pos = INITIAL_POS;
 	transform_.Update();
 }
 
-const float CharacterBase::GetCapsuleRadius() const
+void CharacterBase::DebugDraw()
 {
-	auto cap = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
-	return cap->GetRadius();
+	collider_->DebugDraw();
+}
+
+const float CharacterBase::GetCapsuleRadius() const 
+{
+	const auto& colliderModel = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
+	return colliderModel->GetRadius();
 }
 
 const VECTOR CharacterBase::GetCapsuleTopPos() const
 {
-	auto cap = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
-	return cap->GetLocalPosTop();
+	const auto& colliderModel = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
+	return colliderModel->GetPosTop();
 }
 
 const VECTOR CharacterBase::GetCapsuleDownPos() const
 {
-	auto cap = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
-	return cap->GetLocalPosDown();
+	const auto& colliderModel = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
+	return colliderModel->GetPosDown();
 }

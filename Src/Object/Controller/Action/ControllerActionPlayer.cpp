@@ -12,8 +12,6 @@ ControllerActionPlayer::ControllerActionPlayer(Player& player) :
 	player_(player)
 {
 	input_ = nullptr;
-	stepJump_ = 0.0f;
-	isJump_ = false;
 	isEndLanding_ = false;
 }
 
@@ -30,8 +28,6 @@ void ControllerActionPlayer::Load()
 void ControllerActionPlayer::Init()
 {
 	//各種変数の初期化
-	stepJump_ = 0.0f;
-	isJump_ = false;
 	isEndLanding_ = false;
 }
 
@@ -48,6 +44,9 @@ void ControllerActionPlayer::ProcessMove()
 {
 	// X軸回転を除いた、重力方向に垂直なカメラ角度(XZ平面)を取得
 	Quaternion cameraRot = mainCamera.GetQuaRotOutX();
+
+	// プレイヤーのジャンプ判定
+	bool isJump = player_.IsJump();
 
 	// 回転したい角度
 	double rotDeg = -1;
@@ -93,7 +92,7 @@ void ControllerActionPlayer::ProcessMove()
 	auto& animation = player_.GetControllerAnimation();
 
 	// ジャンプ中じゃないかつ操作入力がされたとき
-	if (!Utility3D::EqualsVZero(dir) && (isJump_ || isEndLanding_))
+	if (!Utility3D::EqualsVZero(dir) && (isJump || isEndLanding_))
 	{
 		// ダッシュ
 		bool isDash = input_->CheckKey(InputPlayer::CONFIG::DASH);
@@ -107,7 +106,7 @@ void ControllerActionPlayer::ProcessMove()
 			speed = player_.GetSpeedRun();
 		}
 
-		if (!isJump_ && isEndLanding_)
+		if (!isJump && isEndLanding_)
 		{
 			// アニメーション
 			if (isDash)
@@ -122,7 +121,7 @@ void ControllerActionPlayer::ProcessMove()
 	}
 	else
 	{
-		if (!isJump_ && isEndLanding_)
+		if (!isJump && IsEndLanding())
 		{
 			animation.Play(Player::ANIM_IDLE);
 		}
@@ -140,20 +139,26 @@ void ControllerActionPlayer::ProcessMove()
 
 void ControllerActionPlayer::ProcessJump()
 {
-	//ジャンプ受付時間
+	// 現在のジャンプ判定
+	bool isJump = player_.IsJump();
+
+	// 現在のジャンプ用ステップ
+	float stepJump = player_.GetStepJump();
+
+	// ジャンプ受付時間
 	const float JUMP_ACCEPT_TIME = player_.GetJumpAcceptTime();
 
-	//ジャンプキーを入力したか
+	// ジャンプキーを入力したか
 	bool isInputJump = input_->CheckKey(InputPlayer::CONFIG::JUMP);
 
-	//アニメーション制御クラスを取得
+	// アニメーション制御クラスを取得
 	auto& animation = player_.GetControllerAnimation();
 
 	// ジャンプ
-	if (isInputJump && (isJump_ || isEndLanding_))
+	if (isInputJump && (isJump || isEndLanding_))
 	{
-
-		if (!isJump_)
+		// ジャンプ中ではない場合
+		if (!isJump)
 		{
 			// 制御無しジャンプ
 			//mAnimationController->Play((int)ANIM_TYPE::JUMP);
@@ -166,11 +171,12 @@ void ControllerActionPlayer::ProcessJump()
 			animation.SetEndLoop(23.0f, 25.0f, 5.0f);
 		}
 
-		isJump_ = true;
+		// ジャンプ中に設定
+		isJump = true;
 
 		// ジャンプの入力受付時間をヘラス
-		stepJump_ += scnMng_.GetDeltaTime();
-		if (stepJump_ < JUMP_ACCEPT_TIME)
+		stepJump += scnMng_.GetDeltaTime();
+		if (stepJump < JUMP_ACCEPT_TIME)
 		{
 			player_.SetJumpPow(VScale(Utility3D::DIR_U, player_.GetJumpAmount()));
 		}
@@ -180,8 +186,14 @@ void ControllerActionPlayer::ProcessJump()
 	// ボタンを離したらジャンプ力に加算しない
 	if (!isInputJump)
 	{
-		stepJump_ = JUMP_ACCEPT_TIME;
+		stepJump = JUMP_ACCEPT_TIME;
 	}
+
+	// ジャンプ判定の設定
+	player_.SetIsJump(isJump);
+
+	// ステップの設定
+	player_.SetStepJump(stepJump);
 }
 
 bool ControllerActionPlayer::IsEndLanding() const

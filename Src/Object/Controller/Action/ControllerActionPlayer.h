@@ -39,12 +39,6 @@ private:
 	// 所有者のインスタンスを参照
 	Player& player_;
 
-	// ジャンプ用ステップ
-	float stepJump_;
-
-	// ジャンプ判定
-	bool isJump_;
-
 	// 着地判定
 	bool isEndLanding_;
 

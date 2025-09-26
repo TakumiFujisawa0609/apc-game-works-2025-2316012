@@ -4,24 +4,34 @@
     "dashSpeed": 10,
     "gravity": 25,
     "timeRot": 1,
-    "initialPosition": {
+    "initPos": {
       "x": 0,
       "y": 0,
       "z": 0
     },
+    "initQuaRot": {
+      "x": 0,
+      "y": 180,
+      "z": 0
+    },
     "animationDefaultSpeed": 40,
     "animationJumpSpeed": 60,
-    "jumpAmount": 60,
-    "jumpAcceptTime": 0
+    "jumpAmount": 35,
+    "jumpAcceptTime": 0.5
   },
   "enemy": {
     "moveSpeed": 5,
     "dashSpeed": 10,
     "gravity": 25,
     "timeRot": 1,
-    "initialPosition": {
+    "initPos": {
       "x": 0,
       "y": 0,
+      "z": 0
+    },
+    "initQuaRot": {
+      "x": 0,
+      "y": 180,
       "z": 0
     },
     "animationDefaultSpeed": 20

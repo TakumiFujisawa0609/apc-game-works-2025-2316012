@@ -79,6 +79,7 @@ int SoundManager::GetSoundType(const SOUNDTYPE soundType)
 	default:
 		break;
 	}
+	return -1;
 }
 
 SoundManager::SoundManager()

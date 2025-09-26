@@ -26,8 +26,4 @@ private:
 
 	// 衝突物別処理
 	void OnHitStage(const std::weak_ptr<ColliderBase>& opponentCollider);			// ステージ
-
-	// コライダー別ステージ衝突処理
-	void OnHitStageCapsule(const std::weak_ptr<ColliderBase>& opponentCollider);	// カプセル
-	void OnHitStageLine(const std::weak_ptr<ColliderBase>& opponentCollider);		// ライン
 };

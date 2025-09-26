@@ -95,7 +95,6 @@ void CollisionManager::InitTagMatrix()
 
 	// 衝突判定を行う組み合わせを設定
 	collTagMatrix_[static_cast<int>(COLLISION_TAG::PLAYER)][static_cast<int>(COLLISION_TAG::STAGE)] = true;		// プレイヤーとステージ
-	collTagMatrix_[static_cast<int>(COLLISION_TAG::GRAVITY)][static_cast<int>(COLLISION_TAG::STAGE)] = true;	// 重力とステージ
 }
 
 void CollisionManager::InitColliderMatrix()
@@ -111,7 +110,19 @@ void CollisionManager::InitColliderMatrix()
 			return IsHitCheckModeToCapsule(collA, collB);
 		};
 
+	collFuncMatrix_[static_cast<int>(ColliderBase::TYPE::CAPSULE)][static_cast<int>(ColliderBase::TYPE::MODEL)] =
+		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
+		{
+			return IsHitCheckModeToCapsule(collA, collB);
+		};
+
 	collFuncMatrix_[static_cast<int>(ColliderBase::TYPE::MODEL)][static_cast<int>(ColliderBase::TYPE::LINE)] =
+		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
+		{
+			return IsHitCheckModeToLine(collA, collB);
+		};
+
+	collFuncMatrix_[static_cast<int>(ColliderBase::TYPE::LINE)][static_cast<int>(ColliderBase::TYPE::MODEL)] =
 		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
 		{
 			return IsHitCheckModeToLine(collA, collB);
@@ -123,11 +134,11 @@ bool CollisionManager::IsHitCheckModeToCapsule(std::weak_ptr<ColliderBase> collA
 	std::weak_ptr<ColliderModel> collModel;
 	std::weak_ptr<ColliderCapsule> collCapsule;
 
-	//モデルコライダーの用意
+	// モデルコライダーの用意
 	if (collA.lock()->GetType() == ColliderBase::TYPE::MODEL) { collModel = std::dynamic_pointer_cast<ColliderModel>(collA.lock()); }
 	else if (collB.lock()->GetType() == ColliderBase::TYPE::MODEL) { collModel = std::dynamic_pointer_cast<ColliderModel>(collB.lock()); }
 
-	//カプセルコライダーの用意
+	// カプセルコライダーの用意
 	if (collA.lock()->GetType() == ColliderBase::TYPE::CAPSULE) { collCapsule = std::dynamic_pointer_cast<ColliderCapsule>(collA.lock()); }
 	else if (collB.lock()->GetType() == ColliderBase::TYPE::CAPSULE) { collCapsule = std::dynamic_pointer_cast<ColliderCapsule>(collB.lock()); }
 
@@ -157,8 +168,8 @@ bool CollisionManager::IsHitCheckModeToLine(std::weak_ptr<ColliderBase> collA, s
 	else if (collB.lock()->GetType() == ColliderBase::TYPE::MODEL) { collModel = std::dynamic_pointer_cast<ColliderModel>(collB.lock()); }
 
 	//カプセルコライダーの用意
-	if (collA.lock()->GetType() == ColliderBase::TYPE::CAPSULE) { collLine = std::dynamic_pointer_cast<ColliderLine>(collA.lock()); }
-	else if (collB.lock()->GetType() == ColliderBase::TYPE::CAPSULE) { collLine = std::dynamic_pointer_cast<ColliderLine>(collB.lock()); }
+	if (collA.lock()->GetType() == ColliderBase::TYPE::LINE) { collLine = std::dynamic_pointer_cast<ColliderLine>(collA.lock()); }
+	else if (collB.lock()->GetType() == ColliderBase::TYPE::LINE) { collLine = std::dynamic_pointer_cast<ColliderLine>(collB.lock()); }
 
 	// 衝突判定
 	auto it = MV1CollCheck_Line(
