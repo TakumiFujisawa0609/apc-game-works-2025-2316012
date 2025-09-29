@@ -1,0 +1,10 @@
+{
+  "mainStage": [
+    {
+      "key": "testImage",
+      "sceneId": 0,
+      "type": "texture",
+      "path": "Data/Image/Test/TestTexture.png"
+    }
+  ]
+}

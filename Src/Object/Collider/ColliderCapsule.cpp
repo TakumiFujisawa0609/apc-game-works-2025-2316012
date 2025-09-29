@@ -3,13 +3,13 @@
 #include "../Utility/UtilityCommon.h"
 #include "ColliderCapsule.h"
 
-ColliderCapsule::ColliderCapsule(ActorBase& owner, const COLLISION_TAG tag) : 
+ColliderCapsule::ColliderCapsule(ActorBase& owner, const CollisionTags::TAG tag) :
 	ColliderBase(owner,tag)
 {
 	radius_ = 0.0f;
 	localPosTop_ = { 0.0f, 0.0f, 0.0f };
 	localPosDown_ = { 0.0f, 0.0f, 0.0f };
-	type_ = TYPE::CAPSULE;
+	type_ = ColliderType::TYPE::CAPSULE;
 }
 
 ColliderCapsule::~ColliderCapsule()

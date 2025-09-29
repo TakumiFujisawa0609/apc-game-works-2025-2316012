@@ -59,9 +59,9 @@ private:
 	// ラインとモデルの衝突判定
 	bool IsHitCheckModeToLine(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
 
-	//コンストラクタ
+	// コンストラクタ
 	CollisionManager();
 
-	//デストラクタ
+	// デストラクタ
 	~CollisionManager();
 };

@@ -1,7 +1,7 @@
+#include "../../../Manager/Generic/CollisionTags.h"
+#include "../../../Utility/Utility3D.h"
 #include "../../Character/Player.h"
 #include "../../Collider/ColliderModel.h"
-#include "../../Collider/CollisionTag.h"
-#include "../../../Utility/Utility3D.h"
 #include "../ControllerAnimation.h"
 #include "ControllerOnHitPlayer.h"
 
@@ -9,7 +9,7 @@ ControllerOnHitPlayer::ControllerOnHitPlayer(Player& owner) :
 	owner_(owner)
 {
 	// è’ìÀï®ï ä÷êîÇÃìoò^
-	RegisterOnHit(COLLISION_TAG::STAGE, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStage(opponentCollider); });
+	RegisterOnHit(CollisionTags::MAIN_STAGE, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStage(opponentCollider); });
 }
 
 ControllerOnHitPlayer::~ControllerOnHitPlayer()

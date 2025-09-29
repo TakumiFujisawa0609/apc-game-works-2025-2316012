@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include "../../Manager/Generic/SceneManager.h"
+#include "../../Manager/Generic/CollisionTags.h"
 #include "../../Manager/Generic/Camera.h"
 #include "../../Utility/UtilityCommon.h"
 #include "../../Utility/Utility3D.h"
@@ -53,7 +54,7 @@ void CharacterBase::Load()
 	gravity_ = std::make_unique<ControllerGravity>(*this);
 
 	// コライダー生成
-	auto colliderCapsule = std::make_shared<ColliderCapsule>(*this, COLLISION_TAG::PLAYER);
+	auto colliderCapsule = std::make_shared<ColliderCapsule>(*this, CollisionTags::PLAYER);
 	colliderCapsule->SetLocalPosTop({ 0.0f, 110.0f, 0.0f });
 	colliderCapsule->SetLocalPosDown({ 0.0f, 30.0f, 0.0f });
 	colliderCapsule->SetRadius(20.0f);

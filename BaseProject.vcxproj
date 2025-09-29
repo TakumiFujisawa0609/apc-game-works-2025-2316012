@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Collider\ColliderFactory.cpp" />
+    <ClCompile Include="Src\Object\System\Anomaly\AnomalyBase.cpp" />
+    <ClCompile Include="Src\Manager\System\AnomalyManager.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderLine.cpp" />
     <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitPlayer.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderModel.cpp" />
@@ -85,15 +88,20 @@
     <ClCompile Include="Src\Utility\UtilityDraw.cpp" />
     <ClCompile Include="Src\Object\Stage\StageObjectBase.cpp" />
     <ClCompile Include="Src\Manager\Generic\StageManager.cpp" />
+    <ClCompile Include="Src\Object\Stage\StageGimicObjectBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Collider\ColliderFactory.h" />
+    <ClInclude Include="Src\Manager\Generic\CollisionTags.h" />
+    <ClInclude Include="Src\Object\Collider\ColliderType.h" />
+    <ClInclude Include="Src\Object\System\Anomaly\AnomalyBase.h" />
+    <ClInclude Include="Src\Manager\System\AnomalyManager.h" />
     <ClInclude Include="Src\Object\Collider\ColliderLine.h" />
     <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitPlayer.h" />
     <ClInclude Include="Src\Object\Collider\ColliderModel.h" />
     <ClInclude Include="Src\Object\Collider\ColliderCapsule.h" />
     <ClInclude Include="Src\Manager\Generic\CollisionManager.h" />
     <ClInclude Include="Src\Object\Collider\ColliderBase.h" />
-    <ClInclude Include="Src\Object\Collider\CollisionTag.h" />
     <ClInclude Include="Src\Object\Controller\Action\ControllerActionPlayer.h" />
     <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitBase.h" />
     <ClInclude Include="Src\Object\Controller\Action\ControllerActionBase.h" />
@@ -201,6 +209,7 @@
     <ClInclude Include="Src\Utility\UtilityDraw.h" />
     <ClInclude Include="Src\Object\Stage\StageObjectBase.h" />
     <ClInclude Include="Src\Manager\Generic\StageManager.h" />
+    <ClInclude Include="Src\Object\Stage\StageGimicObjectBase.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\Model\StandardModelPS.hlsl">

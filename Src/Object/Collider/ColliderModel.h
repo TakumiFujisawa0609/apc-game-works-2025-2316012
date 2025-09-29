@@ -11,7 +11,7 @@ public:
 	/// </summary>
 	/// <param name="owner">所有者のインスタンス</param>
 	/// <param name="tag">衝突物の種類</param>
-	ColliderModel(ActorBase& owner, const COLLISION_TAG tag);
+	ColliderModel(ActorBase& owner, const CollisionTags::TAG tag);
 
 	/// <summary>
 	/// デストラクタ

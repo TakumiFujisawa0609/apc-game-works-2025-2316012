@@ -15,6 +15,11 @@ class StageManager : public Singleton<StageManager>
 
 public:
 
+	const std::vector<std::string> KEYS =
+	{
+		"mainStage",
+	};
+
 	/// <summary>
 	/// “Ç‚İ‚İˆ—
 	/// </summary>

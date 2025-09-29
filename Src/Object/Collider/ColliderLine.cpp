@@ -2,12 +2,12 @@
 #include "../../Utility/UtilityCommon.h"
 #include "ColliderLine.h"
 
-ColliderLine::ColliderLine(ActorBase& owner, const COLLISION_TAG tag) :
+ColliderLine::ColliderLine(ActorBase& owner, const CollisionTags::TAG tag) :
 	ColliderBase(owner,tag)
 {
 	localPosPointHead_ = Utility3D::VECTOR_ZERO;
 	localPosPointEnd_ = Utility3D::VECTOR_ZERO;
-	type_ = TYPE::LINE;
+	type_ = ColliderType::TYPE::LINE;
 }
 
 ColliderLine::~ColliderLine()

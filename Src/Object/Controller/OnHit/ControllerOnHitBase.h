@@ -7,7 +7,6 @@
 
 class CharacterBase;
 class ColliderBase;
-enum class COLLISION_TAG;
 
 class ControllerOnHitBase : public ControllerBase
 {
@@ -32,9 +31,9 @@ public:
 protected:
 
 	//タグ別衝突後の処理の登録
-	void RegisterOnHit(const COLLISION_TAG tag, std::function<void(const std::weak_ptr<ColliderBase>&)> onHit);
+	void RegisterOnHit(const std::string& tag, std::function<void(const std::weak_ptr<ColliderBase>&)> onHit);
 
 	//衝突後の処理を管理するマップ
-	std::unordered_map<COLLISION_TAG, std::function<void(const std::weak_ptr<ColliderBase>&)>> onHitMap_;
+	std::unordered_map<std::string, std::function<void(const std::weak_ptr<ColliderBase>&)>> onHitMap_;
 
 };

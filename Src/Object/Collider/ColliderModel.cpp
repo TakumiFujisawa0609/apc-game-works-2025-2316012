@@ -1,11 +1,11 @@
 #include "ColliderModel.h"
 
-ColliderModel::ColliderModel(ActorBase& owner, const COLLISION_TAG tag) :
+ColliderModel::ColliderModel(ActorBase& owner, const CollisionTags::TAG tag) :
 	ColliderBase(owner, tag)
 {
 	collResultPolyDim_ = {};
 	collResultPoly_ = {};
-	type_ = TYPE::MODEL;
+	type_ = ColliderType::TYPE::MODEL;
 }
 
 ColliderModel::~ColliderModel()
