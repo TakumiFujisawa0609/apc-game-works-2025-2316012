@@ -16,8 +16,7 @@ public:
 	/// コンストラクタ
 	/// </summary>
 	/// <param name="fileName">ファイル名前</param>
-	/// <param name="nameList">読み込み用名前リスト</param>
-	ParameterLoad(const std::string& fileName, const std::vector<std::string>& nameList);
+	ParameterLoad(const std::string& fileName);
 
 	/// <summary>
 	/// デストラクタ
@@ -30,28 +29,25 @@ public:
 	void Load();
 
 	/// <summary>
-	/// 指定したパラメーターファイルを返す
+	/// 指定したパラメーターファイル配列を返す
 	/// </summary>
 	/// <param name="key">取得したい要素のキー</param>
-	/// <returns>パラメータファイル</returns>
-	const Json GetParameterFile(const std::string& key) const;
+	/// <returns>パラメータファイル配列</returns>
+	const std::vector<Json> GetParameterFile(const std::string& key) const;
 
 	/// <summary>
-	/// パラメーターファイルをすべて返す
+	/// パラメーター管理マップを返す
 	/// </summary>
-	/// <returns>パラメーターファイルすべて</returns>
-	std::vector<Json> GetParameterFiles();
+	/// <returns>パラメーター管理マップ</returns>
+	const std::unordered_map<std::string, std::vector<Json>> GetParameterMap() const { return parameterMap_; }
 
 private:
 
 	// ファイル名前
 	const std::string FILE_NAME;
 
-	// パラメータ読み込み用名前リスト
-	const std::vector<std::string> NAME_LIST;
-
 	// パラメーター管理マップ
-	std::unordered_map<std::string, Json> parameterMap_;
+	std::unordered_map<std::string, std::vector<Json>> parameterMap_;
 };
 
 

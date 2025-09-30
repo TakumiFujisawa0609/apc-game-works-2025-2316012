@@ -32,10 +32,16 @@ protected:
 	// ステージキー
 	const std::string STAGE_KEY;
 
+	// 1メートルをゲーム内の単位に変換するスケール
+	static constexpr float METER_TO_UNIT_SCALE = 100.0f;
+
 	// 処理の適用処理
 	void UpdateApply() override;
 
 	// メインの描画処理
 	void DrawMain() override;
+
+	// トランスフォームの初期化
+	void InitTransform() override;
 };
 

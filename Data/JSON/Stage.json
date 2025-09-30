@@ -1,22 +1,291 @@
 {
   "mainStage": {
-    "key": "mainStage",
     "collisionTag": "mainStage",
     "colliderType": "model",
     "initPos": {
-      "x": 0,
-      "y": 0,
-      "z": 0
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
     },
     "initRot": {
-      "x": 0,
-      "y": 180,
-      "z": 0
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
     },
     "initScl": {
-      "x": 1,
-      "y": 1,
-      "z": 1
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    }
+  },
+  "jarBaby03": {
+    "collisionTag": "none",
+    "colliderType": "model",
+    "initPos": {
+      "x": 7.976576,
+      "y": 0.0120426118,
+      "z": -12.1091719
+    },
+    "initRot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "initScl": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    }
+  },
+  "jarBaby01": {
+    "collisionTag": "none",
+    "colliderType": "model",
+    "initPos": {
+      "x": 7.90333,
+      "y": 0.008042514,
+      "z": -12.8046341
+    },
+    "initRot": {
+      "x": 0.0,
+      "y": 151.736267,
+      "z": 0.0
+    },
+    "initScl": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    }
+  },
+  "board": {
+    "collisionTag": "none",
+    "colliderType": "model",
+    "initPos": {
+      "x": 7.121,
+      "y": 0.605000138,
+      "z": -14.048
+    },
+    "initRot": {
+      "x": 9.334671E-06,
+      "y": 78.1578,
+      "z": 5.699554E-12
+    },
+    "initScl": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    }
+  },
+  "chair01": [
+    {
+      "collisionTag": "none",
+      "colliderType": "model",
+      "initPos": {
+        "x": 3.89858961,
+        "y": 0.00500014424,
+        "z": 0.919493556
+      },
+      "initRot": {
+        "x": 270.0,
+        "y": 274.188354,
+        "z": 0.0
+      },
+      "initScl": {
+        "x": 0.8200002,
+        "y": 0.8200003,
+        "z": 0.8200005
+      }
+    },
+    {
+      "collisionTag": "none",
+      "colliderType": "model",
+      "initPos": {
+        "x": 5.89632559,
+        "y": 0.004999906,
+        "z": 1.14723337
+      },
+      "initRot": {
+        "x": 270.0,
+        "y": 32.40059,
+        "z": 0.0
+      },
+      "initScl": {
+        "x": 0.8200002,
+        "y": 0.8200003,
+        "z": 0.82000047
+      }
+    },
+    {
+      "collisionTag": "none",
+      "colliderType": "model",
+      "initPos": {
+        "x": 6.276008,
+        "y": 0.00500014424,
+        "z": -1.615706
+      },
+      "initRot": {
+        "x": 270.0,
+        "y": 154.082657,
+        "z": 0.0
+      },
+      "initScl": {
+        "x": 0.820000231,
+        "y": 0.8200003,
+        "z": 0.8200005
+      }
+    }
+  ],
+  "tableSink": {
+    "collisionTag": "none",
+    "colliderType": "model",
+    "initPos": {
+      "x": 3.159,
+      "y": 0.00500003435,
+      "z": -3.473
+    },
+    "initRot": {
+      "x": 270.0,
+      "y": 180.0,
+      "z": 0.0
+    },
+    "initScl": {
+      "x": 0.01062585,
+      "y": 0.0106258513,
+      "z": 0.0106258513
+    }
+  },
+  "table04": {
+    "collisionTag": "none",
+    "colliderType": "model",
+    "initPos": {
+      "x": 5.04314852,
+      "y": 0.6119857,
+      "z": -0.2405138
+    },
+    "initRot": {
+      "x": 270.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "initScl": {
+      "x": 0.625,
+      "y": 0.62499994,
+      "z": 0.752734661
+    }
+  },
+  "stove": [
+    {
+      "collisionTag": "none",
+      "colliderType": "model",
+      "initPos": {
+        "x": 2.364941,
+        "y": 0.00609802548,
+        "z": -19.77066
+      },
+      "initRot": {
+        "x": 270.0,
+        "y": -0.000213712949,
+        "z": 0.0
+      },
+      "initScl": {
+        "x": 0.00265096757,
+        "y": 0.00265096733,
+        "z": 0.00265096733
+      }
+    },
+    {
+      "collisionTag": "none",
+      "colliderType": "model",
+      "initPos": {
+        "x": 3.22376156,
+        "y": 0.00609802548,
+        "z": -19.648241
+      },
+      "initRot": {
+        "x": 270.0,
+        "y": -0.000213712949,
+        "z": 0.0
+      },
+      "initScl": {
+        "x": 0.00265096757,
+        "y": 0.00265096733,
+        "z": 0.00265096733
+      }
+    }
+  ],
+  "alembic02": {
+    "collisionTag": "none",
+    "colliderType": "model",
+    "initPos": {
+      "x": 4.76,
+      "y": 0.005000168,
+      "z": -19.7
+    },
+    "initRot": {
+      "x": 270.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "initScl": {
+      "x": 28.4375172,
+      "y": 28.4375172,
+      "z": 28.4375172
+    }
+  },
+  "drawer03": {
+    "collisionTag": "none",
+    "colliderType": "model",
+    "initPos": {
+      "x": 4.457454,
+      "y": -0.00629143324,
+      "z": -10.9872131
+    },
+    "initRot": {
+      "x": 270.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "initScl": {
+      "x": 0.0121702673,
+      "y": 0.0121702682,
+      "z": 0.0121702682
+    }
+  },
+  "drawer02": {
+    "collisionTag": "none",
+    "colliderType": "model",
+    "initPos": {
+      "x": 4.77919626,
+      "y": 0.00500011444,
+      "z": -13.2939472
+    },
+    "initRot": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "initScl": {
+      "x": 0.823019445,
+      "y": 0.8230194,
+      "z": 0.8230194
+    }
+  },
+  "drawer01": {
+    "collisionTag": "none",
+    "colliderType": "model",
+    "initPos": {
+      "x": 9.825705,
+      "y": 0.00561415,
+      "z": -11.658843
+    },
+    "initRot": {
+      "x": 270.019775,
+      "y": 359.972015,
+      "z": 0.0
+    },
+    "initScl": {
+      "x": 0.170765862,
+      "y": 0.170765862,
+      "z": 0.170765847
     }
   }
 }

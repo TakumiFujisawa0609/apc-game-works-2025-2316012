@@ -5,9 +5,8 @@
 #include "../../../Utility/UtilityCommon.h"
 #include "ParameterLoad.h"
 
-ParameterLoad::ParameterLoad(const std::string& fileName, const std::vector<std::string>& nameList) :
-    FILE_NAME(fileName),
-    NAME_LIST(nameList)
+ParameterLoad::ParameterLoad(const std::string& fileName) :
+    FILE_NAME(fileName)
 {
 }
 
@@ -34,11 +33,23 @@ void ParameterLoad::Load()
         ifs >> jsonData;
 
         // リスト順にデータを格納
-        for (auto& key : NAME_LIST)
+        for (auto& [key, value] : jsonData.items())
         {
-            if (jsonData.contains(key))
+            // 配列の場合
+            if (value.is_array())
             {
-                parameterMap_.emplace(key, jsonData[key]);
+                // 配列の場合
+                for (auto& obj : value)
+                {
+                    // 1つずつ格納
+                    parameterMap_[key].push_back(obj);
+                }
+            }
+            // 単一オブジェクトの場合
+            else
+            {
+                // そのまま格納
+                parameterMap_[key].push_back(value);
             }
         }
         ifs.close();
@@ -49,7 +60,7 @@ void ParameterLoad::Load()
     }
 }
 
-const Json ParameterLoad::GetParameterFile(const std::string& key) const
+const std::vector<Json> ParameterLoad::GetParameterFile(const std::string& key) const
 {
 	// マップからキーに対応するJsonオブジェクトを検索
 	auto it = parameterMap_.find(key);
@@ -62,20 +73,5 @@ const Json ParameterLoad::GetParameterFile(const std::string& key) const
 	}
 
 	// キーが見つからない場合は空のJsonオブジェクトを返す
-	return Json();
-}
-
-std::vector<Json> ParameterLoad::GetParameterFiles()
-{
-    std::vector<Json> paramFiles;
-    paramFiles.reserve(parameterMap_.size());
-
-    // 
-    for (const auto& pair : parameterMap_) 
-    {
-        // 値の格納
-        paramFiles.push_back(pair.second);
-    }
-
-    return paramFiles;
+	return std::vector<Json>();
 }

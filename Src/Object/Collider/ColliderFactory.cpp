@@ -31,7 +31,7 @@ CollisionTags::TAG ColliderFactory::GetTagFromStringTag(const std::string& tag)
 	if (it == map.end())
 	{
 		assert(false && L"‘Î‰‚µ‚Ä‚¢‚È‚¢Õ“Ë•¨‚Ìí—Ş‚ğó‚¯æ‚Á‚½");
-		return CollisionTags::TAG::MAX;
+		return CollisionTags::TAG::NONE;
 	}
 
 	// •ÏŠ·‚µ‚½Œ^‚ğ•Ô‚·

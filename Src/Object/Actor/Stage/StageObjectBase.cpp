@@ -39,3 +39,13 @@ void StageObjectBase::DrawMain()
 {
 	MV1DrawModel(transform_.modelId);
 }
+
+void StageObjectBase::InitTransform()
+{
+	transform_.quaRot = Quaternion();
+	transform_.scl = Utility3D::VECTOR_ONE;
+	transform_.rot = INITIAL_ROT;
+	transform_.pos = VScale(INITIAL_POS, METER_TO_UNIT_SCALE);
+	transform_.quaRotLocal = Quaternion::Euler({ 0.0f, UtilityCommon::Deg2RadF(DEFAULT_LOCAL_DEG_Y),0.0f });
+	transform_.Update();
+}

@@ -6,11 +6,11 @@
 void CharacterManager::Load()
 {
 	// パラメータ読み込み
-	paramLoad_ = std::make_unique<ParameterLoad>(FILE_NAME, NAME_LIST);
+	paramLoad_ = std::make_unique<ParameterLoad>(FILE_NAME);
 	paramLoad_->Load();
 
 	// プレイヤー生成
-	auto player = std::make_unique<Player>(paramLoad_->GetParameterFile(NAME_LIST[static_cast<int>(TYPE::PLAYER)]));
+	auto player = std::make_unique<Player>(paramLoad_->GetParameterFile(NAME_LIST[static_cast<int>(TYPE::PLAYER)]).front());
 
 	// プレイヤー読み込み
 	player->Load();

@@ -18,6 +18,8 @@ public:
 	const std::vector<std::string> NAME_LIST =
 	{
 		"mainStage",
+		"Alembic02",
+		"Board"
 	};
 
 	/// <summary>

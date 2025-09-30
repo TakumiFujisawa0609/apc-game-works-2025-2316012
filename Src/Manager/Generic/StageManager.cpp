@@ -5,20 +5,34 @@
 void StageManager::Load()
 {
 	// パラメータ読み込み
-	paramLoad_ = std::make_unique<ParameterLoad>(FILEN_NAME, NAME_LIST);
+	paramLoad_ = std::make_unique<ParameterLoad>(FILEN_NAME);
 	paramLoad_->Load();
 
-	// オブジェクト生成
-	auto object = std::make_unique<StageObjectBase>(NAME_LIST[0], paramLoad_->GetParameterFile(NAME_LIST[0]));
+	// パラメータマップを取得
+	auto& paramMap = paramLoad_->GetParameterMap();
 
-	// オブジェクト読み込み
-	object->Load();
+	// パラメータ数分オブジェクト生成
+	for (auto& params : paramMap)
+	{		
+		// オブジェクト格納用配列
+		std::vector<std::unique_ptr<StageObjectBase>> objects;
 
-	std::vector<std::unique_ptr<StageObjectBase>> objects;
-	objects.push_back(std::move(object));
+		// 要素分パラメータ格納
+		for (auto& param : params.second)
+		{
+			// オブジェクト生成
+			auto object = std::make_unique<StageObjectBase>(params.first, param);
 
-	// マップに登録
-	stageObjectsMap_.emplace(NAME_LIST[0], std::move(objects));
+			// オブジェクト読み込み
+			object->Load();
+
+			// 配列に格納
+			objects.push_back(std::move(object));
+		}
+		
+		// マップに登録
+		stageObjectsMap_.emplace(params.first, std::move(objects));
+	}
 }
 
 void StageManager::Init()

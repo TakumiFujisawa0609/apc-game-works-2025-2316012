@@ -70,4 +70,3 @@ private:
 	VECTOR localPosPointHead_;	// 先頭の点の座標
 	VECTOR localPosPointEnd_;	// 末尾の点の座標
 };
-

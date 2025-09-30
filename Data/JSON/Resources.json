@@ -56,6 +56,72 @@
       "path": "Data/Model/Stage/MainStage.mv1"
     },
     {
+      "key": "alembic02",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Alembic02.mv1"
+    },
+    {
+      "key": "board",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Board.mv1"
+    },
+    {
+      "key": "chair01",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Chair01.mv1"
+    },
+    {
+      "key": "drawer01",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Drawier01.mv1"
+    },
+    {
+      "key": "drawer02",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Drawier02.mv1"
+    },
+    {
+      "key": "drawer03",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Drawier03.mv1"
+    },
+    {
+      "key": "jarBaby01",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/JarBaby01.mv1"
+    },
+    {
+      "key": "jarBaby03",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/JarBaby03.mv1"
+    },
+    {
+      "key": "stove",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Stove.mv1"
+    },
+    {
+      "key": "table04",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Table04.mv1"
+    },
+    {
+      "key": "tableSink",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/TableSink.mv1"
+    },
+    {
       "key": "player",
       "sceneId": 3,
       "type": "model",

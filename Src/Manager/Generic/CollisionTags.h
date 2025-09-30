@@ -9,6 +9,7 @@ public:
 	// П’УЋХ®ВћОнЧё
 	enum class TAG
 	{
+		NONE,
 		PLAYER,
 		MAIN_STAGE,
 		MAX
