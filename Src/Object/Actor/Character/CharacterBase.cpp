@@ -11,7 +11,6 @@
 #include "../../Controller/ControllerGravity.h"
 #include "../../Controller/OnHit/ControllerOnHitBase.h"
 #include "../../Collider/ColliderCapsule.h"
-#include "../../Collider/ColliderLine.h"
 #include "CharacterBase.h"
 
 const std::string CharacterBase::ANIM_IDLE = "idle";	// ‘Ò‹@

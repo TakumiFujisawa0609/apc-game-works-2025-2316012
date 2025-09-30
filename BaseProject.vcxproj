@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Character\Ghost.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderSphere.cpp" />
     <ClCompile Include="Src\Manager\Generic\CollisionTags.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderType.cpp" />
+    <ClCompile Include="Src\Object\System\Anomaly\AnomalyBase.cpp" />
     <ClCompile Include="Src\Object\System\Load\ParameterLoad.cpp" />
     <ClCompile Include="Src\Object\System\Load\ParameterLoadStage.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderFactory.cpp" />
@@ -93,7 +95,9 @@
     <ClCompile Include="Src\Object\Actor\Stage\StageGimicObjectBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Character\Ghost.h" />
     <ClInclude Include="Src\Object\Collider\ColliderSphere.h" />
+    <ClInclude Include="Src\Object\System\Anomaly\AnomalyBase.h" />
     <ClInclude Include="Src\Object\System\Load\ParameterLoad.h" />
     <ClInclude Include="Src\Object\System\Load\ParameterLoadStage.h" />
     <ClInclude Include="Src\Object\Collider\ColliderFactory.h" />
