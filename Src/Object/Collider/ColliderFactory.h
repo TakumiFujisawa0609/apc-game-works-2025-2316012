@@ -4,10 +4,19 @@
 #include <map>
 #include "../../Template/Singleton.h"
 #include "../../Manager/Generic/CollisionTags.h"
+#include "ColliderCapsule.h"
+#include "ColliderBase.h"
+#include "ColliderLine.h"
+#include "ColliderModel.h"
+#include "ColliderSphere.h"
 #include "ColliderType.h"
 
 class ActorBase;
 class ColliderBase;
+//class ColliderCapsule;
+//class ColliderLine;
+//class ColliderModel;
+//class ColliderSphere;
 
 class ColliderFactory : public Singleton<ColliderFactory>
 {
@@ -28,16 +37,17 @@ public:
 private:
 
 	// 生成処理の管理マップ
-	std::map<const std::string&, std::function<std::shared_ptr<ColliderBase>(ActorBase&, const CollisionTags::TAG)>> createColliderMap_;
+	std::map<std::string, std::function<std::shared_ptr<ColliderBase>(ActorBase&, const CollisionTags::TAG)>> createColliderMap_;
 
 	// コライダー生成処理の登録処理
 	template <typename T>
 	void RegisterCreate(const std::string& type)
 	{
-		creators_[type] = [](ActorBase& owner, CollisionTags::TAG tag)
+		createColliderMap_.emplace(type,
+			[](ActorBase& owner, CollisionTags::TAG tag)
 			{
-			return std::make_shared<T>(owner, tag);	// 指定した型のコライダーを生成
-			};
+				return std::make_shared<T>(owner, tag);
+			});
 	}
 
 	// コライダー種類をストリング型から列挙型へ変換

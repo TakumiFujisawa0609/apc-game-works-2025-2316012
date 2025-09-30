@@ -1,12 +1,11 @@
 #pragma once
-#include <memory>
 #include <string>
 #include <vector>
 #include <unordered_map>
 #include "../../Template/Singleton.h"
 
+class ParameterLoad;
 class StageObjectBase;
-class MainStage;
 
 class StageManager : public Singleton<StageManager>
 {
@@ -15,7 +14,8 @@ class StageManager : public Singleton<StageManager>
 
 public:
 
-	const std::vector<std::string> KEYS =
+	// ステージオブジェクト
+	const std::vector<std::string> NAME_LIST =
 	{
 		"mainStage",
 	};
@@ -42,11 +42,13 @@ public:
 
 private:
 
-	//ステージオブジェクトの管理マップ
-	std::unordered_map<std::wstring, std::vector<std::unique_ptr<StageObjectBase>>> stageObjectsMap_;
+	const std::string FILEN_NAME = "Stage";
 
-	//test用ステージオブジェクト
-	std::unique_ptr<MainStage> testStage_;
+	// パラメータ読み込み
+	std::unique_ptr<ParameterLoad> paramLoad_;
+
+	//ステージオブジェクトの管理マップ
+	std::unordered_map<std::string, std::vector<std::unique_ptr<StageObjectBase>>> stageObjectsMap_;
 
 	//コンストラクタ
 	StageManager();

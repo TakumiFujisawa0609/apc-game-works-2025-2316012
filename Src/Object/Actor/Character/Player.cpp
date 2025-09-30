@@ -1,15 +1,14 @@
-#include "../../Manager/Generic/SceneManager.h"
-#include "../../Manager/Generic/Camera.h"
-#include "../../Manager/Resource/ResourceManager.h"
-#include "../Controller/ControllerAnimation.h"
-#include "../Controller/ControllerMove.h"
-#include "../Controller/ControllerRotate.h"
-#include "../Controller/ControllerGravity.h"
-#include "../Controller/Action/ControllerActionPlayer.h"
-#include "../Controller/OnHit/ControllerOnHitPlayer.h"
-#include "../Utility/Utility3D.h"
-#include "../Utility/UtilityCommon.h"
-#include "../System/InputPlayer.h"
+#include "../../../Manager/Generic/SceneManager.h"
+#include "../../../Manager/Generic/Camera.h"
+#include "../../../Manager/Resource/ResourceManager.h"
+#include "../../../Utility/Utility3D.h"
+#include "../../../Utility/UtilityCommon.h"
+#include "../../Controller/ControllerAnimation.h"
+#include "../../Controller/ControllerMove.h"
+#include "../../Controller/ControllerRotate.h"
+#include "../../Controller/ControllerGravity.h"
+#include "../../Controller/Action/ControllerActionPlayer.h"
+#include "../../Controller/OnHit/ControllerOnHitPlayer.h"
 #include "Player.h"
 
 const std::string Player::ANIM_JUMP = "jump";	//ƒWƒƒƒ“ƒv
@@ -93,7 +92,7 @@ void Player::InitTransform()
 {
 	transform_.quaRot = Quaternion();
 	transform_.scl = Utility3D::VECTOR_ONE;
-	transform_.quaRotLocal = Quaternion::Euler({ INITIAL_QUA_ROT.x, UtilityCommon::Deg2RadF(INITIAL_QUA_ROT.y), INITIAL_QUA_ROT.z });
+	transform_.quaRotLocal = Quaternion::Euler({ INITIAL_ROT.x, UtilityCommon::Deg2RadF(INITIAL_ROT.y), INITIAL_ROT.z });
 	transform_.pos = INITIAL_POS;
 	transform_.localPos = { 0.0f,20.0f,0.0f };
 	transform_.Update();

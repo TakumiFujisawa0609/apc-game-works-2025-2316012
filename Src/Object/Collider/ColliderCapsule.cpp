@@ -1,4 +1,3 @@
-#include "../ActorBase.h"
 #include "../Common/Transform.h"
 #include "../Utility/UtilityCommon.h"
 #include "ColliderCapsule.h"

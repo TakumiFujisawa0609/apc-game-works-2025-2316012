@@ -1,4 +1,5 @@
 #include "ParameterLoadBase.h"
+#include "ParameterLoad.h"
 
 ParameterLoadBase::ParameterLoadBase()
 {

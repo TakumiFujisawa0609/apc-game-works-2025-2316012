@@ -20,9 +20,3 @@ public:
 	// 各種タグの名前を管理するマップ
 	static const std::map<TAG, std::string> TAG_NAME_MAP;
 };
-
-const std::map<CollisionTags::TAG, std::string> CollisionTags::TAG_NAME_MAP =
-{
-	{CollisionTags::TAG::PLAYER, "collisionTagPlayer"},
-	{CollisionTags::TAG::MAIN_STAGE, "collisionTagMainStage"}
-};

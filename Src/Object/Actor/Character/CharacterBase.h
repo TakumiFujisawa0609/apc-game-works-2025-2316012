@@ -1,12 +1,8 @@
 #pragma once
-#include <nlohmann/json.hpp>
 #include <memory>
 #include <string>
 #include "../ActorBase.h"
-#include "../../Common/Quaternion.h"
-
-// JSON名前空間
-using Json = nlohmann::json;
+#include "../../../Common/Quaternion.h"
 
 class ControllerAnimation;
 class ControllerActionBase;
@@ -176,12 +172,6 @@ protected:
 	// デフォルトのアニメーション速度
 	const float ANIM_DEFAULT_SPEED;
 
-	// 初期位置
-	const VECTOR INITIAL_POS;
-
-	// 初期角度
-	const VECTOR INITIAL_QUA_ROT;
-
 	// 回転角度(DEG)
 	double rotDeg_;
 
@@ -226,11 +216,6 @@ protected:
 	/// アニメーションの初期化
 	/// </summary>
 	virtual void InitAnimation() = 0;
-
-	/// <summary>
-	/// トランスフォームの初期化
-	/// </summary>
-	virtual void InitTransform() override;
 
 	/// <summary>
 	/// デバッグ時の描画

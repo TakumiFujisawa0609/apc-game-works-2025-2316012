@@ -1,30 +1,59 @@
+#include "../../Object/Actor/Stage/StageObjectBase.h"
+#include "../../Object/System/Load/ParameterLoad.h"
 #include "StageManager.h"
-#include "../../Object/Stage/StageObjectBase.h"
-#include "../../Object/Stage/MainStage.h"
 
 void StageManager::Load()
 {
-	//test用ステージオブジェクト生成
-	testStage_ = std::make_unique<MainStage>();
-	testStage_->Load();
+	// パラメータ読み込み
+	paramLoad_ = std::make_unique<ParameterLoad>(FILEN_NAME, NAME_LIST);
+	paramLoad_->Load();
+
+	// オブジェクト生成
+	auto object = std::make_unique<StageObjectBase>(NAME_LIST[0], paramLoad_->GetParameterFile(NAME_LIST[0]));
+
+	// オブジェクト読み込み
+	object->Load();
+
+	std::vector<std::unique_ptr<StageObjectBase>> objects;
+	objects.push_back(std::move(object));
+
+	// マップに登録
+	stageObjectsMap_.emplace(NAME_LIST[0], std::move(objects));
 }
 
 void StageManager::Init()
 {
-	testStage_->Init();
+	for (auto& objects : stageObjectsMap_)
+	{
+		for (auto& object : objects.second)
+		{
+			object->Init();
+		}
+	}
 }
 
 void StageManager::Update()
 {
-	testStage_->Update();
+	for (auto& objects : stageObjectsMap_)
+	{
+		for (auto& object : objects.second)
+		{
+			object->Init();
+		}
+	}
 }
 
 void StageManager::Draw()
 {
-	testStage_->Draw();
+	for (auto& objects : stageObjectsMap_)
+	{
+		for (auto& object : objects.second)
+		{
+			object->Draw();
+		}
+	}
 }
 
 StageManager::StageManager()
 {
-	testStage_ = nullptr;
 }

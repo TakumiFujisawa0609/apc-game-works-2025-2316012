@@ -1,10 +1,5 @@
 #pragma once
-#include <nlohmann/json.hpp>
 #include "../ActorBase.h"
-
-
-// JSON名前空間
-using Json = nlohmann::json;
 
 class StageObjectBase : public ActorBase
 {
@@ -13,6 +8,8 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
+	/// <param name="key">ステージハンドル用名前キー</param>
+	/// <param name="param">パラメーター情報</param>
 	StageObjectBase(const std::string& key, const Json& param);
 
 	/// <summary>
@@ -31,15 +28,6 @@ public:
 	virtual void Init() override;
 
 protected:
-	
-	// 初期位置
-	const VECTOR INITIAL_POS;
-
-	// 初期角度
-	const VECTOR INITIAL_ROT;
-	
-	// 初期スケール
-	const VECTOR INITIAL_SCL;
 
 	// ステージキー
 	const std::string STAGE_KEY;

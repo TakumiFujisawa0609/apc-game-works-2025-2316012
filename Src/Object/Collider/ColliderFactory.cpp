@@ -2,11 +2,6 @@
 #include <cassert> 
 #include "ColliderFactory.h"
 
-class ColliderCapsule;
-class ColliderLine;
-class ColliderModel;
-class ColliderSphere;
-
 std::shared_ptr<ColliderBase> ColliderFactory::Create(ActorBase& owner, const std::string& stringTag, const std::string& stringType)
 {
 	CollisionTags::TAG tag = GetTagFromStringTag(stringTag);
@@ -33,7 +28,11 @@ CollisionTags::TAG ColliderFactory::GetTagFromStringTag(const std::string& tag)
 		[&tag](const auto& pair) {return pair.second == tag; });
 
 	// •ÏŠ·‚ªo—ˆ‚È‚©‚Á‚½ê‡
-	assert(it == map.end() && L"‘Î‰ž‚µ‚Ä‚¢‚È‚¢Õ“Ë•¨‚ÌŽí—Þ‚ðŽó‚¯Žæ‚Á‚½");
+	if (it == map.end())
+	{
+		assert(false && L"‘Î‰ž‚µ‚Ä‚¢‚È‚¢Õ“Ë•¨‚ÌŽí—Þ‚ðŽó‚¯Žæ‚Á‚½");
+		return CollisionTags::TAG::MAX;
+	}
 
 	// •ÏŠ·‚µ‚½Œ^‚ð•Ô‚·
 	return it->first;

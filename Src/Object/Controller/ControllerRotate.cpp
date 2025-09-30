@@ -2,7 +2,7 @@
 #include "../../Manager/Generic/Camera.h"
 #include "../../Utility/Utility3D.h"
 #include "../../Utility/UtilityCommon.h"
-#include "../Character/CharacterBase.h"
+#include "../Actor/Character/CharacterBase.h"
 #include "ControllerRotate.h"
 
 ControllerRotate::ControllerRotate(CharacterBase& owner) : 

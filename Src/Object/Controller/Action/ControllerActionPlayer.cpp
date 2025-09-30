@@ -2,7 +2,7 @@
 #include "../../../Manager/Generic/Camera.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Utility/UtilityCommon.h"
-#include "../../Character/Player.h"
+#include "../../Actor/Character/Player.h"
 #include "../../System/InputPlayer.h"
 #include "../ControllerAnimation.h"
 #include "ControllerActionPlayer.h"

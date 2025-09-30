@@ -3,6 +3,7 @@
 #include <functional>
 #include <string>
 #include <unordered_map>
+#include "../../../Manager/Generic/CollisionTags.h"
 #include "../ControllerBase.h"
 
 class CharacterBase;
@@ -31,9 +32,9 @@ public:
 protected:
 
 	//タグ別衝突後の処理の登録
-	void RegisterOnHit(const std::string& tag, std::function<void(const std::weak_ptr<ColliderBase>&)> onHit);
+	void RegisterOnHit(const CollisionTags::TAG tag, std::function<void(const std::weak_ptr<ColliderBase>&)> onHit);
 
 	//衝突後の処理を管理するマップ
-	std::unordered_map<std::string, std::function<void(const std::weak_ptr<ColliderBase>&)>> onHitMap_;
+	std::unordered_map<CollisionTags::TAG, std::function<void(const std::weak_ptr<ColliderBase>&)>> onHitMap_;
 
 };

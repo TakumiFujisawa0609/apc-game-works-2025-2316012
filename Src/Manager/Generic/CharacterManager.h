@@ -1,9 +1,10 @@
 #pragma once
 #include <memory>
 #include <unordered_map>
+#include <string>
 #include "../../Template/Singleton.h"
 
-class ParameterLoadCharacter;
+class ParameterLoad;
 class CharacterBase;
 
 class CharacterManager : public Singleton<CharacterManager>
@@ -13,11 +14,19 @@ class CharacterManager : public Singleton<CharacterManager>
 
 public:
 
-	//キャラクターの種類
+	// 種類
 	enum class TYPE
 	{
 		PLAYER,
+		ENEMY,
 		MAX
+	};
+
+	// キャラクターの名前リスト
+	const std::vector<std::string> NAME_LIST = 
+	{
+		"player",
+		"enemy",
 	};
 
 	/// <summary>
@@ -49,16 +58,18 @@ public:
 
 private:
 
-	//パラメータ読み込み
-	std::unique_ptr<ParameterLoadCharacter> paramLoad_;
+	// ファイル名
+	const std::string FILE_NAME = "ParameterCharater";
 
-	//キャラクターオブジェクトの管理マップ
+	// パラメータ読み込み
+	std::unique_ptr<ParameterLoad> paramLoad_;
+
+	// キャラクターオブジェクトの管理マップ
 	std::unordered_map<TYPE, std::unique_ptr<CharacterBase>> characterMap_;
 	
-	//コンストラクタ
+	// コンストラクタ
 	CharacterManager();
 	
-	//デストラクタ
+	// デストラクタ
 	~CharacterManager() = default;
 };
-

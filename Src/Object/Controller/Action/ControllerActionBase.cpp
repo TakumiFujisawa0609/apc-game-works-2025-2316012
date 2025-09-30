@@ -1,6 +1,6 @@
 #include "../../../Manager/Generic/SceneManager.h"
 #include "../../../Manager/Generic/Camera.h"
-#include "../../Character/CharacterBase.h"
+#include "../../Actor/Character/CharacterBase.h"
 #include "ControllerActionBase.h"
 
 ControllerActionBase::ControllerActionBase(CharacterBase& owner) :

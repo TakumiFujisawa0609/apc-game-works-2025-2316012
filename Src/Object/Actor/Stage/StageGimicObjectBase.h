@@ -5,10 +5,17 @@ class StageGimicObjectBase : public StageObjectBase
 {
 public:
 
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	/// <param name="key">ステージハンドル用名前キー</param>
+	/// <param name="param">パラメーター情報</param>
+	StageGimicObjectBase(const std::string& key, const Json& param);
 
-	StageGimicObjectBase();
-
-	~StageGimicObjectBase();
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~StageGimicObjectBase() override;
 
 	/// <summary>
 	/// 色を変更

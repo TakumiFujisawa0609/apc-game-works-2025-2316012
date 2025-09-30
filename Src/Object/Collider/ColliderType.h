@@ -24,11 +24,3 @@ public:
 	// コライダー種類数
 	static constexpr int COLLIDER_TYPES = static_cast<int>(TYPE::MAX);
 };
-
-const std::map<ColliderType::TYPE, std::string> ColliderType::TYPE_NAME_MAP =
-{
-	{TYPE::CAPSULE, "capsule"},
-	{TYPE::LINE, "line"},
-	{TYPE::MODEL, "model"},
-	{TYPE::SPHERE, "sphere"},
-};

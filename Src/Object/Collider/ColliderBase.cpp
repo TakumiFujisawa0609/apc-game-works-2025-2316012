@@ -1,4 +1,4 @@
-#include "../ActorBase.h"
+#include "../Actor/ActorBase.h"
 #include "ColliderBase.h"
 
 ColliderBase::ColliderBase(ActorBase& owner, const CollisionTags::TAG tag) :

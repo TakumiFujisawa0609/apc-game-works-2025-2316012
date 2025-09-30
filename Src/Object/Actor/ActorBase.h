@@ -1,11 +1,16 @@
 #pragma once
-#include "Common/Transform.h"
+#include <nlohmann/json.hpp>
+#include "../Common/Transform.h"
 
 class ResourceManager;
 class SceneManager;
 class CollisionManager;
+class ColliderFactory;
 class ColliderBase;
 enum class COLLISION_TAG;
+
+// JSON名前空間
+using Json = nlohmann::json;
 
 class ActorBase
 {
@@ -14,7 +19,7 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	ActorBase();
+	ActorBase(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -58,10 +63,26 @@ protected:
 	// ローカル回転のデフォルト値(度)
 	static constexpr float DEFAULT_LOCAL_DEG_Y = 180.0f;
 
+	// 初期位置
+	const VECTOR INITIAL_POS;
+
+	// 初期角度
+	const VECTOR INITIAL_ROT;
+
+	// 初期スケール
+	const VECTOR INITIAL_SCL;
+
+	// 衝突判定用タグ
+	const std::string COLLISION_TAG;
+
+	// コライダー種類
+	const std::string COLLIDER_TYPE;
+
 	// シングルトン参照
 	ResourceManager& resMng_;
 	SceneManager& scnMng_;
 	CollisionManager& collMng_;
+	ColliderFactory& collFtr_;;
 
 	// モデル制御の基本情報
 	Transform transform_;
@@ -91,7 +112,7 @@ protected:
 	virtual void OnCollision();
 
 	// コライダーの生成
-	void MakeCollider(std::shared_ptr<ColliderBase> collider);
+	void MakeCollider(ActorBase& owner);
 
 	// デバッグ時の更新
 	virtual void DebugUpdate();

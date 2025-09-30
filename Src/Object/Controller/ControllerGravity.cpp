@@ -1,5 +1,5 @@
 #include "../../Utility/Utility3D.h"
-#include "../Character/CharacterBase.h"
+#include "../Actor/Character/CharacterBase.h"
 #include "ControllerGravity.h"
 
 ControllerGravity::ControllerGravity(CharacterBase& owner) :

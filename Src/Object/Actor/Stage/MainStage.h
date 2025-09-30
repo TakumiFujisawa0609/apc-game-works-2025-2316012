@@ -10,7 +10,7 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	MainStage();
+	MainStage(const std::string& key, const Json& param);
 
 	/// <summary>
 	/// デストラクタ

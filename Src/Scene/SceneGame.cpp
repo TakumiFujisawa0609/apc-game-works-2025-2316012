@@ -9,7 +9,8 @@
 #include "../Manager/Resource/ResourceManager.h"
 #include "../Manager/Resource/FontManager.h"
 #include "../Utility/UtilityCommon.h"
-#include "../Object/Character/CharacterBase.h"
+#include "../Object/Actor/Character/CharacterBase.h"
+#include "../Object/Collider/ColliderFactory.h"
 #include "ScenePause.h"
 #include "SceneGame.h"
 
@@ -27,12 +28,16 @@ SceneGame::~SceneGame(void)
 	StageManager::GetInstance().Destroy();
 	CharacterManager::GetInstance().Destroy();
 	CollisionManager::GetInstance().Destroy();
+	ColliderFactory::GetInstance().Destroy();
 }
 
 void SceneGame::Load(void)
 {
 	// 親クラスの読み込み
 	SceneBase::Load();	
+
+	// コライダー生成管理クラス
+	ColliderFactory::CreateInstance();
 	
 	// 衝突判定管理クラス
 	CollisionManager::CreateInstance();
