@@ -17,7 +17,23 @@ public:
 	/// </summary>
 	virtual ~ColliderSphere();
 
+	/// <summary>
+	/// ”¼Œa‚ğ•Ô‚·
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns>”¼Œa</returns>
+	float GetRadius(void) const { return radius_; }
+
+	/// <summary>
+	/// ”¼Œa‚Ìİ’è
+	/// </summary>
+	/// <param name="radius">”¼Œa</param>
+	void SetRadius(float radius) { radius_ = radius; }
+
 private:
+
+	// ”¼Œa
+	float radius_;
 
 };
 

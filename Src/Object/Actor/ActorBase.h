@@ -112,7 +112,7 @@ protected:
 	virtual void OnCollision();
 
 	// コライダーの生成
-	void MakeCollider(ActorBase& owner);
+	virtual void MakeCollider();
 
 	// デバッグ時の更新
 	virtual void DebugUpdate();

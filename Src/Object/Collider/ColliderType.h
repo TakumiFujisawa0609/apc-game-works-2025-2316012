@@ -15,6 +15,7 @@ public:
 		SPHERE,
 		LINE,
 		MODEL,
+		BOX,
 		MAX
 	};
 

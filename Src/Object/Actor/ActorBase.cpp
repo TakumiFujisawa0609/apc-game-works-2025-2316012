@@ -92,13 +92,8 @@ void ActorBase::OnCollision()
 {
 }
 
-void ActorBase::MakeCollider(ActorBase& owner)
-{	
-	// 生成クラスからコライダーを取得
-	collider_ = collFtr_.Create(owner, COLLISION_TAG, COLLIDER_TYPE);
-
-	// 衝突判定管理クラスに追加
-	collMng_.Add(collider_);
+void ActorBase::MakeCollider()
+{
 }
 
 void ActorBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)

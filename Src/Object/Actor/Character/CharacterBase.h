@@ -172,6 +172,15 @@ protected:
 	// デフォルトのアニメーション速度
 	const float ANIM_DEFAULT_SPEED;
 
+	// コライダー半径
+	const float COLLIDER_RADIUS;
+
+	// コライダー頭部座標
+	const VECTOR COLLIDER_HEAD_POS;
+
+	// コライダー末尾座標
+	const VECTOR COLLIDER_END_POS;
+
 	// 回転角度(DEG)
 	double rotDeg_;
 
@@ -216,6 +225,11 @@ protected:
 	/// アニメーションの初期化
 	/// </summary>
 	virtual void InitAnimation() = 0;
+
+	/// <summary>
+	/// コライダーの生成
+	/// </summary>
+	virtual void MakeCollider() override;
 
 	/// <summary>
 	/// デバッグ時の描画

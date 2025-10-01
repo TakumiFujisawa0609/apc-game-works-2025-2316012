@@ -33,7 +33,16 @@ protected:
 	const std::string STAGE_KEY;
 
 	// 1メートルをゲーム内の単位に変換するスケール
-	static constexpr float METER_TO_UNIT_SCALE = 100.0f;
+	static constexpr float METER_TO_UNIT_SCALE = 100.0f;	
+	
+	// コライダー半径
+	float colliderRadius_;
+
+	// コライダー頭部座標
+	VECTOR colliderHeadPos_;
+
+	// コライダー末尾座標
+	VECTOR colliderEndPos_;
 
 	// 処理の適用処理
 	void UpdateApply() override;
@@ -43,5 +52,13 @@ protected:
 
 	// トランスフォームの初期化
 	void InitTransform() override;
+
+	// コライダーの生成
+	virtual void MakeCollider() override;
+
+	/// <summary>
+	/// デバッグ時の描画
+	/// </summary>
+	void DebugDraw() override;
 };
 

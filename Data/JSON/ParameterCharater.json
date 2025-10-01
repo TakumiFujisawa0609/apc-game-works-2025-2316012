@@ -8,6 +8,7 @@
     "animationJumpSpeed": 60,
     "jumpAmount": 35,
     "jumpAcceptTime": 0.5,
+    "colliderRadius": 20.0,
     "collisionTag": "player",
     "colliderType": "capsule",
     "initPos": {
@@ -24,6 +25,16 @@
       "x": 1,
       "y": 1,
       "z": 1
+    },
+    "colliderHeadPos": {
+      "x": 0,
+      "y": 110,
+      "z": 0
+    },
+    "colliderEndPos": {
+      "x": 0,
+      "y": 30,
+      "z": 0
     }
   },
   "enemy": {
@@ -32,6 +43,7 @@
     "gravity": 25,
     "timeRot": 1,
     "animationDefaultSpeed": 20,
+    "colliderRadius": 20.0,
     "collisionTag": "enemy",
     "colliderType": "capsule",
     "initPos": {
@@ -48,6 +60,16 @@
       "x": 1,
       "y": 1,
       "z": 1
+    },
+    "colliderHeadPos": {
+      "x": 0,
+      "y": 110
+
+    },
+    "colliderEndPos": {
+      "x": 0,
+      "y": 30,
+      "z": 0
     }
   }
 }

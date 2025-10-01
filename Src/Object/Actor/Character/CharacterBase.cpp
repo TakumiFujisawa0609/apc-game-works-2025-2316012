@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include "../../../Manager/Generic/SceneManager.h"
+#include "../../../Manager/Generic/CollisionManager.h"
 #include "../../../Manager/Generic/CollisionTags.h"
 #include "../../../Manager/Generic/Camera.h"
 #include "../../../Utility/UtilityCommon.h"
@@ -11,6 +12,7 @@
 #include "../../Controller/ControllerGravity.h"
 #include "../../Controller/OnHit/ControllerOnHitBase.h"
 #include "../../Collider/ColliderCapsule.h"
+#include "../../Collider/ColliderFactory.h"
 #include "CharacterBase.h"
 
 const std::string CharacterBase::ANIM_IDLE = "idle";	// 待機
@@ -23,7 +25,10 @@ CharacterBase::CharacterBase(const Json& param) :
 	SPEED_RUN(param["dashSpeed"]),
 	GRAVITY(param["gravity"]),
 	TIME_ROT(param["timeRot"]),
-	ANIM_DEFAULT_SPEED(param["animationDefaultSpeed"])
+	ANIM_DEFAULT_SPEED(param["animationDefaultSpeed"]),
+	COLLIDER_RADIUS(param["colliderRadius"]),
+	COLLIDER_HEAD_POS({ param["colliderHeadPos"]["x"],param["colliderHeadPos"]["y"],param["colliderHeadPos"]["z"] }),
+	COLLIDER_END_POS({ param["colliderEndPos"]["x"],param["colliderEndPos"]["y"],param["colliderEndPos"]["z"] })
 {
 	rotDeg_ = 0.0f;	
 	moveSpeed_ = 0.0f;
@@ -52,13 +57,7 @@ void CharacterBase::Load()
 	gravity_ = std::make_unique<ControllerGravity>(*this);
 
 	// コライダー生成
-	MakeCollider(*this);	
-	
-	// カプセルの設定
-	const auto& colliderCapsule = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
-	colliderCapsule->SetLocalPosTop({ 0.0f, 110.0f, 0.0f });
-	colliderCapsule->SetLocalPosDown({ 0.0f, 30.0f, 0.0f });
-	colliderCapsule->SetRadius(20.0f);
+	MakeCollider();	
 
 	// アニメーション初期化
 	InitAnimation();
@@ -93,6 +92,23 @@ void CharacterBase::UpdateApply()
 void CharacterBase::DrawMain()
 {
 	MV1DrawModel(transform_.modelId);
+}
+
+void CharacterBase::MakeCollider()
+{
+	// 情報の設定
+	ColliderFactory::ColliderInfo info;
+	info.tag = COLLISION_TAG;
+	info.type = COLLIDER_TYPE;
+	info.radius = COLLIDER_RADIUS;
+	info.headPos = COLLIDER_HEAD_POS;
+	info.endPos = COLLIDER_END_POS;
+
+	// コライダー生成
+	collider_ = collFtr_.Create(*this, info);
+
+	// 管理クラスに格納
+	collMng_.Add(collider_);
 }
 
 void CharacterBase::DebugDraw()
