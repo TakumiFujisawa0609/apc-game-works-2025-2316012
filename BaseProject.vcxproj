@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Manager\System\AnomalyManager.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderBox.cpp" />
     <ClCompile Include="Src\Object\Actor\Character\Ghost.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderSphere.cpp" />
@@ -94,8 +95,10 @@
     <ClCompile Include="Src\Object\Actor\Stage\StageObjectBase.cpp" />
     <ClCompile Include="Src\Manager\Generic\StageManager.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\StageGimicObjectBase.cpp" />
+    <ClCompile Include="Src\Utility\UtilityLoad.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Manager\System\AnomalyManager.h" />
     <ClInclude Include="Src\Object\Collider\ColliderBox.h" />
     <ClInclude Include="Src\Object\Actor\Character\Ghost.h" />
     <ClInclude Include="Src\Object\Collider\ColliderSphere.h" />
@@ -218,6 +221,7 @@
     <ClInclude Include="Src\Object\Actor\Stage\StageObjectBase.h" />
     <ClInclude Include="Src\Manager\Generic\StageManager.h" />
     <ClInclude Include="Src\Object\Actor\Stage\StageGimicObjectBase.h" />
+    <ClInclude Include="Src\Utility\UtilityLoad.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\Model\StandardModelPS.hlsl">

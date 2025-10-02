@@ -36,8 +36,8 @@ public:
 	static constexpr float LIMIT_X_DW_RAD = 15.0f * (DX_PI_F / 180.0f);
 
 	//FPS視点のカメラのX回転上限度角
-	static constexpr float LIMIT_X_UP_RAD_FPS = -80.0f * (DX_PI_F / 180.0f);
-	static constexpr float LIMIT_X_DW_RAD_FPS = 70.0f * (DX_PI_F / 180.0f);
+	static constexpr float LIMIT_X_UP_RAD_FPS = -20.0f * (DX_PI_F / 180.0f);
+	static constexpr float LIMIT_X_DW_RAD_FPS = 35.0f * (DX_PI_F / 180.0f);
 	
 	/// <summary>
 	/// カメラのモード
@@ -172,12 +172,6 @@ private:
 	// カメラの上方向
 	VECTOR cameraUp_;
 
-	//カメラ位置までの相対座標
-	VECTOR localF2CPos_;
-
-	//注視点までの相対座標
-	VECTOR localF2TPos_;
-
 	// モード別更新ステップ関数管理
 	std::function<void()> beforeDrawFunc_;
 
@@ -189,6 +183,7 @@ private:
 
 	// 追従対象との位置同期を取る
 	void SyncFollow();
+	void SyncFollowFps();
 
 	// カメラ操作
 	void ProcessRotFollow();	// 追従モードの回転操作

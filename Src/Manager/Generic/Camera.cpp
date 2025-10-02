@@ -16,8 +16,6 @@ Camera::Camera(void)
 	mode_ = MODE::NONE;
 	pos_ = Utility3D::VECTOR_ZERO;
 	targetPos_ = Utility3D::VECTOR_ZERO;
-	localF2CPos_ = Utility3D::VECTOR_ZERO;
-	localF2TPos_ = Utility3D::VECTOR_ZERO;
 	followTransform_ = nullptr;
 
 	//状態遷移処理の登録
@@ -140,11 +138,37 @@ void Camera::SyncFollow(void)
 	VECTOR localPos;
 
 	// 注視点(通常重力でいうところのY値を追従対象と同じにする)
-	localPos = rotOutX_.PosAxis(localF2TPos_);
+	localPos = rotOutX_.PosAxis(LOCAL_F2T_POS_FOLLOW);
 	targetPos_ = VAdd(pos, localPos);
 
 	// カメラ位置
-	localPos = rot_.PosAxis(localF2CPos_);
+	localPos = rot_.PosAxis(LOCAL_F2C_POS_FOLLOW);
+	pos_ = VAdd(pos, localPos);
+
+	// カメラの上方向
+	cameraUp_ = Utility3D::DIR_U;
+}
+
+void Camera::SyncFollowFps()
+{
+	// 同期先の位置
+	VECTOR pos = followTransform_->pos;
+
+	// 重力の方向制御に従う
+	// 正面から設定されたY軸分、回転させる
+	rotOutX_ = Quaternion::AngleAxis(angles_.y, Utility3D::AXIS_Y);
+
+	// 正面から設定されたX軸分、回転させる
+	rot_ = rotOutX_.Mult(Quaternion::AngleAxis(angles_.x, Utility3D::AXIS_X));
+
+	VECTOR localPos;
+
+	// 注視点(通常重力でいうところのY値を追従対象と同じにする)
+	localPos = rot_.PosAxis(LOCAL_F2T_POS_FPS);
+	targetPos_ = VAdd(pos, localPos);
+
+	// カメラ位置
+	localPos = rot_.PosAxis(LOCAL_F2C_POS_FPS);
 	pos_ = VAdd(pos, localPos);
 
 	// カメラの上方向
@@ -173,20 +197,26 @@ void Camera::ProcessRotFollow(void)
 void Camera::ProcessRotFps(void)
 {
 	auto& ins = InputManager::GetInstance();
-	const float fovPer = 0.2f; // 視野角に対するマウス移動量の割合
 
-	//マウス座標を取得
+	// マウス感度
+	static constexpr float MOUSE_SENSITIVITY = 0.2f;
+
+	// マウス座標を取得
 	int mousePosX = ins.GetMousePos().x;
 	int mousePosY = ins.GetMousePos().y;
 
-	//マウスの移動量をクランプして、カメラの角度に反映する
-	angles_.y += float(std::clamp(mousePosX - Application::SCREEN_SIZE_X / 2, -120, 120)) * fovPer / GetFPS();
-	angles_.x += float(std::clamp(mousePosY - Application::SCREEN_SIZE_Y / 2, -120, 120)) * fovPer / GetFPS();
+	// 移動量
+	int deltaX = mousePosX - Application::SCREEN_HALF_X;
+	int deltaY = mousePosY - Application::SCREEN_HALF_Y;
+
+	// カメラ回転を更新
+	angles_.y += float(std::clamp(deltaX, -120, 120)) * MOUSE_SENSITIVITY / GetFPS();
+	angles_.x += float(std::clamp(deltaY, -120, 120)) * MOUSE_SENSITIVITY / GetFPS();
 
 	// マウスの位置を画面中央に戻す
 	SetMousePoint(Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y);
 
-	//角度制限
+	// 角度制限（ピッチ）
 	if (angles_.x <= LIMIT_X_UP_RAD_FPS)
 	{
 		angles_.x = LIMIT_X_UP_RAD_FPS;
@@ -245,19 +275,11 @@ void Camera::ChangeModeFixedPoint()
 void Camera::ChangeModeFollow()
 {
 	beforeDrawFunc_ = std::bind(&Camera::SetBeforeDrawFollow, this);
-
-	//相対座標の設定
-	localF2CPos_ = LOCAL_F2C_POS_FOLLOW;
-	localF2TPos_ = LOCAL_F2T_POS_FOLLOW;
 }
 
 void Camera::ChangeModeFps()
 {
 	beforeDrawFunc_ = std::bind(&Camera::SetBeforeDrawFps, this);
-
-	//相対座標の設定
-	localF2CPos_ = LOCAL_F2C_POS_FPS;
-	localF2TPos_ = LOCAL_F2T_POS_FPS;
 }
 
 void Camera::ChangeModeFree()
@@ -280,7 +302,7 @@ void Camera::SetBeforeDrawFps()
 	ProcessRotFps();
 
 	// 追従対象との相対位置を同期
-	SyncFollow();
+	SyncFollowFps();
 }
 
 void Camera::SetBeforeDrawFree()

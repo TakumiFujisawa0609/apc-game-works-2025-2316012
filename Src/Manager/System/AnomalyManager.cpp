@@ -1,3 +1,4 @@
+#include "../../Object/System/Anomaly/AnomalyBase.h"
 #include "AnomalyManager.h"
 
 void AnomalyManager::Load()

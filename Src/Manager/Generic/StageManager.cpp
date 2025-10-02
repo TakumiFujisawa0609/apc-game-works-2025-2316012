@@ -1,15 +1,12 @@
 #include "../../Object/Actor/Stage/StageObjectBase.h"
 #include "../../Object/System/Load/ParameterLoad.h"
+#include "../../Utility/UtilityLoad.h"
 #include "StageManager.h"
 
 void StageManager::Load()
 {
-	// パラメータ読み込み
-	paramLoad_ = std::make_unique<ParameterLoad>(FILEN_NAME);
-	paramLoad_->Load();
-
 	// パラメータマップを取得
-	auto& paramMap = paramLoad_->GetParameterMap();
+	auto& paramMap = UtilityLoad::GetJsonData(FILE_NAME);
 
 	// パラメータ数分オブジェクト生成
 	for (auto& params : paramMap)
