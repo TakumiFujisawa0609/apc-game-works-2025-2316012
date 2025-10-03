@@ -1,11 +1,4 @@
 #pragma once
-#include <string>
-#include <vector>
-#include <unordered_map>
-#include "../../Template/Singleton.h"
-
-class StageObjectBase;
-
 class StageManager : public Singleton<StageManager>
 {
 	//シングルトンにだけ共有する
@@ -43,7 +36,10 @@ public:
 
 private:
 
-	const std::string FILE_NAME = "Stage";
+	const std::string FILEN_NAME = "Stage";
+
+	// パラメータ読み込み
+	std::unique_ptr<ParameterLoad> paramLoad_;
 
 	//ステージオブジェクトの管理マップ
 	std::unordered_map<std::string, std::vector<std::unique_ptr<StageObjectBase>>> stageObjectsMap_;
@@ -55,3 +51,4 @@ private:
 	~StageManager() = default;
 
 };
+
