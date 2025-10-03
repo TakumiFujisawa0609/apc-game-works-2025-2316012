@@ -8,9 +8,10 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	/// <param name="key">ステージハンドル用名前キー</param>
-	/// <param name="param">パラメーター情報</param>
-	StageObjectBase(const std::string& key, const Json& param);
+	/// <param name="key">オブジェクトの名前</param>
+	/// <param name="mapParam">配置情報</param>
+	/// <param name="colliderParam">コライダー情報</param>
+	StageObjectBase(const std::string& key, const Json& mapParam, const Json& colliderParam);
 
 	/// <summary>
 	/// デストラクタ
@@ -34,15 +35,6 @@ protected:
 
 	// 1メートルをゲーム内の単位に変換するスケール
 	static constexpr float METER_TO_UNIT_SCALE = 100.0f;	
-	
-	// コライダー半径
-	float colliderRadius_;
-
-	// コライダー頭部座標
-	VECTOR colliderHeadPos_;
-
-	// コライダー末尾座標
-	VECTOR colliderEndPos_;
 
 	// 処理の適用処理
 	void UpdateApply() override;
@@ -52,9 +44,6 @@ protected:
 
 	// トランスフォームの初期化
 	void InitTransform() override;
-
-	// コライダーの生成
-	virtual void MakeCollider() override;
 
 	/// <summary>
 	/// デバッグ時の描画

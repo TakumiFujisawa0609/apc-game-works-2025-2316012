@@ -1,0 +1,38 @@
+{
+  "mainStage": {
+    "collisionTag": "mainStage",
+    "colliderType": "model"
+  },
+  "chair01": {
+    "collisionTag": "stageObject",
+    "colliderType": "box",
+    "colliderTopPos": {
+      "x": 30,
+      "y": 30,
+      "z": 30
+    },
+    "colliderEndPos": {
+      "x": -30,
+      "y": 0,
+      "z": -30
+    }
+  },
+  "tableSink": {
+    "collisionTag": "stageObject",
+    "colliderType": "box",
+    "colliderTopPos": {
+      "x": 110,
+      "y": 100,
+      "z": 40
+    },
+    "colliderEndPos": {
+      "x": -110,
+      "y": 0,
+      "z": -40
+    }
+  },
+  "table04": {
+    "collisionTag": "stageObject",
+    "colliderType": "model"
+  }
+}

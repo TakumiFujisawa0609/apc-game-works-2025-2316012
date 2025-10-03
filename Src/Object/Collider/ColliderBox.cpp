@@ -8,6 +8,7 @@ ColliderBox::ColliderBox(ActorBase& owner, const CollisionTags::TAG tag) :
 	ColliderBase(owner, tag)
 {
 	type_ = ColliderType::TYPE::BOX;
+	SetHalfSize(MV1GetScale(transformOwner_.modelId));	
 	UpdateObbAxis();
 }
 
@@ -74,37 +75,4 @@ void ColliderBox::CalculateVertices(VECTOR outVertices[8]) const
 			}
 		}
 	}
-}
-
-float ColliderBox::ClosestSegmentAABB(const VECTOR& segA, const VECTOR& segB, const VECTOR& aabbMin, const VECTOR& aabbMax)
-{
-	// 線分とAABBの最短距離を求める
-	// 各軸でクランプを行う
-
-	float t = 0.0f;
-	float minDistSq = FLT_MAX;
-
-	// 線分上の点 
-	const int steps = 10;
-	for (int i = 0; i <= steps; ++i)
-	{
-		float ft = static_cast<float>(i) / steps;
-		VECTOR point = VAdd(segA, VScale(VSub(segB, segA), ft));
-
-		// AABB内の最近接点
-		VECTOR clamped = {
-			std::max(aabbMin.x, std::min(point.x, aabbMax.x)),
-			std::max(aabbMin.y, std::min(point.y, aabbMax.y)),
-			std::max(aabbMin.z, std::min(point.z, aabbMax.z))
-		};
-
-		float distSq = Utility3D::SqrMagnitudeF(VSub(point, clamped));
-		if (distSq < minDistSq)
-		{
-			minDistSq = distSq;
-			t = ft;
-		}
-	}
-
-	return minDistSq;
 }

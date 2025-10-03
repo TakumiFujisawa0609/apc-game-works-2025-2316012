@@ -9,17 +9,18 @@ ControllerOnHitPlayer::ControllerOnHitPlayer(Player& owner) :
 	owner_(owner)
 {
 	// 衝突物別関数の登録
-	RegisterOnHit(CollisionTags::TAG::MAIN_STAGE , [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStage(opponentCollider); });
+	RegisterOnHit(CollisionTags::TAG::MAIN_STAGE , [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitMainStage(opponentCollider); });
+	RegisterOnHit(CollisionTags::TAG::STAGE_OBJECT , [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStageObject(opponentCollider); });
 }
 
 ControllerOnHitPlayer::~ControllerOnHitPlayer()
 {
 }
 
-void ControllerOnHitPlayer::OnHitStage(const std::weak_ptr<ColliderBase>& opponentCollider)
+void ControllerOnHitPlayer::OnHitMainStage(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
 	// 座標取得
-	VECTOR movedPos = owner_.GetTransform().pos;
+	VECTOR movedPos = owner_.GetMovedPos();
 
 	// モデル用コライダーへ変換
 	auto collModel = std::dynamic_pointer_cast<ColliderModel>(opponentCollider.lock());
@@ -87,5 +88,11 @@ void ControllerOnHitPlayer::OnHitStage(const std::weak_ptr<ColliderBase>& oppone
 	}
 
 	// 最終的な位置を設定
-	owner_.SetPos(movedPos);
+	owner_.SetMovedPos(movedPos);
+}
+
+void ControllerOnHitPlayer::OnHitStageObject(const std::weak_ptr<ColliderBase>& opponentCollider)
+{
+	// 移動後の座標の値を現在地に変更
+	owner_.SetMovedPos(owner_.GetTransform().pos);
 }

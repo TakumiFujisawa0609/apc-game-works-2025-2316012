@@ -9,8 +9,9 @@ public:
 	/// コンストラクタ
 	/// </summary>
 	/// <param name="key">ステージハンドル用名前キー</param>
-	/// <param name="param">パラメーター情報</param>
-	StageGimicObjectBase(const std::string& key, const Json& param);
+	/// <param name="mapParam">配置情報</param>
+	/// <param name="colliderParam">コライダー情報</param>
+	StageGimicObjectBase(const std::string& key, const Json& mapParam, const Json& colliderParam);
 
 	/// <summary>
 	/// デストラクタ

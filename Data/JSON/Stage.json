@@ -1,8 +1,5 @@
 {
   "mainStage": {
-    "collisionTag": "mainStage",
-    "colliderType": "model",
-    "colliderRadius": 0.0,
     "initPos": {
       "x": 0.0,
       "y": 0.0,
@@ -17,23 +14,10 @@
       "x": 1.0,
       "y": 1.0,
       "z": 1.0
-    },
-    "colliderHeadPos": {
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "colliderEndPos": {
-      "x": 0,
-      "y": 0,
-      "z": 0
     }
   },
   "chair01": [
     {
-      "collisionTag": "mainStage",
-      "colliderType": "sphere",
-      "colliderRadius": 0.5774606,
       "initPos": {
         "x": 3.89858961,
         "y": 0.00500014424,
@@ -48,22 +32,9 @@
         "x": 0.8200002,
         "y": 0.8200003,
         "z": 0.8200005
-      },
-      "colliderHeadPos": {
-        "x": 0,
-        "y": 0,
-        "z": 0
-      },
-      "colliderEndPos": {
-        "x": 0,
-        "y": 0,
-        "z": 0
       }
     },
     {
-      "collisionTag": "mainStage",
-      "colliderType": "sphere",
-      "colliderRadius": 0.5774606,
       "initPos": {
         "x": 5.89632559,
         "y": 0.004999906,
@@ -78,22 +49,9 @@
         "x": 0.8200002,
         "y": 0.8200003,
         "z": 0.82000047
-      },
-      "colliderHeadPos": {
-        "x": 0,
-        "y": 110,
-        "z": 0
-      },
-      "colliderEndPos": {
-        "x": 0,
-        "y": 30,
-        "z": 0
       }
     },
     {
-      "collisionTag": "mainStage",
-      "colliderType": "sphere",
-      "colliderRadius": 0.5774606,
       "initPos": {
         "x": 6.276008,
         "y": 0.00500014424,
@@ -108,23 +66,10 @@
         "x": 0.820000231,
         "y": 0.8200003,
         "z": 0.8200005
-      },
-      "colliderHeadPos": {
-        "x": 0,
-        "y": 110,
-        "z": 0
-      },
-      "colliderEndPos": {
-        "x": 0,
-        "y": 30,
-        "z": 0
       }
     }
   ],
   "tableSink": {
-    "collisionTag": "mainStage",
-    "colliderType": "box",
-    "colliderRadius": 0.0,
     "initPos": {
       "x": 3.159,
       "y": 0.00500003435,
@@ -139,22 +84,9 @@
       "x": 0.01062585,
       "y": 0.0106258513,
       "z": 0.0106258513
-    },
-    "colliderHeadPos": {
-      "x": 0,
-      "y": 110,
-      "z": 0
-    },
-    "colliderEndPos": {
-      "x": 0,
-      "y": 30,
-      "z": 0
     }
   },
   "table04": {
-    "collisionTag": "mainStage",
-    "colliderType": "model",
-    "colliderRadius": 0.0,
     "initPos": {
       "x": 5.04314852,
       "y": 0.6119857,
@@ -169,16 +101,6 @@
       "x": 0.625,
       "y": 0.62499994,
       "z": 0.752734661
-    },
-    "colliderHeadPos": {
-      "x": 0,
-      "y": 110,
-      "z": 0
-    },
-    "colliderEndPos": {
-      "x": 0,
-      "y": 30,
-      "z": 0
     }
   }
 }

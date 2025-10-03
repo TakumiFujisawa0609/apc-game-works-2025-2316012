@@ -11,6 +11,7 @@
 #include "../Utility/UtilityCommon.h"
 #include "../Object/Actor/Character/CharacterBase.h"
 #include "../Object/Collider/ColliderFactory.h"
+#include "../Object/Actor/Stage/TestModel.h"
 #include "ScenePause.h"
 #include "SceneGame.h"
 
@@ -53,6 +54,9 @@ void SceneGame::Load(void)
 	//ポーズ画面のリソース
 	ScenePause_ = std::make_shared<ScenePause>();
 	ScenePause_->Load();
+
+	test_ = std::make_unique<TestModel>();
+	test_->Load();
 }
 
 void SceneGame::Init(void)
@@ -62,6 +66,8 @@ void SceneGame::Init(void)
 
 	// ステージ管理クラス初期化
 	StageManager::GetInstance().Init();
+
+	test_->Init();
 
 	// カメラ設定
 	mainCamera.SetFollow(&CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform());
@@ -77,8 +83,8 @@ void SceneGame::NormalUpdate(void)
 		return;
 	}
 
-	// キャラクター更新
-	CharacterManager::GetInstance().Update();
+	// キャラクターの本体更新
+	CharacterManager::GetInstance().MainUpdate();
 
 	// ステージ更新
 	StageManager::GetInstance().Update();
@@ -88,8 +94,14 @@ void SceneGame::NormalUpdate(void)
 
 	// コライダーの削除
 	CollisionManager::GetInstance().Sweep();
+
+	// キャラクターの後処理
+	CharacterManager::GetInstance().PostUpdate();
+
 #ifdef _DEBUG
 	DebugUpdate();
+
+	test_->Update();
 #endif 
 }
 
@@ -97,6 +109,8 @@ void SceneGame::NormalDraw(void)
 {	
 #ifdef _DEBUG
 	DebugDraw();
+
+	test_->Draw();
 #endif
 	
 	// ステージ描画

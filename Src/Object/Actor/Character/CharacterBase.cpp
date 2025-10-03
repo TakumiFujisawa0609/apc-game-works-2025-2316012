@@ -25,10 +25,7 @@ CharacterBase::CharacterBase(const Json& param) :
 	SPEED_RUN(param["dashSpeed"]),
 	GRAVITY(param["gravity"]),
 	TIME_ROT(param["timeRot"]),
-	ANIM_DEFAULT_SPEED(param["animationDefaultSpeed"]),
-	COLLIDER_RADIUS(param["colliderRadius"]),
-	COLLIDER_HEAD_POS({ param["colliderHeadPos"]["x"],param["colliderHeadPos"]["y"],param["colliderHeadPos"]["z"] }),
-	COLLIDER_END_POS({ param["colliderEndPos"]["x"],param["colliderEndPos"]["y"],param["colliderEndPos"]["z"] })
+	ANIM_DEFAULT_SPEED(param["animationDefaultSpeed"])
 {
 	rotDeg_ = 0.0f;	
 	moveSpeed_ = 0.0f;
@@ -40,6 +37,7 @@ CharacterBase::CharacterBase(const Json& param) :
 	rotate_ = nullptr;
 	gravity_ = nullptr;
 	onHit_ = nullptr;
+	collider_ = collFtr_.Create(*this, param);
 }
 
 void CharacterBase::Load()
@@ -56,11 +54,11 @@ void CharacterBase::Load()
 	// 重力制御クラス
 	gravity_ = std::make_unique<ControllerGravity>(*this);
 
-	// コライダー生成
-	MakeCollider();	
-
 	// アニメーション初期化
 	InitAnimation();
+
+	// 基底クラスの読み込み
+	ActorBase::Load();
 }
 
 void CharacterBase::Init()
@@ -75,13 +73,11 @@ void CharacterBase::Init()
 	rotate_->Init();
 }
 
-void CharacterBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
+void CharacterBase::PostUpdate()
 {
-	onHit_->OnHit(opponentCollider);
-}
+	// 移動後の座標の格納
+	transform_.pos = movedPos_;
 
-void CharacterBase::UpdateApply()
-{
 	// トランスフォームの更新
 	transform_.Update();
 
@@ -89,26 +85,14 @@ void CharacterBase::UpdateApply()
 	animation_->Update();
 }
 
+void CharacterBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
+{
+	onHit_->OnHit(opponentCollider);
+}
+
 void CharacterBase::DrawMain()
 {
 	MV1DrawModel(transform_.modelId);
-}
-
-void CharacterBase::MakeCollider()
-{
-	// 情報の設定
-	ColliderFactory::ColliderInfo info;
-	info.tag = COLLISION_TAG;
-	info.type = COLLIDER_TYPE;
-	info.radius = COLLIDER_RADIUS;
-	info.headPos = COLLIDER_HEAD_POS;
-	info.endPos = COLLIDER_END_POS;
-
-	// コライダー生成
-	collider_ = collFtr_.Create(*this, info);
-
-	// 管理クラスに格納
-	collMng_.Add(collider_);
 }
 
 void CharacterBase::DebugDraw()

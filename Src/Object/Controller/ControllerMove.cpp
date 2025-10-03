@@ -28,5 +28,10 @@ void ControllerMove::Update()
 	movedPos = VAdd(movedPos, owner_.GetJumpPow());
 
 	// ç¿ïWê›íË
-	owner_.SetPos(movedPos);
+	owner_.SetMovedPos(movedPos);
+}
+
+const VECTOR ControllerMove::GetMovedPos()
+{
+	return VECTOR();
 }

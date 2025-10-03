@@ -1,6 +1,7 @@
 #pragma once
 #include <DxLib.h>
 #include "../Common/Vector2.h"
+#include "../Object/Collider/ColliderBox.h"
 
 class Utility3D
 {
@@ -59,22 +60,24 @@ public:
 	static double AngleDeg(const VECTOR& from, const VECTOR& to);
 
 	/// <summary>
-	/// とある点からとある点までの移動ベクトルを返す
+	/// ボックスとカプセルの衝突判定
 	/// </summary>
-	/// <param name="_start">狙う側</param>
-	/// <param name="_goal">向かう先</param>
-	/// <param name="_speed">設定速度(未設定だと、方向ベクトルのみを返す)</param>
-	/// <returns>向かう先までの移動ベクトル</returns>
-	static const VECTOR GetMoveVec(const VECTOR start, const VECTOR goal, const float speed = 1.0f);
+	/// <param name="obb">バウンディングボックスの情報</param>
+	/// <param name="boxPos">ボックスの位置</param>
+	/// <param name="capTopPos">カプセル上部座標</param>
+	/// <param name="capDownPos">カプセル下部座標</param>
+	/// <param name="radius">カプセル半径</param>
+	/// <returns>判定結果</returns>
+	static bool CheckHitBox_Capsule(const ColliderBox::OBB& obb, const VECTOR& boxPos, const VECTOR& capTopPos, const VECTOR& capDownPos, const float radius);
 
 	/// <summary>
-	/// 対象に向かう回転軸
+	/// ボックスとラインの衝突判定
 	/// </summary>
-	/// <param name="_pos">自身の座標</param>
-	/// <param name="_targetPos">対象の座標</param>
-	/// <param name="_needAxis">必要な回転軸</param>
-	/// <returns>回転軸</returns>
-	static const VECTOR GetRotAxisToTarget(const VECTOR pos, const VECTOR targetPos, const VECTOR needAxis = AXIS_XYZ);
+	/// <param name="obb">バウンディングボックスの情報</param>
+	/// <param name="boxPos">ボックスの位置</param>
+	/// <param name="lineTopPos">ラインの先端座標</param>
+	/// <param name="lineEndPos">ラインの末尾座標</param>
+	/// <returns>判定結果</returns>
+	static bool CheckHitBox_Line(const ColliderBox::OBB& obb, const VECTOR& boxPos, const VECTOR& lineTopPos, const VECTOR& lineEndPos);
 
 };
-

@@ -12,6 +12,7 @@ public:
 		NONE,
 		PLAYER,
 		MAIN_STAGE,
+		STAGE_OBJECT,
 		MAX
 	};
 

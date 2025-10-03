@@ -52,6 +52,6 @@ private:
 	StageManager();
 
 	//デストラクタ
-	~StageManager() = default;
+	~StageManager();
 
 };

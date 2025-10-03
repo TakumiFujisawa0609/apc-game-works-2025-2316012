@@ -42,6 +42,11 @@ public:
 	virtual void Init() override;
 
 	/// <summary>
+	/// 更新後の処理
+	/// </summary>
+	virtual void PostUpdate() override;
+
+	/// <summary>
 	/// 衝突後の処理
 	/// </summary>
 	/// <param name="opponentCollider">衝突相手のコライダー</param>
@@ -102,6 +107,12 @@ public:
 	const VECTOR GetJumpPow() const { return jumpPow_; }
 
 	/// <summary>
+	/// 移動後の座標を返す
+	/// </summary>
+	/// <returns>移動後の座標</returns>
+	const VECTOR GetMovedPos() const { return movedPos_; }
+
+	/// <summary>
 	/// カプセル座標の上部分を返す
 	/// </summary>
 	/// <returns>カプセル座標の上</returns>
@@ -154,32 +165,29 @@ public:
 	/// </summary>
 	/// <param name="jumpPow">ジャンプ力</param>
 	void SetJumpPow(const VECTOR& jumpPow) { jumpPow_ = jumpPow; }
+	
+	/// <summary>
+	/// 移動後の座標を設定
+	/// </summary>
+	/// <param name="movedPos"></param>
+	void SetMovedPos(const VECTOR& movedPos) { movedPos_ = movedPos; }
 
 protected:	
 	
 	// スピード
 	const float SPEED_MOVE;
 
-	//ダッシュスピード
+	// ダッシュスピード
 	const float SPEED_RUN;
 
-	//重力
+	// 重力
 	const float GRAVITY;
 
-	//回転完了までの時間
+	// 回転完了までの時間
 	const float TIME_ROT;
 
 	// デフォルトのアニメーション速度
 	const float ANIM_DEFAULT_SPEED;
-
-	// コライダー半径
-	const float COLLIDER_RADIUS;
-
-	// コライダー頭部座標
-	const VECTOR COLLIDER_HEAD_POS;
-
-	// コライダー末尾座標
-	const VECTOR COLLIDER_END_POS;
 
 	// 回転角度(DEG)
 	double rotDeg_;
@@ -190,8 +198,11 @@ protected:
 	// 移動方向
 	VECTOR moveDir_;
 
-	//ジャンプ力
+	// ジャンプ力
 	VECTOR jumpPow_;
+
+	// 移動後の座標
+	VECTOR movedPos_;
 
 	// アニメーション制御クラス
 	std::unique_ptr<ControllerAnimation> animation_;
@@ -212,11 +223,6 @@ protected:
 	std::unique_ptr<ControllerOnHitBase> onHit_;
 
 	/// <summary>
-	/// 更新処理の適用
-	/// </summary>
-	virtual void UpdateApply() override;
-
-	/// <summary>
 	/// メインの描画処理
 	/// </summary>
 	virtual void DrawMain() override;
@@ -225,11 +231,6 @@ protected:
 	/// アニメーションの初期化
 	/// </summary>
 	virtual void InitAnimation() = 0;
-
-	/// <summary>
-	/// コライダーの生成
-	/// </summary>
-	virtual void MakeCollider() override;
 
 	/// <summary>
 	/// デバッグ時の描画

@@ -1,5 +1,6 @@
 #include "../../Object/Collider/ColliderBase.h"
 #include "../../Object/Collider/ColliderCapsule.h"
+#include "../../Object/Collider/ColliderBox.h"
 #include "../../Object/Collider/ColliderModel.h"
 #include "../../Object/Collider/ColliderLine.h"
 #include "../../Object/Collider/ColliderType.h"
@@ -97,6 +98,9 @@ void CollisionManager::InitTagMatrix()
 
 	// 衝突判定を行う組み合わせを設定
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::MAIN_STAGE)] = true;		// プレイヤーとステージ
+
+	// 衝突判定を行う組み合わせを設定
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::STAGE_OBJECT)] = true;	// プレイヤーとステージオブジェクト
 }
 
 void CollisionManager::InitColliderMatrix()
@@ -127,6 +131,30 @@ void CollisionManager::InitColliderMatrix()
 		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
 		{
 			return IsHitCheckModeToLine(collA, collB);
+		};
+
+	collFuncMatrix_[static_cast<int>(ColliderType::TYPE::BOX)][static_cast<int>(ColliderType::TYPE::CAPSULE)] =
+		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
+		{
+			return IsHitCheckCapsuleToBox(collA, collB);
+		};
+
+	collFuncMatrix_[static_cast<int>(ColliderType::TYPE::CAPSULE)][static_cast<int>(ColliderType::TYPE::BOX)] =
+		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
+		{
+			return IsHitCheckCapsuleToBox(collA, collB);
+		};
+
+	collFuncMatrix_[static_cast<int>(ColliderType::TYPE::BOX)][static_cast<int>(ColliderType::TYPE::LINE)] =
+		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
+		{
+			return IsHitCheckLineToBox(collA, collB);
+		};
+
+	collFuncMatrix_[static_cast<int>(ColliderType::TYPE::LINE)][static_cast<int>(ColliderType::TYPE::BOX)] =
+		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
+		{
+			return IsHitCheckLineToBox(collA, collB);
 		};
 }
 
@@ -164,11 +192,11 @@ bool CollisionManager::IsHitCheckModeToLine(std::weak_ptr<ColliderBase> collA, s
 	std::weak_ptr<ColliderModel> collModel;
 	std::weak_ptr<ColliderLine> collLine;
 
-	//モデルコライダーの用意
+	// モデルコライダーの用意
 	if (collA.lock()->GetType() == ColliderType::TYPE::MODEL) { collModel = std::dynamic_pointer_cast<ColliderModel>(collA.lock()); }
 	else if (collB.lock()->GetType() == ColliderType::TYPE::MODEL) { collModel = std::dynamic_pointer_cast<ColliderModel>(collB.lock()); }
 
-	//カプセルコライダーの用意
+	// カプセルコライダーの用意
 	if (collA.lock()->GetType() == ColliderType::TYPE::LINE) { collLine = std::dynamic_pointer_cast<ColliderLine>(collA.lock()); }
 	else if (collB.lock()->GetType() == ColliderType::TYPE::LINE) { collLine = std::dynamic_pointer_cast<ColliderLine>(collB.lock()); }
 
@@ -185,6 +213,53 @@ bool CollisionManager::IsHitCheckModeToLine(std::weak_ptr<ColliderBase> collA, s
 
 	// 衝突しているか返す
 	return it.HitFlag;
+}
+
+bool CollisionManager::IsHitCheckCapsuleToBox(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB)
+{
+	std::weak_ptr<ColliderCapsule> collCapsule;
+	std::weak_ptr<ColliderBox> collBox;
+
+	// カプセルコライダーの用意
+	if (collA.lock()->GetType() == ColliderType::TYPE::CAPSULE) { collCapsule = std::dynamic_pointer_cast<ColliderCapsule>(collA.lock()); }
+	else if (collB.lock()->GetType() == ColliderType::TYPE::CAPSULE) { collCapsule = std::dynamic_pointer_cast<ColliderCapsule>(collB.lock()); }
+	
+	// ボックスコライダーの用意
+	if (collA.lock()->GetType() == ColliderType::TYPE::BOX) { collBox = std::dynamic_pointer_cast<ColliderBox>(collA.lock()); }
+	else if (collB.lock()->GetType() == ColliderType::TYPE::BOX) { collBox = std::dynamic_pointer_cast<ColliderBox>(collB.lock()); }
+
+	// カプセルから必要な情報を取得
+	auto& obb = collBox.lock()->GetObb();						// バウンディングボックスの情報
+	VECTOR boxPos = collBox.lock()->GetPos();					// ボックスの位置
+	VECTOR capTopPos = collCapsule.lock()->GetPosTop();			// カプセルの上部座標
+	VECTOR capDownPos = collCapsule.lock()->GetPosDown();		// カプセルの下部座標
+	float radius = collCapsule.lock()->GetRadius();				// 半径
+
+	// 判定結果を返す
+	return Utility3D::CheckHitBox_Capsule(obb, boxPos, capTopPos, capDownPos, radius);
+}
+
+bool CollisionManager::IsHitCheckLineToBox(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB)
+{
+	std::weak_ptr<ColliderLine> collLine;
+	std::weak_ptr<ColliderBox> collBox;
+
+	// ラインコライダーの用意
+	if (collA.lock()->GetType() == ColliderType::TYPE::LINE) { collLine = std::dynamic_pointer_cast<ColliderLine>(collA.lock()); }
+	else if (collB.lock()->GetType() == ColliderType::TYPE::LINE) { collLine = std::dynamic_pointer_cast<ColliderLine>(collB.lock()); }
+
+	// ボックスコライダーの用意
+	if (collA.lock()->GetType() == ColliderType::TYPE::BOX) { collBox = std::dynamic_pointer_cast<ColliderBox>(collA.lock()); }
+	else if (collB.lock()->GetType() == ColliderType::TYPE::BOX) { collBox = std::dynamic_pointer_cast<ColliderBox>(collB.lock()); }
+
+	// カプセルから必要な情報を取得
+	auto& obb = collBox.lock()->GetObb();							// バウンディングボックスの情報
+	VECTOR boxPos = collBox.lock()->GetPos();						// ボックスの位置
+	VECTOR lineTopPos = collLine.lock()->GetLocalPosPointHead();	// ラインの先端座標
+	VECTOR lineEndPos = collLine.lock()->GetLocalPosPointEnd();		// カプセルの末端座標
+
+	// 判定結果を返す
+	return Utility3D::CheckHitBox_Line(obb, boxPos, lineTopPos, lineEndPos);
 }
 
 CollisionManager::CollisionManager()

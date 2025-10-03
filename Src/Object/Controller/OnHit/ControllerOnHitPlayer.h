@@ -25,5 +25,6 @@ private:
 	Player& owner_;
 
 	// 衝突物別処理
-	void OnHitStage(const std::weak_ptr<ColliderBase>& opponentCollider);			// ステージ
+	void OnHitMainStage(const std::weak_ptr<ColliderBase>& opponentCollider);			// メインステージ
+	void OnHitStageObject(const std::weak_ptr<ColliderBase>& opponentCollider);			// ステージオブジェクト
 };

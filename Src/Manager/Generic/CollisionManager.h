@@ -53,11 +53,17 @@ private:
 	// コライダー種のマトリックス設定
 	void InitColliderMatrix();
 
-	// カプセルとモデルの衝突判定
-	bool IsHitCheckModeToCapsule(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
-
-	// ラインとモデルの衝突判定
+	// モデルとカプセルの衝突判定
+	bool IsHitCheckModeToCapsule(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);	
+	
+	// モデルとラインの衝突判定
 	bool IsHitCheckModeToLine(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
+
+	// カプセルとボックス
+	bool IsHitCheckCapsuleToBox(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
+
+	// ラインとボックス
+	bool IsHitCheckLineToBox(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
 
 	// コンストラクタ
 	CollisionManager();

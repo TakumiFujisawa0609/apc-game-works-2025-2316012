@@ -3,6 +3,7 @@
 #include "SceneBase.h"
 
 class ScenePause;
+class TestModel;
 
 class SceneGame : public SceneBase
 {
@@ -38,6 +39,8 @@ private:
 	//ポーズ画面
 	std::shared_ptr<ScenePause> ScenePause_;
 
+	std::unique_ptr<TestModel> test_;
+
 	//更新関数
 	void NormalUpdate(void) override;
 
@@ -50,5 +53,4 @@ private:
 	//デバッグ処理
 	void DebugUpdate(void);
 	void DebugDraw(void);
-
 };

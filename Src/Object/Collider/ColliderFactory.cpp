@@ -8,55 +8,98 @@
 #include "ColliderBox.h"
 #include "ColliderFactory.h"
 
-std::shared_ptr<ColliderBase> ColliderFactory::Create(ActorBase& owner, const ColliderInfo& info)
+std::shared_ptr<ColliderBase> ColliderFactory::Create(ActorBase& owner, const Json& info)
 {
-	CollisionTags::TAG tag = GetTagFromStringTag(info.tag);
-	return createColliderMap_[info.type](owner, info);
+	const std::string TYPE = info["colliderType"];
+	return createColliderMap_[TYPE](owner, info);
 }
 
-void ColliderFactory::RegisterCreate(const std::string& type, std::function<std::shared_ptr<ColliderBase>(ActorBase&, const ColliderInfo&)> func)
+void ColliderFactory::RegisterCreate(const std::string& type, std::function<std::shared_ptr<ColliderBase>(ActorBase&, const Json&)> func)
 {
 	createColliderMap_[type] = func;
 }
 
-std::shared_ptr<ColliderCapsule> ColliderFactory::CreateCapsule(ActorBase& owner, const ColliderInfo& info)
+std::shared_ptr<ColliderCapsule> ColliderFactory::CreateCapsule(ActorBase& owner, const Json& info)
 {
-	CollisionTags::TAG tag = GetTagFromStringTag(info.tag);
+	// 情報の取得
+	const CollisionTags::TAG tag = GetTagFromStringTag(info["collisionTag"]);	// タグを列挙型に変換する
+	const VECTOR TOP = { info["colliderTopPos"]["x"],info["colliderTopPos"]["y"],info["colliderTopPos"]["z"] };
+	const VECTOR END = { info["colliderEndPos"]["x"],info["colliderEndPos"]["y"],info["colliderEndPos"]["z"] };
+	const float RADIUS = info["colliderRadius"];
+
+	// コライダーの生成
 	auto capsule = std::make_shared<ColliderCapsule>(owner, tag);
-	capsule->SetLocalPosTop(info.headPos);
-	capsule->SetLocalPosDown(info.endPos);
-	capsule->SetRadius(info.radius);
+
+	// 各種情報の設定
+	capsule->SetLocalPosTop(TOP);
+	capsule->SetLocalPosDown(END);
+	capsule->SetRadius(RADIUS);
+
+	// コライダーを返す
 	return capsule;
 }
 
-std::shared_ptr<ColliderLine> ColliderFactory::CreateLine(ActorBase& owner, const ColliderInfo& info)
+std::shared_ptr<ColliderLine> ColliderFactory::CreateLine(ActorBase& owner, const Json& info)
 {
-	CollisionTags::TAG tag = GetTagFromStringTag(info.tag);
-	auto line = std::make_shared<ColliderLine>(owner, tag);
-	line->SetLocalPosPointHead(info.headPos);
-	line->SetLocalPosPointEnd(info.endPos);
+	// 情報の取得
+	const CollisionTags::TAG TAG = GetTagFromStringTag(info["collisionTag"]);	// タグを列挙型に変換する
+	const VECTOR TOP = { info["colliderTopPos"]["x"],info["colliderTopPos"]["y"],info["colliderTopPos"]["z"] };
+	const VECTOR END = { info["colliderEndPos"]["x"],info["colliderEndPos"]["y"],info["colliderEndPos"]["z"] };
+
+	// コライダーの生成
+	auto line = std::make_shared<ColliderLine>(owner, TAG);
+
+	// 各種情報の設定
+	line->SetLocalPosPointHead(TOP);
+	line->SetLocalPosPointEnd(END);
+
+	// コライダーを返す
 	return line;
 }
 
-std::shared_ptr<ColliderModel> ColliderFactory::CreateModel(ActorBase& owner, const ColliderInfo& info)
+std::shared_ptr<ColliderModel> ColliderFactory::CreateModel(ActorBase& owner, const Json& info)
 {
-	CollisionTags::TAG tag = GetTagFromStringTag(info.tag);
-	auto model = std::make_shared<ColliderModel>(owner, tag);
+	// 情報の取得
+	const CollisionTags::TAG TAG = GetTagFromStringTag(info["collisionTag"]);	// タグを列挙型に変換する
+
+	// コライダーの生成
+	auto model = std::make_shared<ColliderModel>(owner, TAG);
+
+	// コライダーを返す
 	return model;
 }
 
-std::shared_ptr<ColliderSphere> ColliderFactory::CreateSphere(ActorBase& owner, const ColliderInfo& info)
+std::shared_ptr<ColliderSphere> ColliderFactory::CreateSphere(ActorBase& owner, const Json& info)
 {
-	CollisionTags::TAG tag = GetTagFromStringTag(info.tag);
-	auto sphere = std::make_shared<ColliderSphere>(owner, tag);
-	sphere->SetRadius(info.radius);
+	// 情報の取得
+	const CollisionTags::TAG TAG = GetTagFromStringTag(info["collisionTag"]);	// タグを列挙型に変換する
+	const float RADIUS = info["colliderRadius"];
+
+	// コライダーの生成
+	auto sphere = std::make_shared<ColliderSphere>(owner, TAG);
+
+	// 情報の設定
+	sphere->SetRadius(RADIUS);
+
+	// コライダーを返す
 	return sphere;
 }
 
-std::shared_ptr<ColliderBox> ColliderFactory::CreateBox(ActorBase& owner, const ColliderInfo& info)
+std::shared_ptr<ColliderBox> ColliderFactory::CreateBox(ActorBase& owner, const Json& info)
 {
-	CollisionTags::TAG tag = GetTagFromStringTag(info.tag);
-	auto box = std::make_shared<ColliderBox>(owner, tag);
+	// 情報の取得
+	const CollisionTags::TAG TAG = GetTagFromStringTag(info["collisionTag"]);	// タグを列挙型に変換する
+	const VECTOR TOP = { info["colliderTopPos"]["x"],info["colliderTopPos"]["y"],info["colliderTopPos"]["z"] };
+	const VECTOR END = { info["colliderEndPos"]["x"],info["colliderEndPos"]["y"],info["colliderEndPos"]["z"] };
+
+	// コライダーの生成
+	auto box = std::make_shared<ColliderBox>(owner, TAG);
+
+	// 各種情報の設定
+	box->SetVecMax(TOP);
+	box->SetVecMin(END);
+
+	// コライダーを返す
 	return box;
 }
 
@@ -96,11 +139,11 @@ ColliderFactory::ColliderFactory()
 
 	// 生成処理の登録
 	using C_TYPE = ColliderType::TYPE;
-	RegisterCreate(ColliderType::TYPE_NAME_MAP.at(C_TYPE::CAPSULE), [this](ActorBase& owner, const ColliderInfo& info) -> std::shared_ptr<ColliderBase> { return CreateCapsule(owner, info); });
-	RegisterCreate(ColliderType::TYPE_NAME_MAP.at(C_TYPE::LINE), [this](ActorBase& owner, const ColliderInfo& info) -> std::shared_ptr<ColliderBase> { return CreateLine(owner, info); });
-	RegisterCreate(ColliderType::TYPE_NAME_MAP.at(C_TYPE::MODEL), [this](ActorBase& owner, const ColliderInfo& info)  -> std::shared_ptr<ColliderBase> { return CreateModel(owner, info); });
-	RegisterCreate(ColliderType::TYPE_NAME_MAP.at(C_TYPE::SPHERE), [this](ActorBase& owner, const ColliderInfo& info) -> std::shared_ptr<ColliderBase> { return CreateSphere(owner, info); });
-	RegisterCreate(ColliderType::TYPE_NAME_MAP.at(C_TYPE::BOX), [this](ActorBase& owner, const ColliderInfo& info) -> std::shared_ptr<ColliderBase> { return CreateBox(owner, info); });
+	RegisterCreate(ColliderType::TYPE_NAME_MAP.at(C_TYPE::CAPSULE), [this](ActorBase& owner, const Json& info) -> std::shared_ptr<ColliderBase> { return CreateCapsule(owner, info); });
+	RegisterCreate(ColliderType::TYPE_NAME_MAP.at(C_TYPE::LINE), [this](ActorBase& owner, const Json& info) -> std::shared_ptr<ColliderBase> { return CreateLine(owner, info); });
+	RegisterCreate(ColliderType::TYPE_NAME_MAP.at(C_TYPE::MODEL), [this](ActorBase& owner, const Json& info)  -> std::shared_ptr<ColliderBase> { return CreateModel(owner, info); });
+	RegisterCreate(ColliderType::TYPE_NAME_MAP.at(C_TYPE::SPHERE), [this](ActorBase& owner, const Json& info) -> std::shared_ptr<ColliderBase> { return CreateSphere(owner, info); });
+	RegisterCreate(ColliderType::TYPE_NAME_MAP.at(C_TYPE::BOX), [this](ActorBase& owner, const Json& info) -> std::shared_ptr<ColliderBase> { return CreateBox(owner, info); });
 }
 
 ColliderFactory::~ColliderFactory()

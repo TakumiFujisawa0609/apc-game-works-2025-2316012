@@ -5,11 +5,14 @@
 
 void StageManager::Load()
 {
-	// パラメータマップを取得
-	auto& paramMap = UtilityLoad::GetJsonData(FILE_NAME);
+	// パラメータステージマップを取得
+	auto& paramStageMap = UtilityLoad::GetJsonData(FILE_NAME);
+
+	// パラメーターコライダーマップを取得
+	auto& paramColliderMap = UtilityLoad::GetJsonData("StageObjectsCollider");
 
 	// パラメータ数分オブジェクト生成
-	for (auto& params : paramMap)
+	for (auto& params : paramStageMap)
 	{		
 		// オブジェクト格納用配列
 		std::vector<std::unique_ptr<StageObjectBase>> objects;
@@ -17,8 +20,18 @@ void StageManager::Load()
 		// 要素分パラメータ格納
 		for (auto& param : params.second)
 		{
+			// コライダー情報を検索
+			const auto& collInfos = paramColliderMap.find(params.first);
+
+			// 中身が空もしくは配列で格納されている場合
+			if (collInfos->second.empty() || collInfos->second.size() > 1)
+			{
+				// 想定外のため終了
+				return;
+			}
+
 			// オブジェクト生成
-			auto object = std::make_unique<StageObjectBase>(params.first, param);
+			auto object = std::make_unique<StageObjectBase>(params.first, param, collInfos->second[0]);
 
 			// オブジェクト読み込み
 			object->Load();
@@ -66,5 +79,9 @@ void StageManager::Draw()
 }
 
 StageManager::StageManager()
+{
+}
+
+StageManager::~StageManager()
 {
 }

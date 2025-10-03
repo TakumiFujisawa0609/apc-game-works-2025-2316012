@@ -37,9 +37,14 @@ public:
 	virtual void Init();
 
 	/// <summary>
-	/// 更新
+	/// メインの更新
 	/// </summary>
-	virtual void Update();
+	virtual void MainUpdate();
+
+	/// <summary>
+	/// 更新後の処理
+	/// </summary>
+	virtual void PostUpdate();
 
 	/// <summary>
 	/// 描画
@@ -72,12 +77,6 @@ protected:
 	// 初期スケール
 	const VECTOR INITIAL_SCL;
 
-	// 衝突判定用タグ
-	const std::string COLLISION_TAG;
-
-	// コライダー種類
-	const std::string COLLIDER_TYPE;
-
 	// シングルトン参照
 	ResourceManager& resMng_;
 	SceneManager& scnMng_;
@@ -94,7 +93,7 @@ protected:
 	virtual void InitTransform();
 
 	// メインの更新処理
-	virtual void UpdateMain();
+	virtual void UpdateBody();
 
 	// 処理の適用
 	virtual void UpdateApply();
@@ -111,8 +110,8 @@ protected:
 	// 衝突時のコールバック
 	virtual void OnCollision();
 
-	// コライダーの生成
-	virtual void MakeCollider();
+	// コライダーの追加
+	virtual void AddCollider();
 
 	// デバッグ時の更新
 	virtual void DebugUpdate();

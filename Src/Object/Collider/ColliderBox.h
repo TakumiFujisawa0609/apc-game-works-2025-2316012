@@ -38,6 +38,12 @@ public:
 	const OBB& GetObb()const { return obb_; }
 
 	/// <summary>
+	/// 座標を返す
+	/// </summary>
+	/// <returns>座標</returns>
+	const VECTOR GetPos()const { return transformOwner_.pos; }
+
+	/// <summary>
 	/// 箱の最小地点の取得
 	/// </summary>
 	/// <returns>箱の最小地点</returns>
@@ -86,8 +92,4 @@ private:
 
 	// 各頂点の計算（ワールド座標）
 	void CalculateVertices(VECTOR outVertices[8]) const;
-
-	// 線分とAABBの最短距離の二乗計算
-	float ClosestSegmentAABB(const VECTOR& segA, const VECTOR& segB, const VECTOR& aabbMin, const VECTOR& aabbMax);
 };
-

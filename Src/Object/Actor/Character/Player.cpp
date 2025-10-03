@@ -63,15 +63,9 @@ void Player::Init()
 	state_ = STATE::ALIVE;
 }
 
-void Player::UpdateMain()
+void Player::UpdateBody()
 {
 	stateUpdateFuncMap_[state_]();
-}
-
-void Player::UpdateApply()
-{
-	// 親クラスの処理を実行
-	CharacterBase::UpdateApply();
 }
 
 void Player::InitAnimation()
@@ -113,7 +107,7 @@ void Player::UpdateAlive()
 
 	// 回転
 	rotate_->Update();
-	
+
 	// 移動
 	move_->Update();
 }

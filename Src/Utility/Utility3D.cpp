@@ -192,3 +192,143 @@ double Utility3D::AngleDeg(const VECTOR& from, const VECTOR& to)
 
     return acos(dot) * (180.0 / DX_PI);
 }
+
+bool Utility3D::CheckHitBox_Capsule(const ColliderBox::OBB& obb, const VECTOR& boxPos, const VECTOR& capTopPos, const VECTOR& capDownPos, const float radius)
+{
+    // obbのローカル中心
+    VECTOR localCenter = VScale(VAdd(obb.vMin, obb.vMax), 0.5f);
+
+    // obbのワールド中心
+    VECTOR worldCenter = VAdd(
+        VAdd(
+            VAdd(
+                VScale(obb.axis[0], localCenter.x),
+                VScale(obb.axis[1], localCenter.y)
+            ),
+            VScale(obb.axis[2], localCenter.z)
+        ),
+        boxPos
+    );
+
+    // カプセル線分をobbのローカル空間に変換
+    VECTOR rel1 = VSub(capTopPos, worldCenter);
+    VECTOR rel2 = VSub(capDownPos, worldCenter);
+
+    VECTOR local1 = {
+        VDot(rel1, obb.axis[0]),
+        VDot(rel1, obb.axis[1]),
+        VDot(rel1, obb.axis[2])
+    };
+
+    VECTOR local2 = {
+        VDot(rel2, obb.axis[0]),
+        VDot(rel2, obb.axis[1]),
+        VDot(rel2, obb.axis[2])
+    };
+
+    // スラブ法で最近接点を見つける
+    // AABBとして処理する（obbローカル空間内で）
+    float t = 0.0f;
+    float minDistSq = FLT_MAX;
+
+    const int STEPS = 10;
+    for (int i = 0; i <= STEPS; ++i)
+    {
+        float ft = static_cast<float>(i) / STEPS;
+        VECTOR point = VAdd(local1, VScale(VSub(local2, local1), ft));
+
+        // AABB内の最近接点
+        VECTOR clamped = {
+            std::max(obb.vMin.x, std::min(point.x,  obb.vMax.x)),
+            std::max(obb.vMin.y, std::min(point.y,  obb.vMax.y)),
+            std::max(obb.vMin.z, std::min(point.z,  obb.vMax.z))
+        };
+
+        float distSq = SqrMagnitudeF(VSub(point, clamped));
+        if (distSq < minDistSq)
+        {
+            minDistSq = distSq;
+            t = ft;
+        }
+    }
+
+    return minDistSq <= (radius * radius);
+}
+
+bool Utility3D::CheckHitBox_Line(const ColliderBox::OBB& obb, const VECTOR& boxPos, const VECTOR& lineTopPos, const VECTOR& lineEndPos)
+{
+    // OBB のローカル中心（Min/Maxの中点）
+    VECTOR localCenter = VScale(VAdd(obb.vMin, obb.vMax), 0.5f);
+
+    // OBB のワールド中心を計算：axisで回転して pos_ を加算
+    VECTOR worldCenter = VAdd(
+        VAdd(
+            VAdd(
+                VScale(obb.axis[0], localCenter.x),
+                VScale(obb.axis[1], localCenter.y)
+            ),
+            VScale(obb.axis[2], localCenter.z)
+        ),
+        boxPos
+    );
+
+    // 線分をOBB空間に変換（ワールド中心 → ローカル）
+    VECTOR rel1 = VSub(lineTopPos, worldCenter);
+    VECTOR rel2 = VSub(lineEndPos, worldCenter);
+
+    VECTOR local1 = {
+        VDot(rel1, obb.axis[0]),
+        VDot(rel1, obb.axis[1]),
+        VDot(rel1, obb.axis[2])
+    };
+
+    VECTOR local2 = {
+        VDot(rel2, obb.axis[0]),
+        VDot(rel2, obb.axis[1]),
+        VDot(rel2, obb.axis[2])
+    };
+
+    // スラブ法：線分が AABB（Min/Max）と交差するか
+    VECTOR dir = VSub(local2, local1);
+    float tmin = 0.0f, tmax = 1.0f;
+
+    // 各軸 (x, y, z)
+    for (int axis = 0; axis < 3; ++axis)
+    {
+        float start, delta, minB, maxB;
+
+        if (axis == 0) {
+            start = local1.x; delta = dir.x;
+            minB = obb.vMin.x; maxB = obb.vMax.x;
+        }
+        else if (axis == 1) {
+            start = local1.y; delta = dir.y;
+            minB = obb.vMin.y; maxB = obb.vMax.y;
+        }
+        else {
+            start = local1.z; delta = dir.z;
+            minB = obb.vMin.z; maxB = obb.vMax.z;
+        }
+
+        if (fabs(delta) < 1e-6)
+        {
+            // 線が平行で AABB のこの面を貫通しない
+            if (start < minB || start > maxB) return false;
+        }
+        else
+        {
+            float ood = 1.0f / delta;
+            float t1 = (minB - start) * ood;
+            float t2 = (maxB - start) * ood;
+
+            if (t1 > t2) std::swap(t1, t2);
+
+            if (t1 > tmin) tmin = t1;
+            if (t2 < tmax) tmax = t2;
+
+            if (tmin > tmax) return false;
+        }
+    }
+
+    return true;
+}

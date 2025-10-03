@@ -15,18 +15,24 @@ public:
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	virtual ~ControllerMove() override;
+	~ControllerMove() override;
 
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
-	virtual void Init();
+	void Init();
 
 	/// <summary>
-	/// 更新処理
+	/// 更新処理(座標を更新)
 	/// </summary>
 	/// <param name=""></param>
-	virtual void Update(void) override;
+	void Update() override;
+
+	/// <summary>
+	/// 移動後の座標を返す
+	/// </summary>
+	/// <returns>移動後の座標</returns>
+	const VECTOR GetMovedPos();
 	
 private:
 

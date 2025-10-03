@@ -96,6 +96,7 @@
     <ClCompile Include="Src\Manager\Generic\StageManager.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\StageGimicObjectBase.cpp" />
     <ClCompile Include="Src\Utility\UtilityLoad.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\TestModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Manager\System\AnomalyManager.h" />
@@ -222,6 +223,7 @@
     <ClInclude Include="Src\Manager\Generic\StageManager.h" />
     <ClInclude Include="Src\Object\Actor\Stage\StageGimicObjectBase.h" />
     <ClInclude Include="Src\Utility\UtilityLoad.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\TestModel.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\Model\StandardModelPS.hlsl">

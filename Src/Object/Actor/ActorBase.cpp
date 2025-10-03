@@ -8,8 +8,6 @@
 #include "../Collider/ColliderFactory.h"
 
 ActorBase::ActorBase(const Json& param):
-	COLLISION_TAG(param["collisionTag"]),
-	COLLIDER_TYPE(param["colliderType"]),
 	INITIAL_POS({ param["initPos"]["x"],param["initPos"]["y"],param["initPos"]["z"] }),
 	INITIAL_ROT({ param["initRot"]["x"],param["initRot"]["y"],param["initRot"]["z"] }),
 	INITIAL_SCL({ param["initScl"]["x"],param["initScl"]["y"],param["initScl"]["z"] }),
@@ -28,6 +26,7 @@ ActorBase::~ActorBase()
 
 void ActorBase::Load()
 {
+	AddCollider();
 }
 
 void ActorBase::Init()
@@ -35,15 +34,20 @@ void ActorBase::Init()
 	InitTransform();
 }
 
-void ActorBase::Update()
-{
-	UpdateMain();
+void ActorBase::MainUpdate()
+{	
+	UpdateBody();
 
 	UpdateApply();
 
 #ifdef _DEBUG
 	DebugUpdate();
 #endif
+}
+
+void ActorBase::PostUpdate()
+{
+	transform_.Update();
 }
 
 void ActorBase::Draw()
@@ -68,7 +72,7 @@ void ActorBase::InitTransform()
 	transform_.Update();
 }
 
-void ActorBase::UpdateMain()
+void ActorBase::UpdateBody()
 {
 }
 
@@ -92,8 +96,9 @@ void ActorBase::OnCollision()
 {
 }
 
-void ActorBase::MakeCollider()
+void ActorBase::AddCollider()
 {
+	collMng_.Add(collider_);
 }
 
 void ActorBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)

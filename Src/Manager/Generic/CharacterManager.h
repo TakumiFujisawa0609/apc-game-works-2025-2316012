@@ -40,9 +40,14 @@ public:
 	void Init();
 
 	/// <summary>
-	/// 更新処理
+	/// メイン処理
 	/// </summary>
-	void Update();
+	void MainUpdate();
+
+	/// <summary>
+	/// 更新後の処理
+	/// </summary>
+	void PostUpdate();
 
 	/// <summary>
 	/// 描画処理

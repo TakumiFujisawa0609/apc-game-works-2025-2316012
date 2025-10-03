@@ -1,7 +1,7 @@
 #include "StageGimicObjectBase.h"
 
-StageGimicObjectBase::StageGimicObjectBase(const std::string& key, const Json& param) :
-	StageObjectBase(key, param)
+StageGimicObjectBase::StageGimicObjectBase(const std::string& key, const Json& mapParam, const Json& colliderParam) :
+	StageObjectBase(key, mapParam, colliderParam)
 {
 }
 

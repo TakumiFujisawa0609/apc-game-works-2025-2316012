@@ -103,10 +103,7 @@ private:
 	std::unordered_map<STATE, std::function<void()>> stateUpdateFuncMap_;
 
 	//メインの更新処理
-	void UpdateMain() override;	
-
-	//更新処理の適用
-	void UpdateApply() override;
+	void UpdateBody() override;	
 
 	//アニメーションの初期化
 	void InitAnimation() override;
