@@ -37,7 +37,7 @@ public:
 
 	//FPS視点のカメラのX回転上限度角
 	static constexpr float LIMIT_X_UP_RAD_FPS = -20.0f * (DX_PI_F / 180.0f);
-	static constexpr float LIMIT_X_DW_RAD_FPS = 35.0f * (DX_PI_F / 180.0f);
+	static constexpr float LIMIT_X_DW_RAD_FPS = 50.0f * (DX_PI_F / 180.0f);
 	
 	/// <summary>
 	/// カメラのモード

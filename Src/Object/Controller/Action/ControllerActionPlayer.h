@@ -2,7 +2,7 @@
 #include "ControllerActionBase.h"
 
 class Player;
-class InputPlayer;
+class InputManager;
 
 class ControllerActionPlayer : public ControllerActionBase
 {
@@ -39,11 +39,11 @@ private:
 	// 所有者のインスタンスを参照
 	Player& player_;
 
+	// 入力管理クラスの参照
+	InputManager& input_;
+
 	// 着地判定
 	bool isEndLanding_;
-
-	// 入力関連の処理
-	std::unique_ptr<InputPlayer> input_;
 
 	// 移動操作
 	void ProcessMove();

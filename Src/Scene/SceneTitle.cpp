@@ -48,15 +48,10 @@ void SceneTitle::NormalUpdate(void)
 {	
 	// ÉVÅ[ÉìëJà⁄
 	auto& snd = SoundManager::GetInstance();
-	InputManager& ins = InputManager::GetInstance();
-	if (ins.IsTrgDown(KEY_INPUT_SPACE))
+	if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_DECISION))
 	{
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
 		snd.Stop(bgm_);
-	}
-	if (ins.IsTrgDown(KEY_INPUT_W))
-	{
-		snd.Play(se_);
 	}
 }
 

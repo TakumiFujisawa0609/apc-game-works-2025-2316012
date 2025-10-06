@@ -12,6 +12,9 @@
 #include "../Object/Actor/Character/CharacterBase.h"
 #include "../Object/Collider/ColliderFactory.h"
 #include "../Object/Actor/Stage/TestModel.h"
+#include "State/Game/GameStateBase.h"
+#include "State/Game/GameStatePlay.h"
+#include "State/Game/GameStateReporting.h"
 #include "ScenePause.h"
 #include "SceneGame.h"
 
@@ -51,6 +54,14 @@ void SceneGame::Load(void)
 	StageManager::CreateInstance();
 	StageManager::GetInstance().Load();
 
+	// プレイ状態別処理の登録
+	auto statePlay = std::make_unique<GameStatePlay>();
+	stateMap_.emplace(STATE::PLAY, statePlay);
+
+	// 報告中状態別処理の登録
+	auto stateRepo = std::make_unique<GameStateReporting>();
+	stateMap_.emplace(STATE::REPORTING, stateRepo);
+
 	//ポーズ画面のリソース
 	ScenePause_ = std::make_shared<ScenePause>();
 	ScenePause_->Load();
@@ -67,6 +78,12 @@ void SceneGame::Init(void)
 	// ステージ管理クラス初期化
 	StageManager::GetInstance().Init();
 
+	// 状態別初期化処理
+	for (const auto& state : stateMap_)
+	{
+		state.second->Init();
+	}
+
 	test_->Init();
 
 	// カメラ設定
@@ -76,29 +93,18 @@ void SceneGame::Init(void)
 
 void SceneGame::NormalUpdate(void)
 {
-	// ポーズ画面へ遷移
-	if (inputMng_.IsTrgDown(KEY_INPUT_P))
+	// ポーズ画面
+	if (inputMng_.IsTrgDown(InputManager::TYPE::PAUSE))
 	{
 		scnMng_.PushScene(ScenePause_);
 		return;
 	}
 
-	// キャラクターの本体更新
-	CharacterManager::GetInstance().MainUpdate();
+	// 状態別更新処理
+	stateMap_[state_]->Update();
 
-	// ステージ更新
-	StageManager::GetInstance().Update();
-
-	// 衝突判定の更新
-	CollisionManager::GetInstance().Update();
-
-	// コライダーの削除
-	CollisionManager::GetInstance().Sweep();
-
-	// キャラクターの後処理
-	CharacterManager::GetInstance().PostUpdate();
-
-#ifdef _DEBUG
+#ifdef _DEBUG	
+	
 	DebugUpdate();
 
 	test_->Update();
@@ -113,11 +119,8 @@ void SceneGame::NormalDraw(void)
 	test_->Draw();
 #endif
 	
-	// ステージ描画
-	StageManager::GetInstance().Draw();
-
-	// キャラクター描画
-	CharacterManager::GetInstance().Draw();
+	// 状態別描画処理
+	stateMap_[state_]->Update();
 }
 
 void SceneGame::ChangeNormal(void)
@@ -130,14 +133,14 @@ void SceneGame::ChangeNormal(void)
 void SceneGame::DebugUpdate(void)
 {
 	// シーン遷移
-	InputManager& ins = InputManager::GetInstance();
-	if (ins.IsTrgDown(KEY_INPUT_RSHIFT))
+	if (inputMng_.IsTrgDown(InputManager::TYPE::DEBUG_CAMERA_CHANGE))
 	{
-		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::TITLE);
+		scnMng_.ChangeScene(SceneManager::SCENE_ID::TITLE);
+		return;
 	}
 
 	// カメラモードの変更
-	if (ins.IsTrgDown(KEY_INPUT_TAB))
+	if (inputMng_.IsTrgDown(InputManager::TYPE::DEBUG_CAMERA_CHANGE))
 	{
 		switch (mainCamera.GetMode())
 		{

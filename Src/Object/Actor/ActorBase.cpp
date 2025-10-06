@@ -34,7 +34,7 @@ void ActorBase::Init()
 	InitTransform();
 }
 
-void ActorBase::MainUpdate()
+void ActorBase::Update()
 {	
 	UpdateBody();
 
@@ -43,11 +43,6 @@ void ActorBase::MainUpdate()
 #ifdef _DEBUG
 	DebugUpdate();
 #endif
-}
-
-void ActorBase::PostUpdate()
-{
-	transform_.Update();
 }
 
 void ActorBase::Draw()
@@ -65,10 +60,11 @@ void ActorBase::Draw()
 
 void ActorBase::InitTransform()
 {
-	transform_.quaRot = Quaternion();
 	transform_.scl = INITIAL_SCL;
-	transform_.quaRotLocal = Quaternion::Euler({ UtilityCommon::Deg2RadF(INITIAL_ROT.x), UtilityCommon::Deg2RadF(INITIAL_ROT.y),UtilityCommon::Deg2RadF(INITIAL_ROT.z) });
-	transform_.pos = INITIAL_POS;
+	transform_.pos = INITIAL_POS;	
+	transform_.rot = INITIAL_ROT;
+	transform_.quaRot = Quaternion();
+	transform_.quaRotLocal = Quaternion::Euler({ 0.0f,UtilityCommon::Deg2RadF(180), 0.0f });
 	transform_.Update();
 }
 

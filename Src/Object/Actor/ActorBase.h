@@ -39,12 +39,7 @@ public:
 	/// <summary>
 	/// メインの更新
 	/// </summary>
-	virtual void MainUpdate();
-
-	/// <summary>
-	/// 更新後の処理
-	/// </summary>
-	virtual void PostUpdate();
+	virtual void Update();
 
 	/// <summary>
 	/// 描画
@@ -66,7 +61,7 @@ public:
 protected:
 
 	// ローカル回転のデフォルト値(度)
-	static constexpr float DEFAULT_LOCAL_DEG_Y = 180.0f;
+	static constexpr float DEFAULT_LOCAL_QUAROT_Y_DEG = 180.0f;
 
 	// 初期位置
 	const VECTOR INITIAL_POS;

@@ -73,21 +73,18 @@ void CharacterBase::Init()
 	rotate_->Init();
 }
 
-void CharacterBase::PostUpdate()
+void CharacterBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
-	// 移動後の座標の格納
-	transform_.pos = movedPos_;
+	onHit_->OnHit(opponentCollider);
+}
 
+void CharacterBase::UpdateApply()
+{
 	// トランスフォームの更新
 	transform_.Update();
 
 	// アニメーション制御クラスの更新
 	animation_->Update();
-}
-
-void CharacterBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
-{
-	onHit_->OnHit(opponentCollider);
 }
 
 void CharacterBase::DrawMain()

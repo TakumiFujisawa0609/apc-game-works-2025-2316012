@@ -42,12 +42,7 @@ public:
 	/// <summary>
 	/// ƒƒCƒ“ˆ—
 	/// </summary>
-	void MainUpdate();
-
-	/// <summary>
-	/// XVŒã‚Ìˆ—
-	/// </summary>
-	void PostUpdate();
+	void Update();
 
 	/// <summary>
 	/// •`‰æˆ—

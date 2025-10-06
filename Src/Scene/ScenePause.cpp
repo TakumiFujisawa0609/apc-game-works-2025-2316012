@@ -51,23 +51,23 @@ void ScenePause::Init(void)
 
 void ScenePause::NormalUpdate(void)
 {
-	if (inputMng_.IsTrgDown(KEY_INPUT_P))
+	if (inputMng_.IsTrgDown(InputManager::TYPE::PAUSE) || inputMng_.IsTrgDown(InputManager::TYPE::SELECT_CANCEL))
 	{
 		//ÉVÅ[ÉìÇñﬂÇ∑
 		scnMng_.PopScene();
 		return;
 	}
-	else if (inputMng_.IsTrgDown(KEY_INPUT_DOWN))
+	else if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_DOWN))
 	{
 		selectIndex_ = UtilityCommon::WrapStepIndex(selectIndex_, -1, 0, LIST_MAX);
 		return;
 	}
-	else if (inputMng_.IsTrgDown(KEY_INPUT_UP))
+	else if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_UP))
 	{
 		selectIndex_ = UtilityCommon::WrapStepIndex(selectIndex_, 1, 0, LIST_MAX);
 		return;
 	}
-	else if (inputMng_.IsTrgDown(KEY_INPUT_RETURN))
+	else if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_DECISION))
 	{
 		listFuncTable_[static_cast<LIST>(selectIndex_)]();
 		return;

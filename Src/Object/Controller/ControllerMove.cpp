@@ -18,17 +18,23 @@ void ControllerMove::Init()
 
 void ControllerMove::Update()
 {
+	//現在地を取得
+	VECTOR pos = owner_.GetTransform().pos;
+
+	// 移動前の座標を格納
+	owner_.SetPrePos(pos);
+
 	// 移動量の生成
 	VECTOR movePow = VScale(owner_.GetMoveDir(), owner_.GetMoveSpeed());
 
 	// 移動後の座標を生成
-	VECTOR movedPos = VAdd(owner_.GetTransform().pos, movePow);
+	VECTOR movedPos = VAdd(pos, movePow);
 
 	// ジャンプ量を加算
 	movedPos = VAdd(movedPos, owner_.GetJumpPow());
 
 	// 座標設定
-	owner_.SetMovedPos(movedPos);
+	owner_.SetPos(movedPos);
 }
 
 const VECTOR ControllerMove::GetMovedPos()

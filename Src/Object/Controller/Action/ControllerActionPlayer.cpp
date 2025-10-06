@@ -1,17 +1,17 @@
 #include "../../../Manager/Generic/SceneManager.h"
+#include "../../../Manager/Generic/InputManager.h"
 #include "../../../Manager/Generic/Camera.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../Actor/Character/Player.h"
-#include "../../System/InputPlayer.h"
 #include "../ControllerAnimation.h"
 #include "ControllerActionPlayer.h"
 
 ControllerActionPlayer::ControllerActionPlayer(Player& player) :
 	ControllerActionBase(player),
-	player_(player)
+	player_(player),
+	input_(InputManager::GetInstance())
 {
-	input_ = nullptr;
 	isEndLanding_ = false;
 }
 
@@ -21,8 +21,6 @@ ControllerActionPlayer::~ControllerActionPlayer()
 
 void ControllerActionPlayer::Load()
 {
-	//入力管理クラスの生成
-	input_ = std::make_unique<InputPlayer>();
 }
 
 void ControllerActionPlayer::Init()
@@ -58,28 +56,28 @@ void ControllerActionPlayer::ProcessMove()
 	float speed = 0.0f;
 
 	// 右移動
-	if (input_->CheckKey(InputPlayer::CONFIG::RIGHT))
+	if (input_.IsNew(InputManager::TYPE::PLAYER_MOVE_RIGHT))
 	{
 		rotDeg = ROT_DEG_RIGHT;
 		dir = cameraRot.GetRight();
 	}
 
 	// 左移動
-	if (input_->CheckKey(InputPlayer::CONFIG::LEFT))
+	if (input_.IsNew(InputManager::TYPE::PLAYER_MOVE_LEFT))
 	{
 		rotDeg = ROT_DEG_LEFT;
 		dir = cameraRot.GetLeft();
 	}
 
 	// 前移動
-	if (input_->CheckKey(InputPlayer::CONFIG::FORWARD))
+	if (input_.IsNew(InputManager::TYPE::PLAYER_MOVE_UP))
 	{
 		rotDeg = ROT_DEG_FRONT;
 		dir = cameraRot.GetForward();
 	}
 
 	// 後移動
-	if (input_->CheckKey(InputPlayer::CONFIG::BACK))
+	if (input_.IsNew(InputManager::TYPE::PLAYER_MOVE_DOWN))
 	{
 		rotDeg = ROT_DEG_BACK;
 		dir = cameraRot.GetBack();
@@ -95,7 +93,7 @@ void ControllerActionPlayer::ProcessMove()
 	if (!Utility3D::EqualsVZero(dir) && (isJump || isEndLanding_))
 	{
 		// ダッシュ
-		bool isDash = input_->CheckKey(InputPlayer::CONFIG::DASH);
+		bool isDash = input_.IsNew(InputManager::TYPE::PLAYER_DASH);
 
 		// 歩く移動速度取得
 		speed = player_.GetSpeedMove();
@@ -149,7 +147,7 @@ void ControllerActionPlayer::ProcessJump()
 	const float JUMP_ACCEPT_TIME = player_.GetJumpAcceptTime();
 
 	// ジャンプキーを入力したか
-	bool isInputJump = input_->CheckKey(InputPlayer::CONFIG::JUMP);
+	bool isInputJump = input_.IsNew(InputManager::TYPE::PLAYER_JUMP);
 
 	// アニメーション制御クラスを取得
 	auto& animation = player_.GetControllerAnimation();

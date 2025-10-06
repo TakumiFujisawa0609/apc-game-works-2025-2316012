@@ -84,10 +84,11 @@ void Player::InitAnimation()
 
 void Player::InitTransform()
 {
-	transform_.quaRot = Quaternion();
-	transform_.scl = Utility3D::VECTOR_ONE;
-	transform_.quaRotLocal = Quaternion::Euler({ UtilityCommon::Deg2RadF(INITIAL_ROT.x), UtilityCommon::Deg2RadF(INITIAL_ROT.y),UtilityCommon::Deg2RadF(INITIAL_ROT.z) });
+	transform_.scl = INITIAL_SCL;
 	transform_.pos = INITIAL_POS;
+	transform_.rot = INITIAL_ROT;
+	transform_.quaRot = Quaternion();
+	transform_.quaRotLocal = Quaternion::Euler({ 0.0f,UtilityCommon::Deg2RadF(DEFAULT_LOCAL_QUAROT_Y_DEG), 0.0f });
 	transform_.localPos = { 0.0f,20.0f,0.0f };
 	transform_.Update();
 }

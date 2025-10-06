@@ -94,7 +94,6 @@ Camera::MODE Camera::GetMode() const
 
 void Camera::ChangeMode(MODE mode)
 {
-
 	// カメラの初期設定
 	SetDefault();
 
@@ -121,6 +120,9 @@ void Camera::SetDefault(void)
 	angles_.z = 0.0f;
 
 	rot_ = Quaternion();
+
+	// マウスを表示する
+	SetMouseDispFlag(true);
 }
 
 void Camera::SyncFollow(void)
@@ -179,10 +181,10 @@ void Camera::ProcessRotFollow(void)
 {
 	auto& ins = InputManager::GetInstance();
 	float rotPow = UtilityCommon::Deg2RadF(SPEED);
-	if (ins.IsNew(KEY_INPUT_RIGHT)) { angles_.y += rotPow; }
-	if (ins.IsNew(KEY_INPUT_LEFT)) { angles_.y -= rotPow; }
-	if (ins.IsNew(KEY_INPUT_UP)) { angles_.x += rotPow; }
-	if (ins.IsNew(KEY_INPUT_DOWN)) { angles_.x -= rotPow; }
+	if (CheckHitKey(KEY_INPUT_RIGHT)) { angles_.y += rotPow; }
+	if (CheckHitKey(KEY_INPUT_LEFT)) { angles_.y -= rotPow; }
+	if (CheckHitKey(KEY_INPUT_UP)) { angles_.x += rotPow; }
+	if (CheckHitKey(KEY_INPUT_DOWN)) { angles_.x -= rotPow; }
 
 	if (angles_.x >= LIMIT_X_UP_RAD)
 	{
@@ -280,6 +282,9 @@ void Camera::ChangeModeFollow()
 void Camera::ChangeModeFps()
 {
 	beforeDrawFunc_ = std::bind(&Camera::SetBeforeDrawFps, this);
+
+	// マウスを非表示にする
+	SetMouseDispFlag(false);
 }
 
 void Camera::ChangeModeFree()

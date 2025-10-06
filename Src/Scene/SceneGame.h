@@ -3,6 +3,7 @@
 #include "SceneBase.h"
 
 class ScenePause;
+class GameStateBase;
 class TestModel;
 
 class SceneGame : public SceneBase
@@ -10,6 +11,16 @@ class SceneGame : public SceneBase
 
 public:
 	
+	/// <summary>
+	/// 状態
+	/// </summary>
+	enum class STATE
+	{
+		PLAY,		// プレイ
+		REPORTING,	// 報告
+		MAX
+	};
+
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
@@ -36,9 +47,16 @@ public:
 
 private:
 
+	// 状態
+	STATE state_;
+
 	//ポーズ画面
 	std::shared_ptr<ScenePause> ScenePause_;
 
+	// 状態別処理管理
+	std::unordered_map<STATE, std::unique_ptr<GameStateBase>> stateMap_;
+
+	// テスト
 	std::unique_ptr<TestModel> test_;
 
 	//更新関数

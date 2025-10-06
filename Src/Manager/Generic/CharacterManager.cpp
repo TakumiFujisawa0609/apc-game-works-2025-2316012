@@ -27,19 +27,11 @@ void CharacterManager::Init()
 	}
 }
 
-void CharacterManager::MainUpdate()
+void CharacterManager::Update()
 {	
 	for (auto& character : characterMap_)
 	{
-		character.second->MainUpdate();
-	}
-}
-
-void CharacterManager::PostUpdate()
-{
-	for (auto& character : characterMap_)
-	{
-		character.second->PostUpdate();
+		character.second->Update();
 	}
 }
 

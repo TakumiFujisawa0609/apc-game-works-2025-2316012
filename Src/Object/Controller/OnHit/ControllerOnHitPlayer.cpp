@@ -20,7 +20,7 @@ ControllerOnHitPlayer::~ControllerOnHitPlayer()
 void ControllerOnHitPlayer::OnHitMainStage(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
 	// 座標取得
-	VECTOR movedPos = owner_.GetMovedPos();
+	VECTOR movedPos = owner_.GetTransform().pos;
 
 	// モデル用コライダーへ変換
 	auto collModel = std::dynamic_pointer_cast<ColliderModel>(opponentCollider.lock());
@@ -88,11 +88,26 @@ void ControllerOnHitPlayer::OnHitMainStage(const std::weak_ptr<ColliderBase>& op
 	}
 
 	// 最終的な位置を設定
-	owner_.SetMovedPos(movedPos);
+	owner_.SetPos(movedPos);
 }
 
 void ControllerOnHitPlayer::OnHitStageObject(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
-	// 移動後の座標の値を現在地に変更
-	owner_.SetMovedPos(owner_.GetTransform().pos);
+	constexpr float MOVE_POW = 0.1f; //移動量
+
+	// 移動前の座標を取得
+	VECTOR pos = owner_.GetPrePos();
+
+	// 進行方向を取得
+	VECTOR dir = owner_.GetMoveDir();
+
+	// 進行方向の反対向きにして移動量を計算
+	VECTOR movePow = VScale(dir, -MOVE_POW);
+	movePow.y = 0;	// Y方向は無視する
+
+	// 進行方向の反対向きに少し押す
+	pos = VAdd(pos, movePow);
+
+	// 座標の格納
+	owner_.SetPos(pos);
 }

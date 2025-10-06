@@ -42,11 +42,6 @@ public:
 	virtual void Init() override;
 
 	/// <summary>
-	/// 更新後の処理
-	/// </summary>
-	virtual void PostUpdate() override;
-
-	/// <summary>
 	/// 衝突後の処理
 	/// </summary>
 	/// <param name="opponentCollider">衝突相手のコライダー</param>
@@ -107,10 +102,10 @@ public:
 	const VECTOR GetJumpPow() const { return jumpPow_; }
 
 	/// <summary>
-	/// 移動後の座標を返す
+	/// 移動前の座標を返す
 	/// </summary>
-	/// <returns>移動後の座標</returns>
-	const VECTOR GetMovedPos() const { return movedPos_; }
+	/// <returns>移動前の座標</returns>
+	const VECTOR GetPrePos() const { return prePos_; }
 
 	/// <summary>
 	/// カプセル座標の上部分を返す
@@ -169,8 +164,8 @@ public:
 	/// <summary>
 	/// 移動後の座標を設定
 	/// </summary>
-	/// <param name="movedPos"></param>
-	void SetMovedPos(const VECTOR& movedPos) { movedPos_ = movedPos; }
+	/// <param name="prePos"></param>
+	void SetPrePos(const VECTOR& prePos) { prePos_ = prePos; }
 
 protected:	
 	
@@ -201,8 +196,8 @@ protected:
 	// ジャンプ力
 	VECTOR jumpPow_;
 
-	// 移動後の座標
-	VECTOR movedPos_;
+	// 移動前の座標
+	VECTOR prePos_;
 
 	// アニメーション制御クラス
 	std::unique_ptr<ControllerAnimation> animation_;
@@ -221,6 +216,11 @@ protected:
 
 	// 衝突後処理の制御クラス
 	std::unique_ptr<ControllerOnHitBase> onHit_;
+
+	/// <summary>
+	/// 更新処理の適用
+	/// </summary>
+	virtual void UpdateApply() override;
 
 	/// <summary>
 	/// メインの描画処理

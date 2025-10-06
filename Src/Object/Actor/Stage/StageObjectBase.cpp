@@ -46,10 +46,10 @@ void StageObjectBase::DrawMain()
 
 void StageObjectBase::InitTransform()
 {
-	transform_.quaRot = Quaternion();
 	transform_.scl = Utility3D::VECTOR_ONE;
 	transform_.pos = VScale(INITIAL_POS, METER_TO_UNIT_SCALE);
-	transform_.rot = INITIAL_ROT;
+	transform_.quaRot = Quaternion::Euler(INITIAL_ROT);
+	transform_.quaRotLocal = Quaternion::Euler({ 0.0f,UtilityCommon::Deg2RadF(DEFAULT_LOCAL_QUAROT_Y_DEG), 0.0f });
 	transform_.Update();
 }
 
