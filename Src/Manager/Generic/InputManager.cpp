@@ -11,11 +11,11 @@ void InputManager::Init()
 	// ì¸óÕèÛãµÇ…âûÇ∂ÇΩÉgÉäÉKÅ[ÇÃìoò^
 	using BTN = Input::JOYPAD_BTN;
 	using STICK = Input::JOYPAD_STICK;
-	RegisterTrigger(TYPE::PLAYER_MOVE_RIGHT, KEY_INPUT_D, BTN::MAX, STICK::L_STICK_RIGHT);
+ 	RegisterTrigger(TYPE::PLAYER_MOVE_RIGHT, KEY_INPUT_D, BTN::MAX, STICK::L_STICK_RIGHT);
 	RegisterTrigger(TYPE::PLAYER_MOVE_LEFT, KEY_INPUT_A, BTN::MAX, STICK::L_STICK_LEFT);
 	RegisterTrigger(TYPE::PLAYER_MOVE_UP, KEY_INPUT_W, BTN::MAX, STICK::L_STICK_UP);
 	RegisterTrigger(TYPE::PLAYER_MOVE_DOWN, KEY_INPUT_S, BTN::MAX, STICK::L_STICK_DOWN);
-	RegisterTrigger(TYPE::PLAYER_JUMP, KEY_INPUT_S, BTN::RB_RIGHT);
+	RegisterTrigger(TYPE::PLAYER_JUMP, KEY_INPUT_SPACE, BTN::RB_RIGHT);
 	RegisterTrigger(TYPE::SELECT_RIGHT, KEY_INPUT_D, BTN::MAX, STICK::L_STICK_RIGHT);
 	RegisterTrigger(TYPE::SELECT_LEFT, KEY_INPUT_A, BTN::MAX, STICK::L_STICK_LEFT);
 	RegisterTrigger(TYPE::SELECT_UP, KEY_INPUT_W, BTN::MAX, STICK::L_STICK_UP);
@@ -23,7 +23,10 @@ void InputManager::Init()
 	RegisterTrigger(TYPE::SELECT_DECISION, KEY_INPUT_SPACE, BTN::RB_RIGHT);
 	RegisterTrigger(TYPE::SELECT_CANCEL, KEY_INPUT_BACK, BTN::RB_DOWN);
 	RegisterTrigger(TYPE::PAUSE, KEY_INPUT_BACK, BTN::SELECT);
+	RegisterTrigger(TYPE::ANOMARY_REPORT, KEY_INPUT_R, BTN::RB_LEFT);
+
 	RegisterTrigger(TYPE::DEBUG_SCENE_CHANGE, KEY_INPUT_RSHIFT);
+	RegisterTrigger(TYPE::DEBUG_CAMERA_CHANGE, KEY_INPUT_TAB);
 }
 
 void InputManager::Update()
@@ -123,8 +126,8 @@ void InputManager::RegisterTrigger(const TYPE type, const int key, const Input::
 void InputManager::RegisterTriggerFunction(const TYPE type, std::vector<std::function<bool(TYPE, Input::JOYPAD_NO)>> newFuncs, std::vector<std::function<bool(TYPE, Input::JOYPAD_NO)>> trgDownFuncs, std::vector<std::function<bool(TYPE, Input::JOYPAD_NO)>> trgUpFuncs)
 {
 	funcNewMap_.emplace(type, newFuncs);
-	funcNewMap_.emplace(type, trgDownFuncs);
-	funcNewMap_.emplace(type, trgUpFuncs);
+	funcTrgDownMap_.emplace(type, trgDownFuncs);
+	funcTrgUpMap_.emplace(type, trgUpFuncs);
 }
 
 bool InputManager::IsNewKey(const TYPE type)

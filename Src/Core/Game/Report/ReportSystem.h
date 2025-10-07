@@ -1,7 +1,14 @@
 #pragma once
+#include <memory>
 #include <functional>
 #include <unordered_map>
+#include "../../../Common/CharacterString.h"
 #include "../../CoreBase.h"
+#include "../../Common/CircleGauge.h"
+
+class InputManager;
+class Timer;
+class ControllerTextAnimation;
 
 class ReportSystem : public CoreBase
 {
@@ -39,6 +46,21 @@ public:
 
 private:
 
+	// 報告中の時間
+	static constexpr float REPORTING_TIME = 3.0f;
+
+	// 完了時のテキスト表示時間
+	static constexpr float COMPLITE_TEXT_DISPLAY_TIME = 2.0f;
+
+	// 報告中のテキスト
+	const std::wstring REPORTING_TEXT = L"報告中";
+
+	// 完了時のテキスト
+	const std::wstring COMPLITE_TEXT = L"異変が報告されました";
+
+	// 失敗時のテキスト
+	const std::wstring MISS_TEXT = L"誤った報告がさえれました";
+
 	/// <summary>
 	/// 状態
 	/// </summary>
@@ -52,17 +74,41 @@ private:
 		COMPLETE,	// 完了
 	};
 
+	// 入力管理クラスの参照
+	InputManager& input_;
+
 	// 状態
 	STATE state_;
 
+	// コンマ用ステップ
+	float commaStep_;
+
+	// サークルゲージ
+	CircleGauge gauge_;
+
+	// 報告中時のテキスト
+	CharacterString reportingText_;
+
+	// 完了時のテキスト
+	CharacterString compliteText_;
+
+	// 失敗時のテキスト
+	CharacterString missText_;
+
+	// テキストアニメーションコントローラー
+	std::unique_ptr<ControllerTextAnimation> textAnimation_;
+
+	// タイマー
+	std::unique_ptr<Timer> timer_;
+
 	// 状態別更新処理管理マップ
-	std::unordered_map<STATE, std::function<void()>> updateMap_;	
+	std::unordered_map<STATE, std::function<void()>> stateUpdateMap_;	
 
 	// 状態別描画処理管理マップ
-	std::unordered_map<STATE, std::function<void()>> drawMap_;	
+	std::unordered_map<STATE, std::function<void()>> stateDrawMap_;	
 
 	// 処理の登録
-	void RegisterStateFunc(const STATE state, std::function<void()> update, std::function<void()> draw);
+	void RegisterStateFunction(const STATE state, std::function<void()> update, std::function<void()> draw);
 
 	// 状態別更新処理
 	void UpdateWait();
@@ -78,5 +124,7 @@ private:
 	void DrawMiss();
 	void DrawComplite();
 
-};
+	// 判定の生成
+	void CreateLineCollider();
 
+};

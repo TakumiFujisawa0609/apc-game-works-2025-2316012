@@ -1,8 +1,8 @@
 #pragma once
 
-class Vector2F;
+struct Vector2F;
 
-class Vector2
+struct Vector2
 {
 public:
 

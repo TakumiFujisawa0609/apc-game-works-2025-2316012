@@ -76,7 +76,7 @@ protected:
 	ResourceManager& resMng_;
 	SceneManager& scnMng_;
 	CollisionManager& collMng_;
-	ColliderFactory& collFtr_;;
+	ColliderFactory& collFtr_;
 
 	// ƒ‚ƒfƒ‹§Œä‚ÌŠî–{î•ñ
 	Transform transform_;

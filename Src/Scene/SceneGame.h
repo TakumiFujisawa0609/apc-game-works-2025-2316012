@@ -3,7 +3,6 @@
 #include "SceneBase.h"
 
 class ScenePause;
-class GameStateBase;
 class TestModel;
 
 class SceneGame : public SceneBase
@@ -53,20 +52,34 @@ private:
 	//ポーズ画面
 	std::shared_ptr<ScenePause> ScenePause_;
 
-	// 状態別処理管理
-	std::unordered_map<STATE, std::unique_ptr<GameStateBase>> stateMap_;
+	// 状態別更新処理管理
+	std::unordered_map<STATE, std::function<void()>> stateUpdateMap_;
+
+	// 状態別描画処理管理
+	std::unordered_map<STATE, std::function<void()>> stateDrawMap_;
 
 	// テスト
 	std::unique_ptr<TestModel> test_;
 
-	//更新関数
+	// 更新関数
 	void NormalUpdate(void) override;
 
-	//描画関数
+	// 描画関数
 	void NormalDraw(void) override;
 
-	//処理の変更
+	// 処理の変更
 	void ChangeNormal(void) override;
+
+	// 処理の登録
+	void RegisterStateFunction(const STATE state, std::function<void()> update, std::function<void()> draw);
+
+	// 状態別更新処理
+	void UpdatePlay();
+	void UpdateReporting();
+
+	// 状態別描画処理
+	void DrawPlay();
+	void DrawReporting();
 	
 	//デバッグ処理
 	void DebugUpdate(void);

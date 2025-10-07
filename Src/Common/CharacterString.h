@@ -2,62 +2,56 @@
 #include <string>
 #include "Vector2.h"
 
-class CharacterString
-{
-
-public:	
-	
+struct CharacterString
+{	
 	/// <summary>
 	/// 文字列
 	/// </summary>
-	std::wstring srt_; 
+	std::wstring string; 
 
 	/// <summary>
 	/// 座標
 	/// </summary>
-	Vector2 pos_;
+	Vector2 pos;
 
 	/// <summary>
 	/// フォントハンドル
 	/// </summary>
-	int fontHandle_; 
+	int fontHandle; 
 
 	/// <summary>
 	/// 色
 	/// </summary>
-	int color_;
+	int color;
 
 	/// <summary>
 	/// 描画用データ
 	/// </summary>
-	int data_;
+	int data;
 
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	CharacterString(void);
+	CharacterString();
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~CharacterString(void);
+	~CharacterString();
 
 	/// <summary>
 	/// 通常描画
 	/// </summary>
-	/// <param name=""></param>
-	void Draw(void) const;
+	void Draw() const;
 
 	/// <summary>
 	/// 文字列の中心で描画
 	/// </summary>
-	/// <param name=""></param>
-	void DrawCenter(void) const;
+	void DrawCenter() const;
 
 	/// <summary>
 	/// 数値を含む文字列の中心描画
 	/// </summary>
-	/// <param name=""></param>
-	void DrawFormatCenter(void) const;
+	void DrawFormatCenter() const;
 	
 };

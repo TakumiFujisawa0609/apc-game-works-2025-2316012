@@ -1,6 +1,7 @@
 #include "../../../Manager/Generic/CharacterManager.h"
 #include "../../../Manager/Generic/StageManager.h"
 #include "../../../Manager/Generic/CollisionManager.h"
+#include "../../../Object/Actor/Character/CharacterBase.h"
 #include "GameStatePlay.h"
 
 GameStatePlay::GameStatePlay() :

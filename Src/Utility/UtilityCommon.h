@@ -127,4 +127,11 @@ public:
 	/// <returns></returns>wstringオブジェクト
 	static std::wstring GetWStringFromString(const std::string& str);
 
+	 //<summary>
+	 //UTF-8文字列をSJISに変換
+	 //</summary>
+	 //<param name="utf8_str">UTF-8文字列</param>
+	 //<returns>変換後のSJISの文字列</returns>
+	static std::string ConvertUtf8ToSjis(const std::string& utf8_str);
+
 };

@@ -20,24 +20,26 @@ public:
 	{
 		NONE,
 
-		PLAYER_MOVE_RIGHT,
-		PLAYER_MOVE_LEFT,
-		PLAYER_MOVE_UP,
-		PLAYER_MOVE_DOWN,
-		PLAYER_JUMP,
-		PLAYER_DASH,
+		PLAYER_MOVE_RIGHT,	// 移動右
+		PLAYER_MOVE_LEFT,	// 移動左
+		PLAYER_MOVE_UP,		// 移動上
+		PLAYER_MOVE_DOWN,	// 移動下
+		PLAYER_JUMP,		// ジャンプ
+		PLAYER_DASH,		// ダッシュ
 
-		SELECT_RIGHT,
-		SELECT_LEFT,
-		SELECT_DOWN,
-		SELECT_UP,
-		SELECT_DECISION,
-		SELECT_CANCEL,
+		SELECT_RIGHT,		// 選択右
+		SELECT_LEFT,		// 選択左
+		SELECT_DOWN,		// 選択下
+		SELECT_UP,			// 選択上
+		SELECT_DECISION,	// 選択決定
+		SELECT_CANCEL,		// 選択キャンセル
 
-		PAUSE,
+		PAUSE,				// ポーズ(開閉)
 
-		DEBUG_SCENE_CHANGE,
-		DEBUG_CAMERA_CHANGE,
+		ANOMARY_REPORT,		// 異変の報告
+
+		DEBUG_SCENE_CHANGE, // デバッグシーン遷移
+		DEBUG_CAMERA_CHANGE,// デバッグカメラビュー変更
 	};
 
 	/// <summary>

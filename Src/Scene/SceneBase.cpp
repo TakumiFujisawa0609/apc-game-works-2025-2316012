@@ -23,10 +23,10 @@ SceneBase::~SceneBase(void)
 void SceneBase::Load(void)
 {
 	//ローディング用文字列設定
-	loadingString_.fontHandle_ = fontMng_.CreateMyFont(resMng_.GetFontName("fontDot"), 32, 0);
-	loadingString_.color_ = UtilityCommon::WHITE;
-	loadingString_.pos_ = { LOADING_STRING_POS_X, LOADING_STRING_POS_Y };
-	loadingString_.srt_ = L"Now loading";
+	loadingString_.fontHandle = fontMng_.CreateMyFont(resMng_.GetFontName("fontDot"), 32, 0);
+	loadingString_.color = UtilityCommon::WHITE;
+	loadingString_.pos = { LOADING_STRING_POS_X, LOADING_STRING_POS_Y };
+	loadingString_.string = L"Now loading";
 }
 
 void SceneBase::Init(void)
@@ -91,13 +91,13 @@ void SceneBase::DrawNowLoading(void)
 	int count = static_cast<int>(time / COMMA_TIME);
 	count %= COMMA_MAX_NUM;
 
-	loadingString_.srt_ = L"Now Loading";
+	loadingString_.string = L"Now Loading";
 	std::wstring dotStr = L".";
 
 	//テキストの設定
 	for (int i = 0; i < count; i++)
 	{
-		loadingString_.srt_ += dotStr;
+		loadingString_.string += dotStr;
 	}
 
 	//文字の描画

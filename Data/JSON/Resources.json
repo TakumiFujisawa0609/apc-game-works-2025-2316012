@@ -162,6 +162,12 @@
       "sceneId": 3,
       "type": "model",
       "path": "Data/Model/Player/Animation/Jump.mv1"
+    },
+    {
+      "key": "reportGauge",
+      "sceneId": 3,
+      "type": "texture",
+      "path": "Data/Image/Game/ReportCircleGauge.png"
     }
   ]
 }

@@ -1,10 +1,9 @@
 #pragma once
 
-class Vector2;
+struct Vector2;
 
-class Vector2F
+struct Vector2F
 {
-public:
 
 	//デフォルトコンストラクタ
 	Vector2F(void);
@@ -41,6 +40,4 @@ public:
 
 	float x;
 	float y;
-
-private:
 };

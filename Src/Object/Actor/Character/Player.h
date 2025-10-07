@@ -96,29 +96,29 @@ private:
 	// ジャンプ用ステップ
 	float stepJump_;
 
-	//状態
+	// 状態
 	STATE state_;
 
-	//状態別の更新関数マップ
+	// 状態別の更新関数マップ
 	std::unordered_map<STATE, std::function<void()>> stateUpdateFuncMap_;
 
-	//メインの更新処理
+	// メインの更新処理
 	void UpdateBody() override;	
 
-	//アニメーションの初期化
+	// アニメーションの初期化
 	void InitAnimation() override;
 
-	//トランスフォームの初期化
+	// トランスフォームの初期化
 	void InitTransform() override;
 	
-	//状態別更新処理の登録
+	// 状態別更新処理の登録
 	void RegisterStateUpdateFunc(const STATE state, std::function<void()> update);
 
-	//状態別更新処理	
+	// 状態別更新処理	
 	void UpdateNone() {};	// 何もしない
 	void UpdateAlive();		// 生存状態の更新
 	void UpdateDead();		// 死亡状態の更新
 
-	//デバッグ描画
+	// デバッグ描画
 	void DebugDraw() override;
 };

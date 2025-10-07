@@ -1,10 +1,7 @@
 #pragma once
 #include "Vector2.h"
-class Sprite
+struct Sprite
 {
-
-public:
-
 	// テクスチャハンドルID
 	int handleId;	
 
@@ -59,4 +56,3 @@ public:
 	/// <returns></returns>
 	const void DrawRota() const;
 };
-

@@ -19,13 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ReportStateMiss.cpp" />
+    <ClCompile Include="Src\Core\Common\ControllerTextAnimation.cpp" />
+    <ClCompile Include="Src\Core\Common\CircleGauge.cpp" />
     <ClCompile Include="Src\Manager\Generic\Input.cpp" />
     <ClCompile Include="Src\Core\Game\Report\ReportSystem.cpp" />
     <ClCompile Include="Src\Manager\System\GameSystemManager.cpp" />
-    <ClCompile Include="Src\Scene\State\Game\GameStateReporting.cpp" />
-    <ClCompile Include="Src\Scene\State\Game\GameStatePlay.cpp" />
-    <ClCompile Include="Src\Scene\State\Game\GameStateBase.cpp" />
-    <ClCompile Include="Src\Core\Game\Report\ReportCircle.cpp" />
     <ClCompile Include="Src\Manager\System\AnomalyManager.cpp" />
     <ClCompile Include="Src\Object\Collider\ColliderBox.cpp" />
     <ClCompile Include="Src\Object\Actor\Character\Ghost.cpp" />
@@ -103,15 +102,15 @@
     <ClCompile Include="Src\Object\Actor\Stage\StageGimicObjectBase.cpp" />
     <ClCompile Include="Src\Utility\UtilityLoad.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\TestModel.cpp" />
+    <ClCompile Include="Src\Core\Common\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ReportStateMiss.h" />
+    <ClInclude Include="Src\Core\Common\ControllerTextAnimation.h" />
+    <ClInclude Include="Src\Core\Common\CircleGauge.h" />
     <ClInclude Include="Src\Manager\Generic\Input.h" />
     <ClInclude Include="Src\Core\Game\Report\ReportSystem.h" />
     <ClInclude Include="Src\Manager\System\GameSystemManager.h" />
-    <ClInclude Include="Src\Scene\State\Game\GameStateReporting.h" />
-    <ClInclude Include="Src\Scene\State\Game\GameStatePlay.h" />
-    <ClInclude Include="Src\Scene\State\Game\GameStateBase.h" />
-    <ClInclude Include="Src\Core\Game\Report\ReportCircle.h" />
     <ClInclude Include="Src\Manager\System\AnomalyManager.h" />
     <ClInclude Include="Src\Object\Collider\ColliderBox.h" />
     <ClInclude Include="Src\Object\Actor\Character\Ghost.h" />
@@ -236,6 +235,7 @@
     <ClInclude Include="Src\Object\Actor\Stage\StageGimicObjectBase.h" />
     <ClInclude Include="Src\Utility\UtilityLoad.h" />
     <ClInclude Include="Src\Object\Actor\Stage\TestModel.h" />
+    <ClInclude Include="Src\Core\Common\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\Model\StandardModelPS.hlsl">

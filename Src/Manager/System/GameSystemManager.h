@@ -44,8 +44,16 @@ public:
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// 指定した参照インスタンスを返す
+	/// </summary>
+	/// <param name="type"></param>
+	/// <returns></returns>
+	CoreBase& GetGamsSystem(const TYPE type) { return *systemsMap_[type]; }
+
 private:
 
+	// システムごとにインスタンスを管理するマップ
 	std::unordered_map<TYPE, std::unique_ptr<CoreBase>> systemsMap_;
 
 	// コンストラクタ

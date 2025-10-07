@@ -409,3 +409,15 @@ std::wstring UtilityCommon::GetWStringFromString(const std::string& str)
 
     return ret;
 }
+
+std::string UtilityCommon::ConvertUtf8ToSjis(const std::string& utf8_str)
+{
+    int wlen = MultiByteToWideChar(CP_UTF8, 0, utf8_str.c_str(), -1, nullptr, 0);
+    std::wstring wstr(wlen, L'\0');
+    MultiByteToWideChar(CP_UTF8, 0, utf8_str.c_str(), -1, &wstr[0], wlen);
+
+    int sjlen = WideCharToMultiByte(932, 0, wstr.c_str(), -1, nullptr, 0, nullptr, nullptr);
+    std::string sjis(sjlen, '\0');
+    WideCharToMultiByte(932, 0, wstr.c_str(), -1, &sjis[0], sjlen, nullptr, nullptr);
+    return sjis;
+}

@@ -17,6 +17,7 @@ public:
 
 	//‰‰ŽZ
 	const IntVector3 operator+(const IntVector3 _value)const;
+	const IntVector3 operator+(const int _value)const;
 	void operator+=(const IntVector3 _value);
 	const IntVector3 operator-(const IntVector3 _value)const;
 	void operator-=(const IntVector3 _value);

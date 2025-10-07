@@ -44,7 +44,7 @@ void ResourceManager::Init(void)
 	std::string key = "";
 	std::string stringType = "";
 	std::wstring path = L"";
-	std::wstring fontName = L"";
+	std::string fontName = "";
 
 	//JSONファイルからリソース情報を読み込む
 	//JSONファイル読み込み
@@ -99,8 +99,8 @@ void ResourceManager::Init(void)
 			break;
 
 		case ResourceBase::RESOURCE_TYPE::FONT:
-			fontName = UtilityCommon::GetWStringFromString(res["fontName"].get<std::string>());
-			resource = make_unique<ResourceFont>(type, path, sceneId, fontName);
+			fontName = UtilityCommon::ConvertUtf8ToSjis((res["fontName"].get<std::string>().c_str()));
+			resource = make_unique<ResourceFont>(type, path, sceneId, UtilityCommon::GetWStringFromString(fontName));
 			break;
 
 		case ResourceBase::RESOURCE_TYPE::PIXEL_SHADER:

@@ -2,11 +2,11 @@
 #include <DxLib.h>
 
 CharacterString::CharacterString(void):
-	fontHandle_(-1),
-	srt_(L""),
-	pos_({ 0, 0 }),
-	color_(0),
-	data_(0)
+	fontHandle(-1),
+	string(L""),
+	pos({ 0, 0 }),
+	color(0),
+	data(0)
 {
 }
 
@@ -17,7 +17,7 @@ CharacterString::~CharacterString(void)
 void CharacterString::Draw(void) const
 {
 	// 文字列を描画
-	DrawFormatStringToHandle(pos_.x, pos_.y, color_, fontHandle_, srt_.c_str(), data_);
+	DrawFormatStringToHandle(pos.x, pos.y, color, fontHandle, string.c_str(), data);
 }
 
 void CharacterString::DrawCenter(void) const
@@ -25,13 +25,13 @@ void CharacterString::DrawCenter(void) const
 	// フォーマット済みの文字列を作成
 	wchar_t buffer[256];
 
-	swprintf(buffer, 256, srt_.c_str());
+	swprintf(buffer, 256, string.c_str());
 
 	// フォーマット済み文字列の幅を取得
-	int strWidth = GetDrawStringWidthToHandle(buffer, wcslen(buffer), fontHandle_);
+	int strWidth = GetDrawStringWidthToHandle(buffer, wcslen(buffer), fontHandle);
 
 	// 幅の直後に次の文字列を描画
-	DrawStringToHandle(pos_.x - strWidth / 2, pos_.y, srt_.c_str(), color_, fontHandle_);
+	DrawStringToHandle(pos.x - strWidth / 2, pos.y, string.c_str(), color, fontHandle);
 }
 
 void CharacterString::DrawFormatCenter(void) const
@@ -39,11 +39,11 @@ void CharacterString::DrawFormatCenter(void) const
 	// フォーマット済み文字列用バッファ
 	wchar_t buffer[256];
 
-	swprintf_s(buffer, 256, srt_.c_str(), data_);
+	swprintf_s(buffer, 256, string.c_str(), data);
 
 	// フォーマット済み文字列の幅を取得
-	int strWidth = GetDrawStringWidthToHandle(buffer, wcslen(buffer), fontHandle_);
+	int strWidth = GetDrawStringWidthToHandle(buffer, wcslen(buffer), fontHandle);
 
 	// 中央に描画
-	DrawStringToHandle(pos_.x - strWidth / 2, pos_.y, buffer, color_, fontHandle_);
+	DrawStringToHandle(pos.x - strWidth / 2, pos.y, buffer, color, fontHandle);
 }

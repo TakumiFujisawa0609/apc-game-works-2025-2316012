@@ -37,11 +37,17 @@ public:
 	/// </summary>
 	virtual void Draw();
 
-private:
+protected:
 
 	// シングルトン参照
 	ResourceManager& resMng_;
 	SceneManager& scnMng_;
+
+	// 通常フォントサイズ
+	static constexpr int FONT_SIZE = 32;
+
+	// 通常フォント太さ
+	static constexpr int FONT_THICK = 0;
 
 	//メインの更新処理
 	virtual void UpdateMain();

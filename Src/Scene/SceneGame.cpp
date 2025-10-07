@@ -8,13 +8,12 @@
 #include "../Manager/Generic/CollisionManager.h"
 #include "../Manager/Resource/ResourceManager.h"
 #include "../Manager/Resource/FontManager.h"
+#include "../Manager/System/GameSystemManager.h"
 #include "../Utility/UtilityCommon.h"
 #include "../Object/Actor/Character/CharacterBase.h"
 #include "../Object/Collider/ColliderFactory.h"
 #include "../Object/Actor/Stage/TestModel.h"
-#include "State/Game/GameStateBase.h"
-#include "State/Game/GameStatePlay.h"
-#include "State/Game/GameStateReporting.h"
+#include "../Core/Game/Report/ReportSystem.h"
 #include "ScenePause.h"
 #include "SceneGame.h"
 
@@ -33,10 +32,15 @@ SceneGame::~SceneGame(void)
 	CharacterManager::GetInstance().Destroy();
 	CollisionManager::GetInstance().Destroy();
 	ColliderFactory::GetInstance().Destroy();
+	GameSystemManager::GetInstance().Destroy();
 }
 
 void SceneGame::Load(void)
 {
+	// 各種状態別処理の登録
+	RegisterStateFunction(STATE::PLAY, std::bind(&SceneGame::UpdatePlay, this), std::bind(&SceneGame::DrawPlay, this));
+	RegisterStateFunction(STATE::REPORTING, std::bind(&SceneGame::UpdateReporting, this), std::bind(&SceneGame::DrawReporting, this));
+
 	// 親クラスの読み込み
 	SceneBase::Load();	
 
@@ -54,13 +58,9 @@ void SceneGame::Load(void)
 	StageManager::CreateInstance();
 	StageManager::GetInstance().Load();
 
-	// プレイ状態別処理の登録
-	auto statePlay = std::make_unique<GameStatePlay>();
-	stateMap_.emplace(STATE::PLAY, statePlay);
-
-	// 報告中状態別処理の登録
-	auto stateRepo = std::make_unique<GameStateReporting>();
-	stateMap_.emplace(STATE::REPORTING, stateRepo);
+	// システム
+	GameSystemManager::CreateInstance();
+	GameSystemManager::GetInstance().Load();
 
 	//ポーズ画面のリソース
 	ScenePause_ = std::make_shared<ScenePause>();
@@ -78,11 +78,8 @@ void SceneGame::Init(void)
 	// ステージ管理クラス初期化
 	StageManager::GetInstance().Init();
 
-	// 状態別初期化処理
-	for (const auto& state : stateMap_)
-	{
-		state.second->Init();
-	}
+	// システム管理クラス初期化
+	GameSystemManager::GetInstance().Init();
 
 	test_->Init();
 
@@ -101,13 +98,10 @@ void SceneGame::NormalUpdate(void)
 	}
 
 	// 状態別更新処理
-	stateMap_[state_]->Update();
+	stateUpdateMap_[state_]();
 
 #ifdef _DEBUG	
-	
 	DebugUpdate();
-
-	test_->Update();
 #endif 
 }
 
@@ -115,12 +109,10 @@ void SceneGame::NormalDraw(void)
 {	
 #ifdef _DEBUG
 	DebugDraw();
-
-	test_->Draw();
 #endif
 	
-	// 状態別描画処理
-	stateMap_[state_]->Update();
+	// 状態別描画処理   
+	stateDrawMap_[state_]();
 }
 
 void SceneGame::ChangeNormal(void)
@@ -130,10 +122,58 @@ void SceneGame::ChangeNormal(void)
 	drawFunc_ = std::bind(&SceneGame::NormalDraw, this);
 }
 
+void SceneGame::RegisterStateFunction(const STATE state, std::function<void()> update, std::function<void()> draw)
+{
+	stateUpdateMap_[state] = update;
+	stateDrawMap_[state] = draw;
+}
+
+void SceneGame::UpdatePlay()
+{
+	// キャラクターの本体更新
+	CharacterManager::GetInstance().Update();
+
+	// ステージ更新
+	StageManager::GetInstance().Update();
+
+	// システム更新
+	GameSystemManager::GetInstance().Update();
+
+	// 衝突判定の更新
+	CollisionManager::GetInstance().Update();
+
+	// コライダーの削除
+	CollisionManager::GetInstance().Sweep();
+}
+
+void SceneGame::UpdateReporting()
+{
+	// 報告中の処理
+	GameSystemManager::GetInstance().GetGamsSystem(GameSystemManager::TYPE::REPORTING).Update();
+}
+
+void SceneGame::DrawPlay()
+{
+	// ステージ描画
+	StageManager::GetInstance().Draw();
+
+	// キャラクター描画
+	CharacterManager::GetInstance().Draw();
+
+	// システム描画
+	GameSystemManager::GetInstance().Draw();
+}
+
+void SceneGame::DrawReporting()
+{
+	// 報告中の描画
+	GameSystemManager::GetInstance().GetGamsSystem(GameSystemManager::TYPE::REPORTING).Draw();
+}
+
 void SceneGame::DebugUpdate(void)
 {
 	// シーン遷移
-	if (inputMng_.IsTrgDown(InputManager::TYPE::DEBUG_CAMERA_CHANGE))
+	if (inputMng_.IsTrgDown(InputManager::TYPE::DEBUG_SCENE_CHANGE))
 	{
 		scnMng_.ChangeScene(SceneManager::SCENE_ID::TITLE);
 		return;
@@ -157,6 +197,8 @@ void SceneGame::DebugUpdate(void)
 			break;
 		};
 	}
+
+	test_->Update();
 }
 
 void SceneGame::DebugDraw(void)
@@ -169,4 +211,6 @@ void SceneGame::DebugDraw(void)
 		UtilityCommon::CYAN,
 		true
 	);
+
+	test_->Draw();
 }

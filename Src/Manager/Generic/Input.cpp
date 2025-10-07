@@ -17,6 +17,7 @@ Input::Input(void)
 	Add(KEY_INPUT_LSHIFT);
 	Add(KEY_INPUT_RSHIFT);
 	Add(KEY_INPUT_E);
+	Add(KEY_INPUT_R);
 	Add(KEY_INPUT_Q);
 	Add(KEY_INPUT_P);
 	Add(KEY_INPUT_DOWN);
