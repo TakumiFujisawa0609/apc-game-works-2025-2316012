@@ -3,6 +3,8 @@
 #include <functional>
 #include "CharacterBase.h"
 
+class ControllerOnHitReport;
+
 class Player : public CharacterBase
 {
 public:
@@ -44,6 +46,12 @@ public:
 	void Init() override;
 
 	/// <summary>
+	/// 衝突後の処理
+	/// </summary>
+	/// <param name="opponentCollider">衝突相手のコライダー</param>
+	void OnHit(const std::weak_ptr<ColliderBase>& opponentCollider) override;
+
+	/// <summary>
 	/// ジャンプ量を返す
 	/// </summary>
 	/// <returns>ジャンプ量</returns>
@@ -56,10 +64,22 @@ public:
 	const float GetJumpAcceptTime() const { return JUMP_ACCEPT_TIME; }
 
 	/// <summary>
+	/// レポートの入力時間を返す
+	/// </summary>
+	/// <returns>レポート入力時間</returns>
+	const float GetReportTime() const { return REPORT_INPUT_TIME; }
+
+	/// <summary>
 	/// ジャンプ用ステップを返す
 	/// </summary>
 	/// <returns>ジャンプ用ステップ</returns>
 	const float GetStepJump() const { return stepJump_; }
+
+	/// <summary>
+	/// レポートの報告率
+	/// </summary>
+	/// <returns>報告率</returns>
+	const float GetReportPercent() const { return reportPer_; }
 
 	/// <summary>
 	/// ジャンプ判定を返す
@@ -79,6 +99,12 @@ public:
 	/// <param name="step">ジャンプ用ステップ</param>
 	void SetStepJump(const float step) { stepJump_ = step; }
 
+	/// <summary>
+	/// レポートの進捗率設定
+	/// </summary>
+	/// <param name="percent">進捗率</param>
+	void SetReportPercent(const float percent) { reportPer_ = percent; }
+
 private:
 
 	// ジャンプ量
@@ -90,14 +116,23 @@ private:
 	// ジャンプアニメーション
 	const float ANIM_JUMP_SPEED;
 
+	// レポート進捗率
+	const float REPORT_INPUT_TIME;
+
 	// ジャンプ判定
 	bool isJump_;
 
 	// ジャンプ用ステップ
 	float stepJump_;
 
+	// レポート報告率
+	float reportPer_;
+
 	// 状態
 	STATE state_;
+
+	// レポートに関する衝突後の処理
+	std::unique_ptr<ControllerOnHitReport> onHitReport_;
 
 	// 状態別の更新関数マップ
 	std::unordered_map<STATE, std::function<void()>> stateUpdateFuncMap_;

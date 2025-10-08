@@ -1,6 +1,7 @@
 #pragma once
 #include <unordered_map>
 #include "../../Template/Singleton.h"
+#include "../../Scene/SceneGame.h"
 
 class CoreBase;
 

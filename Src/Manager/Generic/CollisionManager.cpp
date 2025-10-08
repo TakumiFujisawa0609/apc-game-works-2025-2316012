@@ -5,13 +5,14 @@
 #include "../../Object/Collider/ColliderLine.h"
 #include "../../Object/Collider/ColliderType.h"
 #include "../../Utility/Utility3D.h"
+#include "../../Utility/UtilityCommon.h"
 #include "CollisionTags.h"
 #include "CollisionManager.h"
 
 void CollisionManager::Update()
 {
 	// 配列サイズ
-	const int size = colliders_.size();
+	const int size = static_cast<int>(colliders_.size());
 
 	for (int i = 0; i < size - 1; i++)
 	{
@@ -58,6 +59,10 @@ void CollisionManager::Update()
 				// 衝突判定を実行
 			if (collisionFunction(colliders_[i], colliders_[j]))
 			{
+				// お互いに相手のタグを設定
+				colliders_[i]->SetPertnerTag(tag2);
+				colliders_[j]->SetPertnerTag(tag1);
+
 				// それぞれの当たった処理
 				colliders_[i]->OnHit(colliders_[j]);
 				colliders_[j]->OnHit(colliders_[i]);
@@ -91,6 +96,11 @@ void CollisionManager::Sweep()
 	colliders_.erase(it, colliders_.end());
 }
 
+void CollisionManager::DebugDraw()
+{
+	DrawFormatString(500, 0, UtilityCommon::RED, L"コライダーの数 : %d", colliders_.size());
+}
+
 void CollisionManager::InitTagMatrix()
 {
 	// サイズの定義
@@ -98,9 +108,9 @@ void CollisionManager::InitTagMatrix()
 
 	// 衝突判定を行う組み合わせを設定
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::MAIN_STAGE)] = true;		// プレイヤーとステージ
-
-	// 衝突判定を行う組み合わせを設定
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::STAGE_OBJECT)] = true;	// プレイヤーとステージオブジェクト
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::REPORT)][static_cast<int>(CollisionTags::TAG::STAGE_OBJECT)] = true;	// レポート用ラインとステージオブジェクト
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::STAGE_OBJECT)][static_cast<int>(CollisionTags::TAG::REPORT)] = true;	// レポート用ラインとステージオブジェクト
 }
 
 void CollisionManager::InitColliderMatrix()

@@ -20,6 +20,8 @@ int WINAPI WinMain(
 	// インスタンスの取得
 	Application& instance = Application::GetInstance();
 
+
+
 	// 初期化
 	if (!instance.Init())
 	{

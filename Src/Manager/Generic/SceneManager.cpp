@@ -38,6 +38,9 @@ void SceneManager::Init(void)
 	// デルタタイム
 	preTime_ = std::chrono::system_clock::now();
 
+	// スクリーン
+	mainScreen_ = MakeScreen(Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y);
+
 	//ウィンドウがアクティブ状態でなくとも処理を行う
 	SetAlwaysRunFlag(true);
 
@@ -103,9 +106,8 @@ void SceneManager::Update(void)
 void SceneManager::Draw(void)
 {
 	
-	// 描画先グラフィック領域の指定
-	// (３Ｄ描画で使用するカメラの設定などがリセットされる)
-	SetDrawScreen(DX_SCREEN_BACK);
+	// メインスクリーンを指定
+	SetDrawScreen(mainScreen_);
 
 	// 画面を初期化
 	ClearDrawScreen();
@@ -131,6 +133,11 @@ void SceneManager::Draw(void)
 	// 暗転・明転
 	fader_->Draw();
 
+	// スクリーンバックへ変更
+	SetDrawScreen(DX_SCREEN_BACK);
+
+	// メインスクリーンを描画
+	DrawGraph(0, 0, mainScreen_, true);
 }
 
 void SceneManager::CreateScene(std::shared_ptr<SceneBase> scene)
@@ -175,6 +182,8 @@ void SceneManager::PopScene()
 
 void SceneManager::Release(void)
 {
+	DeleteGraph(mainScreen_);
+
 	//全てのシーンで使うシングルトンクラスやリソースはここで解放する
 	FontManager::GetInstance().Destroy();
 	SoundManager::GetInstance().Destroy();

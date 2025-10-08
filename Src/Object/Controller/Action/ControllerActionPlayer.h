@@ -3,6 +3,7 @@
 
 class Player;
 class InputManager;
+class CollisionManager;
 
 class ControllerActionPlayer : public ControllerActionBase
 {
@@ -36,11 +37,20 @@ public:
 
 private:
 
+	// ゲージの最大値
+	static constexpr float GAUGE_MAX = 100.0f;
+
+	// レポート入力時間
+	const float REPORT_INPUT_TIME;
+
 	// 所有者のインスタンスを参照
 	Player& player_;
 
 	// 入力管理クラスの参照
 	InputManager& input_;
+
+	// 衝突判定管理クラスの参照
+	CollisionManager& collMng_;
 
 	// 着地判定
 	bool isEndLanding_;
@@ -51,6 +61,12 @@ private:
 	// ジャンプ操作
 	void ProcessJump();
 
+	// レポート処理
+	void ProcessReport();
+
 	// 着地判定
 	bool IsEndLanding() const;
+
+	// ラインの判定を生成
+	void CreateLineCollider();
 };

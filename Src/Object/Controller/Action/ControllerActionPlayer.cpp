@@ -1,16 +1,23 @@
+#include "../../../Application.h"
 #include "../../../Manager/Generic/SceneManager.h"
+#include "../../../Manager/Generic/Camera.h"
 #include "../../../Manager/Generic/InputManager.h"
+#include "../../../Manager/Generic/CollisionManager.h"
+#include "../../../Manager/Generic/CollisionTags.h"
 #include "../../../Manager/Generic/Camera.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../Actor/Character/Player.h"
+#include "../../Collider/ColliderLine.h"
 #include "../ControllerAnimation.h"
 #include "ControllerActionPlayer.h"
 
 ControllerActionPlayer::ControllerActionPlayer(Player& player) :
 	ControllerActionBase(player),
 	player_(player),
-	input_(InputManager::GetInstance())
+	input_(InputManager::GetInstance()),
+	collMng_(CollisionManager::GetInstance()),
+	REPORT_INPUT_TIME(player.GetReportTime())
 {
 	isEndLanding_ = false;
 }
@@ -25,17 +32,20 @@ void ControllerActionPlayer::Load()
 
 void ControllerActionPlayer::Init()
 {
-	//各種変数の初期化
+	// 各種変数の初期化
 	isEndLanding_ = false;
 }
 
 void ControllerActionPlayer::Update()
 {
-	//移動操作処理
+	// 移動操作処理
 	ProcessMove();
 
-	//ジャンプ操作処理
+	// ジャンプ操作処理
 	ProcessJump();
+
+	// レポート操作処理
+	ProcessReport();
 }
 
 void ControllerActionPlayer::ProcessMove()
@@ -178,7 +188,6 @@ void ControllerActionPlayer::ProcessJump()
 		{
 			player_.SetJumpPow(VScale(Utility3D::DIR_U, player_.GetJumpAmount()));
 		}
-
 	}
 
 	// ボタンを離したらジャンプ力に加算しない
@@ -192,6 +201,35 @@ void ControllerActionPlayer::ProcessJump()
 
 	// ステップの設定
 	player_.SetStepJump(stepJump);
+}
+
+void ControllerActionPlayer::ProcessReport()
+{
+	// 初期パーセント(未入力の場合は0)
+	float newPercent = 0;
+
+	// 入力中の場合
+	if(input_.IsNew(InputManager::TYPE::ANOMARY_REPORT))
+	{		
+		// レポート進捗率取得
+		float nowPercent = player_.GetReportPercent();
+		
+		// ゲージの更新値を計算
+		float step = GAUGE_MAX / REPORT_INPUT_TIME * scnMng_.GetDeltaTime();
+
+		// 新しい進捗率を計算
+		newPercent = nowPercent + step;
+	}
+
+	// 進捗率が最大値以上の場合
+	if (GAUGE_MAX <= newPercent)
+	{
+		// 線の判定を生成
+		CreateLineCollider();
+	}
+
+	// 設定
+	player_.SetReportPercent(newPercent);
 }
 
 bool ControllerActionPlayer::IsEndLanding() const
@@ -212,4 +250,37 @@ bool ControllerActionPlayer::IsEndLanding() const
 	}
 
 	return false;
+}
+
+void ControllerActionPlayer::CreateLineCollider()
+{
+	//コライダー生成
+	std::shared_ptr<ColliderLine> coll = std::make_shared<ColliderLine>(player_, CollisionTags::TAG::REPORT);
+
+	// 線の長さを定義（ワールド座標系での距離）
+	constexpr float LINE_DISTANCE = 50.0f; // 例として50.0ユニット
+
+	// 画面中心を取得
+	VECTOR worldDir = ConvScreenPosToWorldPos({ Application::SCREEN_HALF_X,Application::SCREEN_HALF_Y, 0 });
+
+	// カメラ位置を取得
+	VECTOR camera = mainCamera.GetPos();
+
+	// 方向ベクトルの取得
+	VECTOR dir = VNorm(VSub(worldDir, camera));
+
+	// 末端の位置を取得
+	VECTOR endPos = (camera, VScale(dir, LINE_DISTANCE));
+
+	// 先端位置設定
+	coll->SetLocalPosPointHead(camera);
+
+	// 末端位置の設定
+	coll->SetLocalPosPointEnd(endPos);
+
+	// 判定後すぐ消す
+	//coll->SetDelete();
+
+	// 判定に追加
+	collMng_.Add(std::move(coll));
 }

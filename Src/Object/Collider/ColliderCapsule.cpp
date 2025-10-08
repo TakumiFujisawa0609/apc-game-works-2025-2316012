@@ -57,10 +57,10 @@ void ColliderCapsule::DebugDraw()
 	DrawLine3D(s, e, COLOR);
 
 	constexpr float CENTER_RADIUS = 5.0f;
-	constexpr float CENTER_DIV = 10.0f;
+	constexpr int CENTER_DIV = 10;
 
 	// カプセルの中心
-	DrawSphere3D(GetCenter(), CENTER_DIV, CENTER_RADIUS, COLOR, COLOR, true);
+	DrawSphere3D(GetCenter(), CENTER_RADIUS, CENTER_DIV, COLOR, COLOR, true);
 }
 
 VECTOR ColliderCapsule::GetPosTop(void) const

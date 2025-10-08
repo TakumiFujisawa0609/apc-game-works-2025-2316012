@@ -1,4 +1,6 @@
+#include "../../../Application.h"
 #include "../../../Manager/Generic/SceneManager.h"
+#include "../../../Manager/Generic/Camera.h"
 #include "../../../Manager/Generic/Camera.h"
 #include "../../../Manager/Resource/ResourceManager.h"
 #include "../../../Utility/Utility3D.h"
@@ -9,6 +11,7 @@
 #include "../../Controller/ControllerGravity.h"
 #include "../../Controller/Action/ControllerActionPlayer.h"
 #include "../../Controller/OnHit/ControllerOnHitPlayer.h"
+#include "../../Controller/OnHit/ControllerOnHitReport.h"
 #include "Player.h"
 
 const std::string Player::ANIM_JUMP = "jump";	//ジャンプ
@@ -19,10 +22,13 @@ Player::Player(const Json& param) :
 	CharacterBase(param),
 	JUMP_AMOUNT(param["jumpAmount"]),
 	JUMP_ACCEPT_TIME(param["jumpAcceptTime"]),
-	ANIM_JUMP_SPEED(param["animationJumpSpeed"])
+	ANIM_JUMP_SPEED(param["animationJumpSpeed"]),
+	REPORT_INPUT_TIME(param["reportInutTime"])
 {	
 	stepJump_ = 0.0f;
+	reportPer_ = 0;
 	isJump_ = false;
+	onHitReport_ = nullptr;
 	state_ = STATE::NONE;
 
 	// 状態更新関数の登録
@@ -46,6 +52,7 @@ void Player::Load()
 
 	// 衝突後の処理クラス
 	onHit_ = std::make_unique<ControllerOnHitPlayer>(*this);
+	onHitReport_ = std::make_unique<ControllerOnHitReport>(*this);
 
 	// 基底クラスの読み込み処理
 	CharacterBase::Load();
@@ -61,6 +68,27 @@ void Player::Init()
 
 	// 初期状態
 	state_ = STATE::ALIVE;
+}
+
+void Player::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
+{
+	// 衝突相手がプレイヤーの場合
+	if (opponentCollider.lock()->GetPartnerTag() == CollisionTags::TAG::PLAYER)
+	{
+		onHit_->OnHit(opponentCollider);
+		return;
+	}
+	// 衝突相手がレポート用のラインの場合
+	else if (opponentCollider.lock()->GetPartnerTag() == CollisionTags::TAG::REPORT)
+	{
+		onHitReport_->OnHit(opponentCollider);
+		return;
+	}
+	// それ以外の場合
+	else
+	{
+		return;
+	}
 }
 
 void Player::UpdateBody()
@@ -121,4 +149,22 @@ void Player::DebugDraw()
 {
 	CharacterBase::DebugDraw();
 	animation_->DebugDraw();
+
+	// 線の長さを定義（ワールド座標系での距離）
+	constexpr float LINE_DISTANCE = 50.0f; // 例として50.0ユニット
+
+	// 画面中心を取得
+	VECTOR worldDir = ConvScreenPosToWorldPos({ Application::SCREEN_HALF_X,Application::SCREEN_HALF_Y, 0 });
+
+	// カメラ位置を取得
+	VECTOR camera = mainCamera.GetPos();
+
+	// 方向ベクトルの取得
+	VECTOR dir = VNorm(VSub(worldDir, camera));
+	
+	// 末端の位置を取得
+	VECTOR endPos = (camera, VScale(dir, LINE_DISTANCE));
+
+	// 描画
+	DrawLine3D(camera, endPos, UtilityCommon::BLUE);
 }

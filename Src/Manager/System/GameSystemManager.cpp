@@ -1,11 +1,16 @@
+#include "../../Manager/Generic/CharacterManager.h"
+#include "../../Object/Actor/Character/Player.h"
 #include "../../Core/CoreBase.h"
 #include "../../Core/Game/Report/ReportSystem.h"
 #include "GameSystemManager.h"
 
 void GameSystemManager::Load()
 {
+	// プレイヤークラスの取得
+	Player& player = dynamic_cast<Player&>(CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER));
+
 	// レポートの生成
-	auto report = std::make_unique<ReportSystem>();
+	auto report = std::make_unique<ReportSystem>(player);
 	systemsMap_.emplace(TYPE::REPORT, std::move(report));
 
 	// 読み込み

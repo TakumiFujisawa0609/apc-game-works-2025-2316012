@@ -63,8 +63,7 @@ void ControllerOnHitPlayer::OnHitMainStage(const std::weak_ptr<ColliderBase>& op
 	VECTOR gravHitPosDown = VAdd(movedPos, VScale(GRAVITY_DIR, CHECK_POW));
 
 	// 地面との衝突
-	auto hit = MV1CollCheck_Line(
-		collModel->GetModel(), -1, gravHitPosUp, gravHitPosDown);
+	auto hit = MV1CollCheck_Line(collModel->GetModel(), -1, gravHitPosUp, gravHitPosDown);
 
 	// 地面と衝突している場合
 	if (hit.HitFlag > 0 && VDot(GRAVITY_DIR, owner_.GetJumpPow()) > 0.9f)
@@ -93,7 +92,8 @@ void ControllerOnHitPlayer::OnHitMainStage(const std::weak_ptr<ColliderBase>& op
 
 void ControllerOnHitPlayer::OnHitStageObject(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
-	constexpr float MOVE_POW = 0.1f; //移動量
+	// 移動量
+	constexpr float MOVE_POW = 0.1f; 
 
 	// 移動前の座標を取得
 	VECTOR pos = owner_.GetPrePos();

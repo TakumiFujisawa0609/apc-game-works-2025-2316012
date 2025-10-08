@@ -1,23 +1,26 @@
 #include "../../../Application.h"
 #include "../../../Manager/Generic/InputManager.h"
 #include "../../../Manager/Generic/SceneManager.h"
+#include "../../../Manager/Generic/CharacterManager.h"
 #include "../../../Manager/Resource/ResourceManager.h"
 #include "../../../Manager/Resource/FontManager.h"
 #include "../../../Utility/UtilityCommon.h"
+#include "../../../Object/Actor/Character/Player.h"
 #include "../../Common/Timer.h"
 #include "../../Common/ControllerTextAnimation.h"
 #include "ReportSystem.h"
 
-ReportSystem::ReportSystem() :
-	input_(InputManager::GetInstance())
-{
+ReportSystem::ReportSystem(Player& player) :
+	input_(InputManager::GetInstance()),
+	player_(player)
+{	
 	// 各種変数の初期化
 	state_ = STATE::NONE;
 	commaStep_ = 0.0f;
+	reportPercent_ = 0.0f;
 
 	// 処理の登録
 	RegisterStateFunction(STATE::WAIT, std::bind(&ReportSystem::UpdateWait, this), std::bind(&ReportSystem::DrawWait, this));
-	RegisterStateFunction(STATE::REPORT, std::bind(&ReportSystem::UpdateReport, this), std::bind(&ReportSystem::DrawReport, this));
 	RegisterStateFunction(STATE::COMPLETE, std::bind(&ReportSystem::UpdtateComplete, this), std::bind(&ReportSystem::DrawComplite, this));
 	RegisterStateFunction(STATE::MISS, std::bind(&ReportSystem::UpdateMiss, this), std::bind(&ReportSystem::DrawMiss, this));
 	RegisterStateFunction(STATE::REPORTING, std::bind(&ReportSystem::UpdateReporting, this), std::bind(&ReportSystem::DrawReporting, this));
@@ -81,6 +84,15 @@ void ReportSystem::Draw()
 	stateDrawMap_[state_]();
 }
 
+void ReportSystem::ChangeReporting()
+{
+	// 状態変更
+	state_ = STATE::REPORTING;
+
+	// タイマー時間の設定
+	timer_->SetGoalTime(REPORTING_TIME);
+}
+
 void ReportSystem::RegisterStateFunction(const STATE state, std::function<void()> update, std::function<void()> draw)
 {
 	stateUpdateMap_[state] = update;
@@ -89,40 +101,32 @@ void ReportSystem::RegisterStateFunction(const STATE state, std::function<void()
 
 void ReportSystem::UpdateWait()
 {
-	// 入力された場合
-	if (input_.IsTrgDown(InputManager::TYPE::ANOMARY_REPORT))
-	{
-		// 状態変更
-		state_ = STATE::REPORT;
+	// 進捗率を反映
+	gauge_.percent = player_.GetReportPercent();
 
-		// ゲージ初期化
-		gauge_.percent = 0.0f;
-	}
-}
-
-void ReportSystem::UpdateReport()
-{
-	// 入力離した場合
-	if (input_.IsTrgUp(InputManager::TYPE::ANOMARY_REPORT))
-	{
-		// 状態を戻す
-		state_ = STATE::WAIT;
-	}
-
-	constexpr float SECOND = 3.0f;			// 時間
-	constexpr float GAUGE_MAX = 100.0f;		// ゲージの最大値
-
-	// ゲージの更新値を計算
-	float step = GAUGE_MAX / SECOND * scnMng_.GetDeltaTime();
-
-	// ゲージの更新
-	gauge_.percent += step;
-
-	// ゲージの値が最大に達したとき
-	if (gauge_.percent >= GAUGE_MAX)
+	// 最大まで達したとき
+	if (gauge_.percent > GAUGE_MAX)
 	{
 		// 状態変更
 		state_ = STATE::REPORTING;
+
+		// ゲージ初期化
+		gauge_.percent = 0.0f;
+
+		// プレイヤーの進捗率も初期化
+		player_.SetReportPercent(0.0f);
+
+		// 状態をミスに遷移（もし衝突された場合REPORTINGに遷移）
+		state_ = STATE::MISS;
+
+		// タイマー初期化
+		timer_->Init();
+
+		// テキストの表示時間を設定
+		timer_->SetGoalTime(TEXT_DISPLAY_TIME);
+
+		// アニメーション文字列の対象を変更
+		textAnimation_->SetCharacterString(missText_);
 	}
 }
 
@@ -137,8 +141,8 @@ void ReportSystem::UpdateReporting()
 		// タイマー初期化
 		timer_->Init();
 
-		// タイマーの目標時間をComplite用に変更
-		timer_->SetGoalTime(COMPLITE_TEXT_DISPLAY_TIME);
+		// テキストの表示時間を設定
+		timer_->SetGoalTime(TEXT_DISPLAY_TIME);
 
 		// アニメーション文字列の対象を変更
 		textAnimation_->SetCharacterString(compliteText_);
@@ -166,7 +170,24 @@ void ReportSystem::UpdateReporting()
 
 void ReportSystem::UpdateMiss()
 {
-	// テキストの表示
+	// アニメーションを終えている場合
+	if (textAnimation_->IsEnd())
+	{
+		// まだ数秒表示させるためタイマーの更新
+		if (timer_->CountDown())
+		{
+			// 状態変更
+			state_ = STATE::WAIT;
+		}
+
+		return;
+	}
+
+	// テキストアニメーションの更新
+	textAnimation_->Update();
+
+	// 更新を受け付ける
+	UpdateWait();
 }
 
 void ReportSystem::UpdtateComplete()
@@ -192,12 +213,13 @@ void ReportSystem::UpdtateComplete()
 }
 
 void ReportSystem::DrawWait()
-{
-}
-
-void ReportSystem::DrawReport()
-{
-	gauge_.Draw();
+{	
+	// ゲージ量が0より大きい場合
+	if (gauge_.percent > 0.0f)
+	{
+		// 描画
+		gauge_.Draw();
+	}
 }
 
 void ReportSystem::DrawReporting()
@@ -217,9 +239,4 @@ void ReportSystem::DrawMiss()
 void ReportSystem::DrawComplite()
 {
 	textAnimation_->Draw();
-}
-
-void ReportSystem::CreateLineCollider()
-{
-	
 }

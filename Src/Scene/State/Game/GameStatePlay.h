@@ -10,7 +10,8 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	GameStatePlay();
+	/// <param name="parent">親のインスタンス</param>
+	GameStatePlay(SceneGame& parent);
 
 	/// <summary>
 	/// デストラクタ
@@ -36,5 +37,11 @@ private:
 
 	// 各種管理クラスの参照
 	CollisionManager& collMng_;
+
+	// レポート
+	ReportSystem* report_;
+
+	// 状態遷移確認
+	void CheckChangeState() override;
 };
 

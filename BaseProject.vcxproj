@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitReport.cpp" />
     <ClCompile Include="ReportStateMiss.cpp" />
     <ClCompile Include="Src\Core\Common\ControllerTextAnimation.cpp" />
     <ClCompile Include="Src\Core\Common\CircleGauge.cpp" />
@@ -93,6 +94,9 @@
     <ClCompile Include="Src\Object\Common\Transform.cpp" />
     <ClCompile Include="Src\Scene\SceneBase.cpp" />
     <ClCompile Include="Src\Scene\SceneTitle.cpp" />
+    <ClCompile Include="Src\Scene\State\Game\GameStateBase.cpp" />
+    <ClCompile Include="Src\Scene\State\Game\GameStatePlay.cpp" />
+    <ClCompile Include="Src\Scene\State\Game\GameStateReporting.cpp" />
     <ClCompile Include="Src\Utility\Utility2D.cpp" />
     <ClCompile Include="Src\Utility\Utility3D.cpp" />
     <ClCompile Include="Src\Utility\UtilityCommon.cpp" />
@@ -105,6 +109,7 @@
     <ClCompile Include="Src\Core\Common\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitReport.h" />
     <ClInclude Include="ReportStateMiss.h" />
     <ClInclude Include="Src\Core\Common\ControllerTextAnimation.h" />
     <ClInclude Include="Src\Core\Common\CircleGauge.h" />
@@ -163,6 +168,9 @@
     <ClInclude Include="Src\Render\PixelMaterial.h" />
     <ClInclude Include="Src\Render\PixelRenderer.h" />
     <ClInclude Include="Src\Scene\ScenePause.h" />
+    <ClInclude Include="Src\Scene\State\Game\GameStateBase.h" />
+    <ClInclude Include="Src\Scene\State\Game\GameStatePlay.h" />
+    <ClInclude Include="Src\Scene\State\Game\GameStateReporting.h" />
     <ClInclude Include="Src\Template\Singleton.h" />
     <ClInclude Include="Src\Manager\Resource\FontManager.h" />
     <ClInclude Include="Src\Lib\nlohmann\adl_serializer.hpp" />

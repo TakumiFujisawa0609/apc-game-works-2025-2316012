@@ -14,6 +14,9 @@
 #include "../Object/Collider/ColliderFactory.h"
 #include "../Object/Actor/Stage/TestModel.h"
 #include "../Core/Game/Report/ReportSystem.h"
+#include "State/Game/GameStateBase.h"
+#include "State/Game/GameStatePlay.h"
+#include "State/Game/GameStateReporting.h"
 #include "ScenePause.h"
 #include "SceneGame.h"
 
@@ -37,10 +40,6 @@ SceneGame::~SceneGame(void)
 
 void SceneGame::Load(void)
 {
-	// 各種状態別処理の登録
-	RegisterStateFunction(STATE::PLAY, std::bind(&SceneGame::UpdatePlay, this), std::bind(&SceneGame::DrawPlay, this));
-	RegisterStateFunction(STATE::REPORTING, std::bind(&SceneGame::UpdateReporting, this), std::bind(&SceneGame::DrawReporting, this));
-
 	// 親クラスの読み込み
 	SceneBase::Load();	
 
@@ -66,6 +65,14 @@ void SceneGame::Load(void)
 	ScenePause_ = std::make_shared<ScenePause>();
 	ScenePause_->Load();
 
+	//プレイ状態処理の生成
+	auto play = std::make_unique<GameStatePlay>(*this);
+	stateMap_.emplace(STATE::PLAY, std::move(play));
+
+	//報告状態処理の生成
+	auto repo = std::make_unique<GameStateReporting>(*this);
+	stateMap_.emplace(STATE::PLAY, std::move(repo));
+
 	test_ = std::make_unique<TestModel>();
 	test_->Load();
 }
@@ -80,6 +87,12 @@ void SceneGame::Init(void)
 
 	// システム管理クラス初期化
 	GameSystemManager::GetInstance().Init();
+
+	// 状態別処理初期化
+	for (auto& state : stateMap_)
+	{
+		state.second->Init();
+	}
 
 	test_->Init();
 
@@ -98,7 +111,7 @@ void SceneGame::NormalUpdate(void)
 	}
 
 	// 状態別更新処理
-	stateUpdateMap_[state_]();
+	stateMap_[state_]->Update();
 
 #ifdef _DEBUG	
 	DebugUpdate();
@@ -112,7 +125,7 @@ void SceneGame::NormalDraw(void)
 #endif
 	
 	// 状態別描画処理   
-	stateDrawMap_[state_]();
+	stateMap_[state_]->Draw();
 }
 
 void SceneGame::ChangeNormal(void)
@@ -120,54 +133,6 @@ void SceneGame::ChangeNormal(void)
 	// 処理変更
 	updataFunc_ = std::bind(&SceneGame::NormalUpdate, this);
 	drawFunc_ = std::bind(&SceneGame::NormalDraw, this);
-}
-
-void SceneGame::RegisterStateFunction(const STATE state, std::function<void()> update, std::function<void()> draw)
-{
-	stateUpdateMap_[state] = update;
-	stateDrawMap_[state] = draw;
-}
-
-void SceneGame::UpdatePlay()
-{
-	// キャラクターの本体更新
-	CharacterManager::GetInstance().Update();
-
-	// ステージ更新
-	StageManager::GetInstance().Update();
-
-	// システム更新
-	GameSystemManager::GetInstance().Update();
-
-	// 衝突判定の更新
-	CollisionManager::GetInstance().Update();
-
-	// コライダーの削除
-	CollisionManager::GetInstance().Sweep();
-}
-
-void SceneGame::UpdateReporting()
-{
-	// 報告中の処理
-	GameSystemManager::GetInstance().GetGamsSystem(GameSystemManager::TYPE::REPORTING).Update();
-}
-
-void SceneGame::DrawPlay()
-{
-	// ステージ描画
-	StageManager::GetInstance().Draw();
-
-	// キャラクター描画
-	CharacterManager::GetInstance().Draw();
-
-	// システム描画
-	GameSystemManager::GetInstance().Draw();
-}
-
-void SceneGame::DrawReporting()
-{
-	// 報告中の描画
-	GameSystemManager::GetInstance().GetGamsSystem(GameSystemManager::TYPE::REPORTING).Draw();
 }
 
 void SceneGame::DebugUpdate(void)
@@ -213,4 +178,6 @@ void SceneGame::DebugDraw(void)
 	);
 
 	test_->Draw();
+
+	CollisionManager::GetInstance().DebugDraw();
 }

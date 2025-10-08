@@ -11,5 +11,3 @@ ControllerActionBase::ControllerActionBase(CharacterBase& owner) :
 ControllerActionBase::~ControllerActionBase()
 {
 }
-
-

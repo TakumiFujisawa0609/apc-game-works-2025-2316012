@@ -13,6 +13,7 @@ public:
 		PLAYER,
 		MAIN_STAGE,
 		STAGE_OBJECT,
+		REPORT,
 		MAX
 	};
 

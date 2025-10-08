@@ -9,15 +9,31 @@
 class InputManager;
 class Timer;
 class ControllerTextAnimation;
+class Player;
 
 class ReportSystem : public CoreBase
 {
 public:
 
 	/// <summary>
+	/// 状態
+	/// </summary>
+	enum class STATE
+	{
+		NONE,
+		WAIT,		// 待機
+		REPORTING,	// 報告中
+		MISS,		// 失敗
+		COMPLETE,	// 完了
+	};
+
+	// ゲージの最大値
+	static constexpr float GAUGE_MAX = 100.0f;
+
+	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	ReportSystem();
+	ReportSystem(Player& player);
 
 	/// <summary>
 	/// デストラクタ
@@ -44,13 +60,24 @@ public:
 	/// </summary>
 	void Draw() override;
 
+	/// <summary>
+	/// 報告処理へ変更
+	/// </summary>
+	void ChangeReporting();
+
+	/// <summary>
+	/// 状態を返す
+	/// </summary>
+	/// <returns>状態</returns>
+	const STATE GetState() const { return state_; }
+
 private:
 
 	// 報告中の時間
 	static constexpr float REPORTING_TIME = 3.0f;
 
 	// 完了時のテキスト表示時間
-	static constexpr float COMPLITE_TEXT_DISPLAY_TIME = 2.0f;
+	static constexpr float TEXT_DISPLAY_TIME = 2.0f;
 
 	// 報告中のテキスト
 	const std::wstring REPORTING_TEXT = L"報告中";
@@ -61,24 +88,17 @@ private:
 	// 失敗時のテキスト
 	const std::wstring MISS_TEXT = L"誤った報告がさえれました";
 
-	/// <summary>
-	/// 状態
-	/// </summary>
-	enum class STATE
-	{
-		NONE,
-		WAIT,		// 待機
-		REPORT,		// 報告
-		REPORTING,	// 報告中
-		MISS,		// 失敗
-		COMPLETE,	// 完了
-	};
-
 	// 入力管理クラスの参照
 	InputManager& input_;
 
+	// プレイヤークラスの参照
+	Player& player_;
+
 	// 状態
 	STATE state_;
+
+	// レポートの進捗率
+	float reportPercent_;
 
 	// コンマ用ステップ
 	float commaStep_;
@@ -112,19 +132,13 @@ private:
 
 	// 状態別更新処理
 	void UpdateWait();
-	void UpdateReport();
 	void UpdateReporting();
 	void UpdateMiss();
 	void UpdtateComplete();
 
 	// 状態別描画処理
 	void DrawWait();
-	void DrawReport();
 	void DrawReporting();
 	void DrawMiss();
 	void DrawComplite();
-
-	// 判定の生成
-	void CreateLineCollider();
-
 };

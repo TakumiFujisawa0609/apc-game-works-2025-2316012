@@ -45,6 +45,11 @@ public:
 	const bool IsDelete() const { return isDelete_; }
 
 	/// <summary>
+	/// 削除設定
+	/// </summary>
+	void SetDelete() { isDelete_ = true; }
+
+	/// <summary>
 	/// 自身のコライダー種類を返す
 	/// </summary>
 	/// <returns>種類</returns>
@@ -57,10 +62,22 @@ public:
 	const CollisionTags::TAG GetTag() const { return tag_; }
 
 	/// <summary>
+	/// 衝突相手の種類を返す
+	/// </summary>
+	/// <returns>相手の衝突物の種類</returns>
+	const CollisionTags::TAG GetPartnerTag() const { return partnerTag_; }
+
+	/// <summary>
 	/// 所有者のインスタンスを返す
 	/// </summary>
 	/// <returns>所有者のインスタンス</returns>
 	const ActorBase& GetOwner() const { return owner_; }
+
+	/// <summary>
+	/// 衝突相手の種類を設定
+	/// </summary>
+	/// <param name="partnerTag"></param>
+	void SetPertnerTag(const CollisionTags::TAG partnerTag) { partnerTag_ = partnerTag; }
 
 protected:
 
@@ -72,6 +89,9 @@ protected:
 	
 	// 衝突物の種類
 	const CollisionTags::TAG tag_;	
+
+	// 相手の衝突物種類
+	CollisionTags::TAG partnerTag_;	
 
 	// 自身のコライダー種類
 	ColliderType::TYPE type_;

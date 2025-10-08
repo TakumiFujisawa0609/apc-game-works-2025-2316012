@@ -1,6 +1,8 @@
 #pragma once
 #include "GameStateBase.h"
 
+class ReportSystem;
+
 class GameStateReporting : public GameStateBase
 {
 public:
@@ -8,7 +10,8 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	GameStateReporting();
+	/// <param name="parent">親のインスタンス</param>
+	GameStateReporting(SceneGame& parent);
 
 	/// <summary>
 	/// デストラクタ
@@ -32,6 +35,10 @@ public:
 
 private:
 
+	// レポート
+	ReportSystem* report_;
 
+	// 状態遷移確認
+	void CheckChangeState() override;
 };
 
