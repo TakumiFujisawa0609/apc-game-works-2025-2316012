@@ -22,10 +22,12 @@
 
 SceneGame::SceneGame(void)
 {
-	//更新関数のセット
+	// 更新関数のセット
 	updataFunc_ = std::bind(&SceneGame::LoadingUpdate, this);
-	//描画関数のセット
+	// 描画関数のセット
 	drawFunc_ = std::bind(&SceneGame::LoadingDraw, this);
+	// 各種変数の初期化
+	state_ = STATE::MAX;
 }
 
 SceneGame::~SceneGame(void)
@@ -99,6 +101,9 @@ void SceneGame::Init(void)
 	// カメラ設定
 	mainCamera.SetFollow(&CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform());
 	mainCamera.ChangeMode(Camera::MODE::FPS);
+
+	// 初期状態
+	state_ = STATE::PLAY;
 }
 
 void SceneGame::NormalUpdate(void)

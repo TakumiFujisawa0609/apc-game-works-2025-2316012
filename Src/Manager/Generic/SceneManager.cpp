@@ -105,9 +105,8 @@ void SceneManager::Update(void)
 
 void SceneManager::Draw(void)
 {
-	
 	// メインスクリーンを指定
-	SetDrawScreen(DX_SCREEN_BACK);
+	SetDrawScreen(mainScreen_);
 
 	// 画面を初期化
 	ClearDrawScreen();
@@ -133,11 +132,11 @@ void SceneManager::Draw(void)
 	// 暗転・明転
 	fader_->Draw();
 
-	//// スクリーンバックへ変更
-	//SetDrawScreen(DX_SCREEN_BACK);
+	// スクリーンバックへ変更
+	SetDrawScreen(DX_SCREEN_BACK);
 
-	//// メインスクリーンを描画
-	//DrawGraph(0, 0, mainScreen_, true);
+	// メインスクリーンを描画
+	DrawGraph(0, 0, mainScreen_, true);
 }
 
 void SceneManager::CreateScene(std::shared_ptr<SceneBase> scene)
@@ -153,17 +152,6 @@ void SceneManager::CreateScene(std::shared_ptr<SceneBase> scene)
 
 	//データのロード
 	scenes_.front()->Load();
-}
-
-void SceneManager::ChangeAllScene(std::shared_ptr<SceneBase> scene)
-{
-	////フェード開始
-	//StartFadeIn();
-
-	//scenes_.clear();
-	//scenes_.push_back(scene);
-	////データのロード
-	//scenes_.front()->LoadData();
 }
 
 void SceneManager::PushScene(std::shared_ptr<SceneBase> scene)
@@ -239,7 +227,10 @@ void SceneManager::ResetDeltaTime(void)
 
 void SceneManager::DoChangeScene(SCENE_ID sceneId)
 {
-	//シーン変更によるリソースの処理
+	// 非同期処理を開始する
+	SetUseASyncLoadFlag(true);
+
+	// シーン変更によるリソースの処理
 	ResourceManager::GetInstance().SceneChangeResource(static_cast<int>(sceneId));
 
 	// シーンを変更する
@@ -252,7 +243,7 @@ void SceneManager::DoChangeScene(SCENE_ID sceneId)
 		scenes_.pop_back(); // シーンを使い終わったのでリストからも削除
 	}
 
-	//シーン生成
+	// シーン生成
 	switch (sceneId_)
 	{
 	case SCENE_ID::TITLE:
@@ -263,10 +254,11 @@ void SceneManager::DoChangeScene(SCENE_ID sceneId)
 		break;
 	}
 
+	// デルタタイムの初期化
 	ResetDeltaTime();
 
+	// 待機シーンの初期化
 	waitSceneId_ = SCENE_ID::NONE;
-
 }
 
 void SceneManager::Fade(void)

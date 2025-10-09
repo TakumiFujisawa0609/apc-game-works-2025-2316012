@@ -5,6 +5,7 @@
 
 class SceneManager;
 class ResourceManager;
+class SoundManager;
 class InputManager;
 class FontManager;
 
@@ -48,6 +49,7 @@ protected:
 	// ƒŠƒ\[ƒXŠÇ—
 	ResourceManager& resMng_;
 	InputManager& inputMng_;
+	SoundManager& sndMng_;
 	SceneManager& scnMng_;
 	FontManager& fontMng_;
 

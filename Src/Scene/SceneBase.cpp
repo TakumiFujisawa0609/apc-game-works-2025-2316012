@@ -4,14 +4,16 @@
 #include "../Manager/Generic/InputManager.h"
 #include "../Manager/Resource/ResourceManager.h"
 #include "../Manager/Resource/FontManager.h"
+#include "../Manager/Resource/SoundManager.h"
 #include "../Utility/UtilityCommon.h"
 #include "SceneBase.h"
 
 SceneBase::SceneBase(void) :
-	resMng_(ResourceManager::GetInstance())
-	,scnMng_(SceneManager::GetInstance())
-	,inputMng_(InputManager::GetInstance())
-	,fontMng_(FontManager::GetInstance())
+	resMng_(ResourceManager::GetInstance()),
+	scnMng_(SceneManager::GetInstance()),
+	inputMng_(InputManager::GetInstance()),
+	fontMng_(FontManager::GetInstance()),
+	sndMng_(SoundManager::GetInstance())
 {
 	loadingTime_ = -1;
 }

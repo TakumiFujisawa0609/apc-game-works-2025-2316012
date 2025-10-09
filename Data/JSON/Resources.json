@@ -23,10 +23,10 @@
       "path": "Data/Sound/SE/TestSe.mp3"
     },
     {
-      "key": "testBgm",
+      "key": "titleBgm",
       "sceneId": 1,
       "type": "sound",
-      "path": "Data/Sound/BGM/testBgm.wav"
+      "path": "Data/Sound/BGM/TitleBgm.mp3"
     },
     {
       "key": "fontBokutachi",
@@ -120,6 +120,24 @@
       "sceneId": 3,
       "type": "texture",
       "path": "Data/Image/Game/ReportCircleGauge.png"
+    },
+    {
+      "key": "titleLogo",
+      "sceneId": 1,
+      "type": "texture",
+      "path": "Data/Image/Title/TitleLogo.png"
+    },
+    {
+      "key": "pleaseSpaceKey",
+      "sceneId": 1,
+      "type": "texture",
+      "path": "Data/Image/Title/PleaseSpaceKey.png"
+    },
+    {
+      "key": "normalSpritePs",
+      "sceneId": 1,
+      "type": "texture",
+      "path": "Data/Shader/NormalSprite.cso"
     }
   ]
 }
