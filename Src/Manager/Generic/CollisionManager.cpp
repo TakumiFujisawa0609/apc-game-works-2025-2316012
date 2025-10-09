@@ -16,22 +16,8 @@ void CollisionManager::Update()
 
 	for (int i = 0; i < size - 1; i++)
 	{
-		// コライダーが削除予定の場合
-		if (colliders_[i]->IsDelete())
-		{
-			// 次へ
-			continue;
-		}
-
 		for (int j = i + 1; j < size; j++)
 		{
-			// コライダーが削除予定の場合
-			if (colliders_[j]->IsDelete())
-			{
-				// 次へ
-				continue;
-			}
-
 			// 各コライダーからタグを取得
 			const auto& tag1 = colliders_[i]->GetTag();
 			const auto& tag2 = colliders_[j]->GetTag();

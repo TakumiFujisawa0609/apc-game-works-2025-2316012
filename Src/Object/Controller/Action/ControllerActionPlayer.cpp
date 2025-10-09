@@ -257,29 +257,24 @@ void ControllerActionPlayer::CreateLineCollider()
 	//コライダー生成
 	std::shared_ptr<ColliderLine> coll = std::make_shared<ColliderLine>(player_, CollisionTags::TAG::REPORT);
 
-	// 線の長さを定義（ワールド座標系での距離）
-	constexpr float LINE_DISTANCE = 50.0f; // 例として50.0ユニット
-
-	// 画面中心を取得
-	VECTOR worldDir = ConvScreenPosToWorldPos({ Application::SCREEN_HALF_X,Application::SCREEN_HALF_Y, 0 });
-
-	// カメラ位置を取得
-	VECTOR camera = mainCamera.GetPos();
-
-	// 方向ベクトルの取得
-	VECTOR dir = VNorm(VSub(worldDir, camera));
+	// 画面中心から座標を取得
+	VECTOR screenCenter = ConvScreenPosToWorldPos({ Application::SCREEN_HALF_X,Application::SCREEN_HALF_Y, 0 });
 
 	// 末端の位置を取得
-	VECTOR endPos = (camera, VScale(dir, LINE_DISTANCE));
+	VECTOR endPos = VAdd(screenCenter, VScale(mainCamera.GetForward(), REPORT_RANGE));
+
+	// 先端位置を取得
+	VECTOR startPos = player_.GetTransform().pos;
+	startPos.y += OFFSET_Y;
 
 	// 先端位置設定
-	coll->SetLocalPosPointHead(camera);
+	coll->SetLocalPosPointHead(startPos);
 
 	// 末端位置の設定
 	coll->SetLocalPosPointEnd(endPos);
 
 	// 判定後すぐ消す
-	//coll->SetDelete();
+	coll->SetDelete();
 
 	// 判定に追加
 	collMng_.Add(std::move(coll));

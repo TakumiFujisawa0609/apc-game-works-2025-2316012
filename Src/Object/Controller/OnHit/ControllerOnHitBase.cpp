@@ -31,6 +31,10 @@ void ControllerOnHitBase::OnHit(const std::weak_ptr<ColliderBase>& opponentColli
 	onHitMap_[collider->GetTag()](opponentCollider);
 }
 
+void ControllerOnHitBase::Init()
+{
+}
+
 void ControllerOnHitBase::RegisterOnHit(const CollisionTags::TAG tag, std::function<void(const std::weak_ptr<ColliderBase>&)> onHit)
 {
 	onHitMap_[tag] = onHit;

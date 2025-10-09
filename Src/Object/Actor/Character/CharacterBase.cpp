@@ -71,6 +71,9 @@ void CharacterBase::Init()
 
 	// 回転制御クラスの初期化
 	rotate_->Init();
+
+	// 衝突後クラスの初期化
+	onHit_->Init();
 }
 
 void CharacterBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)

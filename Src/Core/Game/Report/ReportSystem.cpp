@@ -107,9 +107,6 @@ void ReportSystem::UpdateWait()
 	// 最大まで達したとき
 	if (gauge_.percent > GAUGE_MAX)
 	{
-		// 状態変更
-		state_ = STATE::REPORTING;
-
 		// ゲージ初期化
 		gauge_.percent = 0.0f;
 
@@ -150,6 +147,7 @@ void ReportSystem::UpdateReporting()
 		// 文字列の初期化
 		reportingText_.string = REPORTING_TEXT;
 		commaStep_ = 0.0f;
+		return;
 	}
 
 	// コンマの追加

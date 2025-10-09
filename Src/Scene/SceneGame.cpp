@@ -121,11 +121,22 @@ void SceneGame::NormalUpdate(void)
 void SceneGame::NormalDraw(void)
 {	
 #ifdef _DEBUG
-	DebugDraw();
+	DrawBox(
+		0,
+		0,
+		Application::SCREEN_SIZE_X,
+		Application::SCREEN_SIZE_Y,
+		UtilityCommon::CYAN,
+		true
+	);
 #endif
 	
 	// 状態別描画処理   
 	stateMap_[state_]->Draw();
+
+#ifdef _DEBUG
+	DebugDraw();
+#endif
 }
 
 void SceneGame::ChangeNormal(void)
@@ -168,16 +179,32 @@ void SceneGame::DebugUpdate(void)
 
 void SceneGame::DebugDraw(void)
 {
-	DrawBox(
-		0,
-		0,
-		Application::SCREEN_SIZE_X,
-		Application::SCREEN_SIZE_Y,
-		UtilityCommon::CYAN,
-		true
-	);
-
 	test_->Draw();
 
 	CollisionManager::GetInstance().DebugDraw();
+	
+	// プレイヤー位置を取得
+	VECTOR playerPos = CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform().pos;
+	playerPos.y += 120;
+
+	// 線の長さを定義（ワールド座標系での距離）
+	constexpr float LOCAL_END_POS = 100.0f; // 例として50.0ユニット
+
+	// 始点を取得
+	VECTOR start = ConvScreenPosToWorldPos({ Application::SCREEN_HALF_X,Application::SCREEN_HALF_Y, 0 });
+
+	// 末端の位置を取得
+	VECTOR endPos = VAdd(start, VScale(mainCamera.GetForward(), LOCAL_END_POS));
+
+	// 描画
+	DrawLine3D(start, endPos, UtilityCommon::BLUE);
+	DrawLine3D(playerPos, endPos, UtilityCommon::BLUE);
+	DrawCapsule3D(start, endPos, 30.0f, 10.0f, UtilityCommon::BLUE, UtilityCommon::BLUE, true);
+	DrawSphere3D(start, 10.0f, 10.0f, UtilityCommon::GREEN, UtilityCommon::GREEN, true);
+	DrawSphere3D(endPos, 10.0f, 10.0f, UtilityCommon::LIME, UtilityCommon::LIME, true);
+	DrawSphere3D(VGet(0.0f, 0.0f, 50.0f), 20.0f, 10.0f, UtilityCommon::RED, UtilityCommon::RED, true);
+
+	// カメラ関係の値
+	DrawFormatString(0, 60, UtilityCommon::RED, L"始点の位置：%2f,%2f,%2f", start.x, start.y, start.z);
+	DrawFormatString(0, 80, UtilityCommon::RED, L"末端の位置：%2f,%2f,%2f", endPos.x, endPos.y, endPos.z);
 }

@@ -64,14 +64,14 @@ public:
 
 private:
 
-	// 参照文字列
-	CharacterString& text_;
-
 	// シーン管理クラスの参照
 	SceneManager& scnMng_;
 
 	// 元の文字列
-	std::wstring textData_;
+	std::wstring textData_;	
+	
+	// 文字列
+	CharacterString text_;
 	
 	// 文字列の長さ
 	int length_;

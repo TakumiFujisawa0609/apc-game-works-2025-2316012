@@ -66,6 +66,9 @@ void Player::Init()
 	// アクション制御クラスの初期化
 	action_->Init();
 
+	// 衝突後処理の初期化
+	onHitReport_->Init();
+
 	// 初期状態
 	state_ = STATE::ALIVE;
 }
@@ -148,23 +151,8 @@ void Player::UpdateDead()
 void Player::DebugDraw()
 {
 	CharacterBase::DebugDraw();
-	animation_->DebugDraw();
 
-	// 線の長さを定義（ワールド座標系での距離）
-	constexpr float LINE_DISTANCE = 50.0f; // 例として50.0ユニット
+	VECTOR pos = transform_.pos;
+	DrawFormatString(0, 0, UtilityCommon::RED, L"プレイヤー位置：%2f,%2f,%2f", pos.x, pos.y, pos.z);
 
-	// 画面中心を取得
-	VECTOR worldDir = ConvScreenPosToWorldPos({ Application::SCREEN_HALF_X,Application::SCREEN_HALF_Y, 0 });
-
-	// カメラ位置を取得
-	VECTOR camera = mainCamera.GetPos();
-
-	// 方向ベクトルの取得
-	VECTOR dir = VNorm(VSub(worldDir, camera));
-	
-	// 末端の位置を取得
-	VECTOR endPos = (camera, VScale(dir, LINE_DISTANCE));
-
-	// 描画
-	DrawLine3D(camera, endPos, UtilityCommon::BLUE);
 }

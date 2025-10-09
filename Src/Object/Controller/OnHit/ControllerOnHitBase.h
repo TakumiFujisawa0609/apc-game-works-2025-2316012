@@ -29,6 +29,11 @@ public:
 	/// <param name="opponentCollider">衝突相手のコライダー</param>
 	virtual void OnHit(const std::weak_ptr<ColliderBase>& opponentCollider);
 
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	virtual void Init() ;
+
 protected:
 
 	//タグ別衝突後の処理の登録

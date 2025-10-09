@@ -86,7 +86,7 @@ private:
 	const std::wstring COMPLITE_TEXT = L"異変が報告されました";
 
 	// 失敗時のテキスト
-	const std::wstring MISS_TEXT = L"誤った報告がさえれました";
+	const std::wstring MISS_TEXT = L"誤った報告がされました";
 
 	// 入力管理クラスの参照
 	InputManager& input_;

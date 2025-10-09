@@ -107,7 +107,7 @@ void SceneManager::Draw(void)
 {
 	
 	// メインスクリーンを指定
-	SetDrawScreen(mainScreen_);
+	SetDrawScreen(DX_SCREEN_BACK);
 
 	// 画面を初期化
 	ClearDrawScreen();
@@ -133,11 +133,11 @@ void SceneManager::Draw(void)
 	// 暗転・明転
 	fader_->Draw();
 
-	// スクリーンバックへ変更
-	SetDrawScreen(DX_SCREEN_BACK);
+	//// スクリーンバックへ変更
+	//SetDrawScreen(DX_SCREEN_BACK);
 
-	// メインスクリーンを描画
-	DrawGraph(0, 0, mainScreen_, true);
+	//// メインスクリーンを描画
+	//DrawGraph(0, 0, mainScreen_, true);
 }
 
 void SceneManager::CreateScene(std::shared_ptr<SceneBase> scene)

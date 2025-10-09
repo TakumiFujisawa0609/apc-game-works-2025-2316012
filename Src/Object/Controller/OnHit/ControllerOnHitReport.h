@@ -19,6 +19,11 @@ public:
 	/// </summary>
 	~ControllerOnHitReport() override;
 
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	void Init() override;
+
 private:
 
 	// 所有者のインスタンス
@@ -26,6 +31,9 @@ private:
 
 	// システム管理クラス
 	GameSystemManager& systemMng_;
+
+	// レポート
+	ReportSystem* report_;
 
 	// 衝突物別処理
 	void OnHitStageObject(const std::weak_ptr<ColliderBase>& opponentCollider);			// ステージオブジェクト
