@@ -6,10 +6,10 @@
 void StageManager::Load()
 {
 	// パラメータステージマップを取得
-	auto& paramStageMap = UtilityLoad::GetJsonData(FILE_NAME);
+	auto& paramStageMap = UtilityLoad::GetJsonData(STAGE_FILE_NAME);
 
 	// パラメーターコライダーマップを取得
-	auto& paramColliderMap = UtilityLoad::GetJsonData("StageObjectsCollider");
+	auto& paramColliderMap = UtilityLoad::GetJsonData(COLLIDER_FILE_NAME);
 
 	// パラメータ数分オブジェクト生成
 	for (auto& params : paramStageMap)

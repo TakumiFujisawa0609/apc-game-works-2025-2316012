@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitReport.cpp" />
-    <ClCompile Include="ReportStateMiss.cpp" />
     <ClCompile Include="Src\Core\Common\ControllerTextAnimation.cpp" />
     <ClCompile Include="Src\Core\Common\CircleGauge.cpp" />
     <ClCompile Include="Src\Manager\Generic\Input.cpp" />
@@ -268,6 +267,12 @@
     </FxCompile>
     <FxCompile Include="Src\Shader\PostEffect\Vignette.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\Sprite\Glitch.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Src\Shader\Sprite\NormalSprite.hlsl">

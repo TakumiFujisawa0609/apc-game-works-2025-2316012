@@ -306,9 +306,6 @@
     <ClCompile Include="Src\Core\Common\ControllerTextAnimation.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="ReportStateMiss.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitReport.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -736,6 +733,8 @@
     <FxCompile Include="Src\Shader\PostEffect\LensDistortion.hlsl" />
     <FxCompile Include="Src\Shader\PostEffect\Monotone.hlsl" />
     <FxCompile Include="Src\Shader\PostEffect\ScanLine.hlsl" />
+    <FxCompile Include="Src\Shader\Sprite\NormalSprite.hlsl" />
+    <FxCompile Include="Src\Shader\Sprite\Glitch.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\Shader\Common\Pixel\PixelShader2DHeader.hlsli" />

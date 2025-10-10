@@ -13,14 +13,6 @@ class StageManager : public Singleton<StageManager>
 
 public:
 
-	// ステージオブジェクト
-	const std::vector<std::string> NAME_LIST =
-	{
-		"mainStage",
-		"Alembic02",
-		"Board"
-	};
-
 	/// <summary>
 	/// 読み込み処理
 	/// </summary>
@@ -43,7 +35,11 @@ public:
 
 private:
 
-	const std::string FILE_NAME = "Stage";
+	// 配置用ファイル名
+	const std::string STAGE_FILE_NAME = "Stage";
+
+	// コライダー用ファイル名
+	const std::string COLLIDER_FILE_NAME = "StageObjectsCollider";
 
 	//ステージオブジェクトの管理マップ
 	std::unordered_map<std::string, std::vector<std::unique_ptr<StageObjectBase>>> stageObjectsMap_;

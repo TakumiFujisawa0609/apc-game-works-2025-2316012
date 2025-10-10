@@ -104,11 +104,11 @@ void ResourceManager::Init(void)
 			break;
 
 		case ResourceBase::RESOURCE_TYPE::PIXEL_SHADER:
-			resource = make_unique<ResourceModel>(type, path, sceneId);
+			resource = make_unique<ResourcePixelShader>(type, path, sceneId);
 			break;
 
 		case ResourceBase::RESOURCE_TYPE::VERTEX_SHADER:
-			resource = make_unique<ResourceModel>(type, path, sceneId);
+			resource = make_unique<ResourceVertexShader>(type, path, sceneId);
 			break;
 
 		default:

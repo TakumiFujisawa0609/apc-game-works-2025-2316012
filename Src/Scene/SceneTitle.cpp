@@ -43,9 +43,9 @@ void SceneTitle::Load(void)
 	logoMaterial_->AddTextureBuf(resMng_.GetHandle("titleLogo"));		// テクスチャの追加
 	logoRenderer_ = std::make_unique<PixelRenderer>(*logoMaterial_);	// レンダラーの生成
 
-	//keyMaterial_ = std::make_unique<PixelMaterial>(ps, 1);
-	//keyMaterial_->AddTextureBuf(resMng_.GetHandle("pleaseSpaceKey"));
-	//keyRenderer_ = std::make_unique<PixelRenderer>(*keyMaterial_);
+	keyMaterial_ = std::make_unique<PixelMaterial>(ps, 1);
+	keyMaterial_->AddTextureBuf(resMng_.GetHandle("pleaseSpaceKey"));
+	keyRenderer_ = std::make_unique<PixelRenderer>(*keyMaterial_);
 
 	// サウンドの取得
 	se_ = resMng_.GetHandle("testSe");
@@ -59,13 +59,16 @@ void SceneTitle::Load(void)
 void SceneTitle::Init(void)
 {
 	// 画像位置設定
-	//logoRenderer_->SetPos({ Application::SCREEN_HALF_X, 260 });
+
 	logoRenderer_->SetPos({ 0, 260 });
 	logoRenderer_->SetSize({ 640, 160 });
-	//keyRenderer_->SetPos({ Application::SCREEN_HALF_X, 500 });
+	logoRenderer_->MakeSquereVertex();	
+	keyRenderer_->SetPos({ Application::SCREEN_HALF_X, 500 });
+	keyRenderer_->SetSize({ 476, 48 });
+	keyRenderer_->MakeSquereVertex();
 
 	// BGMの再生
-	SoundManager::GetInstance().Play(bgm_);
+	sndMng_.Play(bgm_);
 }
 
 void SceneTitle::NormalUpdate(void)
@@ -91,10 +94,14 @@ void SceneTitle::NormalDraw(void)
 	);
 
 	// ロゴ
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
 	logoRenderer_->Draw();
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	// キー
-	//keyRenderer_->Draw();
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+	keyRenderer_->Draw();
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
 void SceneTitle::ChangeNormal(void)

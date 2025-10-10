@@ -50,28 +50,118 @@
       "fontName": "はなぞめフォント"
     },
     {
-      "key": "mainStage",
+      "key": "EriaA",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/MainStage.mv1"
+      "path": "Data/Model/Stage/Main/EriaA.mv1"
     },
     {
-      "key": "chair01",
+      "key": "EriaB",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/Chair01.mv1"
+      "path": "Data/Model/Stage/Main/EriaB.mv1"
     },
     {
-      "key": "table04",
+      "key": "EriaC",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/Table04.mv1"
+      "path": "Data/Model/Stage/Main/EriaC.mv1"
     },
     {
-      "key": "tableSink",
+      "key": "DecoEriaA",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/TableSink.mv1"
+      "path": "Data/Model/Stage/Decoration/DecoEriaA.mv1"
+    },
+    {
+      "key": "DecoEriaB",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Decoration/DecoEriaB.mv1"
+    },
+    {
+      "key": "DecoEriaC",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Decoration/DecoEriaC.mv1"
+    },
+    {
+      "key": "Axe01",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/Axe01.mv1"
+    },
+    {
+      "key": "Board",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/Board.mv1"
+    },
+    {
+      "key": "Books3",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/Books3.mv1"
+    },
+    {
+      "key": "Bottle02b",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/Bottle02b.mv1"
+    },
+    {
+      "key": "Candle01bOn",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/Candle01bOn.mv1"
+    },
+    {
+      "key": "Chair01",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/Chair01.mv1"
+    },
+    {
+      "key": "ClutterPichet03",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/ClutterPichet03.mv1"
+    },
+    {
+      "key": "Oillamp01",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/Oillamp01.mv1"
+    },
+    {
+      "key": "Oillamp01On",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/Oillamp01On.mv1"
+    },
+    {
+      "key": "Painting01",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/Painting01.mv1"
+    },
+    {
+      "key": "Painting02",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/Painting02.mv1"
+    },
+    {
+      "key": "StoveLit",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/StoveLit.mv1"
+    },
+    {
+      "key": "Sword01",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/Sword01.mv1"
     },
     {
       "key": "player",
@@ -136,7 +226,7 @@
     {
       "key": "normalSpritePs",
       "sceneId": 1,
-      "type": "texture",
+      "type": "pixelShader",
       "path": "Data/Shader/NormalSprite.cso"
     }
   ]

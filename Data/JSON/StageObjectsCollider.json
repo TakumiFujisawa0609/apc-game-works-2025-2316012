@@ -1,10 +1,30 @@
 {
-  "mainStage": {
+  "EriaA": {
     "collisionTag": "mainStage",
     "colliderType": "model"
   },
-  "chair01": {
-    "collisionTag": "stageObject",
+  "EriaB": {
+    "collisionTag": "mainStage",
+    "colliderType": "model"
+  },
+  "EriaC": {
+    "collisionTag": "mainStage",
+    "colliderType": "model"
+  },
+  "DecoEriaA": {
+    "collisionTag": "decoStage",
+    "colliderType": "model"
+  },
+  "DecoEriaB": {
+    "collisionTag": "decoStage",
+    "colliderType": "model"
+  },
+  "DecoEriaC": {
+    "collisionTag": "decoStage",
+    "colliderType": "model"
+  },
+  "Chair01": {
+    "collisionTag": "stageGimmick",
     "colliderType": "box",
     "colliderTopPos": {
       "x": 30,
@@ -17,22 +37,66 @@
       "z": -30
     }
   },
-  "tableSink": {
-    "collisionTag": "stageObject",
+  "Axe01": {
+    "collisionTag": "decoGimmick",
+    "colliderType": "model"
+  },
+  "Board": {
+    "collisionTag": "decoGimmick",
+    "colliderType": "model"
+  },
+  "Books3": {
+    "collisionTag": "decoGimmick",
+    "colliderType": "model"
+  },
+  "Bottle02b": {
+    "collisionTag": "decoGimmick",
+    "colliderType": "model"
+  },
+  "Chandle01b": {
+    "collisionTag": "decoGimmick",
+    "colliderType": "model"
+  },
+  "Candle01bOn": {
+    "collisionTag": "decoGimmick",
+    "colliderType": "model"
+  },
+  "ClutterPichet03": {
+    "collisionTag": "decoGimmick",
+    "colliderType": "model"
+  },
+  "Oillamp01": {
+    "collisionTag": "decoGimmick",
+    "colliderType": "model"
+  },
+  "Oillamp01On": {
+    "collisionTag": "decoGimmick",
+    "colliderType": "model"
+  },
+  "Painting01": {
+    "collisionTag": "decoGimmick",
+    "colliderType": "model"
+  },
+  "Painting02": {
+    "collisionTag": "decoGimmick",
+    "colliderType": "model"
+  },
+  "StoveLit": {
+    "collisionTag": "stageGimmick",
     "colliderType": "box",
     "colliderTopPos": {
-      "x": 110,
-      "y": 100,
-      "z": 40
+      "x": 30,
+      "y": 30,
+      "z": 30
     },
     "colliderEndPos": {
-      "x": -110,
+      "x": -30,
       "y": 0,
-      "z": -40
+      "z": -30
     }
   },
-  "table04": {
-    "collisionTag": "stageObject",
+  "Sword01": {
+    "collisionTag": "decoGimmick",
     "colliderType": "model"
   }
 }

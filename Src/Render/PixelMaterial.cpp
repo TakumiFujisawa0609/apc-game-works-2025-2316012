@@ -3,6 +3,8 @@
 
 PixelMaterial::PixelMaterial(int pixelShader, int constBufFloat4Size)
 {
+	// シェーダー読み込み
+	//shader_ = LoadPixelShader(L"Data/Shader/NormalShader.cso");
 
 	// ピクセルシェーダの格納
 	shader_ = pixelShader;

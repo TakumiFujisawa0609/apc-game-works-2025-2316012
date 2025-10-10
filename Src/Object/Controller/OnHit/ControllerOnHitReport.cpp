@@ -7,7 +7,7 @@ ControllerOnHitReport::ControllerOnHitReport(Player& owner) :
 	systemMng_(GameSystemManager::GetInstance())
 {
 	report_ = nullptr;
-	RegisterOnHit(CollisionTags::TAG::STAGE_OBJECT, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStageObject(opponentCollider); });
+	RegisterOnHit(CollisionTags::TAG::STAGE_GIMMICK, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStageObject(opponentCollider); });
 }
 
 ControllerOnHitReport::~ControllerOnHitReport()

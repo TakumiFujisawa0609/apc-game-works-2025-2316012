@@ -11,9 +11,11 @@ public:
 	{
 		NONE,
 		PLAYER,
-		MAIN_STAGE,
-		STAGE_OBJECT,
-		REPORT,
+		MAIN_STAGE,		// メインステージ
+		DECO_STAGE,		// 装飾(ステージ)
+		STAGE_GIMMICK,	// ステージギミック
+		DECO_GIMMICK,	// 装飾(ギミック)
+		REPORT,			
 		MAX
 	};
 

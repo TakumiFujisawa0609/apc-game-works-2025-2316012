@@ -94,9 +94,9 @@ void CollisionManager::InitTagMatrix()
 
 	// 衝突判定を行う組み合わせを設定
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::MAIN_STAGE)] = true;		// プレイヤーとステージ
-	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::STAGE_OBJECT)] = true;	// プレイヤーとステージオブジェクト
-	collTagMatrix_[static_cast<int>(CollisionTags::TAG::REPORT)][static_cast<int>(CollisionTags::TAG::STAGE_OBJECT)] = true;	// レポート用ラインとステージオブジェクト
-	collTagMatrix_[static_cast<int>(CollisionTags::TAG::STAGE_OBJECT)][static_cast<int>(CollisionTags::TAG::REPORT)] = true;	// レポート用ラインとステージオブジェクト
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)] = true;	// プレイヤーとステージオブジェクト
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::REPORT)][static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)] = true;	// レポート用ラインとステージオブジェクト
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)][static_cast<int>(CollisionTags::TAG::REPORT)] = true;	// レポート用ラインとステージオブジェクト
 }
 
 void CollisionManager::InitColliderMatrix()

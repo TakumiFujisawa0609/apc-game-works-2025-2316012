@@ -17,7 +17,7 @@ TestModel::~TestModel()
 void TestModel::Load()
 {
 	// ƒ‚ƒfƒ‹‚Ìİ’è
-	transform_.SetModel(ResourceManager::GetInstance().GetHandle("chair01"));
+	transform_.SetModel(ResourceManager::GetInstance().GetHandle("Chair01"));
 	transform_.quaRot = Quaternion();
 	transform_.scl = {1,1,1};
 	transform_.quaRot = Quaternion::Euler({ 0, UtilityCommon::Deg2RadF(45),0 });
