@@ -29,6 +29,8 @@ private:
 	int se_;				// Œø‰Ê‰¹
 	int bgm_;				// BGM
 
+	float step_;
+
 	// ƒƒS‰æ‘œ
 	std::unique_ptr<PixelRenderer> logoRenderer_;
 	std::unique_ptr<PixelMaterial> logoMaterial_;

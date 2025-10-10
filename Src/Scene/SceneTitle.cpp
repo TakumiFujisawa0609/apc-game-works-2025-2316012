@@ -1,4 +1,5 @@
 #include <string>
+#include <cmath>
 #include <DxLib.h>
 #include "../Application.h"
 #include "../Manager/Generic/SceneManager.h"
@@ -38,12 +39,16 @@ void SceneTitle::Load(void)
 	SceneBase::Load();
 
 	// ロゴ画像の設定
-	int ps = resMng_.GetHandle("normalSpritePs");
-	logoMaterial_ = std::make_unique<PixelMaterial>(ps, 1);				// マテリアルの生成
+	int ps = resMng_.GetHandle("glitchPs");
+	int Nps = resMng_.GetHandle("normalSpritePs");
+	logoMaterial_ = std::make_unique<PixelMaterial>(ps, 2);				// マテリアルの生成
 	logoMaterial_->AddTextureBuf(resMng_.GetHandle("titleLogo"));		// テクスチャの追加
 	logoRenderer_ = std::make_unique<PixelRenderer>(*logoMaterial_);	// レンダラーの生成
 
-	keyMaterial_ = std::make_unique<PixelMaterial>(ps, 1);
+	logoMaterial_->AddConstBuf({ 0.0f, 0.0f, 0.0f, 0.0f }); // 色の初期化
+	logoMaterial_->AddConstBuf({ 0.0f, 0.0f, 0.0f, 0.0f }); // 色の初期化
+
+	keyMaterial_ = std::make_unique<PixelMaterial>(Nps, 1);
 	keyMaterial_->AddTextureBuf(resMng_.GetHandle("pleaseSpaceKey"));
 	keyRenderer_ = std::make_unique<PixelRenderer>(*keyMaterial_);
 
@@ -92,6 +97,11 @@ void SceneTitle::NormalDraw(void)
 		UtilityCommon::WHITE,
 		true
 	);
+	step_ + scnMng_.GetDeltaTime();
+	float strength = sin(step_ * 5.0f) * 0.5f + 0.5f; // 強度を時間で0.0～1.0で変化させる
+	float speed = 20.0f;
+
+	logoMaterial_->SetConstBuf(1, { step_, strength, speed, 0.0f });
 
 	// ロゴ
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);

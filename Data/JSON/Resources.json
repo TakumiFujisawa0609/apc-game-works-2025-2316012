@@ -228,6 +228,12 @@
       "sceneId": 1,
       "type": "pixelShader",
       "path": "Data/Shader/NormalSprite.cso"
+    },
+    {
+      "key": "glitchPs",
+      "sceneId": 1,
+      "type": "pixelShader",
+      "path": "Data/Shader/Glitch.cso"
     }
   ]
 }

@@ -12,10 +12,38 @@ cbuffer ConstantBuffer : register(b4)
 
 float4 main(PS_INPUT PSInput) : SV_TARGET
 {
-    //float2 uv = PSInput.uv;
+    // UV値取得
+    float2 uv = PSInput.uv;
     
-    //float noiseSeed = floor(uv,.y)
+    // ノイズのランダムシートを生成
+    float noiseSeed = floor(uv.y * 10.0f + g_time * g_glitch_speed) * 10.0f;
     
+    // 時間ごとに変化するノイズを生成
+    float randomVal = frac(sin(noiseSeed * 12.9898f) * 43758.5453f);
+    
+    // 範囲変換(-1.0fから1.0f)
+    float randShift = (randomVal * 2.0f - 1.0f);
+    
+    // ズレの量を計算、強度(GlitchStrength)とランダム値を乗算
+    float xShift = randShift * g_glitch_strength * 0.01f;
+    
+    // グリッチ効果を発生させたい頻度を調整
+    xShift *= pow(abs(randShift), 4.0f) * 4.0f;
+    
+    // x座標をずらす
+    float2 shiftedUV = uv + float2(xShift, 0.0f);
+    
+    // ずらしたUV座標からテクスチャの色を取得
+    float4 color = tex.Sample(texSampler, shiftedUV);
+    
+    // R成分を少しずらして読み出す
+    float2 red = shiftedUV + g_glitch_strength * 0.001f;
+    // B成分を反対方向にずらして読み出す
+    float2 blue = shiftedUV - g_glitch_strength * 0.001f;
+    
+    color.r = tex.Sample(texSampler, red).r;
+    color.b = tex.Sample(texSampler, blue).b;
+   
     // テクスチャの色を返す
     return tex.Sample(texSampler, PSInput.uv);
 }
