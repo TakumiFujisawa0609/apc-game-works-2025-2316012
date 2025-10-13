@@ -1,0 +1,156 @@
+{
+  "Appearance": [
+    {
+      "collisionTag": "ghost",
+      "colliderType": "capsule",
+      "initPos": {
+        "x": -2.67084861,
+        "y": 3.166,
+        "z": -18.0789566
+      },
+      "initRot": {
+        "x": 90.0,
+        "y": 0.0,
+        "z": 0.0
+      }
+    },
+    {
+      "collisionTag": "ghost",
+      "colliderType": "capsule",
+      "initPos": {
+        "x": -6.964,
+        "y": 1.239,
+        "z": -14.619
+      },
+      "initRot": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      }
+    },
+    {
+      "collisionTag": "ghost",
+      "colliderType": "capsule",
+      "initPos": {
+        "x": 3.38467455,
+        "y": 0.2351669,
+        "z": -16.77245
+      },
+      "initRot": {
+        "x": 270.0,
+        "y": 270.0,
+        "z": 0.0
+      }
+    },
+    {
+      "collisionTag": "ghost",
+      "colliderType": "capsule",
+      "initPos": {
+        "x": 5.60579729,
+        "y": 0.00500059128,
+        "z": -15.5481386
+      },
+      "initRot": {
+        "x": 0.0,
+        "y": 311.700928,
+        "z": 0.0
+      }
+    },
+    {
+      "initPos": {
+        "x": 10.145,
+        "y": 0.563,
+        "z": -9.195
+      },
+      "initRot": {
+        "x": 0.0,
+        "y": 180.0,
+        "z": 0.0
+      }
+    },
+    {
+      "collisionTag": "ghost",
+      "colliderType": "capsule",
+      "initPos": {
+        "x": -0.65,
+        "y": 0.00500011444,
+        "z": 3.274
+      },
+      "initRot": {
+        "x": 0.0,
+        "y": 146.51001,
+        "z": 0.0
+      }
+    },
+    {
+      "collisionTag": "ghost",
+      "colliderType": "capsule",
+      "initPos": {
+        "x": -8.650277,
+        "y": 0.507686734,
+        "z": -11.3208351
+      },
+      "initRot": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      }
+    },
+    {
+      "collisionTag": "ghost",
+      "colliderType": "capsule",
+      "initPos": {
+        "x": -15.4748554,
+        "y": 0.988863647,
+        "z": -8.192858
+      },
+      "initRot": {
+        "x": 274.031616,
+        "y": 180.0,
+        "z": 180.0
+      }
+    },
+    {
+      "collisionTag": "ghost",
+      "colliderType": "capsule",
+      "initPos": {
+        "x": 12.1875725,
+        "y": 0.00500011444,
+        "z": 2.2865243
+      },
+      "initRot": {
+        "x": 0.0,
+        "y": 42.190464,
+        "z": 0.0
+      }
+    },
+    {
+      "collisionTag": "ghost",
+      "colliderType": "capsule",
+      "initPos": {
+        "x": 10.322,
+        "y": 0.749,
+        "z": -0.294
+      },
+      "initRot": {
+        "x": 0.0,
+        "y": 180.0,
+        "z": 66.6495361
+      }
+    },
+    {
+      "collisionTag": "ghost",
+      "colliderType": "capsule",
+      "initPos": {
+        "x": 2.83496141,
+        "y": 0.4,
+        "z": -4.24484634
+      },
+      "initRot": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      }
+    }
+  ]
+}

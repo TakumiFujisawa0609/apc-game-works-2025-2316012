@@ -1,18 +1,15 @@
+#include "../../../Manager/Generic/CharacterManager.h"
 #include "../../../Manager/Generic/StageManager.h"
 #include "AnomalyBase.h"
 
 AnomalyBase::AnomalyBase():
+	charaMng_(CharacterManager::GetInstance()),
 	stageMng_(StageManager::GetInstance())
 {
 }
 
 AnomalyBase::~AnomalyBase()
 {
-}
-
-void AnomalyBase::Load()
-{
-
 }
 
 void AnomalyBase::Init()
@@ -28,4 +25,13 @@ void AnomalyBase::Update()
 void AnomalyBase::Draw()
 {
 
+}
+
+void AnomalyBase::Occurrence(Json& param)
+{
+}
+
+void AnomalyBase::Delete()
+{
+	isDelete_ = true;
 }

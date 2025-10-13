@@ -1,16 +1,15 @@
+#include "../../Utility/UtilityLoad.h"
 #include "../../Object/Actor/Character/CharacterBase.h"
 #include "../../Object/Actor/Character/Player.h"
-#include "../../Object/System/Load/ParameterLoad.h"
 #include "CharacterManager.h"
 
 void CharacterManager::Load()
 {
 	// パラメータ読み込み
-	paramLoad_ = std::make_unique<ParameterLoad>(FILE_NAME);
-	paramLoad_->Load();
+	paramMap_ = UtilityLoad::GetJsonData(FILE_NAME);
 
 	// プレイヤー生成
-	auto player = std::make_unique<Player>(paramLoad_->GetParameterFile(NAME_LIST[static_cast<int>(TYPE::PLAYER)]).front());
+	auto player = std::make_unique<Player>(paramMap_[NAME_LIST[static_cast<int>(TYPE::PLAYER)]].front());
 
 	// プレイヤー読み込み
 	player->Load();
@@ -43,7 +42,11 @@ void CharacterManager::Draw()
 	}
 }
 
+void CharacterManager::AddCharacter(const TYPE type, const std::unique_ptr<CharacterBase> character)
+{
+	characterMap_.emplace(type, std::move(character));
+}
+
 CharacterManager::CharacterManager()
 {
-	paramLoad_ = nullptr;
 }

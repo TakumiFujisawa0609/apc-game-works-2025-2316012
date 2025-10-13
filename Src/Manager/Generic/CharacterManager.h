@@ -1,11 +1,15 @@
 #pragma once
 #include <memory>
 #include <unordered_map>
+#include <nlohmann/json.hpp>
 #include <string>
 #include "../../Template/Singleton.h"
 
 class ParameterLoad;
 class CharacterBase;
+
+// JSON名前空間
+using Json = nlohmann::json;
 
 class CharacterManager : public Singleton<CharacterManager>
 {
@@ -19,6 +23,7 @@ public:
 	{
 		PLAYER,
 		ENEMY,
+		GHOST,
 		MAX
 	};
 
@@ -27,6 +32,7 @@ public:
 	{
 		"player",
 		"enemy",
+		"ghost"
 	};
 
 	/// <summary>
@@ -50,19 +56,33 @@ public:
 	void Draw();
 
 	/// <summary>
+	/// キャラクターの追加
+	/// </summary>
+	/// <param name="type">種類</param>
+	/// <param name="character">キャラクター/param>
+	void AddCharacter(const TYPE type, const std::unique_ptr<CharacterBase> character);
+
+	/// <summary>
 	/// 指定したキャラクターを返す
 	/// </summary>
 	/// <param name="type">キャラクター種類</param>
 	/// <returns>キャラクターを返す</returns>
 	CharacterBase& GetCharacter(const TYPE type) { return *characterMap_[type]; }
 
+	/// <summary>
+	/// 指定されたキャラクターのパラメーターを返す
+	/// </summary>
+	/// <param name="type">種類</param>
+	/// <returns>パラメータ</returns>
+	const Json GetCharacterParam(const TYPE type) { return paramMap_[NAME_LIST[static_cast<int>(type)]].front(); }
+
 private:
 
 	// ファイル名
 	const std::string FILE_NAME = "ParameterCharater";
 
-	// パラメータ読み込み
-	std::unique_ptr<ParameterLoad> paramLoad_;
+	// パラメーター管理マップ
+	std::unordered_map<std::string, std::vector<Json>> paramMap_;
 
 	// キャラクターオブジェクトの管理マップ
 	std::unordered_map<TYPE, std::unique_ptr<CharacterBase>> characterMap_;

@@ -29,6 +29,7 @@ CharacterBase::CharacterBase(const Json& param) :
 {
 	rotDeg_ = 0.0f;	
 	moveSpeed_ = 0.0f;
+	prePos_ = Utility3D::VECTOR_ZERO;
 	moveDir_ = Utility3D::VECTOR_ZERO;
 	jumpPow_ = Utility3D::VECTOR_ZERO;
 	animation_ = nullptr;

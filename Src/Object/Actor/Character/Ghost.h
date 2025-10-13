@@ -26,6 +26,11 @@ public:
 	/// </summary>
 	void Init() override;
 
+	/// <summary>
+	/// ¶¬ˆ—
+	/// </summary>
+	void Create(const Json& param);
+
 private:
 
 	// ƒƒCƒ“‚Ì•`‰æˆ—

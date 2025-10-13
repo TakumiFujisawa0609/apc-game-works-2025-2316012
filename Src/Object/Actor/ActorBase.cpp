@@ -16,6 +16,7 @@ ActorBase::ActorBase(const Json& param):
 	collMng_(CollisionManager::GetInstance()),
 	collFtr_(ColliderFactory::GetInstance())
 {
+	isDelete_ = false;
 	transform_ = {};
 	collider_ = nullptr;
 }

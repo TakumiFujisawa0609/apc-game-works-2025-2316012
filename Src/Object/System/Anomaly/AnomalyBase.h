@@ -1,6 +1,11 @@
 #pragma once
+#include <nlohmann/json.hpp>
 
+class CharacterManager;
 class StageManager;
+
+// JSON名前空間
+using Json = nlohmann::json;
 
 class AnomalyBase
 {
@@ -17,11 +22,6 @@ public:
 	virtual ~AnomalyBase();
 
 	/// <summary>
-	/// 読み込み処理
-	/// </summary>
-	virtual void Load();
-
-	/// <summary>
 	/// 初期化処理
 	/// </summary>
 	virtual void Init();
@@ -36,9 +36,32 @@ public:
 	/// </summary>
 	virtual void Draw();
 
-private:
+	/// <summary>
+	/// 発生処理
+	/// </summary>
+	/// <param name="param">パラメータ</param>
+	virtual void Occurrence(Json& param);
+
+	/// <summary>
+	/// 削除処理
+	/// </summary>
+	virtual void Delete();
+
+	/// <summary>
+	/// 削除判定を返す
+	/// </summary>
+	/// <returns>削除判定</returns>
+	const bool IsDelete() const { return isDelete_; }
+
+protected:
+
+	// キャラクター管理クラス
+	CharacterManager& charaMng_;
 
 	// ステージ管理クラス
-	StageManager& stageMng_;;
+	StageManager& stageMng_;
+
+	// 削除判定
+	bool isDelete_;
 };
 

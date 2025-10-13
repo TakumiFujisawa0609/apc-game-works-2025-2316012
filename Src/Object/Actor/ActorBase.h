@@ -58,6 +58,17 @@ public:
 	/// <returns>トランスフォーム</returns>
 	const Transform& GetTransform() const { return transform_; }
 
+	/// <summary>
+	/// 削除判定
+	/// </summary>
+	/// <returns>削除判定</returns>
+	const bool IsDelete() const { return isDelete_; }
+
+	/// <summary>
+	/// 削除判定を設定
+	/// </summary>
+	void SetDelete() { isDelete_ = true; }
+
 protected:
 
 	// ローカル回転のデフォルト値(度)
@@ -77,6 +88,9 @@ protected:
 	SceneManager& scnMng_;
 	CollisionManager& collMng_;
 	ColliderFactory& collFtr_;
+
+	// 削除判定	
+	bool isDelete_;
 
 	// モデル制御の基本情報
 	Transform transform_;

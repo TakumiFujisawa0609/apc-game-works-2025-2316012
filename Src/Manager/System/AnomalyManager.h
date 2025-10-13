@@ -1,8 +1,13 @@
 #pragma once
 #include <unordered_map>
+#include <nlohmann/json.hpp>
 #include "../../Template/Singleton.h"
 
+class Timer;
 class AnomalyBase;
+
+// JSON名前空間
+using Json = nlohmann::json;
 
 class AnomalyManager : public Singleton<AnomalyManager>
 {
@@ -18,6 +23,15 @@ public:
 		COLOR_CHANGE,	// 色変え
 		APPEARANCE,		// 出現
 		MAX
+	};
+
+	// キャラクターの名前リスト
+	const std::vector<std::string> ANOMALY_LIST =
+	{
+		"Replace",
+		"Occur",
+		"ColorChange",
+		"Appearance"
 	};
 	
 	/// <summary>
@@ -42,12 +56,25 @@ public:
 
 private:
 
+	// 異変情報ファイル名
+	const std::string ANOMALY_FILE = "Ghosts";
+
+	// 異変情報
+	Json anomalyFile_;
+
+	// タイマー
+	std::unique_ptr<Timer> timer_;
+
+	// 異変の管理マップ
 	std::unordered_map<TYPE, std::unique_ptr<AnomalyBase>> anomalyMap_;
 
-	//コンストラクタ
+	// 異変の発生
+	void OccurAnomaly();
+
+	// コンストラクタ
 	AnomalyManager();
 
-	//デストラクタ
+	// デストラクタ
 	~AnomalyManager();
 };
 

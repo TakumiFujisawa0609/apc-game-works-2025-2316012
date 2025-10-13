@@ -23,6 +23,7 @@ SceneTitle::SceneTitle(void)
 	// •Ï”‚Ì‰Šú‰»
 	se_ = -1;
 	bgm_ = -1;
+	step_ = 0.0f;
 	logoMaterial_ = nullptr;
 	logoRenderer_ = nullptr;
 	keyMaterial_ = nullptr;
