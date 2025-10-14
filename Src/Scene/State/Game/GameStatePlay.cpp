@@ -2,27 +2,30 @@
 #include "../../../Manager/Generic/StageManager.h"
 #include "../../../Manager/Generic/CollisionManager.h"
 #include "../../../Manager/System/GameSystemManager.h"
+#include "../../../Manager/System/AnomalyManager.h"
 #include "../../../Object/Actor/Character/CharacterBase.h"
 #include "../../../Core/Game/Report/ReportSystem.h"
 #include "GameStatePlay.h"
 
 GameStatePlay::GameStatePlay(SceneGame& parent) :
 	GameStateBase(parent),
-	collMng_(CollisionManager::GetInstance())
+	collMng_(CollisionManager::GetInstance()),
+	anomalyMng_(AnomalyManager::GetInstance())
 {
 	report_ = nullptr;
 }
 
 GameStatePlay::~GameStatePlay()
 {
-	report_ = nullptr;
-	delete report_;
 }
 
 void GameStatePlay::Init()
 {
 	// レポートのポインタを保持
 	report_ = dynamic_cast<ReportSystem*>(&systemMng_.GetGamsSystem(GameSystemManager::TYPE::REPORT));
+
+	// キャストが失敗した場合、アサートを発動する
+	assert(report_ != nullptr && "dynamic_castに失敗しました");
 }
 
 void GameStatePlay::Update()
@@ -41,6 +44,9 @@ void GameStatePlay::Update()
 
 	// コライダーの削除
 	collMng_.Sweep();
+
+	// キャラクターの削除
+	charaMng_.Sweep();
 }
 
 void GameStatePlay::Draw()

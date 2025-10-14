@@ -41,6 +41,8 @@ void Camera::SetBeforeDraw(void)
 	// カメラモードごとの描画前処理
 	beforeDrawFunc_();
 
+	CameraSetting();
+
 	// カメラの設定(位置と注視点による制御)
 	SetCameraPositionAndTargetAndUpVec(
 		pos_, 
@@ -50,6 +52,16 @@ void Camera::SetBeforeDraw(void)
 
 	// DXライブラリのカメラとEffekseerのカメラを同期する。
 	Effekseer_Sync3DSetting();
+}
+
+void Camera::CameraSetting()
+{
+	// カメラの設定(位置と注視点による制御)
+	SetCameraPositionAndTargetAndUpVec(
+		pos_,
+		targetPos_,
+		cameraUp_
+	);
 }
 
 void Camera::SetFollow(const Transform* follow)

@@ -41,7 +41,7 @@ private:
 	static constexpr float GAUGE_MAX = 100.0f;
 
 	// レポートの範囲
-	static constexpr float REPORT_RANGE = 200.0f;
+	static constexpr float REPORT_RANGE = 1000.0f;
 
 	// 始点調整用
 	static constexpr float OFFSET_Y = 120.0f;

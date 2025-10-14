@@ -9,6 +9,7 @@
 #include "../Manager/Resource/ResourceManager.h"
 #include "../Manager/Resource/FontManager.h"
 #include "../Manager/System/GameSystemManager.h"
+#include "../Manager/System/AnomalyManager.h"
 #include "../Utility/UtilityCommon.h"
 #include "../Object/Actor/Character/CharacterBase.h"
 #include "../Object/Collider/ColliderFactory.h"
@@ -38,6 +39,7 @@ SceneGame::~SceneGame(void)
 	CollisionManager::GetInstance().Destroy();
 	ColliderFactory::GetInstance().Destroy();
 	GameSystemManager::GetInstance().Destroy();
+	AnomalyManager::GetInstance().Destroy();
 }
 
 void SceneGame::Load(void)
@@ -62,6 +64,10 @@ void SceneGame::Load(void)
 	// システム
 	GameSystemManager::CreateInstance();
 	GameSystemManager::GetInstance().Load();
+
+	//異常管理クラス
+	AnomalyManager::CreateInstance();
+	AnomalyManager::GetInstance().Load();
 
 	//ポーズ画面のリソース
 	ScenePause_ = std::make_shared<ScenePause>();
@@ -89,6 +95,9 @@ void SceneGame::Init(void)
 
 	// システム管理クラス初期化
 	GameSystemManager::GetInstance().Init();
+
+	// 異変管理クラス初期化
+	AnomalyManager::GetInstance().Init();
 
 	// 状態別処理初期化
 	for (auto& state : stateMap_)
@@ -190,26 +199,26 @@ void SceneGame::DebugDraw(void)
 	
 	// プレイヤー位置を取得
 	VECTOR playerPos = CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform().pos;
-	playerPos.y += 120;
 
-	// 線の長さを定義（ワールド座標系での距離）
-	constexpr float LOCAL_END_POS = 100.0f; // 例として50.0ユニット
-
-	// 始点を取得
-	VECTOR start = ConvScreenPosToWorldPos({ Application::SCREEN_HALF_X,Application::SCREEN_HALF_Y, 0 });
+	// 画面中心から座標を取得
+	VECTOR screenCenter = ConvScreenPosToWorldPos({ Application::SCREEN_HALF_X,Application::SCREEN_HALF_Y, 0 });
 
 	// 末端の位置を取得
-	VECTOR endPos = VAdd(start, VScale(mainCamera.GetForward(), LOCAL_END_POS));
+	VECTOR endPos = VAdd(screenCenter, VScale(mainCamera.GetForward(), 1000.0f));
+
+	// 先端位置を取得
+	VECTOR startPos = playerPos;
+	startPos.y += 120;
+
 
 	// 描画
-	DrawLine3D(start, endPos, UtilityCommon::BLUE);
-	DrawLine3D(playerPos, endPos, UtilityCommon::BLUE);
-	DrawCapsule3D(start, endPos, 30.0f, 10.0f, UtilityCommon::BLUE, UtilityCommon::BLUE, true);
-	DrawSphere3D(start, 10.0f, 10.0f, UtilityCommon::GREEN, UtilityCommon::GREEN, true);
+	DrawLine3D(startPos, endPos, UtilityCommon::BLUE);
+	DrawCapsule3D(startPos, endPos, 30.0f, 10.0f, UtilityCommon::BLUE, UtilityCommon::BLUE, true);
+	DrawSphere3D(startPos, 10.0f, 10.0f, UtilityCommon::GREEN, UtilityCommon::GREEN, true);
 	DrawSphere3D(endPos, 10.0f, 10.0f, UtilityCommon::LIME, UtilityCommon::LIME, true);
 	DrawSphere3D(VGet(0.0f, 0.0f, 50.0f), 20.0f, 10.0f, UtilityCommon::RED, UtilityCommon::RED, true);
 
 	// カメラ関係の値
-	DrawFormatString(0, 60, UtilityCommon::RED, L"始点の位置：%2f,%2f,%2f", start.x, start.y, start.z);
+	DrawFormatString(0, 60, UtilityCommon::RED, L"始点の位置：%2f,%2f,%2f", startPos.x, startPos.y, startPos.z);
 	DrawFormatString(0, 80, UtilityCommon::RED, L"末端の位置：%2f,%2f,%2f", endPos.x, endPos.y, endPos.z);
 }

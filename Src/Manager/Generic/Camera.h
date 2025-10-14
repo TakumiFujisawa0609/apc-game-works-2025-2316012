@@ -79,6 +79,11 @@ public:
 	/// ƒJƒƒ‰‚Ìİ’è•`‰æ
 	/// </summary>
 	void SetBeforeDraw();	
+
+	/// <summary>
+	/// ƒJƒƒ‰‚Ìİ’è
+	/// </summary>
+	void CameraSetting();
 		
 	/// <summary>
 	/// •`‰æˆ—

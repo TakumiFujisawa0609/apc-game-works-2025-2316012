@@ -33,6 +33,12 @@ void ControllerMove::Update()
 	// ジャンプ量を加算
 	movedPos = VAdd(movedPos, owner_.GetJumpPow());
 
+	// プレイヤーの重力制限
+	if (movedPos.y < 0.0f)
+	{
+		movedPos.y = 0.0f;
+	}
+
 	// 座標設定
 	owner_.SetPos(movedPos);
 }

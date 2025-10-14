@@ -4,7 +4,7 @@
 #include "../Application.h"
 #include "UtilityLoad.h"
 
-const std::unordered_map<std::string, std::vector<Json>> UtilityLoad::GetJsonData(const std::string& fileName) 
+const std::unordered_map<std::string, std::vector<Json>> UtilityLoad::GetJsonMapData(const std::string& fileName) 
 {
     std::unordered_map<std::string, std::vector<Json>> dataMap;
 
@@ -53,4 +53,51 @@ const std::unordered_map<std::string, std::vector<Json>> UtilityLoad::GetJsonDat
     }
 
     return dataMap;
+}
+
+const std::vector<Json> UtilityLoad::GetJsonArrayData(const std::string& fileName)
+{
+    std::vector<Json> dataArray;
+    try
+    {
+        // JSONファイルのパス
+        std::string jsonPath = (Application::PATH_JSON + fileName + ".json");
+
+        // JSONファイルの読み込み
+        std::ifstream ifs(jsonPath);
+        if (!ifs.is_open())
+        {
+            throw std::runtime_error("ファイルが開けません: " + jsonPath);
+            return dataArray;
+        }
+
+        // JSONデータのパース
+        Json jsonData;
+        ifs >> jsonData;
+
+        // リスト順にデータを格納
+        for (auto& [key, value] : jsonData.items())
+        {
+            int size = key.size();
+            if (size < 1 || size > 1)
+            {
+                throw std::runtime_error("Json内部の型が関数の型に合いません");
+                return dataArray;
+            }
+
+            for (auto& obj : value)
+            {
+                // 1つずつ格納
+                dataArray.push_back(obj);
+            }
+        
+        }
+        ifs.close();
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "エラーが発生しました: " << e.what() << std::endl;
+    }
+
+	return dataArray;
 }

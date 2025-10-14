@@ -42,17 +42,6 @@ public:
 	/// <param name="param">パラメータ</param>
 	virtual void Occurrence(Json& param);
 
-	/// <summary>
-	/// 削除処理
-	/// </summary>
-	virtual void Delete();
-
-	/// <summary>
-	/// 削除判定を返す
-	/// </summary>
-	/// <returns>削除判定</returns>
-	const bool IsDelete() const { return isDelete_; }
-
 protected:
 
 	// キャラクター管理クラス
@@ -60,8 +49,5 @@ protected:
 
 	// ステージ管理クラス
 	StageManager& stageMng_;
-
-	// 削除判定
-	bool isDelete_;
 };
 

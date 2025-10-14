@@ -2,6 +2,7 @@
 
 class ResourceManager;
 class SceneManager;
+class FontManager;
 
 class CoreBase
 {
@@ -42,6 +43,7 @@ protected:
 	// シングルトン参照
 	ResourceManager& resMng_;
 	SceneManager& scnMng_;
+	FontManager& fontMng_;
 
 	// 通常フォントサイズ
 	static constexpr int FONT_SIZE = 32;
@@ -65,4 +67,3 @@ protected:
 	virtual void DrawDebug();
 
 };
-

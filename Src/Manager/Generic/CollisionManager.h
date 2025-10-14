@@ -67,6 +67,9 @@ private:
 	// カプセルとボックス
 	bool IsHitCheckCapsuleToBox(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
 
+	// カプセルとライン
+	bool IsHitCheckCapsuleToLine(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
+
 	// ラインとボックス
 	bool IsHitCheckLineToBox(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
 

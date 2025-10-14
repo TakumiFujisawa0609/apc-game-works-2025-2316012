@@ -1,5 +1,6 @@
 #include "../../../Manager/Generic/CharacterManager.h"
 #include "../../../Manager/Generic/StageManager.h"
+#include "../../Actor/Character/CharacterBase.h"
 #include "AnomalyBase.h"
 
 AnomalyBase::AnomalyBase():
@@ -29,9 +30,4 @@ void AnomalyBase::Draw()
 
 void AnomalyBase::Occurrence(Json& param)
 {
-}
-
-void AnomalyBase::Delete()
-{
-	isDelete_ = true;
 }

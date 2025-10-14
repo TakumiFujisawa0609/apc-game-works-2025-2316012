@@ -2,6 +2,7 @@
 #include "GameStateBase.h"
 
 class CollisionManager;
+class AnomalyManager;
 
 class GameStatePlay : public GameStateBase
 {
@@ -37,6 +38,7 @@ private:
 
 	// 各種管理クラスの参照
 	CollisionManager& collMng_;
+	AnomalyManager& anomalyMng_;
 
 	// レポート
 	ReportSystem* report_;
