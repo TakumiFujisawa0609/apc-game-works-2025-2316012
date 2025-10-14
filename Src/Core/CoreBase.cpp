@@ -1,10 +1,12 @@
 #include "CoreBase.h"
-#include "../Manager/Resource/ResourceManager.h"
 #include "../Manager/Generic/SceneManager.h"
+#include "../Manager/Resource/ResourceManager.h"
+#include "../Manager/Resource/FontManager.h"
 
 CoreBase::CoreBase() :
 	resMng_(ResourceManager::GetInstance()),
-	scnMng_(SceneManager::GetInstance())
+	scnMng_(SceneManager::GetInstance()),
+	fontMng_(FontManager::GetInstance())
 {
 }
 

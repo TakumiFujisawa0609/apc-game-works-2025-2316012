@@ -1,22 +1,24 @@
 #include "../../Utility/UtilityLoad.h"
 #include "../../Object/Actor/Character/CharacterBase.h"
 #include "../../Object/Actor/Character/Player.h"
+#include "../../Object/Actor/Character/Enemy.h"
 #include "../../Object/Actor/Character/Ghost.h"
 #include "CharacterManager.h"
 
 void CharacterManager::Load()
 {
 	// パラメータ読み込み
-	paramMap_ = UtilityLoad::GetJsonData(FILE_NAME);
+	paramMap_ = UtilityLoad::GetJsonMapData(FILE_NAME);
 
 	// プレイヤー生成
-	std::vector<std::unique_ptr<Player>> players;
 	std::unique_ptr<Player> player = std::make_unique<Player>(paramMap_[NAME_LIST[static_cast<int>(TYPE::PLAYER)]].front());
 	player->Load();	// プレイヤー読み込み
-	//players.push_back(std::move(player));	
-
-	// マップに登録
 	characterMap_[TYPE::PLAYER].push_back(std::move(player));
+
+	// 敵の生成
+	std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(paramMap_[NAME_LIST[static_cast<int>(TYPE::ENEMY)]].front());
+	enemy->Load();	// 敵読み込み
+	characterMap_[TYPE::ENEMY].push_back(std::move(enemy));
 }
 
 void CharacterManager::Init()

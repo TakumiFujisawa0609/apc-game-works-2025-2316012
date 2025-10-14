@@ -10,4 +10,5 @@ const std::map<CollisionTags::TAG, std::string> CollisionTags::TAG_NAME_MAP =
 	{CollisionTags::TAG::DECO_GIMMICK, "decoGimmick"},
 	{CollisionTags::TAG::REPORT, "report"},
 	{CollisionTags::TAG::GHOST, "ghost"},
+	{CollisionTags::TAG::ENEMY, "enemy"},
 };

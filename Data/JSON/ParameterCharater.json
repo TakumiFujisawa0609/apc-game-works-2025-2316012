@@ -8,7 +8,7 @@
     "animationJumpSpeed": 60,
     "jumpAmount": 35,
     "jumpAcceptTime": 0.5,
-    "reportInutTime": 2.5,
+    "reportInputTime": 2.5,
     "colliderRadius": 20.0,
     "collisionTag": "player",
     "colliderType": "capsule",
@@ -64,7 +64,8 @@
     },
     "colliderTopPos": {
       "x": 0,
-      "y": 110
+      "y": 110,
+      "z": 0
 
     },
     "colliderEndPos": {

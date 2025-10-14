@@ -23,7 +23,7 @@ Player::Player(const Json& param) :
 	JUMP_AMOUNT(param["jumpAmount"]),
 	JUMP_ACCEPT_TIME(param["jumpAcceptTime"]),
 	ANIM_JUMP_SPEED(param["animationJumpSpeed"]),
-	REPORT_INPUT_TIME(param["reportInutTime"])
+	REPORT_INPUT_TIME(param["reportInputTime"])
 {	
 	stepJump_ = 0.0f;
 	reportPer_ = 0;
@@ -120,7 +120,7 @@ void Player::InitTransform()
 	transform_.rot = INITIAL_ROT;
 	transform_.quaRot = Quaternion();
 	transform_.quaRotLocal = Quaternion::Euler({ 0.0f,UtilityCommon::Deg2RadF(DEFAULT_LOCAL_QUAROT_Y_DEG), 0.0f });
-	transform_.localPos = { 0.0f,20.0f,0.0f };
+	transform_.localPos = { 0.0f,00.0f,0.0f };
 	transform_.Update();
 }
 

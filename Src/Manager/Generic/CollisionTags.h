@@ -17,6 +17,7 @@ public:
 		DECO_GIMMICK,	// ‘•ü(ƒMƒ~ƒbƒN)
 		REPORT,			
 		GHOST,			
+		ENEMY,
 		MAX
 	};
 

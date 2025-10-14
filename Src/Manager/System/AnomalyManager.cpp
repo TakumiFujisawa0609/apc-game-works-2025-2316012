@@ -7,7 +7,7 @@
 void AnomalyManager::Load()
 {
 	// ˆÙ•Ïî•ñ‚ÌŠi”[
-	anomalyFile_ = UtilityLoad::GetJsonData(ANOMALY_FILE);
+	anomalyFile_ = UtilityLoad::GetJsonMapData(ANOMALY_FILE);
 
 	// oŒ»ˆÙ•Ïˆ—
 	anomalyMap_[TYPE::APPEARANCE] = std::make_unique<AnomalyAppearance>();
