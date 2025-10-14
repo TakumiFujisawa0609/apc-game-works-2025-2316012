@@ -231,7 +231,7 @@ void SceneManager::ResetDeltaTime(void)
 void SceneManager::DoChangeScene(SCENE_ID sceneId)
 {
 	// 非同期処理を開始する
-	SetUseASyncLoadFlag(true);
+	//SetUseASyncLoadFlag(true);
 
 	// シーン変更によるリソースの処理
 	ResourceManager::GetInstance().SceneChangeResource(static_cast<int>(sceneId));
