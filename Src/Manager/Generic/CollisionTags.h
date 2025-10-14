@@ -16,6 +16,7 @@ public:
 		STAGE_GIMMICK,	// ステージギミック
 		DECO_GIMMICK,	// 装飾(ギミック)
 		REPORT,			
+		GHOST,			
 		MAX
 	};
 

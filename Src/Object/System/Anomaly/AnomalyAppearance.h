@@ -36,11 +36,6 @@ public:
 	/// <param name="param">ƒpƒ‰ƒ[ƒ^</param>
 	void Occurrence(Json& param) override;
 
-	/// <summary>
-	/// íœˆ—
-	/// </summary>
-	void Delete() override;
-
 private:
 };
 

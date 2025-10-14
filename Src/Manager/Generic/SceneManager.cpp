@@ -135,6 +135,9 @@ void SceneManager::Draw(void)
 	// スクリーンバックへ変更
 	SetDrawScreen(DX_SCREEN_BACK);
 
+	// カメラ設定
+	camera_->CameraSetting();
+
 	// メインスクリーンを描画
 	DrawGraph(0, 0, mainScreen_, true);
 }

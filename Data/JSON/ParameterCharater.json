@@ -99,7 +99,8 @@
     },
     "colliderTopPos": {
       "x": 0,
-      "y": 110
+      "y": 110,
+      "z": 0
 
     },
     "colliderEndPos": {

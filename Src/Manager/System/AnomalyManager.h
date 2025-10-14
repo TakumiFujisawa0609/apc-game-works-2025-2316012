@@ -57,7 +57,7 @@ public:
 private:
 
 	// 異変情報ファイル名
-	const std::string ANOMALY_FILE = "Ghosts";
+	const std::string ANOMALY_FILE = "GhostRespown";
 
 	// 異変情報
 	Json anomalyFile_;
@@ -69,7 +69,7 @@ private:
 	std::unordered_map<TYPE, std::unique_ptr<AnomalyBase>> anomalyMap_;
 
 	// 異変の発生
-	void OccurAnomaly();
+	void OccurAnomaly(const TYPE type);
 
 	// コンストラクタ
 	AnomalyManager();

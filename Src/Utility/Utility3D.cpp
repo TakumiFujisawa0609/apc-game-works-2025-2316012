@@ -193,6 +193,41 @@ double Utility3D::AngleDeg(const VECTOR& from, const VECTOR& to)
     return acos(dot) * (180.0 / DX_PI);
 }
 
+bool Utility3D::CheckHitCapsuleToLine(const VECTOR& capTopPos, const VECTOR& capDownPos, float capRadius, const VECTOR& lineTopPos, const VECTOR& lineEndPos)
+{
+    VECTOR u = VSub(lineEndPos, lineTopPos);
+    VECTOR v = VSub(capDownPos, capTopPos);
+    VECTOR w = VSub(lineTopPos, capTopPos);
+
+    float a = VDot(u, u);
+    float b = VDot(u, v);
+    float c = VDot(v, v);
+    float d = VDot(u, w);
+    float e = VDot(v, w);
+
+    float denom = a * c - b * b;
+    float s = 0.0f, t = 0.0f;
+
+    if (denom != 0.0f) 
+    {
+        s = std::clamp((b * e - c * d) / denom, 0.0f, 1.0f);
+    }
+
+    t = (b * s + e) / c;
+    t = std::clamp(t, 0.0f, 1.0f);
+
+    s = (b * t - d) / a;
+    s = std::clamp(s, 0.0f, 1.0f);
+
+    VECTOR closest1 = VAdd(lineTopPos, VScale(u, s));
+    VECTOR closest2 = VAdd(capTopPos, VScale(v, t));
+    VECTOR diff = VSub(closest1, closest2);
+
+    float distance = sqrt(VDot(diff, diff));
+
+    return distance <= capRadius;
+}
+
 bool Utility3D::CheckHitBox_Capsule(const ColliderBox::OBB& obb, const VECTOR& boxPos, const VECTOR& capTopPos, const VECTOR& capDownPos, const float radius)
 {
     // obb‚Ìƒ[ƒJƒ‹’†S

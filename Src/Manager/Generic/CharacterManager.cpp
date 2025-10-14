@@ -1,6 +1,7 @@
 #include "../../Utility/UtilityLoad.h"
 #include "../../Object/Actor/Character/CharacterBase.h"
 #include "../../Object/Actor/Character/Player.h"
+#include "../../Object/Actor/Character/Ghost.h"
 #include "CharacterManager.h"
 
 void CharacterManager::Load()
@@ -9,44 +10,108 @@ void CharacterManager::Load()
 	paramMap_ = UtilityLoad::GetJsonData(FILE_NAME);
 
 	// プレイヤー生成
-	auto player = std::make_unique<Player>(paramMap_[NAME_LIST[static_cast<int>(TYPE::PLAYER)]].front());
-
-	// プレイヤー読み込み
-	player->Load();
+	std::vector<std::unique_ptr<Player>> players;
+	std::unique_ptr<Player> player = std::make_unique<Player>(paramMap_[NAME_LIST[static_cast<int>(TYPE::PLAYER)]].front());
+	player->Load();	// プレイヤー読み込み
+	//players.push_back(std::move(player));	
 
 	// マップに登録
-	characterMap_.emplace(TYPE::PLAYER, std::move(player));
+	characterMap_[TYPE::PLAYER].push_back(std::move(player));
 }
 
 void CharacterManager::Init()
 {
-	for (auto& character : characterMap_)
+	for (auto& characters : characterMap_)
 	{
-		character.second->Init();
+		for (auto& character : characters.second)
+		{
+			character->Init();
+		}
 	}
 }
 
 void CharacterManager::Update()
 {	
-	for (auto& character : characterMap_)
+	for (auto& characters : characterMap_)
 	{
-		character.second->Update();
+		for (auto& character : characters.second)
+		{
+			character->Update();
+		}
 	}
 }
 
 void CharacterManager::Draw()
 {
-	for (auto& character : characterMap_)
+	for (auto& characters : characterMap_)
 	{
-		character.second->Draw();
+		for (auto& character : characters.second)
+		{
+			character->Draw();
+		}
 	}
 }
 
-void CharacterManager::AddCharacter(const TYPE type, const std::unique_ptr<CharacterBase> character)
+void CharacterManager::Sweep()
 {
-	characterMap_.emplace(type, std::move(character));
+	// マップ全体をイテレート
+	for (auto map = characterMap_.begin(); map != characterMap_.end();)
+	{
+		// キャラクターリストを取得
+		auto& characters = map->second;
+
+		// キャラクターの並び替え
+		auto it = std::remove_if(
+			characters.begin(),
+			characters.end(),
+			[](const std::unique_ptr<CharacterBase>& character)
+			{
+				// 削除判定
+				return character->IsDelete();
+			}
+		);
+
+		// 範囲内のキャラで削除予定ならマップから削除
+		characters.erase(it, characters.end());
+
+		// キャラクターリストが空の場合
+		if (characters.empty())
+		{
+			// マップからも削除
+			map = characterMap_.erase(map);
+		}
+		// 空でない場合
+		else
+		{
+			// 次の要素に進む
+			++map;
+		}
+	}
+}
+
+void CharacterManager::AddCharacter(const TYPE type, std::unique_ptr<CharacterBase> character)
+{
+	// 指定されたTYPEのキーがマップに存在するか検索
+	auto it = characterMap_.find(type);
+	if (it != characterMap_.end())
+	{
+		// 存在する場合はそのまま追加
+		it->second.push_back(std::move(character));
+	}
+	else
+	{
+		// 存在しない場合は新たにキーを作成して追加
+		std::vector<std::unique_ptr<CharacterBase>> characters;
+		characters.push_back(std::move(character));
+		characterMap_.emplace(type, std::move(characters));
+		return;
+	}
 }
 
 CharacterManager::CharacterManager()
+{
+}
+
+CharacterManager::~CharacterManager()
 {
 }

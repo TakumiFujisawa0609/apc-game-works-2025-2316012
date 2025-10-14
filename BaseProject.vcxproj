@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitGhost.cpp" />
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyAppearance.cpp" />
     <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitReport.cpp" />
     <ClCompile Include="Src\Core\Common\ControllerTextAnimation.cpp" />
@@ -109,6 +110,7 @@
     <ClCompile Include="Src\Core\Common\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitGhost.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyAppearance.h" />
     <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitReport.h" />
     <ClInclude Include="ReportStateMiss.h" />

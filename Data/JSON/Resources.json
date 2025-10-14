@@ -234,6 +234,18 @@
       "sceneId": 1,
       "type": "pixelShader",
       "path": "Data/Shader/Glitch.cso"
+    },
+    {
+      "key": "ghost",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Ghost/Ghost.mv1"
+    },
+    {
+      "key": "ghostAnimationIdle",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Ghost/Idle.mv1"
     }
   ]
 }

@@ -1,8 +1,6 @@
 {
   "Appearance": [
     {
-      "collisionTag": "ghost",
-      "colliderType": "capsule",
       "initPos": {
         "x": -2.67084861,
         "y": 3.166,
@@ -15,8 +13,6 @@
       }
     },
     {
-      "collisionTag": "ghost",
-      "colliderType": "capsule",
       "initPos": {
         "x": -6.964,
         "y": 1.239,
@@ -29,8 +25,6 @@
       }
     },
     {
-      "collisionTag": "ghost",
-      "colliderType": "capsule",
       "initPos": {
         "x": 3.38467455,
         "y": 0.2351669,
@@ -43,8 +37,6 @@
       }
     },
     {
-      "collisionTag": "ghost",
-      "colliderType": "capsule",
       "initPos": {
         "x": 5.60579729,
         "y": 0.00500059128,
@@ -69,8 +61,6 @@
       }
     },
     {
-      "collisionTag": "ghost",
-      "colliderType": "capsule",
       "initPos": {
         "x": -0.65,
         "y": 0.00500011444,
@@ -83,8 +73,6 @@
       }
     },
     {
-      "collisionTag": "ghost",
-      "colliderType": "capsule",
       "initPos": {
         "x": -8.650277,
         "y": 0.507686734,
@@ -97,8 +85,6 @@
       }
     },
     {
-      "collisionTag": "ghost",
-      "colliderType": "capsule",
       "initPos": {
         "x": -15.4748554,
         "y": 0.988863647,
@@ -111,8 +97,6 @@
       }
     },
     {
-      "collisionTag": "ghost",
-      "colliderType": "capsule",
       "initPos": {
         "x": 12.1875725,
         "y": 0.00500011444,
@@ -125,8 +109,6 @@
       }
     },
     {
-      "collisionTag": "ghost",
-      "colliderType": "capsule",
       "initPos": {
         "x": 10.322,
         "y": 0.749,
@@ -139,8 +121,6 @@
       }
     },
     {
-      "collisionTag": "ghost",
-      "colliderType": "capsule",
       "initPos": {
         "x": 2.83496141,
         "y": 0.4,
