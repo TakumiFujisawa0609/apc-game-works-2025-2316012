@@ -20,11 +20,6 @@ public:
 	virtual ~ControllerActionBase() override;
 
 	/// <summary>
-	/// “Ç‚İ‚İˆ—
-	/// </summary>
-	virtual void Load() = 0;
-
-	/// <summary>
 	/// ‰Šú‰»ˆ—
 	/// </summary>
 	virtual void Init() = 0;

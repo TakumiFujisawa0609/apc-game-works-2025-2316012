@@ -167,6 +167,14 @@ VECTOR Utility3D::VNormalize(const VECTOR& v)
     return VNorm(v);
 }
 
+float Utility3D::Length(const VECTOR& v1, const VECTOR& v2)
+{
+	float v2x = v2.x - v1.x;
+	float v2y = v2.y - v1.y;
+	float v2z = v2.z - v1.z;
+	return sqrtf((v2x * v2x) + (v2y * v2y) + (v2z * v2z));
+}
+
 double Utility3D::AngleDeg(const VECTOR& from, const VECTOR& to)
 {
     // sqrt(a) * sqrt(b) = sqrt(a * b) -- valid for real numbers

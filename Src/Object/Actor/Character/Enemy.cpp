@@ -10,22 +10,22 @@
 #include "../../Controller/ControllerMove.h"
 #include "../../Controller/ControllerRotate.h"
 #include "../../Controller/ControllerGravity.h"
-#include "../../Controller/Action/ControllerActionPlayer.h"
+#include "../../Controller/ControllerPathFinder.h"
+#include "../../Controller/Action/ControllerActionEnemy.h"
 #include "../../Controller/OnHit/ControllerOnHitBase.h"
 #include "Enemy.h"
 
 const std::string Enemy::ANIM_ACTION = "action";		// 攻撃
 
 Enemy::Enemy(const Json& param) :
-	CharacterBase(param)
+	CharacterBase(param),
+	FIRST_POS_INDEX(param["firstPosIndex"])
 {
 	state_ = STATE::NONE;
 
 	// 状態更新関数の登録
 	RegisterStateUpdateFunc(STATE::NONE, std::bind(&Enemy::UpdateNone, this));
-	RegisterStateUpdateFunc(STATE::SEARCH, std::bind(&Enemy::UpdateSearch, this));
-	RegisterStateUpdateFunc(STATE::CHASE, std::bind(&Enemy::UpdateChase, this));
-	RegisterStateUpdateFunc(STATE::ACTION, std::bind(&Enemy::UpdateAction, this));
+	RegisterStateUpdateFunc(STATE::ALIVE, std::bind(&Enemy::UpdateAlive, this));
 }
 
 Enemy::~Enemy()
@@ -51,7 +51,15 @@ void Enemy::Load()
 		movePosList_.emplace_back(pos);
 	}
 
+	// 判定後処理の生成
 	onHit_ = std::make_unique<ControllerOnHitBase>();
+
+	// 経路探索処理の生成
+	pathFinder_ = std::make_unique<ControllerPathFinder>();
+	pathFinder_->SetPoints(movePosList_);	
+	
+	// アクション処理の設定
+	action_ = std::make_unique<ControllerActionEnemy>(*this);
 }
 
 void Enemy::Init()
@@ -60,7 +68,12 @@ void Enemy::Init()
 	CharacterBase::Init();
 
 	// 初期状態
-	state_ = STATE::SEARCH;
+	state_ = STATE::ALIVE;
+}
+
+void Enemy::SetActionChase()
+{
+	//action_->ChangeState(ContollerAction)
 }
 
 void Enemy::UpdateBody()
@@ -94,16 +107,19 @@ void Enemy::RegisterStateUpdateFunc(const STATE state, std::function<void()> upd
 	stateUpdateFuncMap_[state] = update;	
 }
 
-void Enemy::UpdateSearch()
+void Enemy::UpdateAlive()
 {
-}
+	// アクション
+	action_->Update();
 
-void Enemy::UpdateChase()
-{
-}
+	// 重力
+	gravity_->Update();
 
-void Enemy::UpdateAction()
-{
+	// 回転
+	rotate_->Update();
+
+	// 移動
+	move_->Update();
 }
 
 void Enemy::DebugDraw()

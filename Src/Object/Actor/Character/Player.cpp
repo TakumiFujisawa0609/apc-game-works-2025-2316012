@@ -48,7 +48,6 @@ void Player::Load()
 
 	// アクション制御クラスの生成
 	action_ = std::make_unique<ControllerActionPlayer>(*this);
-	action_->Load();
 
 	// 衝突後の処理クラス
 	onHit_ = std::make_unique<ControllerOnHitPlayer>(*this);

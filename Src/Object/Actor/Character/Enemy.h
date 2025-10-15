@@ -1,6 +1,8 @@
 #pragma once
 #include "CharacterBase.h"
 
+class ControllerPathFinder;
+
 class Enemy : public CharacterBase
 {
 public:
@@ -11,9 +13,7 @@ public:
 	enum class STATE
 	{
 		NONE,
-		SEARCH,	// 探す
-		CHASE,	// 追う
-		ACTION,	// 攻撃
+		ALIVE,	// 生存
 	};
 
 	//アニメ種別キー
@@ -40,13 +40,42 @@ public:
 	/// </summary>
 	void Init() override;
 
+	/// <summary>
+	/// 追跡の設定
+	/// </summary>
+	void SetActionChase();
+
+	/// <summary>
+	/// 経路探索処理の参照を返す
+	/// </summary>
+	/// <returns>経路探索処理</returns>
+	ControllerPathFinder& GetPathFinder() { return *pathFinder_; }
+
+	/// <summary>
+	/// 移動位置リストの参照を返す
+	/// </summary>
+	/// <returns>移動位置リスト</returns>
+	std::vector<VECTOR>& GetMovePosList() { return movePosList_; }
+
+	/// <summary>
+	/// 初期位置用のインデックスを返す
+	/// </summary>
+	/// <returns>初期位置用のインデックス</returns>
+	const int GetFirstPosIndex() { return FIRST_POS_INDEX; }
+
 private:
+
+	// 初期位置用のインデックス
+	const int FIRST_POS_INDEX;
 
 	// 状態
 	STATE state_;
 
 	// 移動位置リスト
 	std::vector<VECTOR> movePosList_;
+
+	// 経路探索処理
+	std::unique_ptr<ControllerPathFinder> pathFinder_;
 
 	// 状態別の更新関数マップ
 	std::unordered_map<STATE, std::function<void()>> stateUpdateFuncMap_;
@@ -65,11 +94,8 @@ private:
 
 	// 状態別更新処理	
 	void UpdateNone() {};	// 何もしない
-	void UpdateSearch();	// 詮索状態の更新
-	void UpdateChase();		// 追跡状態の更新
-	void UpdateAction();	// 攻撃状態の更新
+	void UpdateAlive();		// 生存
 
 	// デバッグ描画
 	void DebugDraw() override;
 };
-

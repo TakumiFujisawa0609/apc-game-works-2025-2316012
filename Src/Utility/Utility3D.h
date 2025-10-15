@@ -56,6 +56,9 @@ public:
 	static VECTOR Normalize(const Vector2& v);
 	static VECTOR VNormalize(const VECTOR& v);
 
+	// VECTOR間の距離を計算する関数
+	static float Length(const VECTOR& v1, const VECTOR& v2);
+
 	// 2つのベクトルの間の角度
 	static double AngleDeg(const VECTOR& from, const VECTOR& to);
 
@@ -90,5 +93,4 @@ public:
 	/// <param name="lineEndPos">ラインの末尾座標</param>
 	/// <returns>判定結果</returns>
 	static bool CheckHitBox_Line(const ColliderBox::OBB& obb, const VECTOR& boxPos, const VECTOR& lineTopPos, const VECTOR& lineEndPos);
-
 };

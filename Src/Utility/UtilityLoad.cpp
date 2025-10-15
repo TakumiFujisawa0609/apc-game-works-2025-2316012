@@ -78,12 +78,12 @@ const std::vector<Json> UtilityLoad::GetJsonArrayData(const std::string& fileNam
         // ƒŠƒXƒg‡‚Éƒf[ƒ^‚ğŠi”[
         for (auto& [key, value] : jsonData.items())
         {
-            int size = key.size();
+          /*  int size = key.size();
             if (size < 1 || size > 1)
             {
                 throw std::runtime_error("Json“à•”‚ÌŒ^‚ªŠÖ”‚ÌŒ^‚É‡‚¢‚Ü‚¹‚ñ");
                 return dataArray;
-            }
+            }*/
 
             for (auto& obj : value)
             {

@@ -10,7 +10,7 @@ public:
 	/// コンストラクタ
 	/// </summary>
 	/// <param name="goalTime">初期目標時間</param>
-	Timer(const float goalTime);
+	Timer(const float goalTime = 0.0f);
 
 	/// <summary>
 	/// デストラクタ

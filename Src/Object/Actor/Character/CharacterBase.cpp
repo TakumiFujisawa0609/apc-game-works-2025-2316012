@@ -67,6 +67,9 @@ void CharacterBase::Init()
 	// トランスフォームの初期設定
 	InitTransform();
 
+	// アクションクラスの初期化
+	action_->Init();
+
 	// 移動制御クラスの初期化
 	move_->Init();
 

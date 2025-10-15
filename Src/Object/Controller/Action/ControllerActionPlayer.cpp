@@ -26,10 +26,6 @@ ControllerActionPlayer::~ControllerActionPlayer()
 {
 }
 
-void ControllerActionPlayer::Load()
-{
-}
-
 void ControllerActionPlayer::Init()
 {
 	// Šeí•Ï”‚Ì‰Šú‰»
