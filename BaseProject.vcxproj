@@ -123,7 +123,6 @@
     <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitGhost.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyAppearance.h" />
     <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitReport.h" />
-    <ClInclude Include="ReportStateMiss.h" />
     <ClInclude Include="Src\Core\Common\ControllerTextAnimation.h" />
     <ClInclude Include="Src\Core\Common\CircleGauge.h" />
     <ClInclude Include="Src\Manager\Generic\Input.h" />

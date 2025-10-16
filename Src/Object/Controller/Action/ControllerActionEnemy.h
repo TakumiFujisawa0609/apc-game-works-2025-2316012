@@ -47,6 +47,11 @@ public:
 	void Update() override;
 
 	/// <summary>
+	/// デバッグ描画
+	/// </summary>
+	void DebugDraw() override;
+
+	/// <summary>
 	/// 状態遷移
 	/// </summary>
 	/// <param name="state">状態</param>
@@ -66,6 +71,12 @@ private:
 	// 待機ランダムダイス
 	static constexpr int IDLE_RAND = 10;
 
+	// ターゲットが近くにいる場合
+	static constexpr float VIEW_RANGE = 300.0f;
+
+	// 視野角
+	static constexpr float VIEW_ANGLE = 30.0f;
+
 	// 待機時間
 	static constexpr int IDLE_TIME_MIN = 2;	// 最小
 	static constexpr int IDLE_TIME_MAX = 5;	// 最大
@@ -73,6 +84,9 @@ private:
 
 	// 所有者の参照インスタンス
 	Enemy& owner_;
+
+	// ターゲット相手のトランスフォーム
+	const Transform& targetTransform_;
 
 	// アニメーション
 	ControllerAnimation& animation_;
@@ -124,6 +138,9 @@ private:
 
 	// 新しい目的地の設定
 	void NewTargetPoint();
+
+	// 敵の探索
+	void SearchTarget();
 
 	// ランダムで目的地のインデックスを返す
 	int GetRandGoalIndex();

@@ -13,9 +13,9 @@
     "collisionTag": "player",
     "colliderType": "capsule",
     "initPos": {
-      "x": 0,
+      "x": 978,
       "y": 0,
-      "z": 0
+      "z": 128
     },
     "initRot": {
       "x": 0,
@@ -40,7 +40,7 @@
   },
   "enemy": {
     "moveSpeed": 0.5,
-    "dashSpeed": 10,
+    "dashSpeed": 1.2tek,
     "gravity": 25,
     "timeRot": 1,
     "animationDefaultSpeed": 20,

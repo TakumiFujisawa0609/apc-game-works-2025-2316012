@@ -141,6 +141,10 @@ void Enemy::DebugDraw()
 	// Ž©g‚©‚ç100ˆÈ“à‚ÌƒXƒtƒBƒA‚ð•`‰æ
 	DrawSphere3D(transform_.pos, ControllerActionEnemy::ADJACENT_NODE_DIST, 8, UtilityCommon::YELLOW, UtilityCommon::YELLOW, false);
 
+	// ˆÊ’uî•ñ‚Ì•\Ž¦
 	VECTOR pos = transform_.pos;
 	DrawFormatString(0, 220, UtilityCommon::WHITE, L"“G‚ÌˆÊ’u :%2f,%2f, %2f", pos.x, pos.y, pos.z);
+
+	// Ž‹–ìŠp‚Ì•`‰æ
+	action_->DebugDraw();
 }

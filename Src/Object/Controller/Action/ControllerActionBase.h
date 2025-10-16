@@ -28,6 +28,11 @@ public:
 	/// 更新処理
 	/// </summary>
 	virtual void Update() override = 0;
+
+	/// <summary>
+	/// デバッグ表示
+	/// </summary>
+	virtual void DebugDraw() {};
 	
 protected:
 	

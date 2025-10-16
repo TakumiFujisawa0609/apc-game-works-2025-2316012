@@ -154,7 +154,7 @@ void SceneManager::CreateScene(std::shared_ptr<SceneBase> scene)
 	}
 
 	// 非同期処理を開始する
-	SetUseASyncLoadFlag(true);
+	//SetUseASyncLoadFlag(true);
 
 	//データのロード
 	scenes_.front()->Load();
