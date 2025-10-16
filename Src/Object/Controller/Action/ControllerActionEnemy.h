@@ -23,6 +23,9 @@ public:
 		ACTION,			// 攻撃
 	};
 
+	// 隣接ノードの距離
+	static constexpr float ADJACENT_NODE_DIST = 300.0f;
+
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
@@ -58,11 +61,8 @@ private:
 	// ダッシュ速度
 	const float DASH_SPEED;
 
-	// 総ポイント数
-	//const int TOTAL_POINT_NUM;	
-	
-	// 隣接ノードの距離
-	static constexpr float ADJACENT_NODE_DIST = 150.0f;
+	// 目的地到達距離
+	static constexpr float GOAL_REACH_DIST = 5.0f;
 
 	// 待機ランダムダイス
 	static constexpr int IDLE_RAND = 10;
@@ -87,7 +87,8 @@ private:
 	// ポイント配列
 	std::vector<int> points_;
 
-	int totalPointList_;
+	// 総ポイント数
+	int totalPoints_;
 
 	// 最終的な目的地のインデックス
 	int goalIndex_;

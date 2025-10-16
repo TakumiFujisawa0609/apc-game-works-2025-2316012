@@ -6,12 +6,9 @@
 #include "ControllerRotate.h"
 
 ControllerRotate::ControllerRotate(CharacterBase& owner) : 
-	owner_(owner),
-	TIME_ROT(owner_.GetTimeRot())
+	owner_(owner)
 {
-	stepRotTime_ = 0.0f;
-	goalQuaRot_ = Quaternion();
-	myRotY_ = Quaternion();
+	ownerQuaRot_ = Quaternion();
 }
 
 ControllerRotate::~ControllerRotate()
@@ -21,60 +18,14 @@ ControllerRotate::~ControllerRotate()
 void ControllerRotate::Init()
 {
 	//初期化
-	stepRotTime_ = 0.0f;
-	goalQuaRot_ = Quaternion();
-	myRotY_ = Quaternion();
+	ownerQuaRot_ = owner_.GetTransform().quaRot;
 }
 
 void ControllerRotate::Update()
 {
-	//目標回転角度の設定
-	SetGoalRotate();
-
-	//回転処理
-	Rotate();
-
-	//適用
-	Apply();
-}
-
-void ControllerRotate::SetGoalRotate()
-{
-	double rotDeg = owner_.GetRotDeg();
-
-	//回転角度が設定されてないとき
-	if (rotDeg < 0.0f)
-	{
-		return;
-	}
-
-	//ラジアン変換
-	double rotRad = UtilityCommon::Deg2RadD(rotDeg);
-
-	VECTOR cameraRot = mainCamera.GetAngles();
-	Quaternion axis = Quaternion::AngleAxis((double)cameraRot.y + rotRad, Utility3D::AXIS_Y);
-
-	// 現在設定されている回転との角度差を取る
-	double angleDiff = Quaternion::Angle(axis, goalQuaRot_);
-
-	// しきい値
-	if (angleDiff > 0.1)
-	{
-		stepRotTime_ = TIME_ROT;
-	}
-
-	goalQuaRot_ = axis;
-}
-
-void ControllerRotate::Rotate()
-{
-	stepRotTime_ -= scnMng_.GetDeltaTime();
-
 	// 回転の球面補間
-	myRotY_ = Quaternion::Slerp(myRotY_, goalQuaRot_, (TIME_ROT - stepRotTime_) / TIME_ROT);
-}
+	ownerQuaRot_ = Quaternion::Slerp(ownerQuaRot_, owner_.GetGoalQuaRot(), owner_.GetStepRotTime());
 
-void ControllerRotate::Apply()
-{
-	owner_.SetRot(myRotY_);
+	// 回転の適用
+	owner_.SetQuaRot(ownerQuaRot_);
 }

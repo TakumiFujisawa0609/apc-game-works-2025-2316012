@@ -15,6 +15,7 @@
 #include "../Object/Collider/ColliderFactory.h"
 #include "../Object/Actor/Stage/TestModel.h"
 #include "../Core/Game/Report/ReportSystem.h"
+#include "../Tool/CreatePositionList.h"
 #include "State/Game/GameStateBase.h"
 #include "State/Game/GameStatePlay.h"
 #include "State/Game/GameStateReporting.h"
@@ -81,8 +82,14 @@ void SceneGame::Load(void)
 	auto repo = std::make_unique<GameStateReporting>(*this);
 	stateMap_.emplace(STATE::PLAY, std::move(repo));
 
+#ifdef _DEBUG	
+	// テスト用モデル
 	test_ = std::make_unique<TestModel>();
 	test_->Load();
+
+	// テスト用の座標リスト作成クラス
+	createPositionList_ = std::make_unique<CreatePositionList>("EnemyPosList", CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform());
+#endif 
 }
 
 void SceneGame::Init(void)
@@ -105,7 +112,9 @@ void SceneGame::Init(void)
 		state.second->Init();
 	}
 
+#ifdef _DEBUG	
 	test_->Init();
+#endif 
 
 	// カメラ設定
 	mainCamera.SetFollow(&CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform());
@@ -189,11 +198,14 @@ void SceneGame::DebugUpdate(void)
 	}
 
 	test_->Update();
+
+	createPositionList_->Update();
 }
 
 void SceneGame::DebugDraw(void)
 {
 	test_->Draw();
+	createPositionList_->Draw();
 
 	CollisionManager::GetInstance().DebugDraw();
 	

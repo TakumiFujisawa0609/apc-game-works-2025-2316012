@@ -44,6 +44,9 @@ private:
 	// レポート入力時間
 	const float REPORT_INPUT_TIME;
 
+	// 回転時間
+	const float TIME_ROT;
+
 	// 所有者のインスタンスを参照
 	Player& player_;
 
@@ -67,6 +70,9 @@ private:
 
 	// 着地判定
 	bool IsEndLanding() const;
+
+	// 目的回転角度の設定
+	void SetGoalRotate(const double rotRad);
 
 	// ラインの判定を生成
 	void CreateLineCollider();

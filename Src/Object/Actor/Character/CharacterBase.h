@@ -78,16 +78,22 @@ public:
 	const float GetMoveSpeed() const { return moveSpeed_; }	
 	
 	/// <summary>
+	/// 回転用時間を返す
+	/// </summary>
+	/// <returns>回転用時間</returns>
+	const float GetStepRotTime() const { return rotStep_; }
+
+	/// <summary>
 	/// コライダーカプセルの半径を返す
 	/// </summary>
-	/// <returns></returns>
+	/// <returns>カプセルの半径</returns>
 	const float GetCapsuleRadius() const;
 
 	/// <summary>
-	/// 回転角度を返す
+	/// 目標回転角度を返す
 	/// </summary>
-	/// <returns>角度Y</returns>
-	const double GetRotDeg() const { return rotDeg_; }
+	/// <returns>目標回転角度</returns>
+	const Quaternion GetGoalQuaRot() const { return goalRot_; }
 
 	/// <summary>
 	/// 現在の移動方向を返す
@@ -135,19 +141,25 @@ public:
 	/// 回転の設定
 	/// </summary>
 	/// <param name="rot">角度</param>
-	void SetRot(const Quaternion& rot) { transform_.quaRot = rot; }
+	void SetQuaRot(const Quaternion& rot) { transform_.quaRot = rot; }
 
 	/// <summary>
-	/// 回転角度の設定
+	/// 目標回転角度の設定
 	/// </summary>
-	/// <param name="rotDeg">回転角度</param>
-	void SetRotDeg(const double rotDeg) { rotDeg_ = rotDeg; }
+	/// <param name="goalRot">目標回転角度</param>
+	void SetGoalQuaRot(const Quaternion& goalRot) { goalRot_ = goalRot; }
 
 	/// <summary>
 	/// 移動速度の設定
 	/// </summary>
 	/// <param name="moveSpeed">移動速度</param>
 	void SetMoveSpeed(const float moveSpeed) { moveSpeed_ = moveSpeed; }
+
+	/// <summary>
+	/// 回転用時間を返す
+	/// </summary>
+	/// <param name="stepRotTime">回転用時間</param>
+	void SetStepRotTime(const float stepRotTime) { rotStep_ = stepRotTime; }
 
 	/// <summary>
 	/// 移動方向の設定
@@ -184,11 +196,11 @@ protected:
 	// デフォルトのアニメーション速度
 	const float ANIM_DEFAULT_SPEED;
 
-	// 回転角度(DEG)
-	double rotDeg_;
-
 	// 移動速度
 	float moveSpeed_;
+
+	// 回転用ステップ
+	float rotStep_;
 
 	// 移動方向
 	VECTOR moveDir_;
@@ -198,6 +210,9 @@ protected:
 
 	// 移動前の座標
 	VECTOR prePos_;
+
+	// 目標回転角度
+	Quaternion goalRot_;
 
 	// アニメーション制御クラス
 	std::unique_ptr<ControllerAnimation> animation_;

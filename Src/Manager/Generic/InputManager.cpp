@@ -35,6 +35,7 @@ void InputManager::Init()
 	// デバッグ操作
 	RegisterTrigger(TYPE::DEBUG_SCENE_CHANGE, KEY_INPUT_RSHIFT);
 	RegisterTrigger(TYPE::DEBUG_CAMERA_CHANGE, KEY_INPUT_TAB);
+	RegisterTrigger(TYPE::CREATE_POSITION, KEY_INPUT_C);
 }
 
 void InputManager::Update()
