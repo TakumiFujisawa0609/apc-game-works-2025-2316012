@@ -17,7 +17,8 @@ ControllerActionPlayer::ControllerActionPlayer(Player& player) :
 	player_(player),
 	input_(InputManager::GetInstance()),
 	collMng_(CollisionManager::GetInstance()),
-	REPORT_INPUT_TIME(player.GetReportTime())
+	REPORT_INPUT_TIME(player.GetReportTime()),
+	TIME_ROT(player.GetTimeRot())
 {
 	isEndLanding_ = false;
 }
@@ -98,6 +99,9 @@ void ControllerActionPlayer::ProcessMove()
 	// ÉWÉÉÉìÉvíÜÇ∂Ç·Ç»Ç¢Ç©Ç¬ëÄçÏì¸óÕÇ™Ç≥ÇÍÇΩÇ∆Ç´
 	if (!Utility3D::EqualsVZero(dir) && (isJump || isEndLanding_))
 	{
+		// âÒì]èàóù
+		SetGoalRotate(UtilityCommon::Deg2RadD(rotDeg));
+
 		// É_ÉbÉVÉÖ
 		bool isDash = input_.IsNew(InputManager::TYPE::PLAYER_DASH);
 
@@ -136,9 +140,6 @@ void ControllerActionPlayer::ProcessMove()
 
 	// à⁄ìÆó ÇÃê›íË
 	player_.SetMoveSpeed(speed);
-
-	// âÒì]äpìxÇÃê›íË
-	player_.SetRotDeg(rotDeg);
 }
 
 void ControllerActionPlayer::ProcessJump()
@@ -246,6 +247,33 @@ bool ControllerActionPlayer::IsEndLanding() const
 	}
 
 	return false;
+}
+
+void ControllerActionPlayer::SetGoalRotate(const double rotRad)
+{
+	// âÒì]éûä‘ÇÃê›íË
+	float stepRotTime = player_.GetStepRotTime() + scnMng_.GetDeltaTime();
+
+	// ñ⁄ïWâÒì]äpìx
+	Quaternion goalQuaRot = player_.GetGoalQuaRot();
+
+	VECTOR cameraRot = mainCamera.GetAngles();
+	Quaternion axis = Quaternion::AngleAxis((double)cameraRot.y + rotRad, Utility3D::AXIS_Y);
+
+	// åªç›ê›íËÇ≥ÇÍÇƒÇ¢ÇÈâÒì]Ç∆ÇÃäpìxç∑ÇéÊÇÈ
+	double angleDiff = Quaternion::Angle(axis, goalQuaRot);
+
+	// ÇµÇ´Ç¢íl
+	if (angleDiff > 0.1)
+	{
+		stepRotTime = TIME_ROT;
+	}
+
+	goalQuaRot = axis;
+
+	// ê›íË
+	player_.SetStepRotTime((TIME_ROT - stepRotTime) / TIME_ROT);
+	player_.SetGoalQuaRot(goalQuaRot);
 }
 
 void ControllerActionPlayer::CreateLineCollider()

@@ -23,6 +23,7 @@ Enemy::Enemy(const Json& param) :
 {
 	state_ = STATE::NONE;
 
+
 	// 状態更新関数の登録
 	RegisterStateUpdateFunc(STATE::NONE, std::bind(&Enemy::UpdateNone, this));
 	RegisterStateUpdateFunc(STATE::ALIVE, std::bind(&Enemy::UpdateAlive, this));
@@ -46,8 +47,7 @@ void Enemy::Load()
 	//　格納
 	for (auto& it : posList)
 	{
-		VECTOR pos = { it["pos"]["x"], it["pos"]["y"], it["pos"]["z"] };
-		pos = VScale(pos, 100.0f);
+		VECTOR pos = { it["x"], it["y"], it["z"] };
 		movePosList_.emplace_back(pos);
 	}
 
@@ -68,7 +68,10 @@ void Enemy::Init()
 	CharacterBase::Init();
 
 	// 初期状態
-	state_ = STATE::ALIVE;
+	state_ = STATE::ALIVE;	
+	
+	// 敵の回転速度
+	rotStep_ = 0.1f;
 }
 
 void Enemy::SetActionChase()
@@ -88,7 +91,9 @@ void Enemy::InitAnimation()
 	animation_->Add(ANIM_WALK, resMng_.GetHandle("enemyAnimationWalking"), ANIM_DEFAULT_SPEED);
 	animation_->Add(ANIM_RUN, resMng_.GetHandle("enemyAnimationFastRun"), ANIM_DEFAULT_SPEED);
 	animation_->Add(ANIM_ACTION, resMng_.GetHandle("enemyAnimationAction"), ANIM_DEFAULT_SPEED);
-	animation_->Play(ANIM_IDLE, true);
+
+	// 初期アニメーションの再生
+	animation_->Play(ANIM_IDLE);
 }
 
 void Enemy::InitTransform()
@@ -126,4 +131,16 @@ void Enemy::DebugDraw()
 {
 	// 基底クラスのデバッグ描画
 	CharacterBase::DebugDraw();
+
+	// 目的地をスフィアで描画
+	for (auto& it : movePosList_)
+	{
+		DrawSphere3D(it, 10.0f, 16, UtilityCommon::CYAN, UtilityCommon::CYAN, false);
+	}
+
+	// 自身から100以内のスフィアを描画
+	DrawSphere3D(transform_.pos, ControllerActionEnemy::ADJACENT_NODE_DIST, 8, UtilityCommon::YELLOW, UtilityCommon::YELLOW, false);
+
+	VECTOR pos = transform_.pos;
+	DrawFormatString(0, 220, UtilityCommon::WHITE, L"敵の位置 :%2f,%2f, %2f", pos.x, pos.y, pos.z);
 }

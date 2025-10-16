@@ -5,6 +5,7 @@
 class ScenePause;
 class GameStateBase;
 class TestModel;
+class CreatePositionList;
 
 class SceneGame : public SceneBase
 {
@@ -60,6 +61,9 @@ private:
 
 	// テスト
 	std::unique_ptr<TestModel> test_;
+
+	// ポジションリスト作成
+	std::unique_ptr<CreatePositionList> createPositionList_;
 
 	// 更新関数
 	void NormalUpdate() override;

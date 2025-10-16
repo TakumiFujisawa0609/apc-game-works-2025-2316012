@@ -27,7 +27,7 @@ CharacterBase::CharacterBase(const Json& param) :
 	TIME_ROT(param["timeRot"]),
 	ANIM_DEFAULT_SPEED(param["animationDefaultSpeed"])
 {
-	rotDeg_ = 0.0f;	
+	rotStep_ = 0.0f;	
 	moveSpeed_ = 0.0f;
 	prePos_ = Utility3D::VECTOR_ZERO;
 	moveDir_ = Utility3D::VECTOR_ZERO;
@@ -38,6 +38,7 @@ CharacterBase::CharacterBase(const Json& param) :
 	rotate_ = nullptr;
 	gravity_ = nullptr;
 	onHit_ = nullptr;
+	goalRot_ = Quaternion();
 	collider_ = collFtr_.Create(*this, param);
 }
 

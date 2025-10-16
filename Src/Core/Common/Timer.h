@@ -18,15 +18,26 @@ public:
 	~Timer();
 
 	/// <summary>
-	/// 初期化
+	/// カウントダウン初期化
 	/// </summary>
-	void Init();
+	void InitCountDown();
+
+	/// <summary>
+	/// カウントアップ初期化
+	/// </summary>
+	void InitCountUp();
 
 	/// <summary>
 	/// カウントダウン
 	/// </summary>
-	/// <returns></returns>
+	/// <returns>trueの場合0,falseの場合まだ残り時間あり</returns>
 	bool CountDown();
+
+	/// <summary>
+	/// カウントアップ
+	/// </summary>
+	/// <returns>trueの場合設定時間経過,falseの場合まだ達していない</returns>
+	bool CountUp();
 
 	/// <summary>
 	/// 目標時間の設定

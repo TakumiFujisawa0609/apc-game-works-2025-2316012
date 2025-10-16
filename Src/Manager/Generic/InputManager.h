@@ -40,6 +40,8 @@ public:
 
 		DEBUG_SCENE_CHANGE, // デバッグシーン遷移
 		DEBUG_CAMERA_CHANGE,// デバッグカメラビュー変更
+		CREATE_POSITION,	// 位置リストの生成
+		OPEN_FILE,
 	};
 
 	/// <summary>

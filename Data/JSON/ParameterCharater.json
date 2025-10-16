@@ -39,7 +39,7 @@
     }
   },
   "enemy": {
-    "moveSpeed": 5,
+    "moveSpeed": 0.5,
     "dashSpeed": 10,
     "gravity": 25,
     "timeRot": 1,
