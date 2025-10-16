@@ -91,7 +91,9 @@ void Enemy::InitAnimation()
 	animation_->Add(ANIM_WALK, resMng_.GetHandle("enemyAnimationWalking"), ANIM_DEFAULT_SPEED);
 	animation_->Add(ANIM_RUN, resMng_.GetHandle("enemyAnimationFastRun"), ANIM_DEFAULT_SPEED);
 	animation_->Add(ANIM_ACTION, resMng_.GetHandle("enemyAnimationAction"), ANIM_DEFAULT_SPEED);
-	animation_->Play(ANIM_IDLE, true);
+
+	// 初期アニメーションの再生
+	animation_->Play(ANIM_IDLE);
 }
 
 void Enemy::InitTransform()

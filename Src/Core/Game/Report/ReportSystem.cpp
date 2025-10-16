@@ -68,7 +68,7 @@ void ReportSystem::Init()
 	state_ = STATE::WAIT;
 
 	// タイマーの初期化
-	timer_->Init();
+	timer_->InitCountUp();
 
 	// ゲージの初期設定
 	gauge_.pos = { Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y }; //中心に描画
@@ -116,9 +116,6 @@ void ReportSystem::UpdateWait()
 		// 状態をミスに遷移（もし衝突された場合REPORTINGに遷移）
 		state_ = STATE::MISS;
 
-		// タイマー初期化
-		timer_->Init();
-
 		// テキストの表示時間を設定
 		timer_->SetGoalTime(TEXT_DISPLAY_TIME);
 
@@ -134,9 +131,6 @@ void ReportSystem::UpdateReporting()
 	{
 		// 状態変更
 		state_ = STATE::COMPLETE;
-
-		// タイマー初期化
-		timer_->Init();
 
 		// テキストの表示時間を設定
 		timer_->SetGoalTime(TEXT_DISPLAY_TIME);
@@ -172,7 +166,7 @@ void ReportSystem::UpdateMiss()
 	if (textAnimation_->IsEnd())
 	{
 		// まだ数秒表示させるためタイマーの更新
-		if (timer_->CountDown())
+		if (timer_->CountUp())
 		{
 			// 状態変更
 			state_ = STATE::WAIT;
@@ -194,7 +188,7 @@ void ReportSystem::UpdtateComplete()
 	if(textAnimation_->IsEnd())
 	{
 		// まだ数秒表示させるためタイマーの更新
-		if (timer_->CountDown())
+		if (timer_->CountUp())
 		{
 			// 状態変更
 			state_ = STATE::WAIT;

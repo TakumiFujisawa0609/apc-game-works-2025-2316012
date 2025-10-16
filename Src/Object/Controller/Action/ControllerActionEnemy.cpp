@@ -16,11 +16,10 @@ ControllerActionEnemy::ControllerActionEnemy(Enemy& owner) :
 	DASH_SPEED(owner.GetSpeedRun())
 {
 	// 状態更新関数登録
-	RegisterUpdateFunction(STATE::MOVE, std::bind(&ControllerActionEnemy::UpdateMove, this));
-	RegisterUpdateFunction(STATE::POINT_NEW, std::bind(&ControllerActionEnemy::UpdatePointNew, this));
-	RegisterUpdateFunction(STATE::IDLE, std::bind(&ControllerActionEnemy::UpdateIdle, this));
-	RegisterUpdateFunction(STATE::CHASE, std::bind(&ControllerActionEnemy::UpdateChase, this));
-	RegisterUpdateFunction(STATE::ACTION, std::bind(&ControllerActionEnemy::UpdateAction, this));
+	stateChangeMap_.emplace(STATE::MOVE, std::bind(&ControllerActionEnemy::ChangeStateMove, this));
+	stateChangeMap_.emplace(STATE::IDLE, std::bind(&ControllerActionEnemy::ChangeStateIdle, this));
+	stateChangeMap_.emplace(STATE::CHASE, std::bind(&ControllerActionEnemy::ChangeStateChase, this));
+	stateChangeMap_.emplace(STATE::ACTION, std::bind(&ControllerActionEnemy::ChangeStateAction, this));
 
 	// 各種変数初期化
 	totalPoints_ = 0;
@@ -34,19 +33,11 @@ ControllerActionEnemy::~ControllerActionEnemy()
 
 void ControllerActionEnemy::Init()
 {
+	// ポイント数の取得
 	totalPoints_ = static_cast<int>(movePosList_.size());
 
-	// 目的地のインデックスを取得
-	goalIndex_ = GetRandGoalIndex();
-
-	// 最初のポイントを設定
-	pathFinder_.FindPath(owner_.GetFirstPosIndex(), goalIndex_, ADJACENT_NODE_DIST, points_);	
-	
-	// 最初の目的地の座標
-	targetPos_ = movePosList_[points_[0]];
-
-	// 初期状態
-	state_ = STATE::MOVE;
+	// 初期ポイントの設定
+	NewTargetPoint();
 }
 
 void ControllerActionEnemy::Update()
@@ -54,16 +45,54 @@ void ControllerActionEnemy::Update()
 	// パラメーターの初期化
 	owner_.SetMoveSpeed(0.0f);
 	owner_.SetMoveDir(Utility3D::VECTOR_ZERO);
-	owner_.SetGoalQuaRot(Quaternion());
+	owner_.SetGoalQuaRot(owner_.GetTransform().quaRot);
 
 	// 状態別更新処理の実行
-	stateUpdateFuncMap_[state_]();
+	updateFunc_();
 }
 
-void ControllerActionEnemy::RegisterUpdateFunction(const STATE state, std::function<void()> func)
+void ControllerActionEnemy::ChangeState(const STATE state)
+{
+	// 状態遷移
+	state_ = state;
+
+	// 状態別変更処理
+	stateChangeMap_[state_]();
+}
+
+void ControllerActionEnemy::RegisterChangeStateFunction(const STATE state, std::function<void()> func)
 {
 	// マップに登録
-	stateUpdateFuncMap_[state] = func;
+	stateChangeMap_[state] = func;
+}
+
+void ControllerActionEnemy::ChangeStateMove()
+{
+	updateFunc_ = std::bind(&ControllerActionEnemy::UpdateMove, this);
+
+	// アニメーションの遷移
+	animation_.Play(Enemy::ANIM_WALK);
+}
+
+void ControllerActionEnemy::ChangeStateIdle()
+{
+	updateFunc_ = std::bind(&ControllerActionEnemy::UpdateIdle, this);
+
+	// ランダムで待機時間を設定
+	timer_->SetGoalTime(IDLE_TIME_MIN + GetRand(IDLE_TIME_RANGE));
+
+	// アニメーションの遷移
+	animation_.Play(Enemy::ANIM_IDLE);
+}
+
+void ControllerActionEnemy::ChangeStateChase()
+{
+	updateFunc_ = std::bind(&ControllerActionEnemy::UpdateChase, this);
+}
+
+void ControllerActionEnemy::ChangeStateAction()
+{
+	updateFunc_ = std::bind(&ControllerActionEnemy::UpdateAction, this);
 }
 
 void ControllerActionEnemy::UpdateMove()
@@ -93,13 +122,29 @@ void ControllerActionEnemy::UpdateMove()
 	else
 	{
 		// 次のポイントを設定
-		state_ = STATE::POINT_NEW;
-		return;
+		NewTargetPoint();
 	}
 }
 
-void ControllerActionEnemy::UpdatePointNew()
-{	
+void ControllerActionEnemy::UpdateIdle()
+{
+	// 設定時間になった場合
+	if (timer_->CountUp())
+	{
+		ChangeState(STATE::MOVE);
+	}
+}
+
+void ControllerActionEnemy::UpdateChase()
+{
+}
+
+void ControllerActionEnemy::UpdateAction()
+{
+}
+
+void ControllerActionEnemy::NewTargetPoint()
+{
 	//ポイントが無くなった場合
 	if (points_.empty())
 	{
@@ -122,45 +167,17 @@ void ControllerActionEnemy::UpdatePointNew()
 	// ランダム確率で待機状態に変更
 	if (GetRand(IDLE_RAND) == 0)
 	{
-		// タイマーセット
-		timer_->SetGoalTime(IDLE_TIME_MIN + GetRand(IDLE_TIME_RANGE));
-
-		// アニメーションの遷移
-		animation_.Play(Enemy::ANIM_IDLE);
-
 		// 状態を待機に変更
-		state_ = STATE::IDLE;
+		ChangeState(STATE::IDLE);
 		return;
 	}
 	// 確率が外れた場合
 	else
 	{
-		//状態を移動に変更
-		state_ = STATE::MOVE;
+		// 状態を移動に変更
+		ChangeState(STATE::MOVE);
 		return;
 	}
-}
-
-void ControllerActionEnemy::UpdateIdle()
-{
-	// 設定時間になった場合
-	if (timer_->CountDown())
-	{
-		// アニメーションの遷移
-		animation_.Play(Enemy::ANIM_WALK);
-
-		//状態を移動に変更
-		state_ = STATE::MOVE;
-		return;
-	}
-}
-
-void ControllerActionEnemy::UpdateChase()
-{
-}
-
-void ControllerActionEnemy::UpdateAction()
-{
 }
 
 int ControllerActionEnemy::GetRandGoalIndex()

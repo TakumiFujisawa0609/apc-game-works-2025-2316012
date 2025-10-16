@@ -19,7 +19,7 @@ void AnomalyManager::Load()
 void AnomalyManager::Init()
 {
 	// タイマー初期化
-	timer_->Init();
+	timer_->InitCountUp();
 
 	// 異変発生
 	OccurAnomaly(TYPE::APPEARANCE);
