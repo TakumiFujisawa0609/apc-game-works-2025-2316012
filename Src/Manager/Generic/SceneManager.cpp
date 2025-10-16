@@ -153,6 +153,9 @@ void SceneManager::CreateScene(std::shared_ptr<SceneBase> scene)
 		scenes_.front() = scene;
 	}
 
+	// 非同期処理を開始する
+	SetUseASyncLoadFlag(true);
+
 	//データのロード
 	scenes_.front()->Load();
 }
@@ -230,9 +233,6 @@ void SceneManager::ResetDeltaTime(void)
 
 void SceneManager::DoChangeScene(SCENE_ID sceneId)
 {
-	// 非同期処理を開始する
-	//SetUseASyncLoadFlag(true);
-
 	// シーン変更によるリソースの処理
 	ResourceManager::GetInstance().SceneChangeResource(static_cast<int>(sceneId));
 
