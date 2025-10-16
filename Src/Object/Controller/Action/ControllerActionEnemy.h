@@ -23,7 +23,7 @@ public:
 	};
 
 	// 隣接ノードの距離
-	static constexpr float ADJACENT_NODE_DIST = 300.0f;
+	static constexpr float ADJACENT_NODE_DIST = 250.0f;
 
 	/// <summary>
 	/// コンストラクタ

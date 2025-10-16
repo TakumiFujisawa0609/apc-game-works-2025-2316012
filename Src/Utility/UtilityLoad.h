@@ -13,6 +13,12 @@ class UtilityLoad
 public:
 
 	/// <summary>
+	/// エクスプローラーからファイルを開く
+	/// </summary>
+	/// <returns></returns>
+	static std::string OpenFileDialog();
+
+	/// <summary>
 	/// JSONデータを読み込んでMap型で返す
 	/// </summary>
 	/// <param name="fileName">読み込むファイル名前</param>

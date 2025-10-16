@@ -4,7 +4,49 @@
 #include "../Application.h"
 #include "UtilityLoad.h"
 
-const std::unordered_map<std::string, std::vector<Json>> UtilityLoad::GetJsonMapData(const std::string& fileName) 
+std::string UtilityLoad::OpenFileDialog()
+{
+    // 現在のカレントディレクトリを保存
+    DWORD bufferSize = GetCurrentDirectoryA(0, nullptr);
+    std::string originalCwd;
+    if (bufferSize != 0)
+    {
+        std::vector<char> currentDirBuffer(bufferSize);
+        if (GetCurrentDirectoryA(bufferSize, currentDirBuffer.data()) != 0)
+        {
+            originalCwd = currentDirBuffer.data();
+        }
+    }
+
+    char filename[MAX_PATH] = "";
+
+    OPENFILENAMEA ofn = {};
+    ofn.lStructSize = sizeof(OPENFILENAMEA);
+    ofn.lpstrFile = filename;
+    ofn.nMaxFile = sizeof(filename);
+    ofn.lpstrFilter = "JSON Files\0*.json\0All Files\0*.*\0";
+    ofn.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST;
+    
+    // 選択されたパスを保持する変数
+    std::string selected_path = ""; 
+    
+    // ファイルを開くダイアログを表示
+    if (GetOpenFileNameA(&ofn))
+    {
+        selected_path = std::string(filename);
+    }
+
+    // 元のカレントディレクトリに戻す
+    if (!originalCwd.empty())
+    {
+        SetCurrentDirectoryA(originalCwd.c_str());
+    }
+
+    // キャンセルされた場合やエラー時は空文字列を返す
+    return selected_path; 
+}
+
+const std::unordered_map<std::string, std::vector<Json>> UtilityLoad::GetJsonMapData(const std::string& fileName)
 {
     std::unordered_map<std::string, std::vector<Json>> dataMap;
 
