@@ -11,6 +11,7 @@ ControllerOnHitPlayer::ControllerOnHitPlayer(Player& owner) :
 	// è’ìÀï®ï ä÷êîÇÃìoò^
 	RegisterOnHit(CollisionTags::TAG::MAIN_STAGE , [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitMainStage(opponentCollider); });
 	RegisterOnHit(CollisionTags::TAG::STAGE_GIMMICK, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStageObject(opponentCollider); });
+	RegisterOnHit(CollisionTags::TAG::ENEMY, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitEnemy(opponentCollider); });
 }
 
 ControllerOnHitPlayer::~ControllerOnHitPlayer()
@@ -110,4 +111,8 @@ void ControllerOnHitPlayer::OnHitStageObject(const std::weak_ptr<ColliderBase>& 
 
 	// ç¿ïWÇÃäiî[
 	owner_.SetPos(pos);
+}
+
+void ControllerOnHitPlayer::OnHitEnemy(const std::weak_ptr<ColliderBase>& opponentCollider)
+{
 }

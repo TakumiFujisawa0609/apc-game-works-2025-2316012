@@ -24,8 +24,8 @@ void ControllerRotate::Init()
 void ControllerRotate::Update()
 {
 	// ‰ñ“]‚Ì‹…–Ê•âŠÔ
-	ownerQuaRot_ = Quaternion::Slerp(ownerQuaRot_, owner_.GetGoalQuaRot(), owner_.GetStepRotTime());
+	Quaternion quaRot = Quaternion::Slerp(owner_.GetTransform().quaRot, owner_.GetGoalQuaRot(), owner_.GetStepRotTime());
 
 	// ‰ñ“]‚Ì“K—p
-	owner_.SetQuaRot(ownerQuaRot_);
+	owner_.SetQuaRot(quaRot);
 }

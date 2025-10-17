@@ -53,8 +53,8 @@ private:
 	// 入力管理クラスの参照
 	InputManager& input_;
 
-	// 衝突判定管理クラスの参照
-	CollisionManager& collMng_;
+	// 回転用ステップ
+	float stepRotTime_;
 
 	// 着地判定
 	bool isEndLanding_;

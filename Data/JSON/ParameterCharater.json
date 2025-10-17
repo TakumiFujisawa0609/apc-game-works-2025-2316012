@@ -29,7 +29,7 @@
     },
     "colliderTopPos": {
       "x": 0,
-      "y": 110,
+      "y": 150,
       "z": 0
     },
     "colliderEndPos": {
@@ -40,12 +40,14 @@
   },
   "enemy": {
     "moveSpeed": 0.5,
-    "dashSpeed": 1.2tek,
+    "dashSpeed": 1.5,
     "gravity": 25,
     "timeRot": 1,
     "animationDefaultSpeed": 20,
     "firstPosIndex": 0,
     "colliderRadius": 20.0,
+    "viewRange": 600.0,
+    "viewAngle": 30.0,
     "collisionTag": "enemy",
     "colliderType": "capsule",
     "initPos": {
@@ -65,7 +67,7 @@
     },
     "colliderTopPos": {
       "x": 0,
-      "y": 110,
+      "y": 150,
       "z": 0
 
     },
@@ -101,13 +103,13 @@
     },
     "colliderTopPos": {
       "x": 0,
-      "y": 110,
+      "y": 80,
       "z": 0
 
     },
     "colliderEndPos": {
       "x": 0,
-      "y": 30,
+      "y": 20,
       "z": 0
     }
   }

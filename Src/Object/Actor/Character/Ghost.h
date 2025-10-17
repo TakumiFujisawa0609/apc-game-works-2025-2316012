@@ -38,7 +38,4 @@ private:
 
 	// アニメーションの初期化
 	void InitAnimation() override;
-
-	// トランスフォームの初期化
-	void InitTransform() override;
 };

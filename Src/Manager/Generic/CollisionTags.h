@@ -11,13 +11,15 @@ public:
 	{
 		NONE,
 		PLAYER,
-		MAIN_STAGE,		// メインステージ
-		DECO_STAGE,		// 装飾(ステージ)
-		STAGE_GIMMICK,	// ステージギミック
-		DECO_GIMMICK,	// 装飾(ギミック)
-		REPORT,			
-		GHOST,			
-		ENEMY,
+		MAIN_STAGE,			// メインステージ
+		DECO_STAGE,			// 装飾(ステージ)
+		STAGE_GIMMICK,		// ステージギミック
+		DECO_GIMMICK,		// 装飾(ギミック)
+		REPORT,				// 報告用
+		GHOST,				// ゴースト
+		ENEMY,				// 敵
+		ENEMY_VIEW,			// 敵の視線
+		ENEMY_SPHERE_RANGE,// 敵の状態遷移判定球体
 		MAX
 	};
 

@@ -80,8 +80,3 @@ void Ghost::InitAnimation()
 	animation_->Add(ANIM_IDLE, resMng_.GetHandle("ghostAnimationIdle"), ANIM_DEFAULT_SPEED);
 	animation_->Play(ANIM_IDLE);
 }
-
-void Ghost::InitTransform()
-{
-
-}

@@ -4,6 +4,7 @@
 #include "../ControllerBase.h"
 
 class CharacterBase;
+class CollisionManager;
 
 class ControllerActionBase : public ControllerBase
 {
@@ -40,11 +41,14 @@ protected:
 	static constexpr double ROT_DEG_RIGHT = 90.0f;	//右
 	static constexpr double ROT_DEG_LEFT = 270.0f;	//左
 	static constexpr double ROT_DEG_FRONT = 0.0f;	//前
-	static constexpr double ROT_DEG_BACK = 180.0f;	//後ろ	
+	static constexpr double ROT_DEG_BACK = 180.0f;	//後ろ		
+	
+	// 衝突判定管理クラスの参照
+	CollisionManager& collMng_;
 
 private:
 
-	//所有者の参照
+	// 所有者の参照
 	CharacterBase& owner_;
 };
 

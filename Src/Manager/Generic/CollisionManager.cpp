@@ -22,8 +22,14 @@ void CollisionManager::Update()
 			const auto& tag1 = colliders_[i]->GetTag();
 			const auto& tag2 = colliders_[j]->GetTag();
 
-			if (tag1 == CollisionTags::TAG::GHOST && tag2 == CollisionTags::TAG::REPORT ||
-				tag1 == CollisionTags::TAG::REPORT && tag2 == CollisionTags::TAG::GHOST)
+			if (tag1 == CollisionTags::TAG::ENEMY_VIEW && tag2 == CollisionTags::TAG::MAIN_STAGE ||
+				tag1 == CollisionTags::TAG::MAIN_STAGE && tag2 == CollisionTags::TAG::ENEMY_VIEW)
+			{
+				// YEAR
+				int a = 0;
+			}
+			if (tag1 == CollisionTags::TAG::ENEMY && tag2 == CollisionTags::TAG::MAIN_STAGE ||
+				tag1 == CollisionTags::TAG::MAIN_STAGE && tag2 == CollisionTags::TAG::ENEMY)
 			{
 				// YEAR
 				int a = 0;
@@ -100,12 +106,23 @@ void CollisionManager::InitTagMatrix()
 	collTagMatrix_.resize(CollisionTags::TAG_COUNT, std::vector<bool>(CollisionTags::TAG_COUNT, false));
 
 	// 衝突判定を行う組み合わせを設定
-	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::MAIN_STAGE)] = true;		// プレイヤーとステージ
-	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)] = true;	// プレイヤーとステージオブジェクト
-	collTagMatrix_[static_cast<int>(CollisionTags::TAG::REPORT)][static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)] = true;	// レポート用ラインとステージオブジェクト
-	collTagMatrix_[static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)][static_cast<int>(CollisionTags::TAG::REPORT)] = true;	// レポート用ラインとステージオブジェクト
-	collTagMatrix_[static_cast<int>(CollisionTags::TAG::REPORT)][static_cast<int>(CollisionTags::TAG::GHOST)] = true;			// レポート用ラインとゴースト
-	collTagMatrix_[static_cast<int>(CollisionTags::TAG::GHOST)][static_cast<int>(CollisionTags::TAG::REPORT)] = true;			// レポート用ラインとゴースト
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::MAIN_STAGE)] = true;			// プレイヤーとステージ
+
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)] = true;		// プレイヤーとステージオブジェクト
+
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::ENEMY)] = true;				// プレイヤーと敵
+
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::MAIN_STAGE)][static_cast<int>(CollisionTags::TAG::ENEMY)] = true;			// メインステージと敵
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::ENEMY)][static_cast<int>(CollisionTags::TAG::MAIN_STAGE)] = true;
+
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::MAIN_STAGE)][static_cast<int>(CollisionTags::TAG::ENEMY_VIEW)] = true;		// メインステージと敵の視野
+
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)][static_cast<int>(CollisionTags::TAG::REPORT)] = true;		// ステージオブジェクトとレポート用ライン
+
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)][static_cast<int>(CollisionTags::TAG::ENEMY)] = true;		// ステージオブジェクトと敵
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::ENEMY)][static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)] = true;
+
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::REPORT)][static_cast<int>(CollisionTags::TAG::GHOST)] = true;				// レポート用ラインとゴースト
 }
 
 void CollisionManager::InitColliderMatrix()

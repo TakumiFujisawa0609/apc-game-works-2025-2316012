@@ -12,18 +12,22 @@
 #include "../../Controller/ControllerGravity.h"
 #include "../../Controller/ControllerPathFinder.h"
 #include "../../Controller/Action/ControllerActionEnemy.h"
-#include "../../Controller/OnHit/ControllerOnHitBase.h"
+#include "../../Controller/OnHit/ControllerOnHitEnemy.h"
+#include "../../Controller/OnHit/ControllerOnHitEnemyView.h"
 #include "Enemy.h"
 
 const std::string Enemy::ANIM_ACTION = "action";		// 攻撃
 
 Enemy::Enemy(const Json& param) :
 	CharacterBase(param),
-	FIRST_POS_INDEX(param["firstPosIndex"])
+	FIRST_POS_INDEX(param["firstPosIndex"]),
+	VIEW_ANGLE(param["viewAngle"]),
+	VIEW_RANGE(param["viewRange"])
 {
+	pathFinder_ = nullptr;
+	onHitView_ = nullptr;
 	state_ = STATE::NONE;
-
-
+	movePosList_.clear();
 	// 状態更新関数の登録
 	RegisterStateUpdateFunc(STATE::NONE, std::bind(&Enemy::UpdateNone, this));
 	RegisterStateUpdateFunc(STATE::ALIVE, std::bind(&Enemy::UpdateAlive, this));
@@ -51,15 +55,18 @@ void Enemy::Load()
 		movePosList_.emplace_back(pos);
 	}
 
-	// 判定後処理の生成
-	onHit_ = std::make_unique<ControllerOnHitBase>();
-
 	// 経路探索処理の生成
 	pathFinder_ = std::make_unique<ControllerPathFinder>();
 	pathFinder_->SetPoints(movePosList_);	
 	
 	// アクション処理の設定
-	action_ = std::make_unique<ControllerActionEnemy>(*this);
+	action_ = std::make_unique<ControllerActionEnemy>(*this);	
+	
+	// 判定後処理の生成
+	onHit_ = std::make_unique<ControllerOnHitEnemy>(*this);
+
+	// 視野用の衝突後処理の生成
+	onHitView_ = std::make_unique<ControllerOnHitEnemyView>(*this);
 }
 
 void Enemy::Init()
@@ -74,9 +81,39 @@ void Enemy::Init()
 	rotStep_ = 0.1f;
 }
 
-void Enemy::SetActionChase()
+void Enemy::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
-	//action_->ChangeState(ContollerAction)
+	// 衝突相手が敵の場合
+	if (opponentCollider.lock()->GetPartnerTag() == CollisionTags::TAG::ENEMY)
+	{
+		onHit_->OnHit(opponentCollider);
+		return;
+	}
+	// 衝突相手が敵の視野用ラインの場合
+	else if (opponentCollider.lock()->GetPartnerTag() == CollisionTags::TAG::ENEMY_VIEW)
+	{
+		onHitView_->OnHit(opponentCollider);
+		return;
+	}
+	// それ以外の場合
+	else
+	{
+		return;
+	}
+}
+
+ControllerActionEnemy* Enemy::GetActionEnemy()
+{
+	// アクションクラスの取得
+	auto action = dynamic_cast<ControllerActionEnemy*>(action_.get());
+
+	// キャストに失敗した場合
+	if (action == nullptr)
+	{
+		// nullptrを返す
+		return nullptr;
+	}
+	return action;
 }
 
 void Enemy::UpdateBody()
@@ -138,7 +175,7 @@ void Enemy::DebugDraw()
 		DrawSphere3D(it, 10.0f, 16, UtilityCommon::CYAN, UtilityCommon::CYAN, false);
 	}
 
-	// 自身から100以内のスフィアを描画
+	// 自身の動範囲を描画
 	DrawSphere3D(transform_.pos, ControllerActionEnemy::ADJACENT_NODE_DIST, 8, UtilityCommon::YELLOW, UtilityCommon::YELLOW, false);
 
 	// 位置情報の表示

@@ -22,10 +22,6 @@ ControllerAnimation::ControllerAnimation(int modelId)
 
 ControllerAnimation::~ControllerAnimation()
 {
-	//for (const auto& anim : animations_)
-	//{
-	//	MV1DeleteModel(anim.second.model);
-	//}
 }
 
 void ControllerAnimation::Add(const std::string& type, const int handle, const float speed)

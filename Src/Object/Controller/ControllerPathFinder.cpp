@@ -131,3 +131,40 @@ bool ControllerPathFinder::FindPath(const int startIndex, const int goalIndex, f
 		}
     }
 }
+
+int ControllerPathFinder::GetNearNodeIndex(const VECTOR& pos)
+{
+	// 中身が空の場合
+	if (points_.empty())
+	{
+		// 探索不可
+		return -1;
+	}
+
+	// 最小距離(初期値は最大値を設定する)
+	float minDistance = std::numeric_limits<float>::max();
+
+	// インデックス
+	int index = -1;
+
+	const int size = points_.size();
+	for (int i = 0; i < size; i++)
+	{
+		const auto& point = points_[i];
+
+		// 距離を求める
+		float distance = Utility3D::Distance(point, pos);
+
+		// 値が小さい場合
+		if (distance < minDistance)
+		{
+			// 更新
+			minDistance = distance;
+
+			// インデックス更新
+			index = i;
+		}
+	}
+
+	return index;
+}

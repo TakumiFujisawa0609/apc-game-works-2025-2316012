@@ -93,7 +93,7 @@ public:
 	/// 目標回転角度を返す
 	/// </summary>
 	/// <returns>目標回転角度</returns>
-	const Quaternion GetGoalQuaRot() const { return goalRot_; }
+	const Quaternion GetGoalQuaRot() const { return goalQuaRot_; }
 
 	/// <summary>
 	/// 現在の移動方向を返す
@@ -140,14 +140,14 @@ public:
 	/// <summary>
 	/// 回転の設定
 	/// </summary>
-	/// <param name="rot">角度</param>
-	void SetQuaRot(const Quaternion& rot) { transform_.quaRot = rot; }
+	/// <param name="quaRot">角度</param>
+	void SetQuaRot(const Quaternion& quaRot) { transform_.quaRot = quaRot; }
 
 	/// <summary>
 	/// 目標回転角度の設定
 	/// </summary>
 	/// <param name="goalRot">目標回転角度</param>
-	void SetGoalQuaRot(const Quaternion& goalRot) { goalRot_ = goalRot; }
+	void SetGoalQuaRot(const Quaternion& goalQuaRot) { goalQuaRot_ = goalQuaRot; }
 
 	/// <summary>
 	/// 移動速度の設定
@@ -212,7 +212,7 @@ protected:
 	VECTOR prePos_;
 
 	// 目標回転角度
-	Quaternion goalRot_;
+	Quaternion goalQuaRot_;
 
 	// アニメーション制御クラス
 	std::unique_ptr<ControllerAnimation> animation_;

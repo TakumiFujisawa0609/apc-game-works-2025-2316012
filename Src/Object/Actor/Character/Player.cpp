@@ -152,6 +152,10 @@ void Player::DebugDraw()
 	CharacterBase::DebugDraw();
 
 	VECTOR pos = transform_.pos;
+	Quaternion quaRot = transform_.quaRot;
 	DrawFormatString(0, 0, UtilityCommon::RED, L"プレイヤー位置：%2f,%2f,%2f", pos.x, pos.y, pos.z);
+	DrawFormatString(0, 20, UtilityCommon::RED, L"プレイヤー角度：%2f,%2f,%2f,%2f", quaRot.x, quaRot.y, quaRot.z, quaRot.w);
+	DrawFormatString(0, 40, UtilityCommon::RED, L"プレイヤー目標角度：%2f,%2f,%2f,%2f", goalQuaRot_.x, goalQuaRot_.y, goalQuaRot_.z, goalQuaRot_.w);
+	DrawFormatString(0, 140, UtilityCommon::RED, L"回転角度ステップ：%2f", rotStep_);
 
 }

@@ -43,6 +43,13 @@ public:
 	/// <param name="points">ポイント配列</param>
 	void SetPoints(const std::vector<VECTOR>& points) { points_ = points; }
 
+	/// <summary>
+	/// 指定した座標が最も近い位置番号を返す
+	/// </summary>
+	/// <param name="pos">位置リストの番号</param>
+	/// <returns></returns>
+	int GetNearNodeIndex(const VECTOR& pos);
+
 private:	
 	
 	// ノード

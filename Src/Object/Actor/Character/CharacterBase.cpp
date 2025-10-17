@@ -38,7 +38,7 @@ CharacterBase::CharacterBase(const Json& param) :
 	rotate_ = nullptr;
 	gravity_ = nullptr;
 	onHit_ = nullptr;
-	goalRot_ = Quaternion();
+	goalQuaRot_ = Quaternion();
 	collider_ = collFtr_.Create(*this, param);
 }
 

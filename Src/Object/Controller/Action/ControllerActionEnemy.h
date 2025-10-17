@@ -4,6 +4,7 @@
 class Enemy;
 class ControllerAnimation;
 class ControllerPathFinder;
+class ColliderSphere;
 class Timer;
 
 class ControllerActionEnemy : public ControllerActionBase
@@ -16,9 +17,10 @@ public:
 	enum class STATE
 	{
 		NONE,
-		MOVE,			// 移動中
+		SEARCH,			// 探索
 		IDLE,			// 待機
 		CHASE,			// 追跡
+		CHASE_NEAR,		// 追跡(至近距離)
 		ACTION,			// 攻撃
 	};
 
@@ -65,17 +67,26 @@ private:
 	// ダッシュ速度
 	const float DASH_SPEED;
 
+	// 視野範囲
+	const float VIEW_RANGE;
+
+	// 視野角
+	const float VIEW_ANGLE;
+
+	// 目的地の変更時間
+	static constexpr float CHANGE_POINT_TIME = 2.0f;
+
+	// 追跡範囲
+	static constexpr float CHASE_RANGE = 1000.0f;
+
+	// 至近距離範囲
+	static constexpr float NEAR_RANGE = 300.0f;
+
 	// 目的地到達距離
 	static constexpr float GOAL_REACH_DIST = 5.0f;
 
 	// 待機ランダムダイス
 	static constexpr int IDLE_RAND = 10;
-
-	// ターゲットが近くにいる場合
-	static constexpr float VIEW_RANGE = 300.0f;
-
-	// 視野角
-	static constexpr float VIEW_ANGLE = 30.0f;
 
 	// 待機時間
 	static constexpr int IDLE_TIME_MIN = 2;	// 最小
@@ -106,14 +117,17 @@ private:
 	// 最終的な目的地のインデックス
 	int goalIndex_;
 
-	// 現在の目的地の座標
-	VECTOR targetPos_;
+	// 次のポイント座標
+	VECTOR nextPointPos_;
 
 	// 状態
 	STATE state_;
 
 	// タイマー
 	std::unique_ptr<Timer> timer_;
+
+	// 行動用球体コライダー
+	std::shared_ptr<ColliderSphere> colliderSphere_;
 
 	// 状態別更新処理の管理
 	std::function<void()> updateFunc_;
@@ -125,22 +139,36 @@ private:
 	void RegisterChangeStateFunction(const STATE state, std::function<void()> func);
 
 	// 状態遷移関数
-	void ChangeStateMove();		// 移動中
-	void ChangeStateIdle();		// 待機
-	void ChangeStateChase();	// 追跡
-	void ChangeStateAction();	// 攻撃
+	void ChangeStateSearch();		// 探索
+	void ChangeStateIdle();			// 待機
+	void ChangeStateChase();		// 追跡
+	void ChangeStateChaseNear();	// 追跡
+	void ChangeStateAction();		// 攻撃
 
 	// 状態別更新処理
-	void UpdateMove();			// 移動中
-	void UpdateIdle();			// 待機
-	void UpdateChase();			// 追跡
-	void UpdateAction();		// 攻撃
+	void UpdateSearch();			// 探索
+	void UpdateIdle();				// 待機
+	void UpdateChase();				// 追跡
+	void UpdateChaseNear();			// 追跡
+	void UpdateAction();			// 攻撃
 
 	// 新しい目的地の設定
 	void NewTargetPoint();
 
+	// ターゲットまでの経路を探索
+	void FindPathToTarget();
+
 	// 敵の探索
 	void SearchTarget();
+
+	// 一定範囲内にターゲットがいるか調べる
+	bool CheckRangeToTarget(const float range);
+
+	// 視野判定用のラインコライダーの生成
+	void CreateLineCollider(const VECTOR& start, const VECTOR& end);
+
+	// 状態遷移判定用のスフィアコライダーの生成
+	//void CreateSphereCollider();
 
 	// ランダムで目的地のインデックスを返す
 	int GetRandGoalIndex();

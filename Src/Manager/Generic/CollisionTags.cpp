@@ -11,4 +11,6 @@ const std::map<CollisionTags::TAG, std::string> CollisionTags::TAG_NAME_MAP =
 	{CollisionTags::TAG::REPORT, "report"},
 	{CollisionTags::TAG::GHOST, "ghost"},
 	{CollisionTags::TAG::ENEMY, "enemy"},
+	{CollisionTags::TAG::ENEMY_VIEW, "enemyView"},
+	{CollisionTags::TAG::ENEMY_SPHERE_RANGE, "enemySphererRange"},
 };

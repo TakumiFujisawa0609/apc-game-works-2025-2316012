@@ -16,10 +16,10 @@ ControllerActionPlayer::ControllerActionPlayer(Player& player) :
 	ControllerActionBase(player),
 	player_(player),
 	input_(InputManager::GetInstance()),
-	collMng_(CollisionManager::GetInstance()),
 	REPORT_INPUT_TIME(player.GetReportTime()),
 	TIME_ROT(player.GetTimeRot())
 {
+	stepRotTime_ = 0.0f;
 	isEndLanding_ = false;
 }
 
@@ -39,7 +39,7 @@ void ControllerActionPlayer::Update()
 	ProcessMove();
 
 	// ジャンプ操作処理
-	ProcessJump();
+	//ProcessJump();
 
 	// レポート操作処理
 	ProcessReport();
@@ -54,7 +54,7 @@ void ControllerActionPlayer::ProcessMove()
 	bool isJump = player_.IsJump();
 
 	// 回転したい角度
-	double rotDeg = -1;
+	double rotDeg = 0;
 
 	// 方向ベクトル
 	VECTOR dir = Utility3D::VECTOR_ZERO;
@@ -94,13 +94,14 @@ void ControllerActionPlayer::ProcessMove()
 	isEndLanding_ = IsEndLanding();
 
 	// アニメーション制御クラスを取得
-	auto& animation = player_.GetControllerAnimation();
-
+	auto& animation = player_.GetControllerAnimation();	
+	
 	// ジャンプ中じゃないかつ操作入力がされたとき
 	if (!Utility3D::EqualsVZero(dir) && (isJump || isEndLanding_))
 	{
 		// 回転処理
-		SetGoalRotate(UtilityCommon::Deg2RadD(rotDeg));
+		double rotRad = UtilityCommon::Deg2RadD(rotDeg);
+		SetGoalRotate(rotRad);
 
 		// ダッシュ
 		bool isDash = input_.IsNew(InputManager::TYPE::PLAYER_DASH);
@@ -140,6 +141,9 @@ void ControllerActionPlayer::ProcessMove()
 
 	// 移動量の設定
 	player_.SetMoveSpeed(speed);
+
+	// 回転用ステップを更新
+	stepRotTime_ -= scnMng_.GetDeltaTime();
 }
 
 void ControllerActionPlayer::ProcessJump()
@@ -251,11 +255,8 @@ bool ControllerActionPlayer::IsEndLanding() const
 
 void ControllerActionPlayer::SetGoalRotate(const double rotRad)
 {
-	// 回転時間の設定
-	float stepRotTime = player_.GetStepRotTime() + scnMng_.GetDeltaTime();
-
 	// 目標回転角度
-	Quaternion goalQuaRot = player_.GetGoalQuaRot();
+	Quaternion goalQuaRot = player_.GetGoalQuaRot();	
 
 	VECTOR cameraRot = mainCamera.GetAngles();
 	Quaternion axis = Quaternion::AngleAxis((double)cameraRot.y + rotRad, Utility3D::AXIS_Y);
@@ -266,13 +267,13 @@ void ControllerActionPlayer::SetGoalRotate(const double rotRad)
 	// しきい値
 	if (angleDiff > 0.1)
 	{
-		stepRotTime = TIME_ROT;
+		stepRotTime_ = TIME_ROT;
 	}
 
 	goalQuaRot = axis;
 
 	// 設定
-	player_.SetStepRotTime((TIME_ROT - stepRotTime) / TIME_ROT);
+	player_.SetStepRotTime((TIME_ROT - stepRotTime_) / TIME_ROT);
 	player_.SetGoalQuaRot(goalQuaRot);
 }
 

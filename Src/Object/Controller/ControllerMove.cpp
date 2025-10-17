@@ -18,7 +18,7 @@ void ControllerMove::Init()
 
 void ControllerMove::Update()
 {
-	//現在地を取得
+	// 現在地を取得
 	VECTOR pos = owner_.GetTransform().pos;
 
 	// 移動前の座標を格納
