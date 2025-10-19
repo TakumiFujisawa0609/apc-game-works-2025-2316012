@@ -116,6 +116,28 @@ void ControllerActionEnemy::DebugDraw()
 	DrawSphere3D(owner_.GetTransform().pos, CHASE_RANGE, 16, UtilityCommon::YELLOW, UtilityCommon::YELLOW, false);
 
 	DrawFormatString(0, 240, UtilityCommon::WHITE, L"自身の状態 : %d", static_cast<int>(state_));
+
+	if (points_.empty())
+	{
+		return;
+	}
+
+	//目的地の描画
+	for (auto point : points_)
+	{
+		VECTOR pos = movePosList_[point];
+		pos.y += 50;
+		DrawSphere3D(pos, 10.0f, 16, UtilityCommon::CYAN, UtilityCommon::CYAN, false);
+	}
+
+	for (int i = 0; i < points_.size() - 1; i++)
+	{
+		VECTOR start = movePosList_[i];
+		VECTOR end = movePosList_[i + 1];
+		start.y += 50;
+		end.y += 50;
+		DrawLine3D(start, end, UtilityCommon::CYAN);
+	}
 }
 
 void ControllerActionEnemy::ChangeState(const STATE state)
@@ -248,6 +270,8 @@ void ControllerActionEnemy::UpdateChase()
 		// ランダムでゴールを設定
 		goalIndex_ = GetRandGoalIndex();
 
+		points_.clear();
+
 		// 新しい経路を探索する
 		pathFinder_.FindPath(startIndex, goalIndex_, ADJACENT_NODE_DIST, points_);
 
@@ -317,6 +341,8 @@ void ControllerActionEnemy::UpdateChaseNear()
 		// ターゲット位置が最も近い位置番号を習得
 		goalIndex_ = pathFinder_.GetNearNodeIndex(targetTransform_.pos);
 
+		points_.clear();
+
 		// 新しい経路を探索する
 		pathFinder_.FindPath(startIndex, goalIndex_, ADJACENT_NODE_DIST, points_);
 
@@ -385,7 +411,9 @@ void ControllerActionEnemy::FindPathToTarget()
 	goalIndex_ = pathFinder_.GetNearNodeIndex(targetTransform_.pos);
 
 	// 現在地の更新
-	int startIndex = points_.front();
+	int startIndex = pathFinder_.GetNearNodeIndex(targetTransform_.pos);
+
+	points_.clear();
 
 	// 経路探索
 	pathFinder_.FindPath(startIndex, goalIndex_, ADJACENT_NODE_DIST, points_);

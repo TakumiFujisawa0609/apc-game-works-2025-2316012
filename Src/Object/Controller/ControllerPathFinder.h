@@ -18,6 +18,11 @@ public:
 	~ControllerPathFinder() override;
 
 	/// <summary>
+	/// 初期化処理
+	/// </summary>
+	void Init();
+
+	/// <summary>
 	/// 更新処理
 	/// </summary>
 	void Update() override;
@@ -68,6 +73,12 @@ private:
 		}
 	};
 
+	// ステージとの衝突判定
+	bool CheckCollisionModelToLine(const VECTOR& start, const VECTOR& end);
+
 	// 移動ポイントのリスト
 	std::vector<VECTOR> points_;
+
+	// 判定用のモデル配列
+	std::vector<int> models_;
 };

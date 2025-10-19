@@ -28,6 +28,12 @@ public:
 	/// </summary>
 	virtual void Init() override;
 
+	/// <summary>
+	/// モデルIDを返す
+	/// </summary>
+	/// <returns>モデルID</returns>
+	const int GetModelId() const { return transform_.modelId; }
+
 protected:
 
 	// ステージキー

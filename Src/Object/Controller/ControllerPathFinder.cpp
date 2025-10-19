@@ -3,8 +3,10 @@
 #include <cmath>
 #include <map>
 #include <queue>
+#include "../../Manager/Generic/StageManager.h"
 #include "../../Utility/UtilityCommon.h"
 #include "../../Utility/Utility3D.h"
+#include "../../Object/Actor/Stage/StageObjectBase.h"
 #include "ControllerPathFinder.h"
 
 ControllerPathFinder::ControllerPathFinder()
@@ -15,6 +17,14 @@ ControllerPathFinder::ControllerPathFinder()
 ControllerPathFinder::~ControllerPathFinder()
 {
 
+}
+
+void ControllerPathFinder::Init()
+{
+	auto& stageMng = StageManager::GetInstance();
+	for (auto& stage : stageMng.GetStageObjects("EriaA")) { models_.push_back(stage->GetModelId()); }
+	for (auto& stage : stageMng.GetStageObjects("EriaB")) { models_.push_back(stage->GetModelId()); }
+	for (auto& stage : stageMng.GetStageObjects("EriaC")) { models_.push_back(stage->GetModelId()); }
 }
 
 void ControllerPathFinder::Update()
@@ -98,6 +108,13 @@ bool ControllerPathFinder::FindPath(const int startIndex, const int goalIndex, f
 			// 隣接ノードの判定
 			if (distance <= maxMoveDistance)
 			{
+				// 衝突した場合
+				if (CheckCollisionModelToLine(currentPos, neighborPos))
+				{
+					// スキップ
+					continue;
+				}
+
 				float tentativeGoalCost = currentNode.goalCost + distance;
 
 				// 既にクローズドリストに存在する場合
@@ -167,4 +184,23 @@ int ControllerPathFinder::GetNearNodeIndex(const VECTOR& pos)
 	}
 
 	return index;
+}
+
+bool ControllerPathFinder::CheckCollisionModelToLine(const VECTOR& start, const VECTOR& end)
+{
+	VECTOR startPos = start;
+	startPos.y += 50;
+	VECTOR endPos = end;
+	endPos.y += 50;
+
+	for (const auto model : models_)
+	{
+		// 衝突判定
+		auto it = MV1CollCheck_Line(model, -1, startPos, endPos);
+		if (it.HitFlag)
+		{
+			return true;
+		}
+	}
+	return false;
 }

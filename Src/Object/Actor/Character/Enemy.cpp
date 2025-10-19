@@ -74,6 +74,9 @@ void Enemy::Init()
 	// 基底クラスの初期化
 	CharacterBase::Init();
 
+	// 経路探索初期化
+	pathFinder_->Init();
+
 	// 初期状態
 	state_ = STATE::ALIVE;	
 	
@@ -168,12 +171,6 @@ void Enemy::DebugDraw()
 {
 	// 基底クラスのデバッグ描画
 	CharacterBase::DebugDraw();
-
-	// 目的地をスフィアで描画
-	for (auto& it : movePosList_)
-	{
-		DrawSphere3D(it, 10.0f, 16, UtilityCommon::CYAN, UtilityCommon::CYAN, false);
-	}
 
 	// 自身の動範囲を描画
 	DrawSphere3D(transform_.pos, ControllerActionEnemy::ADJACENT_NODE_DIST, 8, UtilityCommon::YELLOW, UtilityCommon::YELLOW, false);

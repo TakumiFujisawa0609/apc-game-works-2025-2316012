@@ -33,6 +33,13 @@ public:
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// 指定したステージオブジェクトの配列を返す
+	/// </summary>
+	/// <param name="key">ステージの種類</param>
+	/// <returns></returns>
+	std::vector<std::unique_ptr<StageObjectBase>>& GetStageObjects(const std::string& key) { return stageObjectsMap_.at(key); }
+
 private:
 
 	// 配置用ファイル名

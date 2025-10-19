@@ -40,7 +40,7 @@
   },
   "enemy": {
     "moveSpeed": 0.5,
-    "dashSpeed": 1.5,
+    "dashSpeed": 3.5,
     "gravity": 25,
     "timeRot": 1,
     "animationDefaultSpeed": 20,
