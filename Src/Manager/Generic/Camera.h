@@ -98,12 +98,6 @@ public:
 	void ChangeMode(MODE mode);
 
 	/// <summary>
-	/// 追従対象の設定
-	/// </summary>
-	/// <param name="follow">追従対象</param>
-	void SetFollow(const Transform* follow);
-
-	/// <summary>
 	/// カメラ位置の取得
 	/// </summary>
 	/// <param name=""></param>
@@ -150,6 +144,18 @@ public:
 	/// </summary>
 	/// <returns>モード</returns>
 	MODE GetMode() const;
+
+	/// <summary>
+	/// 追従対象の設定
+	/// </summary>
+	/// <param name="follow">追従対象</param>
+	void SetFollow(const Transform* follow);
+
+	/// <summary>
+	/// 注視点の設定
+	/// </summary>
+	/// <param name="targetPos">注視点</param>
+	void SetTargetPos(const VECTOR& targetPos);
 
 private:
 

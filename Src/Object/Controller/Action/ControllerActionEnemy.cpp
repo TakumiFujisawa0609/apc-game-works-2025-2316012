@@ -1,5 +1,7 @@
 #include "../../../Manager/Generic/CharacterManager.h"
 #include "../../../Manager/Generic/CollisionManager.h"
+#include "../../../Manager/Generic/SceneManager.h"
+#include "../../../Manager/Generic/Camera.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Core/Common/Timer.h"
@@ -223,6 +225,14 @@ void ControllerActionEnemy::ChangeStateChaseNear()
 void ControllerActionEnemy::ChangeStateAction()
 {
 	updateFunc_ = std::bind(&ControllerActionEnemy::UpdateAction, this);
+
+	// ƒJƒƒ‰‚ğŒÅ’è‚·‚é
+	mainCamera.ChangeMode(Camera::MODE::FIXED_POINT);
+
+	// ’‹“_‚Ì•ÏX
+	VECTOR pos = owner_.GetTransform().pos;
+	pos.y += 60;	// ‚‚³’²®
+	mainCamera.SetTargetPos(pos);
 }
 
 void ControllerActionEnemy::UpdateSearch()

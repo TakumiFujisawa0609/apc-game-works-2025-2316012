@@ -52,6 +52,12 @@ public:
 	void OnHit(const std::weak_ptr<ColliderBase>& opponentCollider) override;
 
 	/// <summary>
+	/// 状態変更処理
+	/// </summary>
+	/// <param name="state">状態</param>
+	void ChangeState(const STATE state) { state_ = state; }
+
+	/// <summary>
 	/// ジャンプ量を返す
 	/// </summary>
 	/// <returns>ジャンプ量</returns>

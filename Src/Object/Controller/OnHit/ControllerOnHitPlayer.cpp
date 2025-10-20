@@ -115,4 +115,6 @@ void ControllerOnHitPlayer::OnHitStageObject(const std::weak_ptr<ColliderBase>& 
 
 void ControllerOnHitPlayer::OnHitEnemy(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
+	// €–Só‘Ô‚Ö•ÏX
+	owner_.ChangeState(Player::STATE::DEAD);
 }
