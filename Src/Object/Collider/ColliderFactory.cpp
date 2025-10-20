@@ -10,7 +10,17 @@
 
 std::shared_ptr<ColliderBase> ColliderFactory::Create(ActorBase& owner, const Json& info)
 {
+	// コライダーの種類を取得
 	const std::string TYPE = info["colliderType"];
+
+	// 種類の指定がない場合
+	if (TYPE == ColliderType::TYPE_NAME_MAP.at(ColliderType::TYPE::NONE))
+	{
+		// 空で返す
+		return nullptr;
+	}
+
+	// 各種のコライダーを生成して返す
 	return createColliderMap_[TYPE](owner, info);
 }
 
@@ -102,19 +112,6 @@ std::shared_ptr<ColliderBox> ColliderFactory::CreateBox(ActorBase& owner, const 
 	// コライダーを返す
 	return box;
 }
-
-//ColliderType::TYPE ColliderFactory::GetTypeFromStringType(const std::string& type)
-//{
-//	auto & map = ColliderType::TYPE_NAME_MAP;
-//	auto it = std::find_if(map.begin(), map.end(),
-//		[&type](const auto& pair) {return pair.second == type; });
-//	
-//	// 変換が出来なかった場合
-//	assert(it == map.end() && L"対応していないコライダーの種類を受け取った");
-//
-//	// 変換した型を返す
-//	return it->first;
-//}
 
 CollisionTags::TAG ColliderFactory::GetTagFromStringTag(const std::string& tag)
 {

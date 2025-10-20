@@ -50,40 +50,40 @@
       "fontName": "はなぞめフォント"
     },
     {
-      "key": "EriaA",
+      "key": "AreaA",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/Main/EriaA.mv1"
+      "path": "Data/Model/Stage/Main/AreaA.mv1"
     },
     {
-      "key": "EriaB",
+      "key": "AreaB",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/Main/EriaB.mv1"
+      "path": "Data/Model/Stage/Main/AreaB.mv1"
     },
     {
-      "key": "EriaC",
+      "key": "AreaC",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/Main/EriaC.mv1"
+      "path": "Data/Model/Stage/Main/AreaC.mv1"
     },
     {
-      "key": "DecoEriaA",
+      "key": "DecoA",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/Decoration/DecoEriaA.mv1"
+      "path": "Data/Model/Stage/Decoration/DecoA.mv1"
     },
     {
-      "key": "DecoEriaB",
+      "key": "DecoB",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/Decoration/DecoEriaB.mv1"
+      "path": "Data/Model/Stage/Decoration/DecoB.mv1"
     },
     {
-      "key": "DecoEriaC",
+      "key": "DecoC",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/Decoration/DecoEriaC.mv1"
+      "path": "Data/Model/Stage/Decoration/DecoC.mv1"
     },
     {
       "key": "Axe01",
@@ -128,6 +128,18 @@
       "path": "Data/Model/Stage/Gimmick/ClutterPichet03.mv1"
     },
     {
+      "key": "Carpet01",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/Carpet01.mv1"
+    },
+    {
+      "key": "Carpet03",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/Carpet03.mv1"
+    },
+    {
       "key": "Oillamp01",
       "sceneId": 3,
       "type": "model",
@@ -162,6 +174,12 @@
       "sceneId": 3,
       "type": "model",
       "path": "Data/Model/Stage/Gimmick/Sword01.mv1"
+    },
+    {
+      "key": "AreaCBooks",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/AreaCBooks.mv1"
     },
     {
       "key": "player",

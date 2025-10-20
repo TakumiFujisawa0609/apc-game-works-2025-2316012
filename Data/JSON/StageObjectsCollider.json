@@ -1,27 +1,27 @@
 {
-  "EriaA": {
+  "AreaA": {
     "collisionTag": "mainStage",
     "colliderType": "model"
   },
-  "EriaB": {
+  "AreaB": {
     "collisionTag": "mainStage",
     "colliderType": "model"
   },
-  "EriaC": {
+  "AreaC": {
     "collisionTag": "mainStage",
     "colliderType": "model"
   },
-  "DecoEriaA": {
+  "DecoA": {
     "collisionTag": "decoStage",
-    "colliderType": "model"
+    "colliderType": "none"
   },
-  "DecoEriaB": {
+  "DecoB": {
     "collisionTag": "decoStage",
-    "colliderType": "model"
+    "colliderType": "none"
   },
-  "DecoEriaC": {
+  "DecoC": {
     "collisionTag": "decoStage",
-    "colliderType": "model"
+    "colliderType": "none"
   },
   "Chair01": {
     "collisionTag": "stageGimmick",
@@ -65,6 +65,14 @@
     "collisionTag": "decoGimmick",
     "colliderType": "model"
   },
+  "Carpet01": {
+    "collisionTag": "decoStage",
+    "colliderType": "none"
+  },
+  "Carpet03": {
+    "collisionTag": "decoStage",
+    "colliderType": "none"
+  },
   "Oillamp01": {
     "collisionTag": "decoGimmick",
     "colliderType": "model"
@@ -98,5 +106,9 @@
   "Sword01": {
     "collisionTag": "decoGimmick",
     "colliderType": "model"
+  },
+  "AreaCBooks": {
+    "collisionTag": "decoStage",
+    "colliderType": "none"
   }
 }

@@ -25,7 +25,7 @@ public:
 	};
 
 	// 隣接ノードの距離
-	static constexpr float ADJACENT_NODE_DIST = 250.0f;
+	static constexpr float ADJACENT_NODE_DIST = 200.0f;
 
 	/// <summary>
 	/// コンストラクタ
@@ -77,7 +77,7 @@ private:
 	static constexpr float CHANGE_POINT_TIME = 2.0f;
 
 	// 追跡範囲
-	static constexpr float CHASE_RANGE = 1000.0f;
+	static constexpr float CHASE_RANGE = 1500.0f;
 
 	// 至近距離範囲
 	static constexpr float NEAR_RANGE = 300.0f;

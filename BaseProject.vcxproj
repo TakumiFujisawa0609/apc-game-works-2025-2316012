@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Controller\Action\State\Enemy\EnemyStateBase.cpp" />
     <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitEnemyView.cpp" />
     <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitEnemy.cpp" />
     <ClCompile Include="Src\Tool\CreatePositionList.cpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="Src\Core\Common\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Controller\Action\State\Enemy\EnemyStateBase.h" />
     <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitEnemyView.h" />
     <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitEnemy.h" />
     <ClInclude Include="Src\Tool\CreatePositionList.h" />

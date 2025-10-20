@@ -51,9 +51,7 @@ protected:
 	// トランスフォームの初期化
 	void InitTransform() override;
 
-	/// <summary>
-	/// デバッグ時の描画
-	/// </summary>
+	// デバッグ時の描画
 	void DebugDraw() override;
 };
 

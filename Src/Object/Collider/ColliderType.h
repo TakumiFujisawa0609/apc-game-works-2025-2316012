@@ -11,6 +11,7 @@ public:
 	/// </summary>
 	enum class TYPE
 	{
+		NONE,
 		CAPSULE,
 		SPHERE,
 		LINE,

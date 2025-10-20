@@ -1,3 +1,4 @@
+#include "../../Object/Actor/ActorBase.h"
 #include "../../Object/Collider/ColliderBase.h"
 #include "../../Object/Collider/ColliderCapsule.h"
 #include "../../Object/Collider/ColliderBox.h"
@@ -22,14 +23,8 @@ void CollisionManager::Update()
 			const auto& tag1 = colliders_[i]->GetTag();
 			const auto& tag2 = colliders_[j]->GetTag();
 
-			if (tag1 == CollisionTags::TAG::ENEMY_VIEW && tag2 == CollisionTags::TAG::MAIN_STAGE ||
-				tag1 == CollisionTags::TAG::MAIN_STAGE && tag2 == CollisionTags::TAG::ENEMY_VIEW)
-			{
-				// YEAR
-				int a = 0;
-			}
-			if (tag1 == CollisionTags::TAG::ENEMY && tag2 == CollisionTags::TAG::MAIN_STAGE ||
-				tag1 == CollisionTags::TAG::MAIN_STAGE && tag2 == CollisionTags::TAG::ENEMY)
+			if (tag1 == CollisionTags::TAG::PLAYER && tag2 == CollisionTags::TAG::MAIN_STAGE ||
+				tag1 == CollisionTags::TAG::MAIN_STAGE && tag2 == CollisionTags::TAG::PLAYER)
 			{
 				// YEAR
 				int a = 0;
@@ -72,6 +67,18 @@ void CollisionManager::Update()
 
 void CollisionManager::Add(std::shared_ptr<ColliderBase> collider)
 {
+	// 中身が空の場合
+	if (collider == nullptr)
+	{
+		// 追加しない
+		return;
+	}
+
+	if (CollisionTags::TAG::MAIN_STAGE == collider->GetTag())
+	{
+		int i = 0;
+	}
+
 	// コライダーの追加
 	colliders_.push_back(collider);
 }

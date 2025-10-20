@@ -12,6 +12,7 @@
 ControllerPathFinder::ControllerPathFinder()
 {
 	points_.clear();
+	models_.clear();
 }
 
 ControllerPathFinder::~ControllerPathFinder()
@@ -22,9 +23,11 @@ ControllerPathFinder::~ControllerPathFinder()
 void ControllerPathFinder::Init()
 {
 	auto& stageMng = StageManager::GetInstance();
-	for (auto& stage : stageMng.GetStageObjects("EriaA")) { models_.push_back(stage->GetModelId()); }
-	for (auto& stage : stageMng.GetStageObjects("EriaB")) { models_.push_back(stage->GetModelId()); }
-	for (auto& stage : stageMng.GetStageObjects("EriaC")) { models_.push_back(stage->GetModelId()); }
+	for (auto& stage : stageMng.GetStageObjects("AreaA")) { models_.push_back(stage->GetModelId()); }
+	for (auto& stage : stageMng.GetStageObjects("AreaB")) { models_.push_back(stage->GetModelId()); }
+	for (auto& stage : stageMng.GetStageObjects("AreaC")) { models_.push_back(stage->GetModelId()); }
+
+	int size = models_.size();
 }
 
 void ControllerPathFinder::Update()
@@ -34,6 +37,8 @@ void ControllerPathFinder::Update()
 
 bool ControllerPathFinder::FindPath(const int startIndex, const int goalIndex, float maxMoveDistance, std::vector<int>& path)
 {
+	int size = models_.size();
+
 	// 開始ノードと終了ノードが同じ場合、開始ノードを経路に追加して終了
     if (startIndex == goalIndex) 
     {
@@ -109,11 +114,11 @@ bool ControllerPathFinder::FindPath(const int startIndex, const int goalIndex, f
 			if (distance <= maxMoveDistance)
 			{
 				// 衝突した場合
-				if (CheckCollisionModelToLine(currentPos, neighborPos))
-				{
-					// スキップ
-					continue;
-				}
+				//if (CheckCollisionModelToLine(currentPos, neighborPos))
+				//{
+				//	// スキップ
+				//	continue;
+				//}
 
 				float tentativeGoalCost = currentNode.goalCost + distance;
 

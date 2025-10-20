@@ -14,7 +14,7 @@
     "colliderType": "capsule",
     "initPos": {
       "x": 978,
-      "y": 0,
+      "y": 200,
       "z": 128
     },
     "initRot": {
@@ -47,7 +47,7 @@
     "firstPosIndex": 0,
     "colliderRadius": 20.0,
     "viewRange": 600.0,
-    "viewAngle": 30.0,
+    "viewAngle": 50.0,
     "collisionTag": "enemy",
     "colliderType": "capsule",
     "initPos": {

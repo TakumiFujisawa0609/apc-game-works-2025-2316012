@@ -48,6 +48,12 @@ void ControllerActionEnemy::Init()
 	// ポイント数の取得
 	totalPoints_ = static_cast<int>(movePosList_.size());
 
+	// 経路探索初期化
+	pathFinder_.Init();
+
+	// ゴール位置をランダムで生成
+	goalIndex_ = pathFinder_.GetNearNodeIndex(owner_.GetTransform().pos);
+
 	// 初期ポイントの設定
 	NewTargetPoint();
 
@@ -117,6 +123,12 @@ void ControllerActionEnemy::DebugDraw()
 
 	DrawFormatString(0, 240, UtilityCommon::WHITE, L"自身の状態 : %d", static_cast<int>(state_));
 
+
+	for (auto& pos : movePosList_)
+	{
+		DrawSphere3D(pos, 10.0f, 16, UtilityCommon::ORANGE, UtilityCommon::ORANGE, false);
+	}
+
 	if (points_.empty())
 	{
 		return;
@@ -132,8 +144,8 @@ void ControllerActionEnemy::DebugDraw()
 
 	for (int i = 0; i < points_.size() - 1; i++)
 	{
-		VECTOR start = movePosList_[i];
-		VECTOR end = movePosList_[i + 1];
+		VECTOR start = movePosList_[points_[i]];
+		VECTOR end = movePosList_[points_[i + 1]];
 		start.y += 50;
 		end.y += 50;
 		DrawLine3D(start, end, UtilityCommon::CYAN);
@@ -164,6 +176,18 @@ void ControllerActionEnemy::ChangeStateSearch()
 
 	// アニメーションの遷移
 	animation_.Play(Enemy::ANIM_WALK);
+
+	// 現在地が最も近い位置番号を習得
+	int startIndex = pathFinder_.GetNearNodeIndex(owner_.GetTransform().pos);
+
+	// ランダムでゴールを設定
+	goalIndex_ = GetRandGoalIndex();
+
+	// ポイントの初期化
+	points_.clear();
+
+	// 新しい経路を探索する
+	pathFinder_.FindPath(startIndex, goalIndex_, ADJACENT_NODE_DIST, points_);
 }
 
 void ControllerActionEnemy::ChangeStateIdle()
@@ -181,8 +205,11 @@ void ControllerActionEnemy::ChangeStateChase()
 {
 	updateFunc_ = std::bind(&ControllerActionEnemy::UpdateChase, this);
 
-	// アニメーションの遷移
-	animation_.Play(Enemy::ANIM_RUN);
+	// 時間の設定
+	timer_->SetGoalTime(CHANGE_POINT_TIME);
+
+	// ターゲットまでのパスを生成
+	FindPathToTarget();
 }
 
 void ControllerActionEnemy::ChangeStateChaseNear()
@@ -264,17 +291,6 @@ void ControllerActionEnemy::UpdateChase()
 		// 範囲外のため探索に戻る
 		ChangeState(STATE::SEARCH);
 
-		// 現在地が最も近い位置番号を習得
-		int startIndex = pathFinder_.GetNearNodeIndex(owner_.GetTransform().pos);
-
-		// ランダムでゴールを設定
-		goalIndex_ = GetRandGoalIndex();
-
-		points_.clear();
-
-		// 新しい経路を探索する
-		pathFinder_.FindPath(startIndex, goalIndex_, ADJACENT_NODE_DIST, points_);
-
 		// 処理終了
 		return;
 	}
@@ -304,7 +320,7 @@ void ControllerActionEnemy::UpdateChase()
 		owner_.SetMoveDir(dir);
 
 		// 移動速度の設定
-		owner_.SetMoveSpeed(MOVE_SPEED);
+		owner_.SetMoveSpeed(DASH_SPEED);
 
 		// 目標回転角度の設定
 		owner_.SetGoalQuaRot(Quaternion::LookRotation(dir));
@@ -331,20 +347,6 @@ void ControllerActionEnemy::UpdateChaseNear()
 	{
 		// 通常の追跡に戻る
 		ChangeState(STATE::CHASE);
-
-		// 時間の設定
-		timer_->SetGoalTime(CHANGE_POINT_TIME);
-
-		// 現在地が最も近い位置番号を習得
-		int startIndex = pathFinder_.GetNearNodeIndex(owner_.GetTransform().pos);
-
-		// ターゲット位置が最も近い位置番号を習得
-		goalIndex_ = pathFinder_.GetNearNodeIndex(targetTransform_.pos);
-
-		points_.clear();
-
-		// 新しい経路を探索する
-		pathFinder_.FindPath(startIndex, goalIndex_, ADJACENT_NODE_DIST, points_);
 
 		// 処理終了
 		return;
@@ -396,6 +398,8 @@ void ControllerActionEnemy::NewTargetPoint()
 
 		// 新しいルートの探索
 		pathFinder_.FindPath(startIndex, goalIndex_, ADJACENT_NODE_DIST, points_);
+
+		int size = points_.size();
 	}
 
 	// 次のポイントを目的地に設定
@@ -411,8 +415,9 @@ void ControllerActionEnemy::FindPathToTarget()
 	goalIndex_ = pathFinder_.GetNearNodeIndex(targetTransform_.pos);
 
 	// 現在地の更新
-	int startIndex = pathFinder_.GetNearNodeIndex(targetTransform_.pos);
+	int startIndex = pathFinder_.GetNearNodeIndex(owner_.GetTransform().pos);
 
+	// ポイントの初期化
 	points_.clear();
 
 	// 経路探索
@@ -475,18 +480,6 @@ bool ControllerActionEnemy::CheckRangeToTarget(const float range)
 	// 失敗
 	return false;
 }
-
-//void ControllerActionEnemy::CreateSphereCollider()
-//{
-//	// 球体の生成
-//	colliderSphere_ = std::make_shared<ColliderSphere>(owner_, CollisionTags::TAG::ENEMY_SPHERE_RANGE);
-//
-//	// 球体の半径の設定
-//	colliderSphere_->SetRadius(CHASE_RANGE);
-//
-//	// 追加
-//	collMng_.Add(colliderSphere_);
-//}
 
 void ControllerActionEnemy::CreateLineCollider(const VECTOR& start, const VECTOR& end)
 {

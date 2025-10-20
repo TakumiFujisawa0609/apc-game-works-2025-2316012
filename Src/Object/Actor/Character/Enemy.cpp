@@ -74,9 +74,6 @@ void Enemy::Init()
 	// Šî’êƒNƒ‰ƒX‚Ì‰Šú‰»
 	CharacterBase::Init();
 
-	// Œo˜H’Tõ‰Šú‰»
-	pathFinder_->Init();
-
 	// ‰Šúó‘Ô
 	state_ = STATE::ALIVE;	
 	

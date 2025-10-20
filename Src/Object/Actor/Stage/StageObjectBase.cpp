@@ -55,5 +55,10 @@ void StageObjectBase::InitTransform()
 
 void StageObjectBase::DebugDraw()
 {
+	if (collider_ == nullptr)
+	{
+		return;
+	}
+
 	collider_->DebugDraw();
 }
