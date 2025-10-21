@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Manager\Generic\ResultManager.cpp" />
     <ClCompile Include="Src\Core\Common\ScreenShake.cpp" />
     <ClCompile Include="Src\Object\Controller\ControllerCameraTransition.cpp" />
     <ClCompile Include="Src\Manager\Generic\GameStateManager.cpp" />
@@ -122,6 +123,7 @@
     <ClCompile Include="Src\Core\Common\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Manager\Generic\ResultManager.h" />
     <ClInclude Include="Src\Core\Common\ScreenShake.h" />
     <ClInclude Include="Src\Object\Controller\ControllerCameraTransition.h" />
     <ClInclude Include="Src\Manager\Generic\GameStateManager.h" />
