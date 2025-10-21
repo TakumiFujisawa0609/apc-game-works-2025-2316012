@@ -8,6 +8,7 @@
 
 class CharacterBase;
 class ColliderBase;
+class GameStateManager;
 
 class ControllerOnHitBase : public ControllerBase
 {
@@ -35,6 +36,9 @@ public:
 	virtual void Init() ;
 
 protected:
+
+	// ゲーム状態管理クラス参照
+	GameStateManager& stateMng_;
 
 	//タグ別衝突後の処理の登録
 	void RegisterOnHit(const CollisionTags::TAG tag, std::function<void(const std::weak_ptr<ColliderBase>&)> onHit);

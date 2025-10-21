@@ -63,7 +63,10 @@ private:
 	
 	// モデルとラインの衝突判定
 	bool IsHitCheckModeToLine(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
-
+	
+	// カプセルとカプセルの衝突判定
+	bool IsHitCheckCapsuleToCapsule(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
+	
 	// カプセルとボックス
 	bool IsHitCheckCapsuleToBox(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
 

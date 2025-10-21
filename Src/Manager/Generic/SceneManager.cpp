@@ -139,7 +139,7 @@ void SceneManager::Draw(void)
 	camera_->CameraSetting();
 
 	// メインスクリーンを描画
-	DrawGraph(0, 0, mainScreen_, true);
+	DrawGraph(screenPos_.x, screenPos_.y, mainScreen_, true);
 }
 
 void SceneManager::CreateScene(std::shared_ptr<SceneBase> scene)
@@ -207,22 +207,15 @@ void SceneManager::StartFadeIn(void)
 
 SceneManager::SceneManager(void)
 {
-
 	sceneId_ = SCENE_ID::NONE;
 	waitSceneId_ = SCENE_ID::NONE;
-
 	scenes_.clear();
 	fader_ = nullptr;
-
-	isSceneChanging_ = false;
-
-	// デルタタイム
-	deltaTime_ = 1.0f / 60.0f;
-
 	camera_ = nullptr;
-
+	isSceneChanging_ = false;
+	deltaTime_ = 1.0f / 60.0f;	// デルタタイム
 	totalTime_ = -1.0f;
-
+	screenPos_ = {};
 }
 
 void SceneManager::ResetDeltaTime(void)
@@ -254,6 +247,12 @@ void SceneManager::DoChangeScene(SCENE_ID sceneId)
 		break;
 	case SCENE_ID::GAME:
 		CreateScene(std::make_unique<SceneGame>());
+		break;
+	case SCENE_ID::MENU:
+		CreateScene(std::make_unique<SceneMenu>());
+		break;
+	case SCENE_ID::RESULT:
+		CreateScene(std::make_unique<SceneResult>());
 		break;
 	}
 

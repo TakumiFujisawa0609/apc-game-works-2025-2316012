@@ -1,16 +1,19 @@
 #include "../../../Manager/Generic/CharacterManager.h"
 #include "../../../Manager/Generic/CollisionManager.h"
 #include "../../../Manager/Generic/SceneManager.h"
+#include "../../../Manager/Generic/GameStateManager.h"
 #include "../../../Manager/Generic/Camera.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Core/Common/Timer.h"
+#include "../../../Core/Common/ScreenShake.h"
 #include "../../Actor/Character/Player.h"
 #include "../../Actor/Character/Enemy.h"
 #include "../../Collider/ColliderLine.h"
 #include "../../Collider/ColliderSphere.h"
 #include "../ControllerPathFinder.h"
 #include "../ControllerAnimation.h"
+#include "../ControllerCameraTransition.h"
 #include "ControllerActionEnemy.h"
 
 ControllerActionEnemy::ControllerActionEnemy(Enemy& owner) :
@@ -34,11 +37,16 @@ ControllerActionEnemy::ControllerActionEnemy(Enemy& owner) :
 
 	// 各種変数初期化
 	colliderSphere_ = nullptr;
+	shake_ = nullptr;
 	totalPoints_ = 0;
 	goalIndex_ = 0;
 	nextPointPos_ = Utility3D::VECTOR_ZERO;
 	state_ = STATE::NONE;
+
+	// 処理で使うインスタンスの生成
 	timer_ = std::make_unique<Timer>();
+	transition_ = std::make_unique<ControllerCameraTransition>();
+	shake_ = std::make_unique<ScreenShake>();
 }
 
 ControllerActionEnemy::~ControllerActionEnemy()
@@ -47,6 +55,12 @@ ControllerActionEnemy::~ControllerActionEnemy()
 
 void ControllerActionEnemy::Init()
 {
+	// トランジションの初期化
+	transition_->Init();
+
+	// 画面シェイク初期化
+	shake_->Init();
+
 	// ポイント数の取得
 	totalPoints_ = static_cast<int>(movePosList_.size());
 
@@ -226,13 +240,33 @@ void ControllerActionEnemy::ChangeStateAction()
 {
 	updateFunc_ = std::bind(&ControllerActionEnemy::UpdateAction, this);
 
-	// カメラを固定する
-	mainCamera.ChangeMode(Camera::MODE::FIXED_POINT);
+	// アニメーションを実行
+	animation_.Play(Enemy::ANIM_ACTION);
 
-	// 注視点の変更
+	// カメラを固定する
+	mainCamera.ChangeMode(Camera::MODE::FIXED_POINT);	
+	
+	// 所有者の座標取得
 	VECTOR pos = owner_.GetTransform().pos;
-	pos.y += 60;	// 高さ調整
-	mainCamera.SetTargetPos(pos);
+
+	// 敵からカメラへ向かうベクトル
+	VECTOR TargetDir = VSub(targetTransform_.pos, pos);
+
+	// 目標の回転クォータニオンを生成
+	Quaternion goalQua = Quaternion::LookRotation(TargetDir, VGet(0.0f, 1.0f, 0.0f));
+
+	// マトリックスの回転情報を習得
+	MATRIX enemyRot = Quaternion::ToMatrix(goalQua);
+	
+	// ベクトル生成
+	VECTOR cameraVec = VTransform(JUMP_SCARE_CAMERA_POS, enemyRot);
+	VECTOR cameraTVec = VTransform(JUMP_SCARE_CAMERA_TARGET_POS, enemyRot);
+
+	// トランジション設定
+	transition_->Set(VAdd(cameraVec, pos), VAdd(cameraTVec, pos), TRANSITION_TIME);
+
+	// 画面シェイク設定
+	shake_->Set(SHAKE_TIME, SHAKE_POWER);
 }
 
 void ControllerActionEnemy::UpdateSearch()
@@ -392,7 +426,42 @@ void ControllerActionEnemy::UpdateChaseNear()
 
 void ControllerActionEnemy::UpdateAction()
 {
-	
+	// カメラのトランジション処理
+	transition_->Update();
+
+	// トランジションが終了している場合
+	if (transition_->IsEnd())
+	{
+		// 画面シェイク処理
+		shake_->Update();
+
+		// 画面揺れが終わった場合
+		if (shake_->IsEnd())
+		{
+			// リザルトに変わる
+			scnMng_.ChangeScene(SceneManager::SCENE_ID::RESULT);
+			GameStateManager::GetInstance().ChangeState(GameStateManager::STATE::NONE);
+			return;
+		}
+	}
+
+	// ターゲット位置を取得
+	nextPointPos_ = targetTransform_.pos;
+
+	// 自身の位置を取得
+	VECTOR myPos = owner_.GetTransform().pos;
+
+	// 差分ベクトルの計算
+	VECTOR diffVec = VSub(nextPointPos_, myPos);
+
+	// 距離を計算
+	float distance = Utility3D::Distance(nextPointPos_, myPos);
+
+	// 移動方向の取得
+	VECTOR dir = VScale(diffVec, (1.0f / distance));
+
+	// 所有者の向きをターゲットに向かせる
+	owner_.SetGoalQuaRot(Quaternion::LookRotation(dir));
 }
 
 void ControllerActionEnemy::NewTargetPoint()

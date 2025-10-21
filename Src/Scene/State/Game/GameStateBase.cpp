@@ -5,8 +5,7 @@
 #include "../../../Core/CoreBase.h"
 #include "GameStateBase.h"
 
-GameStateBase::GameStateBase(SceneGame& parent) :
-	parent_(parent),
+GameStateBase::GameStateBase() :
 	charaMng_(CharacterManager::GetInstance()),
 	stageMng_(StageManager::GetInstance()),
 	systemMng_(GameSystemManager::GetInstance())
@@ -14,5 +13,17 @@ GameStateBase::GameStateBase(SceneGame& parent) :
 }
 
 GameStateBase::~GameStateBase()
+{
+}
+
+void GameStateBase::Init()
+{
+}
+
+void GameStateBase::Update()
+{
+}
+
+void GameStateBase::Draw()
 {
 }

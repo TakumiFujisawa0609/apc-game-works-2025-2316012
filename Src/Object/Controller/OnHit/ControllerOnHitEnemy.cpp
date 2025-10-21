@@ -1,4 +1,5 @@
 #include "../../../Manager/Generic/CollisionTags.h"
+#include "../../../Manager/Generic/GameStateManager.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../Actor/Character/Player.h"
 #include "../../Collider/ColliderModel.h"
@@ -85,4 +86,7 @@ void ControllerOnHitEnemy::OnHitPlayer(const std::weak_ptr<ColliderBase>& oppone
 {
 	// 攻撃状態に変更してジャンプスケアを実行
 	actionCtrl_.ChangeState(ControllerActionEnemy::STATE::ACTION);
+
+	// ゲーム状態変更
+	stateMng_.ChangeState(GameStateManager::STATE::JUMP_SCARE);
 }

@@ -201,6 +201,84 @@ double Utility3D::AngleDeg(const VECTOR& from, const VECTOR& to)
     return acos(dot) * (180.0 / DX_PI);
 }
 
+bool Utility3D::CheckHitCapsuleToCapsule(const VECTOR& capTopPosA, const VECTOR& capDownPosA, float capRadiusA, const VECTOR& capTopPosB, const VECTOR& capDownPosB, float capRadiusB)
+{
+    const float EPSILON = 1e-5f; // 浮動小数点誤差対策
+
+    VECTOR d1 = VSub(capDownPosA, capTopPosA);	// 線分1の方向ベクトル
+    VECTOR d2 = VSub(capDownPosB, capTopPosB);	// 線分2の方向ベクトル
+    VECTOR r = VSub(capTopPosA, capTopPosB);
+
+    float a = VDot(d1, d1); // d1・d1
+    float e = VDot(d2, d2); // d2・d2
+    float f = VDot(d2, r);
+
+    float s, t;
+
+    // 分母の計算
+    float c = VDot(d1, r);
+    float b = VDot(d1, d2);
+    float denom = a * e - b * b; // a * e - (d1・d2)^2
+
+    // 線分が平行または非常に近い場合
+    if (denom < EPSILON)
+    {
+        // sを0.0fとし、tを計算してクランプ
+        s = 0.0f;
+        t = f / e; // t = (b * s + f) / e の s=0 の場合
+        t = std::clamp(t, 0.0f, 1.0f);
+    }
+    // 一般的なケース
+    else
+    {
+        // 2直線の最短距離を求めるパラメータ s, t を計算
+        s = (b * f - c * e) / denom;
+        t = (a * f - c * b) / denom; // t = (b * s + f) / e; の代わりにこの式を使う方が統一的
+
+        // パラメータ s, t を線分の範囲 [0, 1] にクランプする
+        if (s < 0.0f) {
+            s = 0.0f;
+            t = f / e;
+            t = std::clamp(t, 0.0f, 1.0f);
+        }
+        else if (s > 1.0f) {
+            s = 1.0f;
+            t = (b + f) / e; // t = (b * s + f) / e の s=1 の場合
+            t = std::clamp(t, 0.0f, 1.0f);
+        }
+        else {
+            // sが[0, 1]内にある場合、tを計算してクランプ
+            t = (b * s + f) / e; 
+            t = std::clamp(t, 0.0f, 1.0f);
+
+            // 初期sをクランプ
+            s = std::clamp(s, 0.0f, 1.0f);
+
+            // クランプされたsでtを再計算
+            t = (b * s + f) / e;
+        }
+    }
+
+    if (t < 0.0f)
+    {
+        t = 0.0f;
+        s = std::clamp(-c / a, 0.0f, 1.0f); 
+    }
+    else if (t > 1.0f)
+    {
+        t = 1.0f;
+        s = std::clamp((b - c) / a, 0.0f, 1.0f);
+    }
+
+    // 求まった s, t を使って最短距離上の点 c1, c2 を計算
+    VECTOR c1 = VAdd(capTopPosA, VScale(d1, s));
+    VECTOR c2 = VAdd(capTopPosB, VScale(d2, t));
+    float distance = VSize(VSub(c1, c2));
+
+    //衝突したか
+    return distance <= (capRadiusA + capRadiusB);
+}
+
 bool Utility3D::CheckHitCapsuleToLine(const VECTOR& capTopPos, const VECTOR& capDownPos, float capRadius, const VECTOR& lineTopPos, const VECTOR& lineEndPos)
 {
     VECTOR u = VSub(lineEndPos, lineTopPos);

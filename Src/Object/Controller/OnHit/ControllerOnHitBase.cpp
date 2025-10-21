@@ -1,7 +1,9 @@
+#include "../../../Manager/Generic/GameStateManager.h"
 #include "../../Collider/ColliderBase.h"
 #include "ControllerOnHitBase.h"
 
-ControllerOnHitBase::ControllerOnHitBase()
+ControllerOnHitBase::ControllerOnHitBase() :
+    stateMng_(GameStateManager::GetInstance())
 {
 }
 

@@ -14,7 +14,7 @@
     "colliderType": "capsule",
     "initPos": {
       "x": 978,
-      "y": 200,
+      "y": 100,
       "z": 128
     },
     "initRot": {

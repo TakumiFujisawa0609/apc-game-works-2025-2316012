@@ -1,6 +1,7 @@
 #include "../../../Application.h"
 #include "../../../Manager/Generic/InputManager.h"
 #include "../../../Manager/Generic/SceneManager.h"
+#include "../../../Manager/Generic/GameStateManager.h"
 #include "../../../Manager/Generic/CharacterManager.h"
 #include "../../../Manager/Resource/ResourceManager.h"
 #include "../../../Manager/Resource/FontManager.h"
@@ -12,6 +13,7 @@
 
 ReportSystem::ReportSystem(Player& player) :
 	input_(InputManager::GetInstance()),
+	stateMng_(GameStateManager::GetInstance()),
 	player_(player)
 {	
 	// 各種変数の初期化
@@ -129,6 +131,9 @@ void ReportSystem::UpdateReporting()
 	// 時間に達した場合
 	if (timer_->CountDown())
 	{
+		// ゲーム状態をプレイにする
+		stateMng_.ChangeState(GameStateManager::STATE::PLAY);
+
 		// 状態変更
 		state_ = STATE::COMPLETE;
 

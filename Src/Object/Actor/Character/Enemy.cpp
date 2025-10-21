@@ -174,7 +174,10 @@ void Enemy::DebugDraw()
 
 	// à íuèÓïÒÇÃï\é¶
 	VECTOR pos = transform_.pos;
-	DrawFormatString(0, 220, UtilityCommon::WHITE, L"ìGÇÃà íu :%2f,%2f, %2f", pos.x, pos.y, pos.z);
+	int posX = static_cast<int>(pos.x);
+	int posY = static_cast<int>(pos.y);
+	int posZ = static_cast<int>(pos.z);
+	DrawFormatString(0, 220, UtilityCommon::WHITE, L"ìGÇÃà íu :%d,%d, %d", posX, posY, posZ);
 
 	// éãñÏäpÇÃï`âÊ
 	action_->DebugDraw();

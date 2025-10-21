@@ -138,6 +138,12 @@ void CollisionManager::InitColliderMatrix()
 	collFuncMatrix_.resize(ColliderType::COLLIDER_TYPES, std::vector<std::function<bool(std::weak_ptr<ColliderBase>, std::weak_ptr<ColliderBase>)>>(ColliderType::COLLIDER_TYPES));
 
 	// 特定の組み合わせの関数を代入
+	collFuncMatrix_[static_cast<int>(ColliderType::TYPE::CAPSULE)][static_cast<int>(ColliderType::TYPE::CAPSULE)] =
+		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
+		{
+			return IsHitCheckCapsuleToCapsule(collA, collB);
+		};
+
 	collFuncMatrix_[static_cast<int>(ColliderType::TYPE::MODEL)][static_cast<int>(ColliderType::TYPE::CAPSULE)] =
 		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
 		{
@@ -254,6 +260,24 @@ bool CollisionManager::IsHitCheckModeToLine(std::weak_ptr<ColliderBase> collA, s
 
 	// 衝突しているか返す
 	return it.HitFlag;
+}
+
+bool CollisionManager::IsHitCheckCapsuleToCapsule(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB)
+{	
+	// カプセルコライダーの用意
+	std::weak_ptr<ColliderCapsule> collCapsuleA = std::dynamic_pointer_cast<ColliderCapsule>(collA.lock());
+	std::weak_ptr<ColliderCapsule> collCapsuleB = std::dynamic_pointer_cast<ColliderCapsule>(collB.lock());
+
+	// 必要な情報を取得
+	VECTOR capTopPosA = collCapsuleA.lock()->GetPosTop();		// カプセルの上部座標A
+	VECTOR capDownPosA = collCapsuleA.lock()->GetPosDown();		// カプセルの下部座標A
+	float radiusA = collCapsuleA.lock()->GetRadius();			// 半径A
+	VECTOR capTopPosB = collCapsuleB.lock()->GetPosTop();		// カプセルの上部座標B
+	VECTOR capDownPosB = collCapsuleB.lock()->GetPosDown();		// カプセルの下部座標B
+	float radiusB = collCapsuleB.lock()->GetRadius();			// 半径B
+
+	// 判定結果を返す
+	return Utility3D::CheckHitCapsuleToCapsule(capTopPosA, capDownPosA, radiusA, capTopPosB, capDownPosB, radiusB);
 }
 
 bool CollisionManager::IsHitCheckCapsuleToBox(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB)

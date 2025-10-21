@@ -146,6 +146,12 @@ public:
 	MODE GetMode() const;
 
 	/// <summary>
+	/// ƒJƒƒ‰ˆÊ’u‚Ìİ’è
+	/// </summary>
+	/// <param name="pos">À•W</param>
+	void SetPos(const VECTOR& pos);
+
+	/// <summary>
 	/// ’Ç]‘ÎÛ‚Ìİ’è
 	/// </summary>
 	/// <param name="follow">’Ç]‘ÎÛ</param>

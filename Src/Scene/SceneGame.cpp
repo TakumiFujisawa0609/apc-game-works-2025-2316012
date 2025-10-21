@@ -6,6 +6,7 @@
 #include "../Manager/Generic/StageManager.h"
 #include "../Manager/Generic/CharacterManager.h"
 #include "../Manager/Generic/CollisionManager.h"
+#include "../Manager/Generic/GameStateManager.h"
 #include "../Manager/Resource/ResourceManager.h"
 #include "../Manager/Resource/FontManager.h"
 #include "../Manager/System/GameSystemManager.h"
@@ -17,70 +18,61 @@
 #include "../Core/Game/Report/ReportSystem.h"
 #include "../Tool/CreatePositionList.h"
 #include "State/Game/GameStateBase.h"
-#include "State/Game/GameStatePlay.h"
-#include "State/Game/GameStateReporting.h"
 #include "ScenePause.h"
 #include "SceneGame.h"
 
-SceneGame::SceneGame(void)
+SceneGame::SceneGame()
 {
 	// 更新関数のセット
 	updataFunc_ = std::bind(&SceneGame::LoadingUpdate, this);
 	// 描画関数のセット
 	drawFunc_ = std::bind(&SceneGame::LoadingDraw, this);
-	// 各種変数の初期化
-	state_ = STATE::MAX;
+
+	// インスタンスの生成
+	ColliderFactory::CreateInstance();
+	CollisionManager::CreateInstance();
+	CharacterManager::CreateInstance();
+	StageManager::CreateInstance();
+	GameSystemManager::CreateInstance();
+	AnomalyManager::CreateInstance();
+	GameStateManager::CreateInstance();
 }
 
-SceneGame::~SceneGame(void)
+SceneGame::~SceneGame()
 {
-	//インスタンスの削除
+	// インスタンスの削除
 	StageManager::GetInstance().Destroy();
 	CharacterManager::GetInstance().Destroy();
 	CollisionManager::GetInstance().Destroy();
 	ColliderFactory::GetInstance().Destroy();
 	GameSystemManager::GetInstance().Destroy();
 	AnomalyManager::GetInstance().Destroy();
+	GameStateManager::GetInstance().Destroy();
 }
 
-void SceneGame::Load(void)
+void SceneGame::Load()
 {
 	// 親クラスの読み込み
 	SceneBase::Load();	
 
-	// コライダー生成管理クラス
-	ColliderFactory::CreateInstance();
-	
-	// 衝突判定管理クラス
-	CollisionManager::CreateInstance();
-
 	// キャラクター
-	CharacterManager::CreateInstance();
 	CharacterManager::GetInstance().Load();
 
 	// ステージ
-	StageManager::CreateInstance();
 	StageManager::GetInstance().Load();
 
 	// システム
-	GameSystemManager::CreateInstance();
 	GameSystemManager::GetInstance().Load();
 
-	//異常管理クラス
-	AnomalyManager::CreateInstance();
+	// 異常
 	AnomalyManager::GetInstance().Load();
 
-	//ポーズ画面のリソース
+	// ゲーム状態管理
+	GameStateManager::GetInstance().Load();
+
+	// ポーズ画面のリソース
 	ScenePause_ = std::make_shared<ScenePause>();
 	ScenePause_->Load();
-
-	//プレイ状態処理の生成
-	auto play = std::make_unique<GameStatePlay>(*this);
-	stateMap_.emplace(STATE::PLAY, std::move(play));
-
-	//報告状態処理の生成
-	auto repo = std::make_unique<GameStateReporting>(*this);
-	stateMap_.emplace(STATE::PLAY, std::move(repo));
 
 #ifdef _DEBUG	
 	// テスト用モデル
@@ -106,22 +98,16 @@ void SceneGame::Init(void)
 	// 異変管理クラス初期化
 	AnomalyManager::GetInstance().Init();
 
-	// 状態別処理初期化
-	for (auto& state : stateMap_)
-	{
-		state.second->Init();
-	}
-
-#ifdef _DEBUG	
-	test_->Init();
-#endif 
+	// ゲーム状態管理クラス初期化
+	GameStateManager::GetInstance().Init();
 
 	// カメラ設定
 	mainCamera.SetFollow(&CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform());
 	mainCamera.ChangeMode(Camera::MODE::FPS);
 
-	// 初期状態
-	state_ = STATE::PLAY;
+#ifdef _DEBUG	
+	test_->Init();
+#endif 
 }
 
 void SceneGame::NormalUpdate(void)
@@ -133,11 +119,12 @@ void SceneGame::NormalUpdate(void)
 		return;
 	}
 
-	// 状態別更新処理
-	stateMap_[state_]->Update();
+	GameStateManager::GetInstance().Update();
 
 #ifdef _DEBUG	
+
 	DebugUpdate();
+
 #endif 
 }
 
@@ -154,11 +141,12 @@ void SceneGame::NormalDraw(void)
 	);
 #endif
 	
-	// 状態別描画処理   
-	stateMap_[state_]->Draw();
+	GameStateManager::GetInstance().Draw();
 
 #ifdef _DEBUG
+
 	DebugDraw();
+
 #endif
 }
 
@@ -209,28 +197,11 @@ void SceneGame::DebugDraw(void)
 
 	CollisionManager::GetInstance().DebugDraw();
 	
-	// プレイヤー位置を取得
-	VECTOR playerPos = CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform().pos;
-
-	// 画面中心から座標を取得
-	VECTOR screenCenter = ConvScreenPosToWorldPos({ Application::SCREEN_HALF_X,Application::SCREEN_HALF_Y, 0 });
-
-	// 末端の位置を取得
-	VECTOR endPos = VAdd(screenCenter, VScale(mainCamera.GetForward(), 1000.0f));
-
-	// 先端位置を取得
-	VECTOR startPos = playerPos;
-	startPos.y += 120;
-
+	// カメラ位置
+	VECTOR cPos = mainCamera.GetPos();
+	VECTOR cTarget = mainCamera.GetTargetPos();
 
 	// 描画
-	DrawLine3D(startPos, endPos, UtilityCommon::BLUE);
-	DrawCapsule3D(startPos, endPos, 30.0f, 10.0f, UtilityCommon::BLUE, UtilityCommon::BLUE, true);
-	DrawSphere3D(startPos, 10.0f, 10.0f, UtilityCommon::GREEN, UtilityCommon::GREEN, true);
-	DrawSphere3D(endPos, 10.0f, 10.0f, UtilityCommon::LIME, UtilityCommon::LIME, true);
-	DrawSphere3D(VGet(0.0f, 0.0f, 50.0f), 20.0f, 10.0f, UtilityCommon::RED, UtilityCommon::RED, true);
-
-	// カメラ関係の値
-	DrawFormatString(0, 60, UtilityCommon::RED, L"始点の位置：%2f,%2f,%2f", startPos.x, startPos.y, startPos.z);
-	DrawFormatString(0, 80, UtilityCommon::RED, L"末端の位置：%2f,%2f,%2f", endPos.x, endPos.y, endPos.z);
+	DrawFormatString(0, 60, UtilityCommon::RED, L"カメラ位置：%2f,%2f,%2f", cPos.x, cPos.y, cPos.z);
+	DrawFormatString(0, 80, UtilityCommon::RED, L"注視点位置：%2f,%2f,%2f", cTarget.x, cTarget.y, cTarget.z);
 }

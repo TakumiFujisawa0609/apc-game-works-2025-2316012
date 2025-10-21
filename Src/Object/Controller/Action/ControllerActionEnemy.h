@@ -4,7 +4,9 @@
 class Enemy;
 class ControllerAnimation;
 class ControllerPathFinder;
+class ControllerCameraTransition;
 class ColliderSphere;
+class ScreenShake;
 class Timer;
 
 class ControllerActionEnemy : public ControllerActionBase
@@ -73,8 +75,23 @@ private:
 	// 視野角
 	const float VIEW_ANGLE;
 
+	// カメラ位置
+	static constexpr VECTOR JUMP_SCARE_CAMERA_POS = { -2.0f, 125.0f, 71.0f };
+
+	// 注視点の位置
+	static constexpr VECTOR JUMP_SCARE_CAMERA_TARGET_POS = { 10.0f, 193.0f, -112.0f };
+
+	// カメラトランジションの時間
+	static constexpr float TRANSITION_TIME = 0.75f;
+
 	// 目的地の変更時間
 	static constexpr float CHANGE_POINT_TIME = 2.0f;
+
+	// 画面シェイク強さ
+	static constexpr float SHAKE_POWER = 10.0f;
+
+	// 画面シェイク時間
+	static constexpr float SHAKE_TIME = 5.0f;
 
 	// 追跡範囲
 	static constexpr float CHASE_RANGE = 1500.0f;
@@ -124,7 +141,13 @@ private:
 	STATE state_;
 
 	// タイマー
-	std::unique_ptr<Timer> timer_;
+	std::unique_ptr<Timer> timer_;	
+	
+	// カメラのトランジション
+	std::unique_ptr<ControllerCameraTransition> transition_;
+
+	// 画面シェイク
+	std::unique_ptr<ScreenShake> shake_;
 
 	// 行動用球体コライダー
 	std::shared_ptr<ColliderSphere> colliderSphere_;
@@ -166,9 +189,6 @@ private:
 
 	// 視野判定用のラインコライダーの生成
 	void CreateLineCollider(const VECTOR& start, const VECTOR& end);
-
-	// 状態遷移判定用のスフィアコライダーの生成
-	//void CreateSphereCollider();
 
 	// ランダムで目的地のインデックスを返す
 	int GetRandGoalIndex();

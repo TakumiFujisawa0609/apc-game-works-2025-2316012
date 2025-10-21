@@ -146,6 +146,9 @@ private:
 	// メインの更新処理
 	void UpdateBody() override;	
 
+	//　メインの描画処理
+	void DrawMain() override;
+
 	// アニメーションの初期化
 	void InitAnimation() override;
 

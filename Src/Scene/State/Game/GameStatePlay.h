@@ -11,18 +11,12 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	/// <param name="parent">親のインスタンス</param>
-	GameStatePlay(SceneGame& parent);
+	GameStatePlay();
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
 	~GameStatePlay() override;
-
-	/// <summary>
-	/// 初期化処理
-	/// </summary>
-	void Init() override;
 
 	/// <summary>
 	/// 更新処理
@@ -39,11 +33,5 @@ private:
 	// 各種管理クラスの参照
 	CollisionManager& collMng_;
 	AnomalyManager& anomalyMng_;
-
-	// レポート
-	ReportSystem* report_;
-
-	// 状態遷移確認
-	void CheckChangeState() override;
 };
 

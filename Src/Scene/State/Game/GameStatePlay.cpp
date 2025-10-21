@@ -7,25 +7,14 @@
 #include "../../../Core/Game/Report/ReportSystem.h"
 #include "GameStatePlay.h"
 
-GameStatePlay::GameStatePlay(SceneGame& parent) :
-	GameStateBase(parent),
+GameStatePlay::GameStatePlay() :
 	collMng_(CollisionManager::GetInstance()),
 	anomalyMng_(AnomalyManager::GetInstance())
 {
-	report_ = nullptr;
 }
 
 GameStatePlay::~GameStatePlay()
 {
-}
-
-void GameStatePlay::Init()
-{
-	// レポートのポインタを保持
-	report_ = dynamic_cast<ReportSystem*>(&systemMng_.GetGamsSystem(GameSystemManager::TYPE::REPORT));
-
-	// キャストが失敗した場合、アサートを発動する
-	assert(report_ != nullptr && "dynamic_castに失敗しました");
 }
 
 void GameStatePlay::Update()
@@ -59,14 +48,4 @@ void GameStatePlay::Draw()
 
 	// システム描画
 	systemMng_.Draw();
-}
-
-void GameStatePlay::CheckChangeState()
-{
-	// 報告中の場合
-	if (report_->GetState() == ReportSystem::STATE::REPORTING)
-	{
-		// 状態変更
-		parent_.ChangeState(SceneGame::STATE::REPORTING);
-	}
 }

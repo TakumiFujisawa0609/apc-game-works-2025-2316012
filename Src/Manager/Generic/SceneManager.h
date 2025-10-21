@@ -4,6 +4,7 @@
 #include <list>
 #include "../../Template/Singleton.h"
 #include "../../Common/Fader.h"
+#include "../../Common/Vector2.h"
 
 //カメラのマクロ
 #define mainCamera SceneManager::GetInstance().GetCamera()
@@ -55,20 +56,14 @@ public:
 	void Release();
 
 	/// <summary>
-	/// 先頭の（Updataが呼ばれる）シーンを切り替える
+	/// 先頭の（Updateが呼ばれる）シーンを切り替える
 	/// </summary>
 	/// <param name="scene">切り替え先のシーン</param>
 	void CreateScene(std::shared_ptr<SceneBase> scene);
 
 	/// <summary>
-	/// すべてのシーンを切り替える
-	/// </summary>
-	/// <param name="scene">切り替え先のシーン</param>
-	void ChangeAllScene(std::shared_ptr<SceneBase> scene);
-
-	/// <summary>
 	/// シーンをプッシュする。スタックの数が増える
-	/// 一番上のシーンのUpdataしか呼ばれません。
+	/// 一番上のシーンのUpdateしか呼ばれません。
 	/// </summary>
 	/// <param name="scene">積むシーン</param>
 	void PushScene(std::shared_ptr<SceneBase> scene);
@@ -89,6 +84,12 @@ public:
 	/// フェードを始める
 	/// </summary>
 	void StartFadeIn();
+
+	/// <summary>
+	/// スクリーン座標
+	/// </summary>
+	/// <param name="pos">スクリーン座標</param>
+	void SetScreenPos(const Vector2 pos) { screenPos_ = pos; }
 
 	/// <summary>
 	/// メインスクリーンを返す
@@ -133,6 +134,9 @@ private:
 
 	// カメラ
 	std::unique_ptr<Camera> camera_;
+
+	// スクリーン座標
+	Vector2 screenPos_;
 
 	// メインスクリーン
 	int mainScreen_;

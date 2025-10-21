@@ -63,6 +63,18 @@ public:
 	static double AngleDeg(const VECTOR& from, const VECTOR& to);
 
 	/// <summary>
+	/// カプセルとカプセルの衝突判定
+	/// </summary>
+	/// <param name="capTopPosA">カプセルA先端座標</param>
+	/// <param name="capDownPosA">カプセルA末端座標</param>
+	/// <param name="capRadiusA">カプセルA半径</param>
+	/// <param name="capTopPosB">カプセルB先端座標</param>
+	/// <param name="capDownPosB">カプセルB末端座標</param>
+	/// <param name="capRadiusB">カプセルB半径</param>
+	/// <returns></returns>
+	static bool CheckHitCapsuleToCapsule(const VECTOR& capTopPosA, const VECTOR& capDownPosA, float capRadiusA, const VECTOR& capTopPosB, const VECTOR& capDownPosB, float capRadiusB);
+
+	/// <summary>
 	/// カプセルとラインの衝突判定
 	/// </summary>
 	/// <param name="capTopPos">カプセル先端座標</param>

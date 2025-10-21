@@ -98,6 +98,16 @@ void Player::UpdateBody()
 	stateUpdateFuncMap_[state_]();
 }
 
+void Player::DrawMain()
+{
+	if (state_ == STATE::DEAD)
+	{
+		return;
+	}
+
+	CharacterBase::DrawMain();
+}
+
 void Player::InitAnimation()
 {
 	// アニメーションの登録

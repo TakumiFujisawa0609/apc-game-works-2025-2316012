@@ -7,6 +7,7 @@
 #include "../../Common/CircleGauge.h"
 
 class InputManager;
+class GameStateManager;
 class Timer;
 class ControllerTextAnimation;
 class Player;
@@ -90,6 +91,9 @@ private:
 
 	// 入力管理クラスの参照
 	InputManager& input_;
+
+	// ゲーム状態管理
+	GameStateManager& stateMng_;
 
 	// プレイヤークラスの参照
 	Player& player_;

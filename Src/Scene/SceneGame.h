@@ -2,25 +2,18 @@
 #include <memory>
 #include "SceneBase.h"
 
+class GameStateManager;
+class CharacterManager;
+class StageManager;
+class GameSystemManager;
+class AnomalyManager;
 class ScenePause;
-class GameStateBase;
 class TestModel;
 class CreatePositionList;
 
 class SceneGame : public SceneBase
 {
-
 public:
-	
-	/// <summary>
-	/// 状態
-	/// </summary>
-	enum class STATE
-	{
-		PLAY,		// プレイ
-		REPORTING,	// 報告
-		MAX
-	};
 
 	/// <summary>
 	/// コンストラクタ
@@ -42,22 +35,10 @@ public:
 	/// </summary>
 	void Init() override;
 
-	/// <summary>
-	/// 状態遷移
-	/// </summary>
-	/// <param name="state">状態</param>
-	void ChangeState(const STATE state) { state_ = state; }
-
 private:
-
-	// 状態
-	STATE state_;
 
 	//ポーズ画面
 	std::shared_ptr<ScenePause> ScenePause_;
-
-	// 状態別処理の管理マップ
-	std::unordered_map<STATE, std::unique_ptr<GameStateBase>> stateMap_;
 
 	// テスト
 	std::unique_ptr<TestModel> test_;

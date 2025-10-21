@@ -1,3 +1,4 @@
+#include "../../../Manager/Generic/GameStateManager.h"
 #include "../../../Manager/System/GameSystemManager.h"
 #include "../../../Core/Game/Report/ReportSystem.h"
 #include "ControllerOnHitReport.h"
@@ -28,4 +29,7 @@ void ControllerOnHitReport::OnHitStageObject(const std::weak_ptr<ColliderBase>& 
 {
 	// レポートの状態遷移処理
 	report_->ChangeReporting();
+
+	// ゲーム状態変更
+	stateMng_.ChangeState(GameStateManager::STATE::REPORTING);
 }

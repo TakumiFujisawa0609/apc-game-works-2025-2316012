@@ -23,13 +23,16 @@ Camera::Camera(void)
 	changeModeMap_.emplace(MODE::FIXED_POINT, std::bind(&Camera::ChangeModeFixedPoint, this));
 	changeModeMap_.emplace(MODE::FOLLOW, std::bind(&Camera::ChangeModeFollow, this));
 	changeModeMap_.emplace(MODE::FPS, std::bind(&Camera::ChangeModeFps, this));
-	changeModeMap_.emplace(MODE::FREE, std::bind(&Camera::ChangeModeFree, this));
+	changeModeMap_.emplace(MODE::FREE, std::bind(&Camera::ChangeModeFree, this));	
+	
+	// カメラの初期設定
+	ChangeMode(MODE::FIXED_POINT);
 }
 
 void Camera::Init(void)
 {
-	// カメラの初期設定
-	ChangeMode(MODE::FIXED_POINT);
+	// パラメータ初期化
+	SetDefault();
 }
 
 void Camera::SetBeforeDraw(void)
@@ -43,12 +46,12 @@ void Camera::SetBeforeDraw(void)
 
 	CameraSetting();
 
-	// カメラの設定(位置と注視点による制御)
-	SetCameraPositionAndTargetAndUpVec(
-		pos_, 
-		targetPos_, 
-		cameraUp_
-	);
+	//// カメラの設定(位置と注視点による制御)
+	//SetCameraPositionAndTargetAndUpVec(
+	//	pos_, 
+	//	targetPos_, 
+	//	cameraUp_
+	//);
 
 	// DXライブラリのカメラとEffekseerのカメラを同期する。
 	Effekseer_Sync3DSetting();
@@ -109,11 +112,13 @@ Camera::MODE Camera::GetMode() const
 	return mode_;
 }
 
+void Camera::SetPos(const VECTOR& pos)
+{
+	pos_ = pos;
+}
+
 void Camera::ChangeMode(MODE mode)
 {
-	// カメラの初期設定
-	SetDefault();
-
 	// カメラモードの変更
 	mode_ = mode;
 

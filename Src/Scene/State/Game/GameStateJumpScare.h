@@ -1,40 +1,37 @@
 #pragma once
 #include "GameStateBase.h"
 
-class ReportSystem;
+class Enemy;
 
-class GameStateReporting : public GameStateBase
+class GameStateJumpScare : public GameStateBase
 {
 public:
 
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	GameStateReporting();
+	GameStateJumpScare();
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~GameStateReporting() override;
+	~GameStateJumpScare() override;
 
 	/// <summary>
-	/// 初期化
+	/// 初期化処理
 	/// </summary>
 	void Init() override;
 
 	/// <summary>
-	/// 更新
+	/// 更新処理
 	/// </summary>
 	void Update() override;
 
 	/// <summary>
-	/// 描画
+	/// 描画処理
 	/// </summary>
 	void Draw() override;
 
 private:
 
-	// レポート
-	ReportSystem* report_;
 };
-

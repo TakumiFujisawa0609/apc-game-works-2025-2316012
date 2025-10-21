@@ -94,6 +94,12 @@ private:
 	// 視野角の範囲
 	const float VIEW_RANGE;
 
+	// カメラ位置
+	static constexpr VECTOR JUMP_SCARE_CAMERA_POS = { 71.0f, 125.0f, -2.0f };
+
+	// 注視点の位置
+	static constexpr VECTOR JUMP_SCARE_CAMERA_TARGET_POS = { -112.0f, 193.0f, -26.0f };
+
 	// 状態
 	STATE state_;
 
