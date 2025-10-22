@@ -38,18 +38,6 @@ void Ghost::Init()
 {
 	// アニメーション初期化
 	InitAnimation();
-
-	//// トランスフォームの初期設定
-	//InitTransform();
-
-	//// 移動制御クラスの初期化
-	//move_->Init();
-
-	//// 回転制御クラスの初期化
-	//rotate_->Init();
-
-	//// 衝突後クラスの初期化
-	//onHit_->Init();
 }
 
 void Ghost::Create(const Json& param)
@@ -63,7 +51,7 @@ void Ghost::Create(const Json& param)
 	// 位置や角度の設定
 	transform_.scl = Utility3D::VECTOR_ONE;
 	transform_.pos = { param["initPos"]["x"],param["initPos"]["y"],param["initPos"]["z"] };
-	transform_.pos = VScale(transform_.pos, 100.0f);
+	transform_.pos = VScale(transform_.pos, UtilityCommon::METER_TO_UNIT_SCALE);
 	VECTOR rot = { param["initRot"]["x"],param["initRot"]["y"],param["initRot"]["z"] };
 	transform_.quaRot = Quaternion::Euler({ UtilityCommon::Deg2RadF(rot.x),UtilityCommon::Deg2RadF(rot.y), UtilityCommon::Deg2RadF(rot.z) });
 	transform_.quaRotLocal = Quaternion::Euler({ 0.0f,UtilityCommon::Deg2RadF(DEFAULT_LOCAL_QUAROT_Y_DEG), 0.0f });

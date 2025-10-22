@@ -61,6 +61,12 @@ public:
 	/// <param name="state">状態</param>
 	void ChangeState(const STATE state);
 
+	/// <summary>
+	/// 視野範囲内かを設定
+	/// </summary>
+	/// <param name="isRange">視野範囲内の判定</param>
+	void SetIsViewRange(const bool isRange) { isViewRange_ = isRange; }
+
 private:
 
 	// 移動速度
@@ -134,6 +140,9 @@ private:
 	// 最終的な目的地のインデックス
 	int goalIndex_;
 
+	// 範囲内か判定
+	bool isViewRange_;
+
 	// 次のポイント座標
 	VECTOR nextPointPos_;
 
@@ -182,7 +191,7 @@ private:
 	void FindPathToTarget();
 
 	// 敵の探索
-	void SearchTarget();
+	bool IsSearchTarget();
 
 	// 一定範囲内にターゲットがいるか調べる
 	bool CheckRangeToTarget(const float range);

@@ -2,6 +2,7 @@
 #include "../../../Manager/Generic/CollisionManager.h"
 #include "../../../Manager/Generic/SceneManager.h"
 #include "../../../Manager/Generic/GameStateManager.h"
+#include "../../../Manager/Generic/StageManager.h"
 #include "../../../Manager/Generic/Camera.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../../Utility/Utility3D.h"
@@ -40,6 +41,7 @@ ControllerActionEnemy::ControllerActionEnemy(Enemy& owner) :
 	shake_ = nullptr;
 	totalPoints_ = 0;
 	goalIndex_ = 0;
+	isViewRange_ = false;
 	nextPointPos_ = Utility3D::VECTOR_ZERO;
 	state_ = STATE::NONE;
 
@@ -150,11 +152,13 @@ void ControllerActionEnemy::DebugDraw()
 		return;
 	}
 
+	constexpr int OFFSET = 50;
+
 	//目的地の描画
 	for (auto point : points_)
 	{
 		VECTOR pos = movePosList_[point];
-		pos.y += 50;
+		pos.y += OFFSET;
 		DrawSphere3D(pos, 10.0f, 16, UtilityCommon::CYAN, UtilityCommon::CYAN, false);
 	}
 
@@ -162,10 +166,31 @@ void ControllerActionEnemy::DebugDraw()
 	{
 		VECTOR start = movePosList_[points_[i]];
 		VECTOR end = movePosList_[points_[i + 1]];
-		start.y += 50;
-		end.y += 50;
+		start.y += OFFSET;
+		end.y += OFFSET;
 		DrawLine3D(start, end, UtilityCommon::CYAN);
 	}
+
+
+	VECTOR my = owner_.GetTransform().pos;
+	VECTOR target = targetTransform_.pos;
+	color = UtilityCommon::YELLOW;
+	my.y += OFFSET;
+	target.y += OFFSET;
+	// プレイヤーと敵との距離の衝突判定
+	for (auto model : pathFinder_.GetModels())
+	{
+		auto it = MV1CollCheck_Line(model, -1, my, target);
+		if (it.HitFlag)
+		{
+			color = UtilityCommon::RED;
+			break;
+		}
+	}
+
+	// プレイヤーと敵との距離
+	DrawLine3D(my, target, color);
+
 }
 
 void ControllerActionEnemy::ChangeState(const STATE state)
@@ -204,6 +229,9 @@ void ControllerActionEnemy::ChangeStateSearch()
 
 	// 新しい経路を探索する
 	pathFinder_.FindPath(startIndex, goalIndex_, ADJACENT_NODE_DIST, points_);
+
+	// 視野外に設定
+	isViewRange_ = false;
 }
 
 void ControllerActionEnemy::ChangeStateIdle()
@@ -271,8 +299,12 @@ void ControllerActionEnemy::ChangeStateAction()
 
 void ControllerActionEnemy::UpdateSearch()
 {	
-	// ターゲットの探索
-	SearchTarget();
+	// ターゲットを見つけた場合
+	if (IsSearchTarget())
+	{
+		// 処理を飛ばす
+		return;
+	}
 
 	// 差分ベクトルの計算
 	VECTOR diffVec = VSub(nextPointPos_, owner_.GetTransform().pos);
@@ -308,18 +340,18 @@ void ControllerActionEnemy::UpdateSearch()
 			ChangeState(STATE::IDLE);
 			return;
 		}
-		// 確率が外れた場合
-		else
-		{
-			// 状態を移動に変更
-			ChangeState(STATE::SEARCH);
-			return;
-		}
 	}
 }
 
 void ControllerActionEnemy::UpdateIdle()
 {
+	// ターゲットを見つけた場合
+	if (IsSearchTarget())
+	{
+		// 処理を飛ばす
+		return;
+	}
+
 	// 設定時間になった場合
 	if (timer_->CountUp())
 	{
@@ -509,8 +541,15 @@ void ControllerActionEnemy::FindPathToTarget()
 	points_.erase(points_.begin());
 }
 
-void ControllerActionEnemy::SearchTarget()
+bool ControllerActionEnemy::IsSearchTarget()
 {
+	if (isViewRange_)
+	{
+		// 状態遷移
+		ChangeState(STATE::CHASE_NEAR);
+		return true;
+	}
+
 	// ターゲット位置を取得
 	VECTOR targetPos = targetTransform_.pos;
 
@@ -535,13 +574,17 @@ void ControllerActionEnemy::SearchTarget()
 		if (viewDeg <= VIEW_ANGLE || viewDeg >= (360.0f - VIEW_ANGLE))
 		{
 			// 障害物との判定用のコライダーを生成
+			// 位置調整
+			myPos.y += 50;
+			targetPos.y += 50;
 			CreateLineCollider(myPos, targetPos);
 
-			// 追跡状態に変更
-			ChangeState(STATE::CHASE_NEAR);
-			return;
+			// 現時点では範囲内と設定
+			isViewRange_ = true;
 		}
 	}
+
+	return false;
 }
 
 bool ControllerActionEnemy::CheckRangeToTarget(const float range)

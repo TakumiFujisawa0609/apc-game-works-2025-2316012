@@ -138,11 +138,11 @@ private:
 	void UpdateWait();
 	void UpdateReporting();
 	void UpdateMiss();
-	void UpdtateComplete();
+	void UpdateComplete();
 
 	// ó‘Ô•Ê•`‰æˆ—
 	void DrawWait();
 	void DrawReporting();
 	void DrawMiss();
-	void DrawComplite();
+	void DrawComplete();
 };

@@ -19,6 +19,9 @@ GameStatePlay::~GameStatePlay()
 
 void GameStatePlay::Update()
 {
+	// 異変関係の処理
+	anomalyMng_.Update();
+
 	// キャラクターの本体更新
 	charaMng_.Update();
 

@@ -1,4 +1,5 @@
 #include <DxLib.h>
+#include <time.h>
 #include <EffekseerForDXLib.h>
 #include "Manager/Generic/SceneManager.h"
 #include "Manager/Generic/InputManager.h"
@@ -53,6 +54,9 @@ bool Application::Init()
 	// FPS‰Šú‰»
 	fps_ = std::make_unique<FpsControl>();
 	fps_->Init();
+
+	// ƒ‰ƒ“ƒ_ƒ€¶¬”š‚Ì‰Šú‰»
+	SRand((unsigned int)time(NULL));
 
 	return true;
 }

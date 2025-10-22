@@ -168,4 +168,5 @@ void Player::DebugDraw()
 	DrawFormatString(0, 40, UtilityCommon::RED, L"プレイヤー目標角度：%2f,%2f,%2f,%2f", goalQuaRot_.x, goalQuaRot_.y, goalQuaRot_.z, goalQuaRot_.w);
 	DrawFormatString(0, 140, UtilityCommon::RED, L"回転角度ステップ：%2f", rotStep_);
 
+	action_->DebugDraw();
 }

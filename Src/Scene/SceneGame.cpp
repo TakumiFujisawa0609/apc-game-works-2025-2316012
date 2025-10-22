@@ -204,4 +204,6 @@ void SceneGame::DebugDraw(void)
 	// 描画
 	DrawFormatString(0, 60, UtilityCommon::RED, L"カメラ位置：%2f,%2f,%2f", cPos.x, cPos.y, cPos.z);
 	DrawFormatString(0, 80, UtilityCommon::RED, L"注視点位置：%2f,%2f,%2f", cTarget.x, cTarget.y, cTarget.z);
+
+	AnomalyManager::GetInstance().DebugDraw();
 }

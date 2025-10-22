@@ -30,6 +30,11 @@ public:
 	/// </summary>
 	void Update() override;
 
+	/// <summary>
+	/// デバッグの描画処理
+	/// </summary>
+	void DebugDraw() override;
+
 private:
 
 	// ゲージの最大値

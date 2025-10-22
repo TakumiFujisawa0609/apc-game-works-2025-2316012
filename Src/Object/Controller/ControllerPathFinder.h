@@ -55,6 +55,8 @@ public:
 	/// <returns></returns>
 	int GetNearNodeIndex(const VECTOR& pos);
 
+	std::vector<int> GetModels() const { return models_; }
+
 private:	
 	
 	// ÉmÅ[Éh

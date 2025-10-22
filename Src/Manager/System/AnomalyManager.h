@@ -52,9 +52,13 @@ public:
 	/// <summary>
 	/// •`‰æˆ—
 	/// </summary>
-	void Draw();
+	void DebugDraw();
 
 private:
+
+	static constexpr float FIRST_TIME = 50.0f;
+	static constexpr int ANOMALY_TIME_MAX = 40;
+	static constexpr int ANOMALY_TIME_MIN = 20;
 
 	// ˆÙ•Ïî•ñƒtƒ@ƒCƒ‹–¼
 	const std::string ANOMALY_FILE = "GhostRespown";

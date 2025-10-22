@@ -45,6 +45,21 @@ void ControllerActionPlayer::Update()
 	ProcessReport();
 }
 
+void ControllerActionPlayer::DebugDraw()
+{
+	// 画面中心から座標を取得
+	VECTOR screenCenter = ConvScreenPosToWorldPos({ Application::SCREEN_HALF_X,Application::SCREEN_HALF_Y, 0 });
+
+	// 末端の位置を取得
+	VECTOR endPos = VAdd(screenCenter, VScale(mainCamera.GetForward(), REPORT_RANGE));
+
+	// 先端位置を取得
+	VECTOR startPos = player_.GetTransform().pos;
+	startPos.y += OFFSET_Y;
+
+	DrawLine3D(startPos, endPos, UtilityCommon::BLUE);
+}
+
 void ControllerActionPlayer::ProcessMove()
 {
 	// X軸回転を除いた、重力方向に垂直なカメラ角度(XZ平面)を取得
@@ -169,13 +184,6 @@ void ControllerActionPlayer::ProcessJump()
 		// ジャンプ中ではない場合
 		if (!isJump)
 		{
-			// 制御無しジャンプ
-			//mAnimationController->Play((int)ANIM_TYPE::JUMP);
-			// ループしないジャンプ
-			//mAnimationController->Play((int)ANIM_TYPE::JUMP, false);
-			// 切り取りアニメーション
-			//mAnimationController->Play((int)ANIM_TYPE::JUMP, false, 13.0f, 24.0f);
-			// 無理やりアニメーション
 			animation.Play(Player::ANIM_JUMP, true, 13.0f, 25.0f);
 			animation.SetEndLoop(23.0f, 25.0f, 5.0f);
 		}

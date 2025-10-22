@@ -18,6 +18,6 @@ ControllerOnHitEnemyView::~ControllerOnHitEnemyView()
 void ControllerOnHitEnemyView::OnHitStageObject(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
 	// レイキャストによる遮蔽判定で衝突している場合
-	// 敵の視野外なので探索状態に変更
-	//actionCtrl_.ChangeState(ControllerActionEnemy::STATE::SEARCH);
+	// 敵の視野外なので視野範囲外と設定
+	actionCtrl_.SetIsViewRange(false);
 }

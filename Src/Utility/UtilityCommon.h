@@ -29,6 +29,9 @@ public:
 	static constexpr int GRAY = 0xBBBBBB;	//灰色
 	static constexpr int BROWN = 0x8B4513;	//茶色
 
+	// 1メートルをゲーム内の単位に変換するスケール
+	static constexpr float METER_TO_UNIT_SCALE = 100.0f;
+
 	// 四捨五入
 	static int Round(float v);
 

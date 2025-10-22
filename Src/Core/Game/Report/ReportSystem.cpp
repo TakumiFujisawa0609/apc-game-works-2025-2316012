@@ -23,7 +23,7 @@ ReportSystem::ReportSystem(Player& player) :
 
 	// 処理の登録
 	RegisterStateFunction(STATE::WAIT, std::bind(&ReportSystem::UpdateWait, this), std::bind(&ReportSystem::DrawWait, this));
-	RegisterStateFunction(STATE::COMPLETE, std::bind(&ReportSystem::UpdtateComplete, this), std::bind(&ReportSystem::DrawComplite, this));
+	RegisterStateFunction(STATE::COMPLETE, std::bind(&ReportSystem::UpdateComplete, this), std::bind(&ReportSystem::DrawComplete, this));
 	RegisterStateFunction(STATE::MISS, std::bind(&ReportSystem::UpdateMiss, this), std::bind(&ReportSystem::DrawMiss, this));
 	RegisterStateFunction(STATE::REPORTING, std::bind(&ReportSystem::UpdateReporting, this), std::bind(&ReportSystem::DrawReporting, this));
 }
@@ -129,7 +129,7 @@ void ReportSystem::UpdateWait()
 void ReportSystem::UpdateReporting()
 {
 	// 時間に達した場合
-	if (timer_->CountDown())
+	if (timer_->CountUp())
 	{
 		// ゲーム状態をプレイにする
 		stateMng_.ChangeState(GameStateManager::STATE::PLAY);
@@ -187,7 +187,7 @@ void ReportSystem::UpdateMiss()
 	UpdateWait();
 }
 
-void ReportSystem::UpdtateComplete()
+void ReportSystem::UpdateComplete()
 {
 	// アニメーションを終えている場合
 	if(textAnimation_->IsEnd())
@@ -233,7 +233,7 @@ void ReportSystem::DrawMiss()
 	textAnimation_->Draw();
 }
 
-void ReportSystem::DrawComplite()
+void ReportSystem::DrawComplete()
 {
 	textAnimation_->Draw();
 }

@@ -45,6 +45,12 @@ public:
 	/// <param name="goalTime">目標時間</param>
 	void SetGoalTime(const float goalTime) { goalTime_ = goalTime; }
 
+	/// <summary>
+	/// 現在の時間を返す
+	/// </summary>
+	/// <returns>時間</returns>
+	const int GetCount() const { return static_cast<int>(step_); }
+
 private:
 
 	// シーン管理クラスの参照
