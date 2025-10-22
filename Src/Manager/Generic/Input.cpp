@@ -38,23 +38,12 @@ void Input::Init(void)
 {
 	Input::MouseInfo info;
 
-	// 左クリック
+	// マウス
 	info = Input::MouseInfo();
-	info.key = MOUSE_INPUT_LEFT;
-	info.keyOld = false;
-	info.keyNew = false;
-	info.keyTrgDown = false;
-	info.keyTrgUp = false;
-	mouseInfos_.emplace(info.key, info);
-
-	// 右クリック
-	info = Input::MouseInfo();
-	info.key = MOUSE_INPUT_RIGHT;
-	info.keyOld = false;
-	info.keyNew = false;
-	info.keyTrgDown = false;
-	info.keyTrgUp = false;
-	mouseInfos_.emplace(info.key, info);
+	for (int i = 0; i < static_cast<int>(MOUSE::MAX); i++)
+	{
+		mouseInfos_.emplace(static_cast<MOUSE>(i), info);
+	}
 
 	//スティック
 	Input::StickInfo stickInfo;
@@ -85,12 +74,44 @@ void Input::Update(void)
 
 	// マウス検知
 	mouseInput_ = GetMouseInput();
+	mousePrePos_ = mousePos_;
 	GetMousePoint(&mousePos_.x, &mousePos_.y);
+	wheelRot_ = GetMouseWheelRotVol();
 
 	for (auto& p : mouseInfos_)
 	{
 		p.second.keyOld = p.second.keyNew;
-		p.second.keyNew = mouseInput_ == p.second.key;
+		switch (p.first)
+		{
+		case MOUSE::CLICK_RIGHT:
+			p.second.keyNew = (mouseInput_ & MOUSE_INPUT_RIGHT) != 0;
+			break;
+		case MOUSE::CLICK_LEFT:
+			p.second.keyNew = (mouseInput_ & MOUSE_INPUT_LEFT) != 0;
+			break;
+		case MOUSE::MOVE_LEFT:
+			p.second.keyNew = mousePos_.x < mousePrePos_.x;
+			break;
+		case MOUSE::MOVE_RIGHT:
+			p.second.keyNew = mousePos_.x > mousePrePos_.x;
+			break;
+		case MOUSE::MOVE_UP:
+			p.second.keyNew = mousePos_.y < mousePrePos_.y;
+			break;
+		case MOUSE::MOVE_DOWN:
+			p.second.keyNew = mousePos_.y > mousePrePos_.y;
+			break;
+		case MOUSE::WHEEL_FRONT:
+			p.second.keyNew = (wheelRot_ > 0);
+			break;
+		case MOUSE::WHEEL_BACK:
+			p.second.keyNew = (wheelRot_ < 0);
+			break;
+		case MOUSE::MAX:
+			break;
+		default:
+			break;
+		}
 		p.second.keyTrgDown = p.second.keyNew && !p.second.keyOld;
 		p.second.keyTrgUp = !p.second.keyNew && p.second.keyOld;
 	}
@@ -159,6 +180,11 @@ Vector2 Input::GetMousePos(void) const
 	return mousePos_;
 }
 
+Vector2 Input::GetMousePosDistance(void) const
+{
+	return { mousePos_.x - mousePrePos_.x ,mousePos_.y - mousePrePos_.y };
+}
+
 int Input::GetMouse(void) const
 {
 	return mouseInput_;
@@ -174,14 +200,19 @@ bool Input::IsClickMouseRight(void) const
 	return mouseInput_ == MOUSE_INPUT_RIGHT;
 }
 
-bool Input::IsTrgMouseLeft(void) const
+bool Input::IsMouseNew(MOUSE mouse) const
 {
-	return FindMouse(MOUSE_INPUT_LEFT).keyTrgDown;
+	return FindMouse(mouse).keyNew;
 }
 
-bool Input::IsTrgMouseRight(void) const
+bool Input::IsMouseTrgUp(MOUSE mouse) const
 {
-	return FindMouse(MOUSE_INPUT_RIGHT).keyTrgDown;
+	return FindMouse(mouse).keyTrgUp;
+}
+
+bool Input::IsMouseTrgDown(MOUSE mouse) const
+{
+	return FindMouse(mouse).keyTrgDown;
 }
 
 const Input::Info& Input::Find(int key) const
@@ -197,7 +228,7 @@ const Input::Info& Input::Find(int key) const
 
 }
 
-const Input::MouseInfo& Input::FindMouse(int key) const
+const Input::MouseInfo& Input::FindMouse(MOUSE key) const
 {
 	auto it = mouseInfos_.find(key);
 	if (it != mouseInfos_.end())

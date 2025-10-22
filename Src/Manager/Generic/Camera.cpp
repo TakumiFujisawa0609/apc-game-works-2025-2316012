@@ -9,7 +9,8 @@
 #include "InputManager.h"
 #include "Camera.h"
 
-Camera::Camera(void)
+Camera::Camera(void) : 
+	input_(InputManager::GetInstance())
 {
 	angles_ = VECTOR();
 	cameraUp_ = VECTOR();
@@ -44,14 +45,8 @@ void Camera::SetBeforeDraw(void)
 	// カメラモードごとの描画前処理
 	beforeDrawFunc_();
 
+	// カメラの設定
 	CameraSetting();
-
-	//// カメラの設定(位置と注視点による制御)
-	//SetCameraPositionAndTargetAndUpVec(
-	//	pos_, 
-	//	targetPos_, 
-	//	cameraUp_
-	//);
 
 	// DXライブラリのカメラとEffekseerのカメラを同期する。
 	Effekseer_Sync3DSetting();
@@ -220,23 +215,31 @@ void Camera::ProcessRotFollow(void)
 
 void Camera::ProcessRotFps(void)
 {
-	auto& ins = InputManager::GetInstance();
-
 	// マウス感度
 	static constexpr float MOUSE_SENSITIVITY = 0.2f;
+	static constexpr float PAD_SENSITIVITY = 0.015f;
 
-	// マウス座標を取得
-	int mousePosX = ins.GetMousePos().x;
-	int mousePosY = ins.GetMousePos().y;
+	float rotPow = UtilityCommon::Deg2RadF(SPEED);
+	if (input_.IsNew(InputManager::TYPE::CAMERA_MOVE_RIGHT)) { angles_.y += rotPow; }
+	if (input_.IsNew(InputManager::TYPE::CAMERA_MOVE_LEFT)) { angles_.y -= rotPow; }
+	if (input_.IsNew(InputManager::TYPE::CAMERA_MOVE_UP)) { angles_.x += rotPow; }
+	if (input_.IsNew(InputManager::TYPE::CAMERA_MOVE_DOWN)) { angles_.x -= rotPow; }
 
-	// 移動量
-	int deltaX = mousePosX - Application::SCREEN_HALF_X;
-	int deltaY = mousePosY - Application::SCREEN_HALF_Y;
+	auto rStick = input_.GetKnockRStickSize();
+	if (Vector2::IsVector2({ 0,0 }, rStick))
+	{
+		rotPow = PAD_SENSITIVITY;
+		angles_.x += UtilityCommon::Deg2RadF(rStick.y * rotPow);
+		angles_.y += UtilityCommon::Deg2RadF(rStick.x * rotPow);
+	}
 
-	// カメラ回転を更新
-	angles_.y += float(std::clamp(deltaX, -120, 120)) * MOUSE_SENSITIVITY / GetFPS();
-	angles_.x += float(std::clamp(deltaY, -120, 120)) * MOUSE_SENSITIVITY / GetFPS();
-
+	auto mouseMove = input_.GetMouseMove();
+	if (Vector2::IsVector2({ 0,0 }, mouseMove))
+	{
+		rotPow = MOUSE_SENSITIVITY;
+		angles_.x += UtilityCommon::Deg2RadF(mouseMove.y * rotPow);
+		angles_.y += UtilityCommon::Deg2RadF(mouseMove.x * rotPow);
+	}
 	// マウスの位置を画面中央に戻す
 	SetMousePoint(Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y);
 

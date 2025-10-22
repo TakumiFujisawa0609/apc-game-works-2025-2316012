@@ -68,6 +68,19 @@ public:
 		MAX
 	};
 
+	enum class MOUSE
+	{
+		CLICK_RIGHT,		//右クリック
+		CLICK_LEFT,			//左クリック
+		MOVE_LEFT,			//左移動
+		MOVE_RIGHT,			//右移動
+		MOVE_UP,			//上移動
+		MOVE_DOWN,			//下移動
+		WHEEL_FRONT,		//ホイール前(奥)回転
+		WHEEL_BACK,			//ホイール後ろ(手前)回転
+		MAX
+	};
+
 	// ゲームコントローラーの入力情報
 	struct JOYPAD_IN_STATE
 	{
@@ -113,6 +126,9 @@ public:
 	// マウス座標の取得
 	Vector2 GetMousePos(void) const;
 
+	// マウスの移動距離を取得
+	Vector2 GetMousePosDistance(void)const;
+
 	// マウスのクリック状態を取得(MOUSE_INPUT_LEFT、RIGHT)
 	int GetMouse(void) const;
 
@@ -121,12 +137,6 @@ public:
 
 	// マウスが右クリックされたか
 	bool IsClickMouseRight(void) const;
-
-	// マウスが左クリックされたか(押しっぱなしはNG)
-	bool IsTrgMouseLeft(void) const;
-
-	// マウスが右クリックされたか(押しっぱなしはNG)
-	bool IsTrgMouseRight(void) const;
 
 	// コントローラの入力情報を取得する
 	JOYPAD_IN_STATE GetJPadInputState(JOYPAD_NO no);
@@ -139,7 +149,12 @@ public:
 	// スティックが倒されたか
 	bool IsStickNew(JOYPAD_NO no, JOYPAD_STICK stick) const;
 	bool IsStickDown(JOYPAD_NO no, JOYPAD_STICK stick) const;
-	bool IsStickUp(JOYPAD_NO no, JOYPAD_STICK stick) const;
+	bool IsStickUp(JOYPAD_NO no, JOYPAD_STICK stick) const;	
+	
+	// マウスが押されたか
+	bool IsMouseNew(MOUSE mouse) const;
+	bool IsMouseTrgUp(MOUSE mouse) const;
+	bool IsMouseTrgDown(MOUSE mouse) const;
 
 private:
 
@@ -169,7 +184,6 @@ private:
 	// マウス
 	struct MouseInfo
 	{
-		int key;			// キーID
 		bool keyOld;		// 1フレーム前の押下状態
 		bool keyNew;		// 現フレームの押下状態
 		bool keyTrgDown;	// 現フレームでボタンが押されたか
@@ -187,14 +201,18 @@ private:
 	Input::Info infoEmpty_;
 
 	// マウス情報
-	std::map<int, Input::MouseInfo> mouseInfos_;
+	std::map<MOUSE, Input::MouseInfo> mouseInfos_;
 	Input::MouseInfo mouseInfoEmpty_;
 
 	// スティック情報
 	std::map<JOYPAD_NO, std::vector<Input::StickInfo>> stickInfos_;
 
 	// マウスカーソルの位置
+	Vector2 mousePrePos_;
 	Vector2 mousePos_;
+
+	//マウスホイール回転量
+	int wheelRot_;
 
 	// マウスボタンの入力状態
 	int mouseInput_;
@@ -206,7 +224,7 @@ private:
 	const Input::Info& Find(int key) const;
 
 	// 配列の中からマウス情報を取得する
-	const Input::MouseInfo& FindMouse(int key) const;
+	const Input::MouseInfo& FindMouse(MOUSE key) const;
 
 	// スティックの倒れ具合を取得する
 	int PadStickOverSize(const JOYPAD_NO no, const JOYPAD_STICK stick);

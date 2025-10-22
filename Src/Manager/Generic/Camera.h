@@ -5,6 +5,7 @@
 #include "../../Common/Quaternion.h"
 
 class Transform;
+class InputManager;
 
 class Camera
 {
@@ -164,6 +165,8 @@ public:
 	void SetTargetPos(const VECTOR& targetPos);
 
 private:
+
+	InputManager& input_;
 
 	// ƒJƒƒ‰‚ª’Ç]‘ÎÛ‚Æ‚·‚éTransform
 	const Transform* followTransform_;

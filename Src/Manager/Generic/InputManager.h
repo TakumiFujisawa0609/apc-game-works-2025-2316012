@@ -27,6 +27,11 @@ public:
 		PLAYER_JUMP,		// ジャンプ
 		PLAYER_DASH,		// ダッシュ
 
+		CAMERA_MOVE_RIGHT,	// カメラ右移動
+		CAMERA_MOVE_LEFT,	// カメラ左移動
+		CAMERA_MOVE_UP,		// カメラ上移動
+		CAMERA_MOVE_DOWN,	// カメラ下移動
+
 		SELECT_RIGHT,		// 選択右
 		SELECT_LEFT,		// 選択左
 		SELECT_DOWN,		// 選択下
@@ -65,7 +70,7 @@ public:
 	/// <param name="type">状況の種類</param>
 	/// <param name="padNo">パッド番号(デフォルトはPAD1)</param>
 	/// <returns>trueの場合入力中,falseの場合未入力</returns>
-	bool IsNew(const TYPE type, const Input::JOYPAD_NO padNo = Input::JOYPAD_NO::KEY_PAD1);
+	bool IsNew(const TYPE type, const Input::JOYPAD_NO padNo = Input::JOYPAD_NO::PAD1);
 
 	/// <summary>
 	/// 指定した状況での各入力機器の押下判定(最初のみ)
@@ -73,7 +78,7 @@ public:
 	/// <param name="type">状況の種類</param>
 	/// <param name="padNo">パッド番号(デフォルトはPAD1)</param>
 	/// <returns>trueの場合入力中,falseの場合未入力</returns>
-	bool IsTrgDown(const TYPE type, const Input::JOYPAD_NO padNo = Input::JOYPAD_NO::KEY_PAD1);
+	bool IsTrgDown(const TYPE type, const Input::JOYPAD_NO padNo = Input::JOYPAD_NO::PAD1);
 
 	/// <summary>
 	/// 指定した状況での各入力機器の離した判定
@@ -81,7 +86,7 @@ public:
 	/// <param name="type">状況の種類</param>
 	/// <param name="padNo">パッド番号(デフォルトはPAD1)</param>
 	/// <returns>trueの場合離したタイミング,falseの場合まだ押下中</returns>
-	bool IsTrgUp(const TYPE type, const Input::JOYPAD_NO padNo = Input::JOYPAD_NO::KEY_PAD1);
+	bool IsTrgUp(const TYPE type, const Input::JOYPAD_NO padNo = Input::JOYPAD_NO::PAD1);
 
 	/// <summary>
 	/// マウス座標の取得
@@ -89,14 +94,25 @@ public:
 	/// <returns>マウス座標の取得</returns>
 	Vector2 GetMousePos() const;
 
+	/// <summary>
+	/// マウスの移動量を取得
+	/// </summary>
+	/// <param name=""></param>
+	/// <returns>マウスの移動量</returns>
+	Vector2 GetMouseMove() const;
+
+	Vector2 GetKnockLStickSize(Input::JOYPAD_NO no = Input::JOYPAD_NO::PAD1) const;
+	Vector2 GetKnockRStickSize(Input::JOYPAD_NO no = Input::JOYPAD_NO::PAD1) const;
+
 private:
 
 	// 入力トリガーの情報
 	struct TriggerInfo
 	{
-		int key = -1;
-		Input::JOYPAD_BTN padButton = Input::JOYPAD_BTN::MAX;
+		std::vector<int> keys;
+		std::vector<Input::JOYPAD_BTN> padButtons;
 		Input::JOYPAD_STICK padStick = Input::JOYPAD_STICK::MAX;
+		Input::MOUSE mouse = Input::MOUSE::MAX;
 	};
 
 	// 入力判定クラス
@@ -113,9 +129,10 @@ private:
 	// 入力状況に応じたトリガーを登録
 	void RegisterTrigger(
 		const TYPE type, 
-		const int key = -1, 
-		const Input::JOYPAD_BTN padButton = Input::JOYPAD_BTN::MAX,
-		const Input::JOYPAD_STICK padStick = Input::JOYPAD_STICK::MAX);
+		const std::vector<int> keys,
+		const std::vector<Input::JOYPAD_BTN> padButtons,
+		const Input::JOYPAD_STICK padStick = Input::JOYPAD_STICK::MAX,
+		const Input::MOUSE mouse = Input::MOUSE::MAX);
 
 	// 処理の登録
 	void RegisterTriggerFunction(
@@ -138,6 +155,11 @@ private:
 	bool IsNewPadStick(const TYPE type, const Input::JOYPAD_NO padNo);
 	bool IsTrgDownPadStick(const TYPE type, const Input::JOYPAD_NO padNo);
 	bool IsTrgUpPadStick(const TYPE type, const Input::JOYPAD_NO padNo);
+
+	// マウスの入力判定
+	bool IsNewMouse(const TYPE type);
+	bool IsTrgDownMouse(const TYPE type);
+	bool IsTrgUpMouse(const TYPE type);
 
 	// コンストラクタ
 	InputManager();
