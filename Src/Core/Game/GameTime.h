@@ -1,20 +1,23 @@
 #pragma once
-#include "../../CoreBase.h"
-#include "../../../Common/CharacterString.h"
+#include <memory>
+#include "CoreGameBase.h"
 
-class GameManualUi : public CoreBase
+class Timer;
+class GameStateManager;
+
+class GameTime : public CoreGameBase
 {
 public:
 
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	GameManualUi();
+	GameTime();
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~GameManualUi() override;
+	~GameTime() override;
 
 	/// <summary>
 	/// 読み込み処理
@@ -38,16 +41,18 @@ public:
 
 private:
 
-	// キーボード操作説明文
-	const std::wstring MANUAL_KEY = 
-		L"操作方法\n"
-		"移動		:WASD\n"
-		"ダッシュ	:LShift\n"
-		"報告		:R\n"
-		"カメラ		:Mouse\n"
-		"ポーズ		:P\n"
-		;
+	// 状態管理クラスの参照
+	GameStateManager& stateMng_;
 
-	// テキスト
-	CharacterString text_;
+	// 日付情報
+	CharacterString todayText_;
+
+	// 時間情報
+	CharacterString timeText_;
+
+	// 時間
+	std::unique_ptr<Timer> timer_;
+
+	// 年月日の文字列を返す
+	std::wstring GetYmdWstring();
 };

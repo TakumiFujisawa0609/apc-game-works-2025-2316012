@@ -1,6 +1,6 @@
 #include <cassert>
 #include "../../../Manager/System/GameSystemManager.h"
-#include "../../../Core/Game/Report/ReportSystem.h"
+#include "../../../Core/Game/ReportSystem.h"
 #include "GameStateReporting.h"
 
 GameStateReporting::GameStateReporting()

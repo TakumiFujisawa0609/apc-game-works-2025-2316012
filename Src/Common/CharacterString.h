@@ -25,9 +25,14 @@ struct CharacterString
 	int color;
 
 	/// <summary>
-	/// 描画用データ
+	/// 描画用データ1
 	/// </summary>
-	int data;
+	int data1;
+
+	/// <summary>
+	/// 描画用データ2
+	/// </summary>
+	int data2;
 
 	/// <summary>
 	/// コンストラクタ

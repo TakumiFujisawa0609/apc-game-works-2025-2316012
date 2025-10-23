@@ -19,9 +19,9 @@ public:
 	void Draw();
 
 	/// <summary>
-/// サイズの半分の設定
-/// </summary>
-/// <param name="halfSize">サイズの半分</param>
+	/// サイズの半分の設定
+	/// </summary>
+	/// <param name="halfSize">サイズの半分</param>
 	void SetHalfSize(const VECTOR& halfSize);
 
 private:

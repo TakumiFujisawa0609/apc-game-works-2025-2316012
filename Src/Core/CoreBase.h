@@ -1,4 +1,5 @@
 #pragma once
+#include "../Common/CharacterString.h"
 
 class ResourceManager;
 class SceneManager;
@@ -45,8 +46,11 @@ protected:
 	SceneManager& scnMng_;
 	FontManager& fontMng_;
 
+	// テキスト
+	CharacterString text_;
+
 	// 通常フォントサイズ
-	static constexpr int FONT_SIZE = 32;
+	static constexpr int FONT_SIZE = 24;
 
 	// 通常フォント太さ
 	static constexpr int FONT_THICK = 0;

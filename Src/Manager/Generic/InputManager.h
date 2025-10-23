@@ -43,6 +43,8 @@ public:
 
 		ANOMARY_REPORT,		// 異変の報告
 
+		CAMERA_MODE_CHANGE,	// カメラモード切替
+
 		DEBUG_SCENE_CHANGE, // デバッグシーン遷移
 		DEBUG_CAMERA_CHANGE,// デバッグカメラビュー変更
 		CREATE_POSITION,	// 位置リストの生成

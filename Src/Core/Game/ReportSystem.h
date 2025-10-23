@@ -2,9 +2,9 @@
 #include <memory>
 #include <functional>
 #include <unordered_map>
-#include "../../../Common/CharacterString.h"
-#include "../../CoreBase.h"
-#include "../../Common/CircleGauge.h"
+#include "CoreGameBase.h"
+#include "../../Common/CharacterString.h"
+#include "../Common/CircleGauge.h"
 
 class InputManager;
 class GameStateManager;
@@ -12,7 +12,7 @@ class Timer;
 class ControllerTextAnimation;
 class Player;
 
-class ReportSystem : public CoreBase
+class ReportSystem : public CoreGameBase
 {
 public:
 

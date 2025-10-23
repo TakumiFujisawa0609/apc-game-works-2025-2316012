@@ -192,12 +192,6 @@
     <ClCompile Include="Src\Object\Controller\ControllerAnimation.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\System\Load\ParameterLoadBase.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\System\Load\ParameterLoadCharacter.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Core\Common\ControllerSpriteAnimation.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -238,12 +232,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Object\Collider\ColliderFactory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\System\Load\ParameterLoad.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Object\System\Load\ParameterLoadStage.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Object\Actor\Character\Player.cpp">
@@ -291,9 +279,6 @@
     <ClCompile Include="Src\Manager\System\GameSystemManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\Game\Report\ReportSystem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Manager\Generic\Input.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -327,9 +312,6 @@
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyAppearance.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Core\Game\Ui\GameManualUi.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Object\Controller\Action\ControllerActionEnemy.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -361,6 +343,27 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Manager\Generic\ResultManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Game\GameManual.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Game\GameTime.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Game\ReportSystem.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Game\CameraScreen.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Game\CoreGameBase.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\PostEffect\PostEffectBase.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\PostEffect\PostEffectGameNormal.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -644,12 +647,6 @@
     <ClInclude Include="Src\Object\Controller\ControllerAnimation.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\System\Load\ParameterLoadBase.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\System\Load\ParameterLoadCharacter.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Object\Controller\ControllerRotate.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -695,12 +692,6 @@
     <ClInclude Include="Src\Object\Collider\ColliderType.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\System\Load\ParameterLoad.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\System\Load\ParameterLoadStage.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Object\Actor\Character\Player.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -740,9 +731,6 @@
     <ClInclude Include="Src\Manager\System\GameSystemManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Core\Game\Report\ReportSystem.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Manager\Generic\Input.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -774,9 +762,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyAppearance.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Core\Game\Ui\GameManualUi.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object\Controller\Action\ControllerActionEnemy.h">
@@ -812,6 +797,27 @@
     <ClInclude Include="Src\Manager\Generic\ResultManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\Game\GameManual.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Game\GameTime.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Game\ReportSystem.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Game\CameraScreen.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Game\CoreGameBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\PostEffect\PostEffectBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\PostEffect\PostEffectGameNormal.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\PostEffect\Vignette.hlsl" />
@@ -822,6 +828,7 @@
     <FxCompile Include="Src\Shader\PostEffect\ScanLine.hlsl" />
     <FxCompile Include="Src\Shader\Sprite\NormalSprite.hlsl" />
     <FxCompile Include="Src\Shader\Sprite\Glitch.hlsl" />
+    <FxCompile Include="Src\Shader\PostEffect\NormalEffect.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\Shader\Common\Pixel\PixelShader2DHeader.hlsli" />

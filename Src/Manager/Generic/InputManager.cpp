@@ -36,7 +36,8 @@ void InputManager::Init()
 	RegisterTrigger(TYPE::PAUSE, { KEY_INPUT_BACK }, { BTN::SELECT });
 
 	// 報告処理
-	RegisterTrigger(TYPE::ANOMARY_REPORT, { KEY_INPUT_R }, { BTN::RB_LEFT });
+	RegisterTrigger(TYPE::ANOMARY_REPORT, { KEY_INPUT_R }, { BTN::R_BUTTON }, STICK::MAX, MOUSE::CLICK_LEFT);
+	RegisterTrigger(TYPE::CAMERA_MODE_CHANGE, { KEY_INPUT_E }, { BTN::RB_TOP });
 
 	// デバッグ操作
 	RegisterTrigger(TYPE::DEBUG_SCENE_CHANGE, { KEY_INPUT_RSHIFT }, { });

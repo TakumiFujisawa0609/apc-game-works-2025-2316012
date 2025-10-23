@@ -19,7 +19,6 @@ public:
 		GHOST,				// ƒS[ƒXƒg
 		ENEMY,				// “G
 		ENEMY_VIEW,			// “G‚ÌŽ‹ü
-		ENEMY_SPHERE_RANGE,// “G‚Ìó‘Ô‘JˆÚ”»’è‹…‘Ì
 		MAX
 	};
 

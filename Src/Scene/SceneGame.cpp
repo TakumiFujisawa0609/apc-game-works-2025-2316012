@@ -15,7 +15,7 @@
 #include "../Object/Actor/Character/CharacterBase.h"
 #include "../Object/Collider/ColliderFactory.h"
 #include "../Object/Actor/Stage/TestModel.h"
-#include "../Core/Game/Report/ReportSystem.h"
+#include "../Core/Game/ReportSystem.h"
 #include "../Tool/CreatePositionList.h"
 #include "State/Game/GameStateBase.h"
 #include "ScenePause.h"

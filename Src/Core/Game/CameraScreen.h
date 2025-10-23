@@ -1,0 +1,77 @@
+#pragma once
+#include <memory>
+#include <unordered_map>
+#include "CoreGameBase.h"
+#include "../../Common/Sprite.h"
+
+class PostEffectBase;
+class InputManager;
+
+class CameraScreen : public CoreGameBase
+{
+public:
+
+	/// <summary>
+	/// スクリーンの描画モード
+	/// </summary>
+	enum class SCREEN_MODE
+	{
+		NORMAL,		// 通常
+		NIGHT_VIEW,	// 暗視
+		DEBUG		// デバッグ
+	};
+
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	CameraScreen();
+
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~CameraScreen() override;
+
+	/// <summary>
+	/// 読み込み処理
+	/// </summary>
+	void Load() override;
+
+	/// <summary>
+	/// 初期化処理
+	/// </summary>
+	void Init() override;
+
+	/// <summary>
+	/// 更新処理
+	/// </summary>
+	void Update() override;
+
+	/// <summary>
+	/// 描画
+	/// </summary>
+	void Draw() override;
+
+	/// <summary>
+	/// カメラモードの遷移
+	/// </summary>
+	/// <param name="mode">カメラモード</param>
+	void ChangeScreenMode(const SCREEN_MODE mode);
+
+private:
+
+	// ポストエフェクトスクリーン
+	int postEffectScreen_;
+
+	// 入力管理クラスの参照
+	InputManager& input_;
+
+	// 状態
+	SCREEN_MODE mode_;
+
+	// カメラフレーム
+	Sprite cameraFrame_;
+
+	// スクリーンモード別にエフェクトを管理
+	std::unordered_map<SCREEN_MODE, std::unique_ptr<PostEffectBase>> effectMap_;
+};
+

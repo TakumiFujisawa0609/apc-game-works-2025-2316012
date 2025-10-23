@@ -4,7 +4,7 @@
 #include "../../../Manager/System/GameSystemManager.h"
 #include "../../../Manager/System/AnomalyManager.h"
 #include "../../../Object/Actor/Character/CharacterBase.h"
-#include "../../../Core/Game/Report/ReportSystem.h"
+#include "../../../Core/Game/ReportSystem.h"
 #include "GameStatePlay.h"
 
 GameStatePlay::GameStatePlay() :

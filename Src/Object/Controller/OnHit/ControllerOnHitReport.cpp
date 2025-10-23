@@ -1,6 +1,6 @@
 #include "../../../Manager/Generic/GameStateManager.h"
 #include "../../../Manager/System/GameSystemManager.h"
-#include "../../../Core/Game/Report/ReportSystem.h"
+#include "../../../Core/Game/ReportSystem.h"
 #include "ControllerOnHitReport.h"
 
 ControllerOnHitReport::ControllerOnHitReport(Player& owner) :

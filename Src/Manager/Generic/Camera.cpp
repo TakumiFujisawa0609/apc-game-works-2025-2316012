@@ -225,6 +225,7 @@ void Camera::ProcessRotFps(void)
 	if (input_.IsNew(InputManager::TYPE::CAMERA_MOVE_UP)) { angles_.x -= rotPow; }
 	if (input_.IsNew(InputManager::TYPE::CAMERA_MOVE_DOWN)) { angles_.x += rotPow; }
 
+
 	auto rStick = input_.GetKnockRStickSize();
 	if (Vector2::IsSameVector2({ 0,0 }, rStick))
 	{

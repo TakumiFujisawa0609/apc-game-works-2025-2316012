@@ -294,6 +294,18 @@
       "sceneId": 3,
       "type": "model",
       "path": "Data/Model/Enemy/Animation/Attack.mv1"
+    },
+    {
+      "key": "cameraFrame",
+      "sceneId": 3,
+      "type": "texture",
+      "path": "Data/Image/Game/CameraFrame.png"
+    },
+    {
+      "key": "gameNormalEffect",
+      "sceneId": 3,
+      "type": "pixelShader",
+      "path": "Data/Shader/NormalEffect.cso"
     }
   ]
 }

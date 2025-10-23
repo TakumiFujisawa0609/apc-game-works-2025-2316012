@@ -3,7 +3,7 @@
 #include "../../Template/Singleton.h"
 #include "../../Scene/SceneGame.h"
 
-class CoreBase;
+class CoreGameBase;
 
 class GameSystemManager : public Singleton<GameSystemManager>
 {
@@ -19,9 +19,10 @@ public:
 	{
 		REPORT,			// 報告処理
 		REPORTING,		// 報告中の処理
-		TIMER,			// タイマー
-		KEY_MANUAL,		// 操作説明
+		GAME_TIMER,		// タイマー
+		MANUAL,			// 操作説明
 		CAMERA_CHANGE,	// カメラ切り替え
+		SCREEN,			// スクリーン
 		MAX,
 	};
 
@@ -50,12 +51,12 @@ public:
 	/// </summary>
 	/// <param name="type"></param>
 	/// <returns></returns>
-	CoreBase& GetGamsSystem(const TYPE type) { return *systemsMap_[type]; }
+	CoreGameBase& GetGamsSystem(const TYPE type) { return *systemsMap_[type]; }
 
 private:
 
 	// システムごとにインスタンスを管理するマップ
-	std::unordered_map<TYPE, std::unique_ptr<CoreBase>> systemsMap_;
+	std::unordered_map<TYPE, std::unique_ptr<CoreGameBase>> systemsMap_;
 
 	// コンストラクタ
 	GameSystemManager();

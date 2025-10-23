@@ -2,7 +2,7 @@
 
 class SceneManager;
 
-class Timer
+class Timer 
 {
 public:
 

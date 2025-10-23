@@ -2,7 +2,7 @@
 #include "../../../Manager/Generic/StageManager.h"
 #include "../../../Manager/System/GameSystemManager.h"
 #include "../../../Object/Actor/Character/CharacterBase.h"
-#include "../../../Core/CoreBase.h"
+#include "../../../Core/Game/CoreGameBase.h"
 #include "GameStateBase.h"
 
 GameStateBase::GameStateBase() :
