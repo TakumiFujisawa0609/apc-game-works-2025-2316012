@@ -216,17 +216,17 @@ void Camera::ProcessRotFollow(void)
 void Camera::ProcessRotFps(void)
 {
 	// マウス感度
-	static constexpr float MOUSE_SENSITIVITY = 0.2f;
-	static constexpr float PAD_SENSITIVITY = 0.015f;
+	constexpr float MOUSE_SENSITIVITY = 0.1f;
+	constexpr float PAD_SENSITIVITY = 0.015f;
 
 	float rotPow = UtilityCommon::Deg2RadF(SPEED);
 	if (input_.IsNew(InputManager::TYPE::CAMERA_MOVE_RIGHT)) { angles_.y += rotPow; }
 	if (input_.IsNew(InputManager::TYPE::CAMERA_MOVE_LEFT)) { angles_.y -= rotPow; }
-	if (input_.IsNew(InputManager::TYPE::CAMERA_MOVE_UP)) { angles_.x += rotPow; }
-	if (input_.IsNew(InputManager::TYPE::CAMERA_MOVE_DOWN)) { angles_.x -= rotPow; }
+	if (input_.IsNew(InputManager::TYPE::CAMERA_MOVE_UP)) { angles_.x -= rotPow; }
+	if (input_.IsNew(InputManager::TYPE::CAMERA_MOVE_DOWN)) { angles_.x += rotPow; }
 
 	auto rStick = input_.GetKnockRStickSize();
-	if (Vector2::IsVector2({ 0,0 }, rStick))
+	if (Vector2::IsSameVector2({ 0,0 }, rStick))
 	{
 		rotPow = PAD_SENSITIVITY;
 		angles_.x += UtilityCommon::Deg2RadF(rStick.y * rotPow);
@@ -234,14 +234,15 @@ void Camera::ProcessRotFps(void)
 	}
 
 	auto mouseMove = input_.GetMouseMove();
-	if (Vector2::IsVector2({ 0,0 }, mouseMove))
+	if (mouseMove.x != 0.0f || mouseMove.y != 0.0f) // より明示的にチェック
 	{
 		rotPow = MOUSE_SENSITIVITY;
 		angles_.x += UtilityCommon::Deg2RadF(mouseMove.y * rotPow);
 		angles_.y += UtilityCommon::Deg2RadF(mouseMove.x * rotPow);
 	}
+
 	// マウスの位置を画面中央に戻す
-	SetMousePoint(Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y);
+	input_.SetMousePos({ Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y });
 
 	// 角度制限（ピッチ）
 	if (angles_.x <= LIMIT_X_UP_RAD_FPS)

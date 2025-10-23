@@ -89,6 +89,12 @@ public:
 	bool IsTrgUp(const TYPE type, const Input::JOYPAD_NO padNo = Input::JOYPAD_NO::PAD1);
 
 	/// <summary>
+	/// マウス位置を設定
+	/// </summary>
+	/// <param name="pos"></param>
+	void SetMousePos(const Vector2& pos);
+
+	/// <summary>
 	/// マウス座標の取得
 	/// </summary>
 	/// <returns>マウス座標の取得</returns>
@@ -101,7 +107,18 @@ public:
 	/// <returns>マウスの移動量</returns>
 	Vector2 GetMouseMove() const;
 
+	/// <summary>
+	/// 左スティックの倒れた度合いを取得
+	/// </summary>
+	/// <param name="_no">パッド番号</param>
+	/// <returns>倒れ具合を渡す</returns>
 	Vector2 GetKnockLStickSize(Input::JOYPAD_NO no = Input::JOYPAD_NO::PAD1) const;
+	
+	/// <summary>
+	/// 右スティックの倒れた度合いを取得
+	/// </summary>
+	/// <param name="_no">パッド番号</param>
+	/// <returns>倒れた具合を渡す</returns>
 	Vector2 GetKnockRStickSize(Input::JOYPAD_NO no = Input::JOYPAD_NO::PAD1) const;
 
 private:

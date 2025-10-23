@@ -123,6 +123,9 @@ public:
 	// キーを離した時の判定
 	bool IsTrgUp(int key) const;
 
+	// マウス位置設定
+	void SetMousePos(const Vector2& pos);
+
 	// マウス座標の取得
 	Vector2 GetMousePos(void) const;
 

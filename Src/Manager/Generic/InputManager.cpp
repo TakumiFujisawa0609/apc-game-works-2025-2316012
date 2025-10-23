@@ -95,6 +95,11 @@ bool InputManager::IsTrgUp(const TYPE type, const Input::JOYPAD_NO padNo)
 	return false;
 }
 
+void InputManager::SetMousePos(const Vector2& pos)
+{
+	input_->SetMousePos(pos);
+}
+
 Vector2 InputManager::GetMousePos() const
 {
 	return input_->GetMousePos();

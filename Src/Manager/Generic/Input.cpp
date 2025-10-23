@@ -175,6 +175,13 @@ bool Input::IsTrgUp(int key) const
 	return Find(key).keyTrgUp;
 }
 
+void Input::SetMousePos(const Vector2& pos)
+{
+	mousePos_ = pos;
+	mousePrePos_ = pos;
+	SetMousePoint(static_cast<int>(mousePos_.x), static_cast<int>(mousePos_.y));
+}
+
 Vector2 Input::GetMousePos(void) const
 {
 	return mousePos_;
