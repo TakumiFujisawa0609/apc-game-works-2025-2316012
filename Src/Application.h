@@ -19,6 +19,9 @@ public:
 	static constexpr int SCREEN_HALF_X = SCREEN_SIZE_X / 2;
 	static constexpr int SCREEN_HALF_Y = SCREEN_SIZE_Y / 2;
 
+	// FPSレート
+	static constexpr int FPS_RATE = 60;
+
 	// データパス関連
 	//-------------------------------------------
 	static const std::string PATH_IMAGE;

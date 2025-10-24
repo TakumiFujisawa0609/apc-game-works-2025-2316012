@@ -28,6 +28,9 @@ bool Application::Init()
 	SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, 32);
 	ChangeWindowMode(true);
 
+	// FPS初期化
+	fps_ = std::make_unique<FpsControl>(FPS_RATE);
+
 	// DxLibの初期化
 	SetUseDirect3DVersion(DX_DIRECT3D_11);
 	if (DxLib_Init() == -1)
@@ -51,10 +54,6 @@ bool Application::Init()
 	SceneManager::CreateInstance();		
 	SceneManager::GetInstance().Init();	
 
-	// FPS初期化
-	fps_ = std::make_unique<FpsControl>();
-	fps_->Init();
-
 	// ランダム生成数字の初期化
 	SRand((unsigned int)time(NULL));
 
@@ -71,20 +70,20 @@ void Application::Run()
 	// ゲームループ
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
-		//フレームレートを更新
-		if (!fps_->UpdateFrameRate()) continue;
-
-		//更新処理
+		// 更新処理
 		inputManager.Update();
 		sceneManager.Update();
 
-		//描画処理
+		// 描画処理
 		sceneManager.Draw();
 
-		//フレームレート計算
-		fps_->CalcFrameRate();
+		// デバッグフレーム描画
+		fps_->Draw();
 
 		ScreenFlip();
+
+		// フレームレートの計算
+		fps_->Wait();
 	}
 }
 

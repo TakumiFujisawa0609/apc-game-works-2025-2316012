@@ -14,6 +14,7 @@
 #include "../../Controller/Action/ControllerActionEnemy.h"
 #include "../../Controller/OnHit/ControllerOnHitEnemy.h"
 #include "../../Controller/OnHit/ControllerOnHitEnemyView.h"
+#include "../../Controller/OnHit/ControllerOnHitGravity.h"
 #include "Enemy.h"
 
 const std::string Enemy::ANIM_ACTION = "action";		// UŒ‚
@@ -63,7 +64,9 @@ void Enemy::Load()
 	action_ = std::make_unique<ControllerActionEnemy>(*this);	
 	
 	// ”»’èŒãˆ—‚Ì¶¬
-	onHit_ = std::make_unique<ControllerOnHitEnemy>(*this);
+	onHitMap_[CollisionTags::TAG::ENEMY] = std::make_unique<ControllerOnHitEnemy>(*this);
+	onHitMap_[CollisionTags::TAG::ENEMY_VIEW] = std::make_unique<ControllerOnHitEnemyView>(*this);
+	onHitMap_[CollisionTags::TAG::CHARACTER_GRAVITY_LINE] = std::make_unique<ControllerOnHitGravity>(*this);
 
 	// ‹–ì—p‚ÌÕ“ËŒãˆ—‚Ì¶¬
 	onHitView_ = std::make_unique<ControllerOnHitEnemyView>(*this);
@@ -79,27 +82,6 @@ void Enemy::Init()
 	
 	// “G‚Ì‰ñ“]‘¬“x
 	rotStep_ = 0.1f;
-}
-
-void Enemy::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
-{
-	// Õ“Ë‘Šè‚ª“G‚Ìê‡
-	if (opponentCollider.lock()->GetPartnerTag() == CollisionTags::TAG::ENEMY)
-	{
-		onHit_->OnHit(opponentCollider);
-		return;
-	}
-	// Õ“Ë‘Šè‚ª“G‚Ì‹–ì—pƒ‰ƒCƒ“‚Ìê‡
-	else if (opponentCollider.lock()->GetPartnerTag() == CollisionTags::TAG::ENEMY_VIEW)
-	{
-		onHitView_->OnHit(opponentCollider);
-		return;
-	}
-	// ‚»‚êˆÈŠO‚Ìê‡
-	else
-	{
-		return;
-	}
 }
 
 ControllerActionEnemy* Enemy::GetActionEnemy()

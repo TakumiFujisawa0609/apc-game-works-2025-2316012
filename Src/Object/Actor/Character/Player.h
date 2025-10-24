@@ -46,12 +46,6 @@ public:
 	void Init() override;
 
 	/// <summary>
-	/// 衝突後の処理
-	/// </summary>
-	/// <param name="opponentCollider">衝突相手のコライダー</param>
-	void OnHit(const std::weak_ptr<ColliderBase>& opponentCollider) override;
-
-	/// <summary>
 	/// 状態変更処理
 	/// </summary>
 	/// <param name="state">状態</param>
@@ -136,9 +130,6 @@ private:
 
 	// 状態
 	STATE state_;
-
-	// レポートに関する衝突後の処理
-	std::unique_ptr<ControllerOnHitReport> onHitReport_;
 
 	// 状態別の更新関数マップ
 	std::unordered_map<STATE, std::function<void()>> stateUpdateFuncMap_;

@@ -29,7 +29,7 @@ void Ghost::Load()
 	transform_.SetModel(resMng_.GetHandle("ghost"));
 
 	// ƒS[ƒXƒg‚ÌÕ“ËŒã‚Ìˆ—
-	onHit_ = std::make_unique<ControllerOnHitGhost>(*this);
+	onHitMap_[CollisionTags::TAG::GHOST] = std::make_unique<ControllerOnHitGhost>(*this);
 
 	CharacterBase::Load();
 }

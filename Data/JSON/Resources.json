@@ -306,6 +306,12 @@
       "sceneId": 3,
       "type": "pixelShader",
       "path": "Data/Shader/NormalEffect.cso"
+    },
+    {
+      "key": "nightViewEffect",
+      "sceneId": 3,
+      "type": "pixelShader",
+      "path": "Data/Shader/NightViewEffect.cso"
     }
   ]
 }

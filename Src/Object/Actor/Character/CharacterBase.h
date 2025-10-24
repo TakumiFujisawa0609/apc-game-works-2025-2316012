@@ -3,7 +3,9 @@
 #include <string>
 #include "../ActorBase.h"
 #include "../../../Common/Quaternion.h"
+#include "../../../Manager/Generic/CollisionTags.h"
 
+class ColliderLine;
 class ControllerAnimation;
 class ControllerActionBase;
 class ControllerMove;
@@ -29,7 +31,7 @@ public:
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	virtual ~CharacterBase() = default;
+	virtual ~CharacterBase();
 
 	/// <summary>
 	/// 読み込み処理
@@ -93,37 +95,37 @@ public:
 	/// 目標回転角度を返す
 	/// </summary>
 	/// <returns>目標回転角度</returns>
-	const Quaternion GetGoalQuaRot() const { return goalQuaRot_; }
+	const Quaternion& GetGoalQuaRot() const { return goalQuaRot_; }
 
 	/// <summary>
 	/// 現在の移動方向を返す
 	/// </summary>
 	/// <returns>現在の移動方向</returns>
-	const VECTOR GetMoveDir() const { return moveDir_; }
+	const VECTOR& GetMoveDir() const { return moveDir_; }
 
 	/// <summary>
 	/// 現在のジャンプ力を返す
 	/// </summary>
 	/// <returns>現在のジャンプ量</returns>
-	const VECTOR GetJumpPow() const { return jumpPow_; }
+	const VECTOR& GetJumpPow() const { return jumpPow_; }
 
 	/// <summary>
 	/// 移動前の座標を返す
 	/// </summary>
 	/// <returns>移動前の座標</returns>
-	const VECTOR GetPrePos() const { return prePos_; }
+	const VECTOR& GetPrePos() const { return prePos_; }
 
 	/// <summary>
 	/// カプセル座標の上部分を返す
 	/// </summary>
 	/// <returns>カプセル座標の上</returns>
-	const VECTOR GetCapsuleTopPos() const;
+	const VECTOR& GetCapsuleTopPos() const;
 
 	/// <summary>
 	/// カプセル座標の下部分を返す
 	/// </summary>
 	/// <returns>カプセル座標の下</returns>
-	const VECTOR GetCapsuleDownPos() const;
+	const VECTOR& GetCapsuleDownPos() const;
 
 	/// <summary>
 	/// アニメーション制御クラスを返す
@@ -214,6 +216,9 @@ protected:
 	// 目標回転角度
 	Quaternion goalQuaRot_;
 
+	// 重力用ラインコライダー
+	std::unique_ptr<ColliderLine> colliderLine_;
+
 	// アニメーション制御クラス
 	std::unique_ptr<ControllerAnimation> animation_;
 
@@ -230,7 +235,7 @@ protected:
 	std::unique_ptr<ControllerGravity> gravity_;
 
 	// 衝突後処理の制御クラス
-	std::unique_ptr<ControllerOnHitBase> onHit_;
+	std::unordered_map<CollisionTags::TAG, std::unique_ptr<ControllerOnHitBase>> onHitMap_;
 
 	/// <summary>
 	/// 更新処理の適用
@@ -246,6 +251,11 @@ protected:
 	/// アニメーションの初期化
 	/// </summary>
 	virtual void InitAnimation() = 0;
+
+	/// <summary>
+	/// 重力判定の設定
+	/// </summary>
+	void SetGravityCollider();
 
 	/// <summary>
 	/// デバッグ時の描画

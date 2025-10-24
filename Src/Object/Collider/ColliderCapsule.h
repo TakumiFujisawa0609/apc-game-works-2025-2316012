@@ -29,49 +29,49 @@ public:
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>カプセル上部</returns>
-	VECTOR GetLocalPosTop(void) const { return localPosTop_; }
+	const VECTOR& GetLocalPosTop() const { return localPosTop_; }
 
 	/// <summary>
 	/// 親トランスフォームからの相対位置を返す
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>カプセル下部</returns>
-	VECTOR GetLocalPosDown(void) const { return localPosDown_; }
+	const VECTOR& GetLocalPosDown() const { return localPosDown_; }
 
 	/// <summary>
 	/// 座標を返す
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>カプセル上部</returns>
-	VECTOR GetPosTop(void) const;
+	VECTOR GetPosTop() const;
 
 	/// <summary>
 	/// 座標を返す
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>カプセル下部</returns>
-	VECTOR GetPosDown(void) const;
+	VECTOR GetPosDown() const;
 
 	/// <summary>
 	/// 半径を返す
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>半径</returns>
-	float GetRadius(void) const { return radius_; }
+	float GetRadius() const { return radius_; }
 
 	/// <summary>
 	/// 高さを返す
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>高さ</returns>
-	float GetHeight(void) const { return localPosTop_.y; }
+	float GetHeight() const { return localPosTop_.y; }
 
 	/// <summary>
 	/// 中心座標を返す
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>中心座標</returns>
-	VECTOR GetCenter(void) const;	
+	VECTOR GetCenter() const;	
 	
 	/// <summary>
 	/// 親からの相対位置を設定

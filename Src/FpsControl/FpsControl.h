@@ -1,4 +1,7 @@
 #pragma once
+#include <vector>
+#include <chrono>
+#include <string>
 
 //フレームレート
 static constexpr float FRAME_RATE(1000 / 60);
@@ -7,37 +10,59 @@ class FpsControl
 {
 public:
 
-	FpsControl();	// コンストラクタ
-	~FpsControl();	// デストラクタ
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	/// <param name="fixedFps"></param>
+	FpsControl(const int fixedFps);
 
-	//初期化
-	void Init();
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~FpsControl();
 
-	//フレームレート更新
-	bool UpdateFrameRate();
+	/// <summary>
+	/// フレーム制御
+	/// </summary>
+	void Wait();
 
-	//フレームレート計算
-	void CalcFrameRate();
+	/// <summary>
+	/// デバッグ用FPS表示
+	/// </summary>
+	void Draw();
 
-	//フレームレート表示(デバッグ表示)
-	void DrawFrameRate();
+	/// <summary>
+	/// FPSを返す
+	/// </summary>
+	/// <returns></returns>
+	const float GetFPS() const { return fps_; }
 
 private:
 
-	//現在の時間
-	int currentTime_;
+	// 最大FPS
+	const int MAX_FPS = 1200;
 
-	//前回のフレーム実行時の時間
-	int prevFrameTime_;
+	// 平均FPS計算に使用するフレーム数
+	const int AVG_FPS_COUNT = 60;
 
-	//フレームカウント用
-	int frameCnt_;
+	// 平均FPSの右上描画位置調整
+	const int MARGIN = 20;
 
-	//フレームレートを更新した時間
-	int updateFrameRateTime_;
+	// 描画フォーマット
+	const std::wstring TEXT_FORMAT = L"FPS : %.2f";
 
-	//フレームレート(表示用)
-	float frameRate_;
+	// 指定された固定フレームレート
+	const int fixedFps_;
 
+	// 1フレームの理想時間(秒)
+	const double idealFrameTime_;
+
+	// 計測用FPS
+	float fps_;
+
+	// 平均FPS計測用)(秒単位)
+	std::vector<double> timeList_;
+
+	// 前フレームの時間
+	std::chrono::high_resolution_clock::time_point prevTime_;
 };
-

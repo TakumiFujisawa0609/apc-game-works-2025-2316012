@@ -1,5 +1,6 @@
 #include "../../../Manager/Generic/CharacterManager.h"
 #include "../../../Manager/Generic/StageManager.h"
+#include "../../../Object/Actor/Stage/StageObjectBase.h"
 #include "../../../Object/Actor/Character/CharacterBase.h"
 #include "GameStateJumpScare.h"
 

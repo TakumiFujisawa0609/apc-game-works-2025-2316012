@@ -110,6 +110,26 @@ void CharacterManager::AddCharacter(const TYPE type, std::unique_ptr<CharacterBa
 	}
 }
 
+//std::vector<std::unique_ptr<CharacterBase>>& CharacterManager::GetCharacters(const TYPE type)
+//{
+//	// 1. type‚É‘Î‰‚·‚évector‚ğŒ©‚Â‚¯‚éˆ—i—á: map‚ÌŒŸõj
+//	auto it = characterMap_.find(type);
+//	
+//	// Œ©‚Â‚©‚Á‚½ê‡
+//	if (it != characterMap_.end())
+//	{
+//		// ‚»‚Ì‚Ü‚Ü•Ô‚·
+//		return it->second;
+//	}
+//	// Œ©‚Â‚©‚ç‚È‚¢ê‡
+//	else 
+//	{
+//		// ‹ó‚Ì”z—ñ‚ğ•Ô‚·
+//		static std::vector<std::unique_ptr<CharacterBase>> dummy;
+//		return dummy; 
+//	}
+//}
+
 CharacterManager::CharacterManager()
 {
 }

@@ -13,8 +13,9 @@
 #include "../Manager/System/AnomalyManager.h"
 #include "../Utility/UtilityCommon.h"
 #include "../Object/Actor/Character/CharacterBase.h"
-#include "../Object/Collider/ColliderFactory.h"
+#include "../Object/Actor/Stage/StageObjectBase.h"
 #include "../Object/Actor/Stage/TestModel.h"
+#include "../Object/Collider/ColliderFactory.h"
 #include "../Core/Game/ReportSystem.h"
 #include "../Tool/CreatePositionList.h"
 #include "State/Game/GameStateBase.h"
@@ -192,7 +193,7 @@ void SceneGame::DebugUpdate(void)
 
 void SceneGame::DebugDraw(void)
 {
-	test_->Draw();
+	//test_->Draw();
 	createPositionList_->Draw();
 
 	CollisionManager::GetInstance().DebugDraw();

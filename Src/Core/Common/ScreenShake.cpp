@@ -36,7 +36,7 @@ void ScreenShake::Update()
 
 	// ステップ更新
 	step_ += scnMng_.GetDeltaTime();
-	
+
 	// 時間を満たしてない場合
 	if (step_ < shakeTime_)
 	{

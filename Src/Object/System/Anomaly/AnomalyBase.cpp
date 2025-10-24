@@ -1,6 +1,5 @@
 #include "../../../Manager/Generic/CharacterManager.h"
 #include "../../../Manager/Generic/StageManager.h"
-#include "../../Actor/Character/CharacterBase.h"
 #include "AnomalyBase.h"
 
 AnomalyBase::AnomalyBase():

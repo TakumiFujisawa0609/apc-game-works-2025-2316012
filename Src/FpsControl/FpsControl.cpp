@@ -1,85 +1,93 @@
 #include <DxLib.h>
 #include "FpsControl.h"
 #include "../Application.h"
+#include "../Utility/UtilityCommon.h"
 
-FpsControl::FpsControl()
+FpsControl::FpsControl(const int fixedFps) :
+	// 最大FPSを超えないように制限
+	fixedFps_(fixedFps > MAX_FPS ? MAX_FPS : fixedFps),
+	// 1フレームの理想時間を計算
+	idealFrameTime_(1.0f / static_cast<double>(fixedFps_)),
+	fps_(0.0f),
+	timeList_(),
+	prevTime_()
 {
-	currentTime_ = 0;
-	prevFrameTime_ = 0;
-	frameCnt_ = 0;
-	updateFrameRateTime_ = 0;
-	frameCnt_ = 0;
+	prevTime_ = std::chrono::high_resolution_clock::now();
+
+	// DxLibの垂直同期待ちを無効化
+	SetWaitVSyncFlag(false);
 }
 
 FpsControl::~FpsControl()
 {
 }
 
-void FpsControl::Init()
+void FpsControl::Wait()
 {
-	//初期化
-	currentTime_ = 0;
-	prevFrameTime_ = 0;
-	frameCnt_ = 0;
-	updateFrameRateTime_ = 0;
-	frameCnt_ = 0;
+    // 現在時間
+    auto nowTime = std::chrono::high_resolution_clock::now();
+
+    // 前回からの経過時間
+    std::chrono::duration<double> delta = nowTime - prevTime_;
+
+    // 経過時間(秒)
+    double deltaTime = delta.count();
+
+    // 経過時間が理想時間よりも短ければ待機
+    if (deltaTime < idealFrameTime_)
+    {
+
+        // 待つべき時間(ミリ秒)
+        double waitMiliSecond = (idealFrameTime_ - deltaTime) * 1000.0;
+
+        // Sleepで待ち時間分を待機
+        if (waitMiliSecond >= 1.0)
+        {
+            // 指定ミリ秒数待つ(DxLib関数)
+            WaitTimer(static_cast<int>(waitMiliSecond));
+
+        }
+
+        // 指定時間になるまでbusyになるが待つ
+        while (deltaTime < idealFrameTime_)
+        {
+            // 再計測
+            nowTime = std::chrono::high_resolution_clock::now();
+            delta = nowTime - prevTime_;
+            deltaTime = delta.count();
+        }
+    }
+
+    // 前回時間を更新
+    prevTime_ = nowTime;
+
+    // FPS計測(指定された最新フレーム数分の平均）
+    timeList_.emplace_back(deltaTime);
+    if (timeList_.size() > AVG_FPS_COUNT)
+    {
+        timeList_.erase(timeList_.begin());
+    }
+
+    // 合計時間
+    double total = 0.0;
+    for (double time : timeList_)
+    {
+        total += time;
+    }
+
+    // 平均FPS
+    fps_ = static_cast<float>(timeList_.size() / total);
 }
 
-bool FpsControl::UpdateFrameRate()
+void FpsControl::Draw()
 {
-	Sleep(1);	//システムに処理を返す
+    // 描画する文字列の幅を取得(デフォルトフォントの場合)
+    int textWidth = GetDrawFormatStringWidth(TEXT_FORMAT.c_str(), fps_);
 
-	//現在の時刻を取得
-	currentTime_ = GetNowCount();
+    // 右上位置を計算
+    int x = Application::SCREEN_SIZE_X - textWidth - MARGIN;
+    int y = MARGIN;
 
-	//現在の時刻が、前回のフレーム実行時より
-	//1/60秒経過していたら処理を実行する
-	if (currentTime_ - prevFrameTime_ >= FRAME_RATE)
-	{
-		//フレーム実行時の時間を計算
-		prevFrameTime_ = currentTime_;
-
-		//フレーム数をカウント
-		frameCnt_++;
-
-		//1/60経過した
-		return true;
-	}
-
-	return false;
-}
-
-void FpsControl::CalcFrameRate()
-{
-	//前回のフレームレート更新からの経過時間を求める
-	int difTime = currentTime_ - updateFrameRateTime_;
-
-	//前回のフレームレートを更新から
-	//1秒以上経過していたらフレームレートを更新する
-	if (difTime > 1000)
-	{
-		//フレーム回数をミリ秒に合わせる
-		//少数まで出したのでfloatにキャスト
-		float castFrameCnt = (float)(frameCnt_ * 1000);
-
-		//フレームレートを求める
-		//理想通りなら 60000 / 1000 で60となる
-		frameRate_ = castFrameCnt / difTime;
-
-		//フレームレート更新時間を更新
-		updateFrameRateTime_ = currentTime_;
-	}
-}
-
-void FpsControl::DrawFrameRate()
-{
-	//デバッグ用表示
-
-	//スクリーンの右端に出るように表示
-	DrawFormatString(
-		Application::SCREEN_SIZE_X - 90,
-		0,
-		0xff0000,
-		L"FPS[%.2f]",
-		frameRate_);
+    // 右寄寄せ描画
+    DrawFormatString(x, y, UtilityCommon::WHITE, TEXT_FORMAT.c_str(), fps_);
 }

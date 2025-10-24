@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitGravity.cpp" />
+    <ClCompile Include="Src\Core\PostEffect\PostEffectNightView.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectGameNormal.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectBase.cpp" />
     <ClCompile Include="Src\Core\Game\CoreGameBase.cpp" />
@@ -124,6 +126,8 @@
     <ClCompile Include="Src\Core\Common\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitGravity.h" />
+    <ClInclude Include="Src\Core\PostEffect\PostEffectNightView.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectGameNormal.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectBase.h" />
     <ClInclude Include="Src\Core\Game\CoreGameBase.h" />
@@ -290,6 +294,12 @@
     </FxCompile>
     <FxCompile Include="Src\Shader\PostEffect\Monotone.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\PostEffect\NightViewEffect.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Src\Shader\PostEffect\NormalEffect.hlsl">

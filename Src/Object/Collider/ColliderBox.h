@@ -41,19 +41,19 @@ public:
 	/// 座標を返す
 	/// </summary>
 	/// <returns>座標</returns>
-	const VECTOR GetPos()const { return transformOwner_.pos; }
+	const VECTOR& GetPos()const { return transformOwner_.pos; }
 
 	/// <summary>
 	/// 箱の最小地点の取得
 	/// </summary>
 	/// <returns>箱の最小地点</returns>
-	const VECTOR GetVecMin()const { return obb_.vMin; }
+	const VECTOR& GetVecMin()const { return obb_.vMin; }
 
 	/// <summary>
 	/// 箱の最大地点の取得
 	/// </summary>
 	/// <returns>箱の最大地点</returns>
-	const VECTOR GetVecMax()const { return obb_.vMax; }
+	const VECTOR& GetVecMax()const { return obb_.vMax; }
 
 	/// <summary>
 	/// 回転バウンティボックスの設定

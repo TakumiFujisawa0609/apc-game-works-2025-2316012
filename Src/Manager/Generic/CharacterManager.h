@@ -5,8 +5,7 @@
 #include <vector>
 #include <string>
 #include "../../Template/Singleton.h"
-
-class CharacterBase;
+#include "../../Object/Actor/Character/CharacterBase.h"
 
 // JSON名前空間
 using Json = nlohmann::json;
@@ -76,11 +75,18 @@ public:
 	CharacterBase& GetCharacter(const TYPE type, const int index = 0) { return *characterMap_[type][index]; }
 
 	/// <summary>
+	/// 指定したステージオブジェクトの配列を返す
+	/// </summary>
+	/// <param name="key">ステージの種類</param>
+	/// <returns>キャラクター配列</returns>
+	std::vector<std::unique_ptr<CharacterBase>>& GetCharacters(const TYPE type) { return characterMap_[type]; }
+
+	/// <summary>
 	/// 指定されたキャラクターのパラメーターを返す
 	/// </summary>
 	/// <param name="type">種類</param>
 	/// <returns>パラメータ</returns>
-	const Json GetCharacterParam(const TYPE type) { return paramMap_[NAME_LIST[static_cast<int>(type)]].front(); }
+	const Json& GetCharacterParam(const TYPE type) const { return paramMap_.at(NAME_LIST[static_cast<int>(type)]).front(); }
 
 private:
 

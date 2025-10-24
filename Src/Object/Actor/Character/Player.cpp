@@ -12,6 +12,7 @@
 #include "../../Controller/Action/ControllerActionPlayer.h"
 #include "../../Controller/OnHit/ControllerOnHitPlayer.h"
 #include "../../Controller/OnHit/ControllerOnHitReport.h"
+#include "../../Controller/OnHit/ControllerOnHitGravity.h"
 #include "Player.h"
 
 const std::string Player::ANIM_JUMP = "jump";	//ジャンプ
@@ -28,7 +29,6 @@ Player::Player(const Json& param) :
 	stepJump_ = 0.0f;
 	reportPer_ = 0;
 	isJump_ = false;
-	onHitReport_ = nullptr;
 	state_ = STATE::NONE;
 
 	// 状態更新関数の登録
@@ -50,8 +50,9 @@ void Player::Load()
 	action_ = std::make_unique<ControllerActionPlayer>(*this);
 
 	// 衝突後の処理クラス
-	onHit_ = std::make_unique<ControllerOnHitPlayer>(*this);
-	onHitReport_ = std::make_unique<ControllerOnHitReport>(*this);
+	onHitMap_[CollisionTags::TAG::PLAYER] = std::make_unique<ControllerOnHitPlayer>(*this);
+	onHitMap_[CollisionTags::TAG::REPORT] = std::make_unique<ControllerOnHitReport>(*this);
+	onHitMap_[CollisionTags::TAG::CHARACTER_GRAVITY_LINE] = std::make_unique<ControllerOnHitGravity>(*this);
 
 	// 基底クラスの読み込み処理
 	CharacterBase::Load();
@@ -65,32 +66,8 @@ void Player::Init()
 	// アクション制御クラスの初期化
 	action_->Init();
 
-	// 衝突後処理の初期化
-	onHitReport_->Init();
-
 	// 初期状態
 	state_ = STATE::ALIVE;
-}
-
-void Player::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
-{
-	// 衝突相手がプレイヤーの場合
-	if (opponentCollider.lock()->GetPartnerTag() == CollisionTags::TAG::PLAYER)
-	{
-		onHit_->OnHit(opponentCollider);
-		return;
-	}
-	// 衝突相手がレポート用のラインの場合
-	else if (opponentCollider.lock()->GetPartnerTag() == CollisionTags::TAG::REPORT)
-	{
-		onHitReport_->OnHit(opponentCollider);
-		return;
-	}
-	// それ以外の場合
-	else
-	{
-		return;
-	}
 }
 
 void Player::UpdateBody()
@@ -104,8 +81,11 @@ void Player::DrawMain()
 	{
 		return;
 	}
-
-	CharacterBase::DrawMain();
+	std::array frames = { 0,1,2,3,4,5 };
+	for (auto cnt : frames)
+	{
+		MV1DrawFrame(transform_.modelId, cnt);
+	}
 }
 
 void Player::InitAnimation()

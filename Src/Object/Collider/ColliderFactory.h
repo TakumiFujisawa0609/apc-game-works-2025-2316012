@@ -48,9 +48,6 @@ private:
 	std::shared_ptr<ColliderSphere> CreateSphere(ActorBase& owner, const Json& info);
 	std::shared_ptr<ColliderBox> CreateBox(ActorBase& owner, const Json& info);
 
-	// コライダー種類をストリング型から列挙型へ変換
-	//ColliderType::TYPE GetTypeFromStringType(const std::string& type);
-
 	// タグをストリング型から列挙型へ変換
 	CollisionTags::TAG GetTagFromStringTag(const std::string& tag);
 

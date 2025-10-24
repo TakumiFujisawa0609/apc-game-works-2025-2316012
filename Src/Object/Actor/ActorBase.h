@@ -59,6 +59,12 @@ public:
 	const Transform& GetTransform() const { return transform_; }
 
 	/// <summary>
+	/// Šˆ“®ó‘Ô”»’è
+	/// </summary>
+	/// <returns>Šˆ“®ó‘Ô”»’è</returns>
+	const bool IsActive() const { return isActive_; }
+
+	/// <summary>
 	/// íœ”»’è
 	/// </summary>
 	/// <returns>íœ”»’è</returns>
@@ -68,6 +74,12 @@ public:
 	/// íœ”»’è‚ğİ’è
 	/// </summary>
 	void SetDelete() { isDelete_ = true; }
+
+	/// <summary>
+	/// Šˆ“®ó‘Ô”»’è‚ğİ’è
+	/// </summary>
+	/// <param name="isActive">Šˆ“®ó‘Ô”»’è</param>
+	void SetIsActive(const bool isActive) { isActive_ = isActive; }
 
 protected:
 
@@ -88,6 +100,9 @@ protected:
 	SceneManager& scnMng_;
 	CollisionManager& collMng_;
 	ColliderFactory& collFtr_;
+
+	// Šˆ“®ó‘Ô”»’è
+	bool isActive_;
 
 	// íœ”»’è	
 	bool isDelete_;

@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include "../../Template/Singleton.h"
+#include "../../Object/Actor/Stage/StageObjectBase.h"
 
 class StageObjectBase;
 
@@ -37,8 +38,8 @@ public:
 	/// 指定したステージオブジェクトの配列を返す
 	/// </summary>
 	/// <param name="key">ステージの種類</param>
-	/// <returns></returns>
-	std::vector<std::unique_ptr<StageObjectBase>>& GetStageObjects(const std::string& key) { return stageObjectsMap_.at(key); }
+	/// <returns>ステージオブジェクトの配列</returns>
+	std::vector<std::unique_ptr<StageObjectBase>>& GetStageObjects(const std::string& key) { return stageObjectsMap_[key]; }
 
 private:
 

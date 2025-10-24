@@ -29,40 +29,40 @@ public:
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns> 先頭の点の座標</returns>
-	const VECTOR GetLocalPosPointHead()const { return localPosPointHead_; }
+	const VECTOR& GetLocalPosPointHead()const { return localPosPointHead_; }
 
 	/// <summary>
 	/// 末尾の点の座標を取得
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns> 末尾の点の座標</returns>
-	const VECTOR GetLocalPosPointEnd()const { return localPosPointEnd_; }
+	const VECTOR& GetLocalPosPointEnd()const { return localPosPointEnd_; }
 
 	/// <summary>
 	/// 回転済みの先頭の点の座標を取得
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>回転済みの先頭の点の座標</returns>
-	const VECTOR GetPosPointHead() const { return GetRotPos(localPosPointHead_); }
+	const VECTOR& GetPosPointHead() const { return GetRotPos(localPosPointHead_); }
 
 	/// <summary>
 	/// 回転済みの末尾の点の座標を取得
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>回転済みの末尾の点の座標</returns>
-	const VECTOR GetPosPointEnd() const { return GetRotPos(localPosPointEnd_); }
+	const VECTOR& GetPosPointEnd() const { return GetRotPos(localPosPointEnd_); }
 
 	/// <summary>
 	/// 先頭の点の座標の設定
 	/// </summary>
 	/// <param name="_pos">先頭の点の座標</param>
-	void SetLocalPosPointHead(const VECTOR _pos) { localPosPointHead_ = _pos; }
+	void SetLocalPosPointHead(const VECTOR& pos) { localPosPointHead_ = pos; }
 
 	/// <summary>
 	/// 末尾の点の座標の設定
 	/// </summary>
 	/// <param name="_pos">末尾の点の座標</param>
-	void SetLocalPosPointEnd(const VECTOR _pos) { localPosPointEnd_ = _pos; }
+	void SetLocalPosPointEnd(const VECTOR& pos) { localPosPointEnd_ = pos; }
 
 private:
 

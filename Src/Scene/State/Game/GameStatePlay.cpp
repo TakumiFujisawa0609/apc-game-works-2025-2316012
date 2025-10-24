@@ -3,6 +3,7 @@
 #include "../../../Manager/Generic/CollisionManager.h"
 #include "../../../Manager/System/GameSystemManager.h"
 #include "../../../Manager/System/AnomalyManager.h"
+#include "../../../Object/Actor/Stage/StageObjectBase.h"
 #include "../../../Object/Actor/Character/CharacterBase.h"
 #include "../../../Core/Game/ReportSystem.h"
 #include "GameStatePlay.h"

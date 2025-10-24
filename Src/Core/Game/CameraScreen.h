@@ -6,6 +6,7 @@
 
 class PostEffectBase;
 class InputManager;
+class CharacterManager;
 
 class CameraScreen : public CoreGameBase
 {
@@ -65,6 +66,9 @@ private:
 	// 入力管理クラスの参照
 	InputManager& input_;
 
+	// キャラクターの管理クラスの参照
+	CharacterManager& charaMng_;
+
 	// 状態
 	SCREEN_MODE mode_;
 
@@ -73,5 +77,8 @@ private:
 
 	// スクリーンモード別にエフェクトを管理
 	std::unordered_map<SCREEN_MODE, std::unique_ptr<PostEffectBase>> effectMap_;
+
+	// 活動状態の切り替え
+	void SetActiveActors();
 };
 

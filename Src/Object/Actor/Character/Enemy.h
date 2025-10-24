@@ -43,12 +43,6 @@ public:
 	void Init() override;
 
 	/// <summary>
-	/// 衝突後の処理
-	/// </summary>
-	/// <param name="opponentCollider">衝突相手のコライダー</param>
-	void OnHit(const std::weak_ptr<ColliderBase>& opponentCollider) override;
-
-	/// <summary>
 	/// 初期位置用のインデックスを返す
 	/// </summary>
 	/// <returns>初期位置用のインデックス</returns>

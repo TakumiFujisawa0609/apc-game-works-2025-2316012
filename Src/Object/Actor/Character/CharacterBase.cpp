@@ -11,6 +11,7 @@
 #include "../../Controller/ControllerRotate.h"
 #include "../../Controller/ControllerGravity.h"
 #include "../../Controller/OnHit/ControllerOnHitBase.h"
+#include "../../Collider/ColliderLine.h"
 #include "../../Collider/ColliderCapsule.h"
 #include "../../Collider/ColliderFactory.h"
 #include "CharacterBase.h"
@@ -37,9 +38,12 @@ CharacterBase::CharacterBase(const Json& param) :
 	move_ = nullptr;
 	rotate_ = nullptr;
 	gravity_ = nullptr;
-	onHit_ = nullptr;
 	goalQuaRot_ = Quaternion();
 	collider_ = collFtr_.Create(*this, param);
+}
+
+CharacterBase::~CharacterBase()
+{
 }
 
 void CharacterBase::Load()
@@ -55,6 +59,9 @@ void CharacterBase::Load()
 
 	// 重力制御クラス
 	gravity_ = std::make_unique<ControllerGravity>(*this);
+
+	// 重力用ラインコライダー
+	colliderLine_ = std::make_unique<ColliderLine>(*this, CollisionTags::TAG::CHARACTER_GRAVITY_LINE);
 
 	// アニメーション初期化
 	InitAnimation();
@@ -78,12 +85,16 @@ void CharacterBase::Init()
 	rotate_->Init();
 
 	// 衝突後クラスの初期化
-	onHit_->Init();
+	for (auto& onHit : onHitMap_)
+	{
+		onHit.second->Init();
+	}
 }
 
 void CharacterBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
-	onHit_->OnHit(opponentCollider);
+	auto it = onHitMap_.find(opponentCollider.lock()->GetTag());
+	it->second->OnHit(opponentCollider);
 }
 
 void CharacterBase::UpdateApply()
@@ -93,11 +104,24 @@ void CharacterBase::UpdateApply()
 
 	// アニメーション制御クラスの更新
 	animation_->Update();
+
+	// 重力用コライダーの設定
+	SetGravityCollider();
 }
 
 void CharacterBase::DrawMain()
 {
 	MV1DrawModel(transform_.modelId);
+}
+
+void CharacterBase::SetGravityCollider()
+{
+	constexpr float CHECK_POW = 10.0f;
+
+	// 重力用コライダーの設定
+	VECTOR gravHitPosUp = VAdd(transform_.pos, VScale(Utility3D::DIR_U, GRAVITY));
+	gravHitPosUp = VAdd(gravHitPosUp, VScale(Utility3D::DIR_U, CHECK_POW * 2.0f));
+	VECTOR gravHitPosDown = VAdd(transform_.pos, VScale(Utility3D::DIR_U, CHECK_POW));
 }
 
 void CharacterBase::DebugDraw()
@@ -111,13 +135,13 @@ const float CharacterBase::GetCapsuleRadius() const
 	return colliderModel->GetRadius();
 }
 
-const VECTOR CharacterBase::GetCapsuleTopPos() const
+const VECTOR& CharacterBase::GetCapsuleTopPos() const
 {
 	const auto& colliderModel = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
 	return colliderModel->GetPosTop();
 }
 
-const VECTOR CharacterBase::GetCapsuleDownPos() const
+const VECTOR& CharacterBase::GetCapsuleDownPos() const
 {
 	const auto& colliderModel = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
 	return colliderModel->GetPosDown();

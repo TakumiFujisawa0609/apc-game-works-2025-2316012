@@ -1,4 +1,5 @@
 #include "../Application.h"
+#include "../Manager/Generic/SceneManager.h"
 #include "../Render/PixelMaterial.h"
 #include "../Render/PixelRenderer.h"
 #include "PostEffectBase.h"
@@ -28,5 +29,9 @@ void PostEffectBase::Init()
 
 void PostEffectBase::Draw()
 {
+	//ƒXƒNƒŠ[ƒ“‚ÌÝ’è
+	material_->SetTextureBuf(0, scnMng_.GetMainScreen());
+
+	// •`‰æ
 	renderer_->Draw();
 }

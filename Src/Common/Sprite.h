@@ -47,12 +47,15 @@ struct Sprite
 	/// <summary>
 	/// ’Êí•`‰æ
 	/// </summary>
-	/// <returns></returns>
 	const void Draw() const;
 
 	/// <summary>
 	/// ‰ñ“]•`‰æ
 	/// </summary>
-	/// <returns></returns>
 	const void DrawRota() const;
+
+	/// <summary>
+	/// Šg‘åk¬•`‰æ
+	/// </summary>
+	const void DrawExtend() const;
 };

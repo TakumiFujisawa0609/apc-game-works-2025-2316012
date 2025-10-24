@@ -16,6 +16,7 @@ ActorBase::ActorBase(const Json& param):
 	collMng_(CollisionManager::GetInstance()),
 	collFtr_(ColliderFactory::GetInstance())
 {
+	isActive_ = true;	// 生成時は全員アクティブで
 	isDelete_ = false;
 	transform_ = {};
 	collider_ = nullptr;
@@ -37,6 +38,8 @@ void ActorBase::Init()
 
 void ActorBase::Update()
 {	
+	if (!isActive_) { return; }
+
 	UpdateBody();
 
 	UpdateApply();
@@ -48,6 +51,8 @@ void ActorBase::Update()
 
 void ActorBase::Draw()
 {
+	if (!isActive_) { return; }
+
 	DrawMain();
 
 	DrawTranslucent();

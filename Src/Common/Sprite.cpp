@@ -51,3 +51,15 @@ const void Sprite::DrawRota() const
 		isFlipY
 	);
 }
+
+const void Sprite::DrawExtend() const
+{
+	DrawExtendGraph(
+		pos.x,
+		pos.y,
+		size.x + pos.x,
+		size.y + pos.y,
+		handleId,
+		isTrans
+	);
+}

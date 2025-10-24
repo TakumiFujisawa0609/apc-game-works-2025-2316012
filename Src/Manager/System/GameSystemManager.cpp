@@ -8,7 +8,11 @@
 #include "GameSystemManager.h"
 
 void GameSystemManager::Load()
-{
+{	
+	// スクリーンの生成
+	auto screen = std::make_unique<CameraScreen>();
+	systemsMap_.emplace(TYPE::SCREEN, std::move(screen));
+	
 	// レポートの生成
 	Player& player = dynamic_cast<Player&>(CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER));	// プレイヤークラスの取得
 	auto report = std::make_unique<ReportSystem>(player);
@@ -21,10 +25,6 @@ void GameSystemManager::Load()
 	// マニュアルの生成
 	auto manual = std::make_unique<GameManual>();
 	systemsMap_.emplace(TYPE::MANUAL, std::move(manual));
-
-	// スクリーンの生成
-	auto screen = std::make_unique<CameraScreen>();
-	systemsMap_.emplace(TYPE::SCREEN, std::move(screen));
 
 	// 読み込み
 	for (auto& system : systemsMap_)

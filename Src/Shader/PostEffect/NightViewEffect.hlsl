@@ -32,7 +32,21 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
     // UV座標に戻す
     uv = center + offset * center;
 
-    // テクスチャの色を取得
-    return tex.Sample(texSampler, uv);
+    // UV座標とテクスチャを参照して、最適な色を取得する
+    float4 srcCol = tex.Sample(texSampler, uv);
+    if (srcCol.a < 0.01f)
+    {
+		// 描画しない(アルファテスト)
+        discard;
+    }
+
+    float4 dstCol = srcCol;
+
+	// ３色の平均モノトーン
+    float gray = (dstCol.r + dstCol.g + dstCol.b) / 3.0f;
+    dstCol.rgb = float3(gray, gray, gray);
+    
+    // 色を返す
+    return dstCol;
 
 }

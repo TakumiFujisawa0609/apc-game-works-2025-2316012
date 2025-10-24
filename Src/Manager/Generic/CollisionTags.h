@@ -11,14 +11,15 @@ public:
 	{
 		NONE,
 		PLAYER,
-		MAIN_STAGE,			// メインステージ
-		DECO_STAGE,			// 装飾(ステージ)
-		STAGE_GIMMICK,		// ステージギミック
-		DECO_GIMMICK,		// 装飾(ギミック)
-		REPORT,				// 報告用
-		GHOST,				// ゴースト
-		ENEMY,				// 敵
-		ENEMY_VIEW,			// 敵の視線
+		MAIN_STAGE,				// メインステージ
+		DECO_STAGE,				// 装飾(ステージ)
+		STAGE_GIMMICK,			// ステージギミック
+		DECO_GIMMICK,			// 装飾(ギミック)
+		REPORT,					// 報告用
+		GHOST,					// ゴースト
+		ENEMY,					// 敵
+		ENEMY_VIEW,				// 敵の視線
+		CHARACTER_GRAVITY_LINE, // 重力判定用線 
 		MAX
 	};
 
