@@ -37,12 +37,12 @@ void CollisionManager::Update()
 			const auto& tag1 = colliders_[i]->GetTag();
 			const auto& tag2 = colliders_[j]->GetTag();
 
-			//if (tag1 == CollisionTags::TAG::REPORT && tag2 == CollisionTags::TAG::GHOST ||
-			//	tag1 == CollisionTags::TAG::GHOST && tag2 == CollisionTags::TAG::REPORT)
-			//{
-			//	// YEAR
-			//	int a = 0;
-			//}
+			if (tag1 == CollisionTags::TAG::CHARACTER_GRAVITY_LINE && tag2 == CollisionTags::TAG::MAIN_STAGE ||
+				tag1 == CollisionTags::TAG::MAIN_STAGE && tag2 == CollisionTags::TAG::CHARACTER_GRAVITY_LINE)
+			{
+				// YEAR
+				int a = 0;
+			}
 
 			// 衝突判定が不要な組み合わせの場合
 			if (!collTagMatrix_[static_cast<int>(tag1)][static_cast<int>(tag2)])
@@ -86,11 +86,6 @@ void CollisionManager::Add(std::shared_ptr<ColliderBase> collider)
 	{
 		// 追加しない
 		return;
-	}
-
-	if (CollisionTags::TAG::MAIN_STAGE == collider->GetTag())
-	{
-		int i = 0;
 	}
 
 	// コライダーの追加
@@ -145,6 +140,9 @@ void CollisionManager::InitTagMatrix()
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::ENEMY)][static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)] = true;
 
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::GHOST)][static_cast<int>(CollisionTags::TAG::REPORT)] = true;				// ゴーストとレポート用ライン
+
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::CHARACTER_GRAVITY_LINE)][static_cast<int>(CollisionTags::TAG::MAIN_STAGE)] = true;				// 重力とステージ
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::CHARACTER_GRAVITY_LINE)][static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)] = true;				// 重力とステージ
 }
 
 void CollisionManager::InitColliderMatrix()

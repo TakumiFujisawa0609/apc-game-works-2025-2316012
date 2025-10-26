@@ -131,9 +131,6 @@ protected:
 	// UIの描画
 	virtual void DrawUI();
 
-	// 衝突時のコールバック
-	virtual void OnCollision();
-
 	// コライダーの追加
 	virtual void AddCollider();
 

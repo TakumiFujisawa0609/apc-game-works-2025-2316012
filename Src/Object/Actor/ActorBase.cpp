@@ -94,10 +94,6 @@ void ActorBase::DrawUI()
 {
 }
 
-void ActorBase::OnCollision()
-{
-}
-
 void ActorBase::AddCollider()
 {
 	collMng_.Add(collider_);
@@ -105,6 +101,7 @@ void ActorBase::AddCollider()
 
 void ActorBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
+	MV1RefreshCollInfo(transform_.modelId);
 }
 
 void ActorBase::DebugUpdate()

@@ -131,6 +131,8 @@ void Player::UpdateAlive()
 
 	// ˆÚ“®
 	move_->Update();
+
+	onHitMap_[CollisionTags::TAG::PLAYER]->Test();
 }
 
 void Player::UpdateDead()

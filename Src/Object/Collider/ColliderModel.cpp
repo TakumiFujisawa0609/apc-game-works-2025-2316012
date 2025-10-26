@@ -1,3 +1,4 @@
+#include "../Actor/ActorBase.h"
 #include "ColliderModel.h"
 
 ColliderModel::ColliderModel(ActorBase& owner, const CollisionTags::TAG tag) :
@@ -6,6 +7,9 @@ ColliderModel::ColliderModel(ActorBase& owner, const CollisionTags::TAG tag) :
 	collResultPolyDim_ = {};
 	collResultPoly_ = {};
 	type_ = ColliderType::TYPE::MODEL;
+
+	// ƒ‚ƒfƒ‹‚ÌÕ“Ëî•ñ‚Ì\’z
+	int ret = MV1SetupCollInfo(owner_.GetTransform().modelId, -1, 1, 1, 1);
 }
 
 ColliderModel::~ColliderModel()

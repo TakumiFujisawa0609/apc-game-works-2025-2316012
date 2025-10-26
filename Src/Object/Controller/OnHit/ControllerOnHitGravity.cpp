@@ -37,6 +37,12 @@ void ControllerOnHitGravity::OnHitStage(const std::weak_ptr<ColliderBase>& oppon
 		owner_.SetJumpPow(Utility3D::VECTOR_ZERO);	// ジャンプ力を初期化
 	}
 
+	// プレイヤーの重力制限
+	if (movedPos.y < 0.0f)
+	{
+		movedPos.y = 0.0f;
+	}
+
 	// 最終的な位置を設定
 	owner_.SetPos(movedPos);
 }

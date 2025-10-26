@@ -5,6 +5,7 @@
 ControllerOnHitBase::ControllerOnHitBase() :
     stateMng_(GameStateManager::GetInstance())
 {
+    cnt_ = 0;
 }
 
 ControllerOnHitBase::~ControllerOnHitBase()

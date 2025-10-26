@@ -50,6 +50,11 @@ public:
 	virtual void OnHit(const std::weak_ptr<ColliderBase>& opponentCollider) override;
 
 	/// <summary>
+	/// 衝突後処理の反映
+	/// </summary>
+	void OnHitUpdate() { transform_.Update(); }
+
+	/// <summary>
 	/// 移動速度量を返す
 	/// </summary>
 	/// <returns>移動速度量</returns>
@@ -217,7 +222,7 @@ protected:
 	Quaternion goalQuaRot_;
 
 	// 重力用ラインコライダー
-	std::unique_ptr<ColliderLine> colliderLine_;
+	std::shared_ptr<ColliderLine> colliderLine_;
 
 	// アニメーション制御クラス
 	std::unique_ptr<ControllerAnimation> animation_;

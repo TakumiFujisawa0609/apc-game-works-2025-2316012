@@ -35,7 +35,11 @@ public:
 	/// </summary>
 	virtual void Init() ;
 
+	void Test() { cnt_ = 0; }
+
 protected:
+
+	int cnt_;
 
 	// ゲーム状態管理クラス参照
 	GameStateManager& stateMng_;

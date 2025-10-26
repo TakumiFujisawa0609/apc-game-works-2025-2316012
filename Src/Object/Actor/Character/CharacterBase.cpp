@@ -61,7 +61,8 @@ void CharacterBase::Load()
 	gravity_ = std::make_unique<ControllerGravity>(*this);
 
 	// 重力用ラインコライダー
-	colliderLine_ = std::make_unique<ColliderLine>(*this, CollisionTags::TAG::CHARACTER_GRAVITY_LINE);
+	colliderLine_ = std::make_shared<ColliderLine>(*this, CollisionTags::TAG::CHARACTER_GRAVITY_LINE);
+	collMng_.Add(colliderLine_);
 
 	// アニメーション初期化
 	InitAnimation();
@@ -93,8 +94,21 @@ void CharacterBase::Init()
 
 void CharacterBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
-	auto it = onHitMap_.find(opponentCollider.lock()->GetTag());
-	it->second->OnHit(opponentCollider);
+	// 中身が存在する場合
+	if (auto lockedCollider = opponentCollider.lock())
+	{
+		// 指定のタグを探索
+		const auto& it = onHitMap_.find(lockedCollider->GetPartnerTag());
+
+		// ある場合
+		if (it != onHitMap_.end())
+		{
+			// 衝突後処理
+			it->second->OnHit(opponentCollider);
+		}
+	}
+
+	ActorBase::OnHit(opponentCollider);
 }
 
 void CharacterBase::UpdateApply()
@@ -122,6 +136,10 @@ void CharacterBase::SetGravityCollider()
 	VECTOR gravHitPosUp = VAdd(transform_.pos, VScale(Utility3D::DIR_U, GRAVITY));
 	gravHitPosUp = VAdd(gravHitPosUp, VScale(Utility3D::DIR_U, CHECK_POW * 2.0f));
 	VECTOR gravHitPosDown = VAdd(transform_.pos, VScale(Utility3D::DIR_U, CHECK_POW));
+
+	colliderLine_->SetLocalPosPointHead(gravHitPosUp);
+	colliderLine_->SetLocalPosPointEnd(gravHitPosDown);
+
 }
 
 void CharacterBase::DebugDraw()
