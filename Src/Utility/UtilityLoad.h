@@ -19,11 +19,18 @@ public:
 	static std::string OpenFileDialog();
 
 	/// <summary>
+	/// JSONデータを読み込んでMap型で要素を配列で返す
+	/// </summary>
+	/// <param name="fileName">読み込むファイル名前</param>
+	/// <returns>読み込んだファイルデータ</returns>
+	static const std::unordered_map<std::string, std::vector<Json>> GetJsonMapArrayData(const std::string& fileName);
+
+	/// <summary>
 	/// JSONデータを読み込んでMap型で返す
 	/// </summary>
 	/// <param name="fileName">読み込むファイル名前</param>
 	/// <returns>読み込んだファイルデータ</returns>
-	static const std::unordered_map<std::string, std::vector<Json>> GetJsonMapData(const std::string& fileName);
+	static const std::unordered_map<std::string, Json> GetJsonMapData(const std::string& fileName);
 
 	/// <summary>
 	/// JSONデータを読み込んでvector型で返す

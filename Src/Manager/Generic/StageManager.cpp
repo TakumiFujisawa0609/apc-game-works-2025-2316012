@@ -7,10 +7,10 @@
 void StageManager::Load()
 {
 	// パラメータステージマップを取得
-	auto& paramStageMap = UtilityLoad::GetJsonMapData(STAGE_FILE_NAME);
+	auto& paramStageMap = UtilityLoad::GetJsonMapArrayData(STAGE_FILE_NAME);
 
 	// パラメーターコライダーマップを取得
-	auto& paramColliderMap = UtilityLoad::GetJsonMapData(COLLIDER_FILE_NAME);
+	stageObjectColliserInfoMap_ = UtilityLoad::GetJsonMapArrayData(COLLIDER_FILE_NAME);
 
 	// ファクトリーの生成
 	auto factory = std::make_unique<StageObjectFactory>();
@@ -25,17 +25,17 @@ void StageManager::Load()
 		for (auto& param : params.second)
 		{
 			// コライダー情報を検索
-			const auto& collInfos = paramColliderMap.find(params.first);
+			const auto& collInfo = stageObjectColliserInfoMap_.find(params.first);
 
 			// 中身が空もしくは配列で格納されている場合
-			if (collInfos->second.empty() || collInfos->second.size() > 1)
+			if (collInfo->second.empty())
 			{
 				// 想定外のため終了
 				return;
 			}
 
 			// オブジェクト生成
-			auto object = factory->Create(params.first, param, collInfos->second[0]);
+			auto object = factory->Create(params.first, param, collInfo->second[0]);
 
 			// オブジェクト読み込み
 			object->Load();
@@ -79,6 +79,62 @@ void StageManager::Draw()
 		{
 			object->Draw();
 		}
+	}
+}
+
+void StageManager::Sweep()
+{	
+	// マップ全体をイテレート
+	for (auto map = stageObjectsMap_.begin(); map != stageObjectsMap_.end();)
+	{
+		// キャラクターリストを取得
+		auto& objects = map->second;
+
+		// キャラクターの並び替え
+		auto it = std::remove_if(
+			objects.begin(),
+			objects.end(),
+			[](const std::unique_ptr<StageObjectBase>& object)
+			{
+				// 削除判定
+				return object->IsDelete();
+			}
+		);
+
+		// 範囲内のキャラで削除予定ならマップから削除
+		objects.erase(it, objects.end());
+
+		// キャラクターリストが空の場合
+		if (objects.empty())
+		{
+			// マップからも削除
+			map = stageObjectsMap_.erase(map);
+		}
+		// 空でない場合
+		else
+		{
+			// 次の要素に進む
+			++map;
+		}
+	}
+}
+
+void StageManager::Add(const std::string& type, std::unique_ptr<StageObjectBase> stageObject)
+{
+	// 指定されたTYPEのキーがマップに存在するか検索
+	auto it = stageObjectsMap_.find(type);
+	if (it != stageObjectsMap_.end())
+	{
+		// 存在する場合はそのまま追加
+		it->second.push_back(std::move(stageObject));
+	}
+	else
+	{
+		// 存在しない場合は新たにキーを作成して追加
+		std::vector<std::unique_ptr<StageObjectBase>> objects;
+		objects.push_back(std::move(stageObject));
+		stageObjectsMap_.emplace(type, std::move(objects));
+		return;
 	}
 }
 

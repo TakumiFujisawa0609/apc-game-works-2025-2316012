@@ -85,4 +85,3 @@ private:
 	// デストラクタ
 	~AnomalyManager();
 };
-

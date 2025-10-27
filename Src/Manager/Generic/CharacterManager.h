@@ -55,7 +55,7 @@ public:
 	void Draw();
 
 	/// <summary>
-	/// 不要のコライダーの削除
+	/// 不要のキャラクターの削除
 	/// </summary>
 	void Sweep();
 

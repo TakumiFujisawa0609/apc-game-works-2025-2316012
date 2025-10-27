@@ -8,7 +8,7 @@
 void CharacterManager::Load()
 {
 	// パラメータ読み込み
-	paramMap_ = UtilityLoad::GetJsonMapData(FILE_NAME);
+	paramMap_ = UtilityLoad::GetJsonMapArrayData(FILE_NAME);
 
 	// プレイヤー生成
 	std::unique_ptr<Player> player = std::make_unique<Player>(paramMap_[NAME_LIST[static_cast<int>(TYPE::PLAYER)]].front());
@@ -109,26 +109,6 @@ void CharacterManager::AddCharacter(const TYPE type, std::unique_ptr<CharacterBa
 		return;
 	}
 }
-
-//std::vector<std::unique_ptr<CharacterBase>>& CharacterManager::GetCharacters(const TYPE type)
-//{
-//	// 1. typeに対応するvectorを見つける処理（例: mapの検索）
-//	auto it = characterMap_.find(type);
-//	
-//	// 見つかった場合
-//	if (it != characterMap_.end())
-//	{
-//		// そのまま返す
-//		return it->second;
-//	}
-//	// 見つからない場合
-//	else 
-//	{
-//		// 空の配列を返す
-//		static std::vector<std::unique_ptr<CharacterBase>> dummy;
-//		return dummy; 
-//	}
-//}
 
 CharacterManager::CharacterManager()
 {

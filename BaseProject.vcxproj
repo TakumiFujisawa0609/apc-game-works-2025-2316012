@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Stage\ChairMountain.cpp" />
+    <ClCompile Include="Src\Object\System\Anomaly\AnomalyChairMountain.cpp" />
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyPainting.cpp" />
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyGhost.cpp" />
     <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitStageObject.cpp" />
@@ -131,6 +133,8 @@
     <ClCompile Include="Src\Object\Actor\Stage\StageObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Stage\ChairMountain.h" />
+    <ClInclude Include="Src\Object\System\Anomaly\AnomalyChairMountain.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyPainting.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyGhost.h" />
     <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitStageObject.h" />

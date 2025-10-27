@@ -61,4 +61,3 @@ protected:
 	// Õ“ËŒãˆ—
 	std::unique_ptr<ControllerOnHitStageObject> onHit_;
 };
-

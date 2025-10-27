@@ -2,10 +2,14 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <nlohmann/json.hpp>
 #include "../../Template/Singleton.h"
 #include "../../Object/Actor/Stage/StageObjectBase.h"
 
 class StageObjectBase;
+
+// JSON名前空間
+using Json = nlohmann::json;
 
 class StageManager : public Singleton<StageManager>
 {
@@ -35,11 +39,30 @@ public:
 	void Draw();
 
 	/// <summary>
+	/// 不要のオブジェクトの削除
+	/// </summary>
+	void Sweep();
+
+	/// <summary>
+	/// ステージオブジェクトの追加
+	/// </summary>
+	/// <param name="type">種類</param>
+	/// <param name="stageObject">ステージオブジェクト/param>
+	void Add(const std::string& type, std::unique_ptr<StageObjectBase> stageObject);
+
+	/// <summary>
 	/// 指定したステージオブジェクトの配列を返す
 	/// </summary>
 	/// <param name="key">ステージの種類</param>
 	/// <returns>ステージオブジェクトの配列</returns>
 	std::vector<std::unique_ptr<StageObjectBase>>& GetStageObjects(const std::string& key) { return stageObjectsMap_[key]; }
+
+	/// <summary>
+	/// 指定したステージオブジェクトのコライダー情報を返す
+	/// </summary>
+	/// <param name="key">ステージの種類</param>
+	/// <returns>コライダーの情報</returns>
+	const Json& GetStageObjectColliderParam(const std::string& key) const { return stageObjectColliserInfoMap_.at(key); }
 
 private:
 
@@ -49,8 +72,11 @@ private:
 	// コライダー用ファイル名
 	const std::string COLLIDER_FILE_NAME = "StageObjectsCollider";
 
-	//ステージオブジェクトの管理マップ
+	// ステージオブジェクトの管理マップ
 	std::unordered_map<std::string, std::vector<std::unique_ptr<StageObjectBase>>> stageObjectsMap_;
+
+	// コライダー情報の管理マップ
+	std::unordered_map<std::string, std::vector<Json>> stageObjectColliserInfoMap_;;
 
 	//コンストラクタ
 	StageManager();

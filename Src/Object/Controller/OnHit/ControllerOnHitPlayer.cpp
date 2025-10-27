@@ -45,8 +45,9 @@ void ControllerOnHitPlayer::OnHitMainStage(const std::weak_ptr<ColliderBase>& op
 				// 位置をずらす
 				movedPos = VAdd(movedPos, VScale(hit.Normal, 1.0f));
 				trans.pos = movedPos;
-				trans.Update();
-				MV1RefreshCollInfo(trans.modelId);
+				//trans.Update();
+				owner_.SetPos(movedPos);
+				//MV1RefreshCollInfo(trans.modelId);
 				continue;
 			}
 
@@ -58,7 +59,7 @@ void ControllerOnHitPlayer::OnHitMainStage(const std::weak_ptr<ColliderBase>& op
 	collModel->CleaningPolyDim();
 
 	// 最終的な位置を設定
-	owner_.SetPos(movedPos);
+	//owner_.SetPos(movedPos);
 
 	// 衝突後処理の反映
 	owner_.OnHitUpdate();

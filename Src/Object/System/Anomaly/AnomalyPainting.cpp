@@ -13,6 +13,9 @@ namespace
 
 AnomalyPainting::AnomalyPainting()
 {
+	anomalyPaintingTexture1_ = -1;
+	painting1Size_ = -1;
+	paintingList_.clear();
 }
 
 AnomalyPainting::~AnomalyPainting()
@@ -57,7 +60,6 @@ void AnomalyPainting::Occurrence(Json& param)
 	// ŠG‚Ìƒ|ƒCƒ“ƒ^
 	Painting* painting;
 
-	// ”Ô†‚ªŠG1‚Ì”Ô†‚Ìê‡
 	if (cnt < painting1Size_)
 	{
 		painting = dynamic_cast<Painting*>(stageMng_.GetStageObjects("Painting01")[cnt].get());

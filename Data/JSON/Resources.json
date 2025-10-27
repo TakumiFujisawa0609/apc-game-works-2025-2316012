@@ -318,6 +318,12 @@
       "sceneId": 3,
       "type": "texture",
       "path": "Data/Image/Anomaly/AnomalyPainting.png"
+    },
+    {
+      "key": "ChairMountain",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/ChairMountain.mv1"
     }
   ]
 }

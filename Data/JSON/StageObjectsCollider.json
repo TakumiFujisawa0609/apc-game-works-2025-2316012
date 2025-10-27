@@ -110,5 +110,10 @@
   "AreaCBooks": {
     "collisionTag": "decoStage",
     "colliderType": "none"
+  },
+  "ChairMountain": {
+    "collisionTag": "stageGimmick",
+    "colliderType": "sphere",
+    "colliderRadius": 30
   }
 }
