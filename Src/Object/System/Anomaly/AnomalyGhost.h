@@ -1,19 +1,9 @@
 #pragma once
 #include "AnomalyBase.h"
 
-class AnomalyAppearance :  public AnomalyBase
+class AnomalyGhost : public AnomalyBase
 {
 public:
-
-	/// <summary>
-	/// コンストラクタ
-	/// </summary>
-	AnomalyAppearance();
-
-	/// <summary>
-	/// デストラクタ
-	/// </summary>
-	~AnomalyAppearance() override;
 
 	/// <summary>
 	/// 初期化処理

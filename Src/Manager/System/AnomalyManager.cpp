@@ -1,6 +1,8 @@
 #include <DxLib.h>
 #include "../../Object/System/Anomaly/AnomalyBase.h"
 #include "../../Object/System/Anomaly/AnomalyAppearance.h"
+#include "../../Object/System/Anomaly/AnomalyGhost.h"
+#include "../../Object/System/Anomaly/AnomalyPainting.h"
 #include "../../Utility/UtilityLoad.h"
 #include "../../Core/Common/Timer.h"
 #include "AnomalyManager.h"
@@ -11,16 +13,30 @@ void AnomalyManager::Load()
 	anomalyFile_ = UtilityLoad::GetJsonMapData(ANOMALY_FILE);
 
 	// 出現異変処理
+	anomalyMap_[TYPE::GHOST] = std::make_unique<AnomalyGhost>();
 	anomalyMap_[TYPE::APPEARANCE] = std::make_unique<AnomalyAppearance>();
+	anomalyMap_[TYPE::PAINTING] = std::make_unique<AnomalyPainting>();
 
 	// タイマー
 	timer_ = std::make_unique<Timer>(FIRST_TIME);
+
+	// 各種異変の読み込み処理
+	for (auto& anomaly : anomalyMap_)
+	{
+		anomaly.second->Load();
+	}
 }
 
 void AnomalyManager::Init()
 {
 	// タイマー初期化
 	timer_->InitCountUp();
+
+	// 各種異変の読み込み処理
+	for (auto& anomaly : anomalyMap_)
+	{
+		anomaly.second->Init();
+	}
 }
 
 void AnomalyManager::Update()
@@ -36,7 +52,7 @@ void AnomalyManager::Update()
 		}
 
 		// 異変発生
-		OccurAnomaly(TYPE::APPEARANCE);
+		OccurAnomaly(TYPE::PAINTING);
 
 		// 次回までの時間をランダム設定
 		timer_->SetGoalTime(ANOMALY_TIME_MIN + GetRand(ANOMALY_TIME_MAX - ANOMALY_TIME_MIN));

@@ -37,4 +37,8 @@ private:
 
 	// 衝突物別処理
 	void OnHitStageObject(const std::weak_ptr<ColliderBase>& opponentCollider);			// ステージオブジェクト
+	void OnHitGhost(const std::weak_ptr<ColliderBase>& opponentCollider);				// ステージオブジェクト
+
+	// 共通処理
+	void OnHitCommon();
 };

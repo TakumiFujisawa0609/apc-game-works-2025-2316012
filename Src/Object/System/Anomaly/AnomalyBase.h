@@ -3,6 +3,7 @@
 
 class CharacterManager;
 class StageManager;
+class ResourceManager;
 
 // JSON名前空間
 using Json = nlohmann::json;
@@ -22,19 +23,14 @@ public:
 	virtual ~AnomalyBase();
 
 	/// <summary>
+	/// 読み込み処理
+	/// </summary>
+	virtual void Load();
+
+	/// <summary>
 	/// 初期化処理
 	/// </summary>
 	virtual void Init();
-
-	/// <summary>
-	/// 更新処理
-	/// </summary>
-	virtual void Update();
-
-	/// <summary>
-	/// 描画処理
-	/// </summary>
-	virtual void Draw();
 
 	/// <summary>
 	/// 発生処理
@@ -49,5 +45,8 @@ protected:
 
 	// ステージ管理クラス
 	StageManager& stageMng_;
+
+	// リソース管理クラス
+	ResourceManager& resMng_;
 };
 

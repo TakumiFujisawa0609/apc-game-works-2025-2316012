@@ -18,6 +18,8 @@ public:
 
 	enum class TYPE
 	{
+		GHOST,			// ゴーストの出現
+		PAINTING,		// 絵の切り替え
 		REPLACE,		// 置き換え
 		OCCUR,			// 何かが起こる
 		COLOR_CHANGE,	// 色変え
@@ -28,6 +30,8 @@ public:
 	// キャラクターの名前リスト
 	const std::vector<std::string> ANOMALY_LIST =
 	{
+		"Ghost",
+		"Painting",
 		"Replace",
 		"Occur",
 		"ColorChange",

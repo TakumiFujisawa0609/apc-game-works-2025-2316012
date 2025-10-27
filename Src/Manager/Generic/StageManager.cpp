@@ -1,4 +1,5 @@
 #include "../../Object/Actor/Stage/StageObjectBase.h"
+#include "../../Object/Actor/Stage/StageObjectFactory.h"
 #include "../../Object/System/Load/ParameterLoad.h"
 #include "../../Utility/UtilityLoad.h"
 #include "StageManager.h"
@@ -10,6 +11,9 @@ void StageManager::Load()
 
 	// パラメーターコライダーマップを取得
 	auto& paramColliderMap = UtilityLoad::GetJsonMapData(COLLIDER_FILE_NAME);
+
+	// ファクトリーの生成
+	auto factory = std::make_unique<StageObjectFactory>();
 
 	// パラメータ数分オブジェクト生成
 	for (auto& params : paramStageMap)
@@ -31,7 +35,7 @@ void StageManager::Load()
 			}
 
 			// オブジェクト生成
-			auto object = std::make_unique<StageObjectBase>(params.first, param, collInfos->second[0]);
+			auto object = factory->Create(params.first, param, collInfos->second[0]);
 
 			// オブジェクト読み込み
 			object->Load();

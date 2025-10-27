@@ -1,25 +1,17 @@
 #include "../../../Manager/Generic/CharacterManager.h"
 #include "../../Actor/Character/CharacterBase.h"
 #include "../../Actor/Character/Ghost.h"
-#include "AnomalyAppearance.h"
+#include "AnomalyGhost.h"
 
-AnomalyAppearance::AnomalyAppearance()
+void AnomalyGhost::Init()
 {
 }
 
-AnomalyAppearance::~AnomalyAppearance()
-{
-}
-
-void AnomalyAppearance::Init()
-{
-}
-
-void AnomalyAppearance::Occurrence(Json& param)
+void AnomalyGhost::Occurrence(Json& param)
 {
 	// ゴーストを出現
 	auto ghost = std::make_unique<Ghost>(charaMng_.GetCharacterParam(CharacterManager::TYPE::GHOST));
-	
+
 	// 読み込み処理
 	ghost->Create(param);
 

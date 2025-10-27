@@ -34,6 +34,18 @@ void StageObjectBase::Init()
 	ActorBase::Init();
 }
 
+void StageObjectBase::Update()
+{
+	UpdateBody();
+
+	UpdateApply();
+}
+
+void StageObjectBase::Draw()
+{
+	DrawMain();
+}
+
 void StageObjectBase::UpdateApply()
 {	
 	transform_.Update();

@@ -29,6 +29,16 @@ public:
 	virtual void Init() override;
 
 	/// <summary>
+	/// 更新処理
+	/// </summary>
+	virtual void Update() override;
+
+	/// <summary>
+	/// 描画処理
+	/// </summary>
+	virtual void Draw() override;
+
+	/// <summary>
 	/// モデルIDを返す
 	/// </summary>
 	/// <returns>モデルID</returns>

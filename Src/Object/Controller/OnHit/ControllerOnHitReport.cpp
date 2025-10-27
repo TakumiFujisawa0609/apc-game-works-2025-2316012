@@ -1,6 +1,8 @@
 #include "../../../Manager/Generic/GameStateManager.h"
 #include "../../../Manager/System/GameSystemManager.h"
 #include "../../../Core/Game/ReportSystem.h"
+#include "../../../Object/Actor/Stage/StageObjectBase.h"
+#include "../../../Object/Collider/ColliderBase.h"
 #include "ControllerOnHitReport.h"
 
 ControllerOnHitReport::ControllerOnHitReport(Player& owner) :
@@ -26,6 +28,18 @@ void ControllerOnHitReport::Init()
 }
 
 void ControllerOnHitReport::OnHitStageObject(const std::weak_ptr<ColliderBase>& opponentCollider)
+{
+	// ã§í èàóù
+	OnHitCommon();
+}
+
+void ControllerOnHitReport::OnHitGhost(const std::weak_ptr<ColliderBase>& opponentCollider)
+{
+	// ã§í èàóù
+	OnHitCommon();
+}
+
+void ControllerOnHitReport::OnHitCommon()
 {
 	// ÉåÉ|Å[ÉgÇÃèÛë‘ëJà⁄èàóù
 	report_->ChangeReporting();

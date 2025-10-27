@@ -19,6 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\System\Anomaly\AnomalyPainting.cpp" />
+    <ClCompile Include="Src\Object\System\Anomaly\AnomalyGhost.cpp" />
+    <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitStageObject.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\Painting.cpp" />
     <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitGravity.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectNightView.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectGameNormal.cpp" />
@@ -120,12 +124,17 @@
     <ClCompile Include="Src\Utility\UtilityDraw.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\StageObjectBase.cpp" />
     <ClCompile Include="Src\Manager\Generic\StageManager.cpp" />
-    <ClCompile Include="Src\Object\Actor\Stage\StageGimicObjectBase.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\StageGimmickObjectBase.cpp" />
     <ClCompile Include="Src\Utility\UtilityLoad.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\TestModel.cpp" />
     <ClCompile Include="Src\Core\Common\Timer.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\StageObjectFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\System\Anomaly\AnomalyPainting.h" />
+    <ClInclude Include="Src\Object\System\Anomaly\AnomalyGhost.h" />
+    <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitStageObject.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Painting.h" />
     <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitGravity.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectNightView.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectGameNormal.h" />
@@ -274,10 +283,11 @@
     <ClInclude Include="Src\Utility\UtilityDraw.h" />
     <ClInclude Include="Src\Object\Actor\Stage\StageObjectBase.h" />
     <ClInclude Include="Src\Manager\Generic\StageManager.h" />
-    <ClInclude Include="Src\Object\Actor\Stage\StageGimicObjectBase.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\StageGimmickObjectBase.h" />
     <ClInclude Include="Src\Utility\UtilityLoad.h" />
     <ClInclude Include="Src\Object\Actor\Stage\TestModel.h" />
     <ClInclude Include="Src\Core\Common\Timer.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\StageObjectFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\Model\StandardModelPS.hlsl">

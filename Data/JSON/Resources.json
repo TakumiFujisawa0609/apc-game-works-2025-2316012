@@ -312,6 +312,12 @@
       "sceneId": 3,
       "type": "pixelShader",
       "path": "Data/Shader/NightViewEffect.cso"
+    },
+    {
+      "key": "anomalyPainting1",
+      "sceneId": 3,
+      "type": "texture",
+      "path": "Data/Image/Anomaly/AnomalyPainting.png"
     }
   ]
 }

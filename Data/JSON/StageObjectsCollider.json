@@ -82,11 +82,11 @@
     "colliderType": "model"
   },
   "Painting01": {
-    "collisionTag": "decoGimmick",
+    "collisionTag": "stageGimmick",
     "colliderType": "model"
   },
   "Painting02": {
-    "collisionTag": "decoGimmick",
+    "collisionTag": "stageGimmick",
     "colliderType": "model"
   },
   "StoveLit": {
