@@ -1,15 +1,19 @@
 {
-  "AreaA": {
+  "StageMesh": {
     "collisionTag": "mainStage",
     "colliderType": "model"
+  },
+  "AreaA": {
+    "collisionTag": "decoStage",
+    "colliderType": "none"
   },
   "AreaB": {
-    "collisionTag": "mainStage",
-    "colliderType": "model"
+    "collisionTag": "decoStage",
+    "colliderType": "none"
   },
   "AreaC": {
-    "collisionTag": "mainStage",
-    "colliderType": "model"
+    "collisionTag": "decoStage",
+    "colliderType": "none"
   },
   "DecoA": {
     "collisionTag": "decoStage",

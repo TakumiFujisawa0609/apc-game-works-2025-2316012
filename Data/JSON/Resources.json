@@ -324,6 +324,12 @@
       "sceneId": 3,
       "type": "model",
       "path": "Data/Model/Stage/Gimmick/ChairMountain.mv1"
+    },
+    {
+      "key": "StageMesh",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Main/StageMesh.mv1"
     }
   ]
 }

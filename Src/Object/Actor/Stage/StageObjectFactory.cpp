@@ -1,12 +1,14 @@
 #include "StageObjectBase.h"
 #include "StageGimmickObjectBase.h"
 #include "Painting.h"
+#include "StageMain.h"
 #include "StageObjectFactory.h"
 
 StageObjectFactory::StageObjectFactory()
 {
 	RegisterCreate("Painting01", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreatePainting(key, mapParam, colliderParam); });
 	RegisterCreate("Painting02", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreatePainting(key, mapParam, colliderParam); });
+	RegisterCreate("StageMesh", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
 }
 
 StageObjectFactory::~StageObjectFactory()
@@ -50,4 +52,9 @@ std::unique_ptr<StageGimmickObjectBase> StageObjectFactory::CreateStageObjectGim
 std::unique_ptr<Painting> StageObjectFactory::CreatePainting(const std::string& key, const Json& mapParam, const Json& colliderParam)
 {
 	return std::make_unique<Painting>(key, mapParam, colliderParam);
+}
+
+std::unique_ptr<StageMain> StageObjectFactory::CreateStageMain(const std::string& key, const Json& mapParam, const Json& colliderParam)
+{
+	return std::make_unique<StageMain>(key, mapParam, colliderParam);
 }

@@ -9,7 +9,7 @@
     "jumpAmount": 35,
     "jumpAcceptTime": 0.5,
     "reportInputTime": 2.5,
-    "colliderRadius": 20.0,
+    "colliderRadius": 30.0,
     "collisionTag": "player",
     "colliderType": "capsule",
     "initPos": {
