@@ -138,6 +138,23 @@ void StageManager::Add(const std::string& type, std::unique_ptr<StageObjectBase>
 	}
 }
 
+const Json& StageManager::GetStageObjectColliderParam(const std::string& key) const
+{
+	// マップから指定されたキーの要素を検索
+	auto it = stageObjectColliserInfoMap_.find(key);
+
+	// 要素が見つからない場合
+	if (it == stageObjectColliserInfoMap_.end())
+	{
+		// 空のJsonを返す
+		static const Json emptyJson = Json();
+		return emptyJson; 
+	}
+
+	// 情報を返す
+	return it->second.front();
+}
+
 StageManager::StageManager()
 {
 }

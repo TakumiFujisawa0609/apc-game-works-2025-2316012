@@ -33,7 +33,7 @@ public:
 
 private:
 
-	const std::string KEY = "chairMountain";
+	const std::string KEY = "ChairMountain";
 
 };
 

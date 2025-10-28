@@ -18,6 +18,17 @@ public:
 	virtual ~ColliderSphere();
 
 	/// <summary>
+	/// デバッグの描画
+	/// </summary>
+	void DebugDraw() override;
+
+	/// <summary>
+	/// 座標位置を返す
+	/// </summary>
+	/// <returns>座標位置</returns>
+	const VECTOR& GetPos() const { return transformOwner_.pos; }
+
+	/// <summary>
 	/// 半径を返す
 	/// </summary>
 	/// <param name=""></param>

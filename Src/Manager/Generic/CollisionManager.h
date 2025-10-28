@@ -73,8 +73,14 @@ private:
 	// カプセルとライン
 	bool IsHitCheckCapsuleToLine(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
 
+	// カプセルとスフィア
+	bool IsHitCheckCapsuleToSphere(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
+
 	// ラインとボックス
 	bool IsHitCheckLineToBox(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
+
+	// ラインとスフィア
+	bool IsHitCheckLineToSphere(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB);
 
 	// コンストラクタ
 	CollisionManager();

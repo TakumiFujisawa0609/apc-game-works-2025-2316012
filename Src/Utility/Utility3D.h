@@ -83,7 +83,7 @@ public:
 	/// <param name="lineTopPos">ライン先端座標</param>
 	/// <param name="lineEndPos">ラインの末端座標</param>
 	/// <returns></returns>
-	static bool CheckHitCapsuleToLine(const VECTOR& capTopPos, const VECTOR& capDownPos, float capRadius, const VECTOR& lineTopPos, const VECTOR& lineEndPos);
+	static bool CheckHitCapsuleToLine(const VECTOR& capTopPos, const VECTOR& capDownPos, const float capRadius, const VECTOR& lineTopPos, const VECTOR& lineEndPos);
 
 	/// <summary>
 	/// ボックスとカプセルの衝突判定
@@ -105,4 +105,25 @@ public:
 	/// <param name="lineEndPos">ラインの末尾座標</param>
 	/// <returns>判定結果</returns>
 	static bool CheckHitBox_Line(const ColliderBox::OBB& obb, const VECTOR& boxPos, const VECTOR& lineTopPos, const VECTOR& lineEndPos);
+
+	/// <summary>
+	/// スフィアとラインの衝突判定
+	/// </summary>
+	/// <param name="sphrerRadius">スフィアの半径</param>
+	/// <param name="spherePos">スフィアの位置</param>
+	/// <param name="lineTopPos">ラインの先端座標</param>
+	/// <param name="lineEndPos">ラインの末尾座標</param>
+	/// <returns>判定結果</returns>
+	static bool CheckHitSphereToLine(const float sphrerRadius, const VECTOR& spherePos, const VECTOR& lineTopPos, const VECTOR& lineEndPos);
+
+	/// <summary>
+	/// スフィアとカプセルの衝突判定
+	/// </summary>
+	/// <param name="sphrerRadius">スフィアの半径</param>
+	/// <param name="spherePos">スフィアの位置</param>
+	/// <param name="capTopPos">カプセル上部座標</param>
+	/// <param name="capDownPos">カプセル下部座標</param>
+	/// <param name="capRadius">カプセル半径</param>
+	/// <returns></returns>
+	static bool CheckHitSphereToCapsule(const float sphrerRadius, const VECTOR& spherePos, const VECTOR& capTopPos, const VECTOR& capDownPos, const float capRadius);
 };

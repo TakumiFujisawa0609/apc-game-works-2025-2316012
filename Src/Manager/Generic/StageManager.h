@@ -62,7 +62,7 @@ public:
 	/// </summary>
 	/// <param name="key">ステージの種類</param>
 	/// <returns>コライダーの情報</returns>
-	const Json& GetStageObjectColliderParam(const std::string& key) const { return stageObjectColliserInfoMap_.at(key); }
+	const Json& GetStageObjectColliderParam(const std::string& key) const;
 
 private:
 
@@ -76,7 +76,7 @@ private:
 	std::unordered_map<std::string, std::vector<std::unique_ptr<StageObjectBase>>> stageObjectsMap_;
 
 	// コライダー情報の管理マップ
-	std::unordered_map<std::string, std::vector<Json>> stageObjectColliserInfoMap_;;
+	std::unordered_map<std::string, std::vector<Json>> stageObjectColliserInfoMap_;
 
 	//コンストラクタ
 	StageManager();

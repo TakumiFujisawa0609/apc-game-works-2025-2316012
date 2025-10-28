@@ -44,6 +44,10 @@ void StageObjectBase::Update()
 void StageObjectBase::Draw()
 {
 	DrawMain();
+
+#ifdef _DEBUG
+	DebugDraw();
+#endif 
 }
 
 void StageObjectBase::UpdateApply()

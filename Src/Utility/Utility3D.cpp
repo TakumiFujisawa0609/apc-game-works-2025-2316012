@@ -279,7 +279,7 @@ bool Utility3D::CheckHitCapsuleToCapsule(const VECTOR& capTopPosA, const VECTOR&
     return distance <= (capRadiusA + capRadiusB);
 }
 
-bool Utility3D::CheckHitCapsuleToLine(const VECTOR& capTopPos, const VECTOR& capDownPos, float capRadius, const VECTOR& lineTopPos, const VECTOR& lineEndPos)
+bool Utility3D::CheckHitCapsuleToLine(const VECTOR& capTopPos, const VECTOR& capDownPos, const float capRadius, const VECTOR& lineTopPos, const VECTOR& lineEndPos)
 {
     VECTOR u = VSub(lineEndPos, lineTopPos);
     VECTOR v = VSub(capDownPos, capTopPos);
@@ -452,4 +452,85 @@ bool Utility3D::CheckHitBox_Line(const ColliderBox::OBB& obb, const VECTOR& boxP
     }
 
     return true;
+}
+
+bool Utility3D::CheckHitSphereToLine(const float sphrerRadius, const VECTOR& spherePos, const VECTOR& lineTopPos, const VECTOR& lineEndPos)
+{
+    //線のベクトル
+    VECTOR d = VSub(lineEndPos, lineTopPos);
+
+    //線の先端から球体の中心まで
+    VECTOR m = VSub(spherePos, lineTopPos);
+
+    float t = VDot(m, d) / VSquareSize(d);
+    t = std::max<float>(0.0f, std::min<float>(1.0f, t));  // 線分内に制限
+
+    VECTOR closestPoint = VAdd(lineTopPos, VScale(d, t));
+    VECTOR diff = VSub(closestPoint, spherePos);
+
+    return VSquareSize(diff) <= std::pow(sphrerRadius, 2.0);
+}
+
+bool Utility3D::CheckHitSphereToCapsule(const float sphrerRadius, const VECTOR& spherePos, const VECTOR& capTopPos, const VECTOR& capDownPos, const float capRadius)
+{
+    //球体とカプセルの当たり判定
+    bool ret = false;
+
+    // カプセル球体の中心を繋ぐベクトル
+    VECTOR cap1to2 = VSub(capDownPos, capTopPos);
+
+    // ベクトルを正規化
+    VECTOR cap1to2ENor = VNorm(cap1to2);
+
+    // カプセル繋ぎの単位ベクトルと、
+    // そのベクトル元から球体へのベクトルの内積を取る
+    float dot = VDot(cap1to2ENor, VSub(spherePos, capTopPos));
+
+    // 内積で求めた射影距離を使って、カプセル繋ぎ上の座標を取る
+    VECTOR capRidePos = VAdd(capTopPos, VScale(cap1to2ENor, dot));
+
+    // カプセル繋ぎのベクトルの長さを取る
+    float len = sqrt((cap1to2.x * cap1to2.x) + (cap1to2.y * cap1to2.y) + (cap1to2.z * cap1to2.z));
+
+    // 球体がカプセル繋ぎ上にいるか判別するため、比率を取る
+    float rate = dot / len;
+
+    VECTOR centerPos = { 0.0f,0.0f,0.0f };
+
+    // 球体の位置が３エリアに分割されたカプセル形状のどこにいるか判別
+    if (rate > 0.0f && rate <= 1.0f)
+    {
+        // ①球体がカプセル繋ぎ上にいる
+        centerPos = VAdd(capTopPos, VScale(cap1to2ENor, dot));
+    }
+    else if (rate > 1.0f)
+    {
+        // ②球体がカプセルの終点側にいる
+        centerPos = capDownPos;
+    }
+    else if (rate < 0.0f)
+    {
+        // ③球体がカプセルの始点側にいる
+        centerPos = capTopPos;
+    }
+    else
+    {
+        // ここにきてはいけない
+        return false;
+    }
+
+    // お互いの半径の合計
+    float radius = sphrerRadius + capRadius;
+
+    // 座標の差からお互いの距離を取る
+    VECTOR diff = VSub(centerPos, spherePos);
+
+    // 三平方の定理で比較(SqrMagnitudeと同じ)
+    float dis = (diff.x * diff.x) + (diff.y * diff.y) + (diff.z * diff.z);
+    if (dis < (radius * radius))
+    {
+        ret = true;
+    }
+
+    return ret;
 }

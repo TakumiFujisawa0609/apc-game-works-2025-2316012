@@ -118,6 +118,6 @@
   "ChairMountain": {
     "collisionTag": "stageGimmick",
     "colliderType": "sphere",
-    "colliderRadius": 30
+    "colliderRadius": 150
   }
 }

@@ -4,6 +4,7 @@
 #include "../../Object/Collider/ColliderBox.h"
 #include "../../Object/Collider/ColliderModel.h"
 #include "../../Object/Collider/ColliderLine.h"
+#include "../../Object/Collider/ColliderSphere.h"
 #include "../../Object/Collider/ColliderType.h"
 #include "../../Utility/Utility3D.h"
 #include "../../Utility/UtilityCommon.h"
@@ -216,6 +217,30 @@ void CollisionManager::InitColliderMatrix()
 		{
 			return IsHitCheckCapsuleToLine(collA, collB);
 		};
+
+	collFuncMatrix_[static_cast<int>(ColliderType::TYPE::LINE)][static_cast<int>(ColliderType::TYPE::SPHERE)] =
+		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
+		{
+			return IsHitCheckCapsuleToLine(collA, collB);
+		};
+
+	collFuncMatrix_[static_cast<int>(ColliderType::TYPE::SPHERE)][static_cast<int>(ColliderType::TYPE::LINE)] =
+		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
+		{
+			return IsHitCheckCapsuleToLine(collA, collB);
+		};
+
+	collFuncMatrix_[static_cast<int>(ColliderType::TYPE::CAPSULE)][static_cast<int>(ColliderType::TYPE::SPHERE)] =
+		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
+		{
+			return IsHitCheckCapsuleToLine(collA, collB);
+		};
+
+	collFuncMatrix_[static_cast<int>(ColliderType::TYPE::SPHERE)][static_cast<int>(ColliderType::TYPE::CAPSULE)] =
+		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
+		{
+			return IsHitCheckCapsuleToLine(collA, collB);
+		};
 }
 
 bool CollisionManager::IsHitCheckModeToCapsule(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB)
@@ -346,6 +371,30 @@ bool CollisionManager::IsHitCheckCapsuleToLine(std::weak_ptr<ColliderBase> collA
 	return false;
 }
 
+bool CollisionManager::IsHitCheckCapsuleToSphere(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB)
+{
+	std::weak_ptr<ColliderCapsule> collCapsule;
+	std::weak_ptr<ColliderSphere> collSphere;
+
+	// カプセルコライダーの用意
+	if (collA.lock()->GetType() == ColliderType::TYPE::CAPSULE) { collCapsule = std::dynamic_pointer_cast<ColliderCapsule>(collA.lock()); }
+	else if (collB.lock()->GetType() == ColliderType::TYPE::CAPSULE) { collCapsule = std::dynamic_pointer_cast<ColliderCapsule>(collB.lock()); }
+
+	// ボックスコライダーの用意
+	if (collA.lock()->GetType() == ColliderType::TYPE::SPHERE) { collSphere = std::dynamic_pointer_cast<ColliderSphere>(collA.lock()); }
+	else if (collB.lock()->GetType() == ColliderType::TYPE::SPHERE) { collSphere = std::dynamic_pointer_cast<ColliderSphere>(collB.lock()); }
+
+	// カプセルから必要な情報を取得
+	float sphereRadius = collSphere.lock()->GetRadius();			// スフィアの半径
+	VECTOR spherePos = collSphere.lock()->GetPos();					// スフィアの位置
+	VECTOR capTopPos = collCapsule.lock()->GetPosTop();				// カプセルの上部座標
+	VECTOR capDownPos = collCapsule.lock()->GetPosDown();			// カプセルの下部座標
+	float capRadius = collCapsule.lock()->GetRadius();				// カプセルの半径
+
+	// 判定結果を返す
+	return Utility3D::CheckHitSphereToCapsule(sphereRadius, spherePos, capTopPos, capDownPos, capRadius);
+}
+
 bool CollisionManager::IsHitCheckLineToBox(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB)
 {
 	std::weak_ptr<ColliderLine> collLine;
@@ -363,10 +412,33 @@ bool CollisionManager::IsHitCheckLineToBox(std::weak_ptr<ColliderBase> collA, st
 	auto& obb = collBox.lock()->GetObb();							// バウンディングボックスの情報
 	VECTOR boxPos = collBox.lock()->GetPos();						// ボックスの位置
 	VECTOR lineTopPos = collLine.lock()->GetLocalPosPointHead();	// ラインの先端座標
-	VECTOR lineEndPos = collLine.lock()->GetLocalPosPointEnd();		// カプセルの末端座標
+	VECTOR lineEndPos = collLine.lock()->GetLocalPosPointEnd();		// ラインの末端座標
 
 	// 判定結果を返す
 	return Utility3D::CheckHitBox_Line(obb, boxPos, lineTopPos, lineEndPos);
+}
+
+bool CollisionManager::IsHitCheckLineToSphere(std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB)
+{
+	std::weak_ptr<ColliderLine> collLine;
+	std::weak_ptr<ColliderSphere> collSphere;
+
+	// ラインコライダーの用意
+	if (collA.lock()->GetType() == ColliderType::TYPE::LINE) { collLine = std::dynamic_pointer_cast<ColliderLine>(collA.lock()); }
+	else if (collB.lock()->GetType() == ColliderType::TYPE::LINE) { collLine = std::dynamic_pointer_cast<ColliderLine>(collB.lock()); }
+
+	// ボックスコライダーの用意
+	if (collA.lock()->GetType() == ColliderType::TYPE::SPHERE) { collSphere = std::dynamic_pointer_cast<ColliderSphere>(collA.lock()); }
+	else if (collB.lock()->GetType() == ColliderType::TYPE::SPHERE) { collSphere = std::dynamic_pointer_cast<ColliderSphere>(collB.lock()); }
+
+	// カプセルから必要な情報を取得
+	float sphererRadius = collSphere.lock()->GetRadius();			// スフィアの半径
+	VECTOR spherePos = collSphere.lock()->GetPos();					// スフィア位置
+	VECTOR lineTopPos = collLine.lock()->GetLocalPosPointHead();	// ラインの先端座標
+	VECTOR lineEndPos = collLine.lock()->GetLocalPosPointEnd();		// ラインの末端座標
+
+	// 判定結果を返す
+	return Utility3D::CheckHitSphereToLine(sphererRadius, spherePos, lineTopPos, lineEndPos);
 }
 
 CollisionManager::CollisionManager()

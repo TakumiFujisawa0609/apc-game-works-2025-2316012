@@ -3,6 +3,7 @@
 #include "../../Object/System/Anomaly/AnomalyAppearance.h"
 #include "../../Object/System/Anomaly/AnomalyGhost.h"
 #include "../../Object/System/Anomaly/AnomalyPainting.h"
+#include "../../Object/System/Anomaly/AnomalyChairMountain.h"
 #include "../../Utility/UtilityLoad.h"
 #include "../../Core/Common/Timer.h"
 #include "AnomalyManager.h"
@@ -16,9 +17,10 @@ void AnomalyManager::Load()
 	anomalyMap_[TYPE::GHOST] = std::make_unique<AnomalyGhost>();
 	anomalyMap_[TYPE::APPEARANCE] = std::make_unique<AnomalyAppearance>();
 	anomalyMap_[TYPE::PAINTING] = std::make_unique<AnomalyPainting>();
+	anomalyMap_[TYPE::CHAIR_MOUNTAIN] = std::make_unique<AnomalyChairMountain>();
 
 	// タイマー
-	timer_ = std::make_unique<Timer>(FIRST_TIME);
+	timer_ = std::make_unique<Timer>(5.0f);
 
 	// 各種異変の読み込み処理
 	for (auto& anomaly : anomalyMap_)
@@ -52,7 +54,7 @@ void AnomalyManager::Update()
 		}
 
 		// 異変発生
-		OccurAnomaly(TYPE::PAINTING);
+		OccurAnomaly(TYPE::CHAIR_MOUNTAIN);
 
 		// 次回までの時間をランダム設定
 		timer_->SetGoalTime(ANOMALY_TIME_MIN + GetRand(ANOMALY_TIME_MAX - ANOMALY_TIME_MIN));

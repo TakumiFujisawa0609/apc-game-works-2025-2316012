@@ -1,3 +1,4 @@
+#include <nlohmann/json.hpp>
 #include "../../../Manager/Generic/StageManager.h"
 #include "../../Actor/Stage/ChairMountain.h"
 #include "AnomalyChairMountain.h"

@@ -1,3 +1,4 @@
+#include "../../Utility/UtilityCommon.h"
 #include "ColliderSphere.h"
 
 ColliderSphere::ColliderSphere(ActorBase& owner, const CollisionTags::TAG tag) : 
@@ -9,4 +10,9 @@ ColliderSphere::ColliderSphere(ActorBase& owner, const CollisionTags::TAG tag) :
 
 ColliderSphere::~ColliderSphere()
 {
+}
+
+void ColliderSphere::DebugDraw()
+{
+	DrawSphere3D(transformOwner_.pos, radius_, 16.0f, UtilityCommon::RED, UtilityCommon::RED, false);
 }

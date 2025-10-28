@@ -20,6 +20,7 @@ public:
 	{
 		GHOST,			// ゴーストの出現
 		PAINTING,		// 絵の切り替え
+		CHAIR_MOUNTAIN,	// 椅子の山を置く
 		REPLACE,		// 置き換え
 		OCCUR,			// 何かが起こる
 		COLOR_CHANGE,	// 色変え
@@ -32,6 +33,7 @@ public:
 	{
 		"Ghost",
 		"Painting",
+		"ChairMountain",
 		"Replace",
 		"Occur",
 		"ColorChange",
