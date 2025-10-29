@@ -50,6 +50,13 @@
       "fontName": "はなぞめフォント"
     },
     {
+      "key": "fontKazuki",
+      "sceneId": 0,
+      "type": "font",
+      "path": "Data/Font/KazukiReiwa.ttf",
+      "fontName": "KazukiReiwa"
+    },
+    {
       "key": "AreaA",
       "sceneId": 3,
       "type": "model",

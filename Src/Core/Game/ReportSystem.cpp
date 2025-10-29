@@ -34,7 +34,7 @@ ReportSystem::~ReportSystem()
 
 void ReportSystem::Load()
 {
-	int font = FontManager::GetInstance().CreateMyFont(resMng_.GetFontName("fontDot"), FONT_SIZE, FONT_THICK);
+	int font = FontManager::GetInstance().CreateMyFont(resMng_.GetFontName("fontKazuki"), FONT_SIZE, FONT_THICK);
 	const Vector2 POS = { Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y };
 
 	// テキストの設定

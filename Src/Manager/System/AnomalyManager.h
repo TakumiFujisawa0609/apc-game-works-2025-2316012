@@ -62,17 +62,17 @@ public:
 
 private:
 
+	// 異変情報ファイル名
+	const std::string ANOMALY_FILE = "Anomalies";	
+	
 	// 初期異変発生開始時間
-	static constexpr float FIRST_TIME = 45.0f;
+	float firstTime_;
 
 	// 異変発生最大時間
-	static constexpr int ANOMALY_TIME_MAX = 40;
+	int timeMax_;
 
 	// 異変発生最小時間
-	static constexpr int ANOMALY_TIME_MIN = 20;
-
-	// 異変情報ファイル名
-	const std::string ANOMALY_FILE = "GhostRespown";
+	int timeMin_;
 
 	// 異変情報
 	Json anomalyFile_;

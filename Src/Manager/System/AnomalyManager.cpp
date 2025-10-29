@@ -15,26 +15,28 @@ void AnomalyManager::Load()
 
 	// 出現異変処理
 	anomalyMap_[TYPE::GHOST] = std::make_unique<AnomalyGhost>();
-	//anomalyMap_[TYPE::APPEARANCE] = std::make_unique<AnomalyAppearance>();
 	anomalyMap_[TYPE::PAINTING] = std::make_unique<AnomalyPainting>();
 	anomalyMap_[TYPE::CHAIR_MOUNTAIN] = std::make_unique<AnomalyChairMountain>();
 
-	// タイマー
-	timer_ = std::make_unique<Timer>(FIRST_TIME);
-
 	// 各種異変の読み込み処理
+	auto& paramFile = anomalyFile_["Param"][0];
 	for (auto& anomaly : anomalyMap_)
 	{
+		// リソース等の読み込み処理
 		anomaly.second->Load();
+
+		// 異変の重みの設定
+		const std::string& name = ANOMALY_LIST.at(anomaly.first);
+		anomalyWeightMap_.emplace(anomaly.first, paramFile.at("Weights").at(name).get<int>());
 	}	
-	
-	// 異変の重みの設定
-	auto& weigthFile = anomalyFile_["Weights"][0];
-	for (auto& map : anomalyMap_)
-	{
-		const std::string& name = ANOMALY_LIST.at(map.first);
-		anomalyWeightMap_.emplace(map.first, weigthFile.at(name).get<int>());
-	}
+
+	// パラメーターの設定
+	timeMin_ = paramFile.at("timeMin");			
+	timeMax_ = paramFile.at("timeMax");
+	firstTime_ = paramFile.at("firstTime");
+
+	// タイマー
+	timer_ = std::make_unique<Timer>(firstTime_);
 }
 
 void AnomalyManager::Init()
@@ -65,7 +67,7 @@ void AnomalyManager::Update()
 		OccurAnomaly(GetRandType());
 
 		// 次回までの時間をランダム設定
-		timer_->SetGoalTime(ANOMALY_TIME_MIN + GetRand(ANOMALY_TIME_MAX - ANOMALY_TIME_MIN));
+		timer_->SetGoalTime(timeMin_ + GetRand(timeMax_ - timeMin_));
 
 		// タイマー初期化
 		timer_->InitCountUp();
@@ -146,6 +148,9 @@ const AnomalyManager::TYPE AnomalyManager::GetRandType()
 
 AnomalyManager::AnomalyManager()
 {
+	firstTime_ = 0.0f;
+	timeMin_ = 0.0f;
+	timeMax_ = 0.0f;
 }
 
 AnomalyManager::~AnomalyManager()

@@ -47,7 +47,7 @@ void CameraScreen::Load()
 void CameraScreen::Init()
 {
 	// カメラフレームの初期化
-	cameraFrame_.pos = { 0,0, };
+	cameraFrame_.pos = { Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y };
 	cameraFrame_.size = { Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y };
 
 	// 初期化処理
@@ -89,7 +89,9 @@ void CameraScreen::Update()
 
 void CameraScreen::Draw()
 {
+#ifdef _DEBUG	
 	if (mode_ == SCREEN_MODE::DEBUG) { return; }
+#endif 
 
 	//スクリーンの設定
 	SetDrawScreen(postEffectScreen_);
@@ -107,7 +109,7 @@ void CameraScreen::Draw()
 	DrawGraph(0, 0, postEffectScreen_, false);
 
 	// カメラフレームの描画
-	cameraFrame_.DrawExtend();
+	cameraFrame_.DrawRota();
 }
 
 void CameraScreen::ChangeScreenMode(const SCREEN_MODE mode)
@@ -121,10 +123,12 @@ void CameraScreen::ChangeScreenMode(const SCREEN_MODE mode)
 
 void CameraScreen::SetActiveActors()
 {
-	if(mode_ == SCREEN_MODE::DEBUG) { return; }
+#ifdef _DEBUG	
+	if (mode_ == SCREEN_MODE::DEBUG) { return; }
+#endif 
 
 	// 状態別に活動状態を決定
-	bool isActive = mode_ == SCREEN_MODE::NORMAL;
+	bool isActive = mode_ == SCREEN_MODE::NIGHT_VIEW;
 
 	// ゴースト配列の取得
 	auto& ghosts = charaMng_.GetCharacters(CharacterManager::TYPE::GHOST);

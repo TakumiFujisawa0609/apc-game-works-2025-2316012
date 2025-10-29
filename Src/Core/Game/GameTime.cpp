@@ -23,7 +23,7 @@ void GameTime::Load()
 	timer_ = std::make_unique<Timer>(300.0f);
 
 	// フォント
-	int font = fontMng_.CreateMyFont(resMng_.GetFontName("fontDot"), FONT_SIZE, FONT_THICK);
+	int font = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), FONT_SIZE, FONT_THICK);
 
 	// フォントの反映
 	todayText_.fontHandle = font;
