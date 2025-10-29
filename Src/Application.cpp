@@ -77,9 +77,10 @@ void Application::Run()
 		// 描画処理
 		sceneManager.Draw();
 
+#ifdef _DEBUG
 		// デバッグフレーム描画
 		fps_->Draw();
-
+#endif
 		ScreenFlip();
 
 		// フレームレートの計算

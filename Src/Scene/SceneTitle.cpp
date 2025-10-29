@@ -10,6 +10,7 @@
 #include "../Render/PixelMaterial.h"
 #include "../Render/PixelRenderer.h"
 #include "../Utility/UtilityCommon.h"
+#include "../Core/Title/TitleLogo.h"
 #include "SceneTitle.h"
 
 SceneTitle::SceneTitle(void)
@@ -23,9 +24,7 @@ SceneTitle::SceneTitle(void)
 	// 変数の初期化
 	se_ = -1;
 	bgm_ = -1;
-	step_ = 0.0f;
-	logoMaterial_ = nullptr;
-	logoRenderer_ = nullptr;
+	logo_ = nullptr;
 	keyMaterial_ = nullptr;
 	keyRenderer_ = nullptr;
 }
@@ -39,16 +38,12 @@ void SceneTitle::Load(void)
 	//親クラスの読み込み
 	SceneBase::Load();
 
+	// ロゴの生成
+	logo_ = std::make_unique<TitleLogo>();
+	logo_->Load();
+
 	// ロゴ画像の設定
-	int ps = resMng_.GetHandle("glitchPs");
 	int Nps = resMng_.GetHandle("normalSpritePs");
-	logoMaterial_ = std::make_unique<PixelMaterial>(ps, 2);				// マテリアルの生成
-	logoMaterial_->AddTextureBuf(resMng_.GetHandle("titleLogo"));		// テクスチャの追加
-	logoRenderer_ = std::make_unique<PixelRenderer>(*logoMaterial_);	// レンダラーの生成
-
-	logoMaterial_->AddConstBuf({ 0.0f, 0.0f, 0.0f, 0.0f }); // 色の初期化
-	logoMaterial_->AddConstBuf({ 0.0f, 0.0f, 0.0f, 0.0f }); // 色の初期化
-
 	keyMaterial_ = std::make_unique<PixelMaterial>(Nps, 1);
 	keyMaterial_->AddTextureBuf(resMng_.GetHandle("pleaseSpaceKey"));
 	keyRenderer_ = std::make_unique<PixelRenderer>(*keyMaterial_);
@@ -64,14 +59,12 @@ void SceneTitle::Load(void)
 
 void SceneTitle::Init(void)
 {
-	// 画像位置設定
-
-	logoRenderer_->SetPos({ 0, 260 });
-	logoRenderer_->SetSize({ 640, 160 });
-	logoRenderer_->MakeSquereVertex();	
-	keyRenderer_->SetPos({ Application::SCREEN_HALF_X, 500 });
+	keyRenderer_->SetPos({ Application::SCREEN_HALF_X - 476 / 2, 500 });
 	keyRenderer_->SetSize({ 476, 48 });
 	keyRenderer_->MakeSquereVertex();
+
+	// ロゴ初期化
+	logo_->Init();
 
 	// BGMの再生
 	sndMng_.Play(bgm_);
@@ -85,6 +78,9 @@ void SceneTitle::NormalUpdate(void)
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
 		sndMng_.Stop(bgm_);
 	}
+
+	// ロゴ更新
+	logo_->Update();
 }
 
 void SceneTitle::NormalDraw(void)
@@ -98,16 +94,9 @@ void SceneTitle::NormalDraw(void)
 		UtilityCommon::WHITE,
 		true
 	);
-	step_ + scnMng_.GetDeltaTime();
-	float strength = sin(step_ * 5.0f) * 0.5f + 0.5f; // 強度を時間で0.0～1.0で変化させる
-	float speed = 20.0f;
 
-	logoMaterial_->SetConstBuf(1, { step_, strength, speed, 0.0f });
-
-	// ロゴ
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
-	logoRenderer_->Draw();
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	// ロゴ描画
+	logo_->Draw();
 
 	// キー
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);

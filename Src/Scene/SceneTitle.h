@@ -3,6 +3,7 @@
 #include "../Common/Sprite.h"
 #include "../Common/CharacterString.h"
 
+class TitleLogo;
 class PixelMaterial;
 class PixelRenderer;
 
@@ -29,11 +30,8 @@ private:
 	int se_;				// Œø‰Ê‰¹
 	int bgm_;				// BGM
 
-	float step_;
-
-	// ƒƒS‰æ‘œ
-	std::unique_ptr<PixelRenderer> logoRenderer_;
-	std::unique_ptr<PixelMaterial> logoMaterial_;
+	// ƒƒS
+	std::unique_ptr<TitleLogo> logo_;
 
 	// ƒL[‰æ‘œ
 	std::unique_ptr<PixelRenderer> keyRenderer_;
