@@ -20,6 +20,7 @@ ControllerActionPlayer::ControllerActionPlayer(Player& player) :
 	TIME_ROT(player.GetTimeRot())
 {
 	stepRotTime_ = 0.0f;
+	madnessStep_ = 0.0f;
 	isEndLanding_ = false;
 }
 
@@ -37,9 +38,6 @@ void ControllerActionPlayer::Update()
 {
 	// 移動操作処理
 	ProcessMove();
-
-	// ジャンプ操作処理
-	//ProcessJump();
 
 	// レポート操作処理
 	ProcessReport();
@@ -124,9 +122,23 @@ void ControllerActionPlayer::ProcessMove()
 		// 歩く移動速度取得
 		speed = player_.GetSpeedMove();
 
-		// ダッシュ中なら速度を変更
-		if (isDash)
+		// ステップを更新
+		madnessStep_ += player_.GetMadnessUpdateStep();
+
+		// ステップが最大に達したら
+		if (madnessStep_ > 1.0f)
 		{
+			// 狂気値追加
+			player_.AddMadnessValue(MADNESS_ADD_VALUE);
+
+			// ステップを初期化
+			madnessStep_ = 0.0f;
+		}
+
+		// ダッシュ中かつ狂気値が一定未満の場合
+		if (isDash && 50 > player_.GetMadnessValue())
+		{
+			// 速度を変更
 			speed = player_.GetSpeedRun();
 		}
 
@@ -155,7 +167,7 @@ void ControllerActionPlayer::ProcessMove()
 	player_.SetMoveDir(dir);
 
 	// 移動量の設定
-	player_.SetMoveSpeed(speed);
+	player_.SetMoveSpeed(GetApplyMadnessToSpeed(speed));
 
 	// 回転用ステップを更新
 	stepRotTime_ -= scnMng_.GetDeltaTime();
@@ -311,4 +323,19 @@ void ControllerActionPlayer::CreateLineCollider()
 
 	// 判定に追加
 	collMng_.Add(std::move(coll));
+}
+
+const float ControllerActionPlayer::GetApplyMadnessToSpeed(float speed)
+{
+	constexpr int MAX = 50;
+	constexpr float PERCENTAGE = 100.0f;
+
+	// 狂気値を取得
+	int value = player_.GetMadnessValue();
+
+	// 減少率
+	float rate = MAX / GAUGE_MAX * value / PERCENTAGE;
+
+	//乗算
+	return speed * (1.0f - rate);
 }

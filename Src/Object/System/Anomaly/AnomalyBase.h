@@ -4,6 +4,7 @@
 class CharacterManager;
 class StageManager;
 class ResourceManager;
+class Player;
 
 // JSON名前空間
 using Json = nlohmann::json;
@@ -48,5 +49,8 @@ protected:
 
 	// リソース管理クラス
 	ResourceManager& resMng_;
+
+	// プレイヤーのポインタ
+	Player* player_;
 };
 

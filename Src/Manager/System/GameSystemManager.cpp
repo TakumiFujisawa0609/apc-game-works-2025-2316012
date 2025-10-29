@@ -5,6 +5,7 @@
 #include "../../Core/Game/GameManual.h"
 #include "../../Core/Game/GameTime.h"
 #include "../../Core/Game/CameraScreen.h"
+#include "../../Core/Game/MadnessGauge.h"
 #include "GameSystemManager.h"
 
 void GameSystemManager::Load()
@@ -25,6 +26,10 @@ void GameSystemManager::Load()
 	// マニュアルの生成
 	auto manual = std::make_unique<GameManual>();
 	systemsMap_.emplace(TYPE::MANUAL, std::move(manual));
+
+	// 狂気ゲージの生成
+	auto mad = std::make_unique<MadnessGauge>(player);
+	systemsMap_.emplace(TYPE::MADNESS, std::move(mad));
 
 	// 読み込み
 	for (auto& system : systemsMap_)

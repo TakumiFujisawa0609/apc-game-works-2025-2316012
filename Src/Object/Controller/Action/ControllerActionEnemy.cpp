@@ -239,7 +239,7 @@ void ControllerActionEnemy::ChangeStateIdle()
 	updateFunc_ = std::bind(&ControllerActionEnemy::UpdateIdle, this);
 
 	// ランダムで待機時間を設定
-	timer_->SetGoalTime(IDLE_TIME_MIN + GetRand(IDLE_TIME_RANGE));
+	timer_->SetGoalTime(static_cast<float>(IDLE_TIME_MIN + GetRand(IDLE_TIME_RANGE)));
 
 	// アニメーションの遷移
 	animation_.Play(Enemy::ANIM_IDLE);
@@ -438,7 +438,7 @@ void ControllerActionEnemy::UpdateChaseNear()
 	VECTOR diffVec = VSub(nextPointPos_, myPos);
 
 	// 距離を計算
-	float distance = Utility3D::Distance(nextPointPos_, myPos);
+	float distance = static_cast<float>(Utility3D::Distance(nextPointPos_, myPos));
 
 	// 移動方向の取得
 	VECTOR dir = VScale(diffVec, (1.0f / distance));

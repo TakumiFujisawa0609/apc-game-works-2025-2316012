@@ -221,25 +221,25 @@ void CollisionManager::InitColliderMatrix()
 	collFuncMatrix_[static_cast<int>(ColliderType::TYPE::LINE)][static_cast<int>(ColliderType::TYPE::SPHERE)] =
 		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
 		{
-			return IsHitCheckCapsuleToLine(collA, collB);
+			return IsHitCheckLineToSphere(collA, collB);
 		};
 
 	collFuncMatrix_[static_cast<int>(ColliderType::TYPE::SPHERE)][static_cast<int>(ColliderType::TYPE::LINE)] =
 		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
 		{
-			return IsHitCheckCapsuleToLine(collA, collB);
+			return IsHitCheckLineToSphere(collA, collB);
 		};
 
 	collFuncMatrix_[static_cast<int>(ColliderType::TYPE::CAPSULE)][static_cast<int>(ColliderType::TYPE::SPHERE)] =
 		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
 		{
-			return IsHitCheckCapsuleToLine(collA, collB);
+			return IsHitCheckCapsuleToSphere(collA, collB);
 		};
 
 	collFuncMatrix_[static_cast<int>(ColliderType::TYPE::SPHERE)][static_cast<int>(ColliderType::TYPE::CAPSULE)] =
 		[this](std::weak_ptr<ColliderBase> collA, std::weak_ptr<ColliderBase> collB) -> bool
 		{
-			return IsHitCheckCapsuleToLine(collA, collB);
+			return IsHitCheckCapsuleToSphere(collA, collB);
 		};
 }
 

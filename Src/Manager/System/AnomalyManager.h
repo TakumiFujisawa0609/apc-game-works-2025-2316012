@@ -29,15 +29,15 @@ public:
 	};
 
 	// キャラクターの名前リスト
-	const std::vector<std::string> ANOMALY_LIST =
+	const std::unordered_map<TYPE ,std::string> ANOMALY_LIST =
 	{
-		"Ghost",
-		"Painting",
-		"ChairMountain",
-		"Replace",
-		"Occur",
-		"ColorChange",
-		"Appearance"
+		{TYPE::GHOST,"Ghost"},
+		{TYPE::PAINTING,"Painting"},
+		{TYPE::CHAIR_MOUNTAIN,"ChairMountain"},
+		{TYPE::REPLACE,"Replace"},
+		{TYPE::OCCUR,"Occur"},
+		{TYPE::COLOR_CHANGE,"ColorChange"},
+		{TYPE::APPEARANCE,"Appearance"}
 	};
 	
 	/// <summary>
@@ -62,8 +62,13 @@ public:
 
 private:
 
-	static constexpr float FIRST_TIME = 50.0f;
+	// 初期異変発生開始時間
+	static constexpr float FIRST_TIME = 45.0f;
+
+	// 異変発生最大時間
 	static constexpr int ANOMALY_TIME_MAX = 40;
+
+	// 異変発生最小時間
 	static constexpr int ANOMALY_TIME_MIN = 20;
 
 	// 異変情報ファイル名
@@ -71,6 +76,9 @@ private:
 
 	// 異変情報
 	Json anomalyFile_;
+
+	// 各異変ごとの確率重みマップ
+	std::unordered_map<TYPE, int> anomalyWeightMap_;
 
 	// タイマー
 	std::unique_ptr<Timer> timer_;
@@ -80,6 +88,9 @@ private:
 
 	// 異変の発生
 	void OccurAnomaly(const TYPE type);
+
+	// ランダムで異変の種類を返す
+	const TYPE GetRandType();
 
 	// コンストラクタ
 	AnomalyManager();

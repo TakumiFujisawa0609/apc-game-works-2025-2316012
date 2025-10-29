@@ -46,6 +46,9 @@ private:
 	// 始点調整用
 	static constexpr float OFFSET_Y = 120.0f;
 
+	// 狂気値の追加量
+	static constexpr int MADNESS_ADD_VALUE = 1;
+
 	// レポート入力時間
 	const float REPORT_INPUT_TIME;
 
@@ -60,6 +63,9 @@ private:
 
 	// 回転用ステップ
 	float stepRotTime_;
+
+	// 狂気値用ステップ
+	float madnessStep_;
 
 	// 着地判定
 	bool isEndLanding_;
@@ -81,4 +87,7 @@ private:
 
 	// ラインの判定を生成
 	void CreateLineCollider();
+
+	// 狂気値の影響から速度を取得
+	const float GetApplyMadnessToSpeed(float speed);
 };

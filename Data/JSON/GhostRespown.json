@@ -1,4 +1,9 @@
 {
+  "Weights": {
+    "Ghost": 11,
+    "Painting": 10,
+    "ChairMountain": 1
+  },
   "Ghost": [
     {
       "initPos": {

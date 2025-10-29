@@ -21,8 +21,7 @@ ControllerOnHitPlayer::~ControllerOnHitPlayer()
 void ControllerOnHitPlayer::OnHitMainStage(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
 	// 座標取得
-	Transform trans = Transform(owner_.GetTransform());
-	VECTOR movedPos = trans.pos;
+	VECTOR movedPos = owner_.GetTransform().pos;
 
 	// モデル用コライダーへ変換
 	auto collModel = std::dynamic_pointer_cast<ColliderModel>(opponentCollider.lock());
@@ -44,10 +43,9 @@ void ControllerOnHitPlayer::OnHitMainStage(const std::weak_ptr<ColliderBase>& op
 			{
 				// 位置をずらす
 				movedPos = VAdd(movedPos, VScale(hit.Normal, 1.0f));
-				trans.pos = movedPos;
-				//trans.Update();
+
+				// 座標設定
 				owner_.SetPos(movedPos);
-				//MV1RefreshCollInfo(trans.modelId);
 				continue;
 			}
 
@@ -57,9 +55,6 @@ void ControllerOnHitPlayer::OnHitMainStage(const std::weak_ptr<ColliderBase>& op
 
 	// 検出した地面ポリゴン情報の後始末
 	collModel->CleaningPolyDim();
-
-	// 最終的な位置を設定
-	//owner_.SetPos(movedPos);
 
 	// 衝突後処理の反映
 	owner_.OnHitUpdate();

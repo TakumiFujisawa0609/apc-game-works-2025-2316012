@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Core\Game\MadnessGauge.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\ChairMountain.cpp" />
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyChairMountain.cpp" />
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyPainting.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="Src\Object\Actor\Stage\StageMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Core\Game\MadnessGauge.h" />
     <ClInclude Include="Src\Object\Actor\Stage\ChairMountain.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyChairMountain.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyPainting.h" />

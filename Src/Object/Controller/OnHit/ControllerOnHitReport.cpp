@@ -2,6 +2,7 @@
 #include "../../../Manager/System/GameSystemManager.h"
 #include "../../../Core/Game/ReportSystem.h"
 #include "../../../Object/Actor/Stage/StageObjectBase.h"
+#include "../../../Object/Actor/Character/Player.h"
 #include "../../../Object/Collider/ColliderBase.h"
 #include "ControllerOnHitReport.h"
 
@@ -46,4 +47,7 @@ void ControllerOnHitReport::OnHitCommon()
 
 	// ゲーム状態変更
 	stateMng_.ChangeState(GameStateManager::STATE::REPORTING);
+
+	// プレイヤーの狂気更新値減少
+	owner_.SubMadnessUpdateStep();
 }

@@ -24,6 +24,11 @@ public:
 	static const std::string ANIM_DIE;		//死ぬ
 	static const std::string ANIM_SLEEP;	//眠る
 
+	// 最大狂気値
+	static constexpr int MADNESS_MAX = 100;	
+	
+
+
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
@@ -70,6 +75,12 @@ public:
 	const float GetReportTime() const { return REPORT_INPUT_TIME; }
 
 	/// <summary>
+	/// 狂気値の追加値を返す
+	/// </summary>
+	/// <returns>狂気値の追加値</returns>
+	const float GetMadnessUpdateStep() const { return madnessUpdateStep_; }
+
+	/// <summary>
 	/// ジャンプ用ステップを返す
 	/// </summary>
 	/// <returns>ジャンプ用ステップ</returns>
@@ -80,6 +91,12 @@ public:
 	/// </summary>
 	/// <returns>報告率</returns>
 	const float GetReportPercent() const { return reportPer_; }
+
+	/// <summary>
+	/// 狂気値を返す
+	/// </summary>
+	/// <returns>狂気値</returns>
+	const int GetMadnessValue() const { return madnessValue_; }
 
 	/// <summary>
 	/// ジャンプ判定を返す
@@ -105,6 +122,28 @@ public:
 	/// <param name="percent">進捗率</param>
 	void SetReportPercent(const float percent) { reportPer_ = percent; }
 
+	/// <summary>
+	/// 狂気値を設定
+	/// </summary>
+	/// <param name="madnessValue">狂気値</param>
+	void SetMadnessValue(const int madnessValue);
+
+	/// <summary>
+	/// 狂気値を追加
+	/// </summary>
+	/// <param name="madnessValue">狂気値</param>
+	void AddMadnessValue(const int madnessValue);
+
+	/// <summary>
+	/// 狂気更新用ステップの追加
+	/// </summary>
+	void AddMadnessUpdateStep() { madnessUpdateStep_ += MADNESS_UPDATE_STEP_ADD; }
+
+	/// <summary>
+	/// 狂気更新用ステップの減少
+	/// </summary>
+	void SubMadnessUpdateStep() { madnessUpdateStep_ -= MADNESS_UPDATE_STEP_ADD; }
+
 private:
 
 	// ジャンプ量
@@ -117,7 +156,13 @@ private:
 	const float ANIM_JUMP_SPEED;
 
 	// レポート進捗率
-	const float REPORT_INPUT_TIME;
+	const float REPORT_INPUT_TIME;	
+	
+	// 狂気更新用ステップ値の追加値
+	const float MADNESS_UPDATE_STEP_ADD;
+
+	// 狂気値
+	int madnessValue_;
 
 	// ジャンプ判定
 	bool isJump_;
@@ -127,6 +172,9 @@ private:
 
 	// レポート報告率
 	float reportPer_;
+
+	// 狂気更新用ステップ値
+	float madnessUpdateStep_;
 
 	// 状態
 	STATE state_;

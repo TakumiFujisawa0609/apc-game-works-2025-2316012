@@ -15,17 +15,25 @@ void AnomalyManager::Load()
 
 	// 出現異変処理
 	anomalyMap_[TYPE::GHOST] = std::make_unique<AnomalyGhost>();
-	anomalyMap_[TYPE::APPEARANCE] = std::make_unique<AnomalyAppearance>();
+	//anomalyMap_[TYPE::APPEARANCE] = std::make_unique<AnomalyAppearance>();
 	anomalyMap_[TYPE::PAINTING] = std::make_unique<AnomalyPainting>();
 	anomalyMap_[TYPE::CHAIR_MOUNTAIN] = std::make_unique<AnomalyChairMountain>();
 
 	// タイマー
-	timer_ = std::make_unique<Timer>(5.0f);
+	timer_ = std::make_unique<Timer>(FIRST_TIME);
 
 	// 各種異変の読み込み処理
 	for (auto& anomaly : anomalyMap_)
 	{
 		anomaly.second->Load();
+	}	
+	
+	// 異変の重みの設定
+	auto& weigthFile = anomalyFile_["Weights"][0];
+	for (auto& map : anomalyMap_)
+	{
+		const std::string& name = ANOMALY_LIST.at(map.first);
+		anomalyWeightMap_.emplace(map.first, weigthFile.at(name).get<int>());
 	}
 }
 
@@ -54,7 +62,7 @@ void AnomalyManager::Update()
 		}
 
 		// 異変発生
-		OccurAnomaly(TYPE::CHAIR_MOUNTAIN);
+		OccurAnomaly(GetRandType());
 
 		// 次回までの時間をランダム設定
 		timer_->SetGoalTime(ANOMALY_TIME_MIN + GetRand(ANOMALY_TIME_MAX - ANOMALY_TIME_MIN));
@@ -72,7 +80,7 @@ void AnomalyManager::DebugDraw()
 void AnomalyManager::OccurAnomaly(const TYPE type)
 {
 	// 異変の種類のストリングを取得
-	const std::string typeString = ANOMALY_LIST[static_cast<int>(type)];
+	const std::string typeString = ANOMALY_LIST.at(type);
 
 	// サイズ定義
 	const int size = static_cast<int>(anomalyFile_[typeString].size());
@@ -87,6 +95,52 @@ void AnomalyManager::OccurAnomaly(const TYPE type)
 	if (anomalyFile_.is_array() && anomalyFile_.size() > index)
 	{
 		anomalyFile_.erase(anomalyFile_.begin() + index);
+	}
+}
+
+const AnomalyManager::TYPE AnomalyManager::GetRandType()
+{
+	// 重みの合計
+	int totalWeight = 0;
+
+	// 全パターンの総数を取得
+	for (const auto& pair : anomalyWeightMap_)
+	{
+		if (pair.second > 0)
+		{
+			totalWeight += pair.second;
+		}
+	}
+
+	// 全パターンが終了した場合
+	if (totalWeight <= 0) 
+	{
+		return TYPE::MAX;
+	}
+
+	// 乱数を取得
+	int rand = GetRand(totalWeight - 1);
+
+	// 累積和
+	int index = 0;
+	for (auto& pair : anomalyWeightMap_)
+	{
+		// 0より大きい場合
+		if (pair.second > 0)
+		{
+			// パターン数を加算
+			index += pair.second;
+
+			// 累積和の範囲内の場合
+			if (rand < index)
+			{
+				// 値を減少
+				pair.second--;
+
+				// 要素を返す
+				return pair.first;
+			}
+		}
 	}
 }
 

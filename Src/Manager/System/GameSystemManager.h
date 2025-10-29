@@ -21,6 +21,7 @@ public:
 		REPORTING,		// 報告中の処理
 		GAME_TIMER,		// タイマー
 		MANUAL,			// 操作説明
+		MADNESS,		// 狂気
 		CAMERA_CHANGE,	// カメラ切り替え
 		SCREEN,			// スクリーン
 		MAX,

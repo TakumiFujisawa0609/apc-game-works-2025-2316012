@@ -330,6 +330,18 @@
       "sceneId": 3,
       "type": "model",
       "path": "Data/Model/Stage/Main/StageMesh.mv1"
+    },
+    {
+      "key": "madnessGauge",
+      "sceneId": 3,
+      "type": "texture",
+      "path": "Data/Image/Game/MadnessGauge.png"
+    },
+    {
+      "key": "madnessGaugePin",
+      "sceneId": 3,
+      "type": "texture",
+      "path": "Data/Image/Game/MadnessGaugePin.png"
     }
   ]
 }

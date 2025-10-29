@@ -24,9 +24,12 @@ Player::Player(const Json& param) :
 	JUMP_AMOUNT(param["jumpAmount"]),
 	JUMP_ACCEPT_TIME(param["jumpAcceptTime"]),
 	ANIM_JUMP_SPEED(param["animationJumpSpeed"]),
-	REPORT_INPUT_TIME(param["reportInputTime"])
+	REPORT_INPUT_TIME(param["reportInputTime"]),
+	MADNESS_UPDATE_STEP_ADD(param["madnessUpdateStepAdd"]),
+	madnessUpdateStep_(param["madnessUpdateStepDefault"])
 {	
 	stepJump_ = 0.0f;
+	madnessValue_ = 0.0f;
 	reportPer_ = 0;
 	isJump_ = false;
 	state_ = STATE::NONE;
@@ -151,4 +154,30 @@ void Player::DebugDraw()
 	DrawFormatString(0, 140, UtilityCommon::RED, L"回転角度ステップ：%2f", rotStep_);
 
 	action_->DebugDraw();
+}
+
+void Player::SetMadnessValue(const int madnessValue)
+{
+	// 引数の値を代入
+	madnessValue_ = madnessValue;
+
+	// 最大値を超える場合
+	if (madnessValue_ > MADNESS_MAX)
+	{
+		// 最大値を代入
+		madnessValue_ = MADNESS_MAX;
+	}
+}
+
+void Player::AddMadnessValue(const int madnessValue)
+{
+	// 引数の値を加算
+	madnessValue_ += madnessValue;
+
+	// 最大値を超える場合
+	if (madnessValue_ > MADNESS_MAX)
+	{
+		// 最大値を代入
+		madnessValue_ = MADNESS_MAX;
+	}
 }

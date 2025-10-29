@@ -40,6 +40,9 @@ void GameStatePlay::Update()
 
 	// キャラクターの削除
 	charaMng_.Sweep();
+
+	// ステージの削除
+	stageMng_.Sweep();
 }
 
 void GameStatePlay::Draw()
