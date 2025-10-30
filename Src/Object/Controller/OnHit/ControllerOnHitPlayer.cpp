@@ -106,8 +106,5 @@ void ControllerOnHitPlayer::OnHitRoom(const std::weak_ptr<ColliderBase>& opponen
 
 		// 失敗した場合アサート
 		assert(stageObj != nullptr && "dynamic_castに失敗しました");
-
-		// オーナーの部屋タグを設定
-		owner_.AddRoomTags(stageObj->GetRoomTag());
 	}
 }

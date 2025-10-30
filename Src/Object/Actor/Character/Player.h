@@ -91,12 +91,6 @@ public:
 	const float GetReportPercent() const { return reportPer_; }
 
 	/// <summary>
-	/// 部屋の識別タグを返す
-	/// </summary>
-	/// <returns>部屋の識別タグを返す</returns>
-	const std::vector<std::string>& GetRoomTags() const;
-
-	/// <summary>
 	/// 狂気値を返す
 	/// </summary>
 	/// <returns>狂気値</returns>
@@ -125,12 +119,6 @@ public:
 	/// </summary>
 	/// <param name="percent">進捗率</param>
 	void SetReportPercent(const float percent) { reportPer_ = percent; }
-
-	/// <summary>
-	/// 部屋の識別タグの追加
-	/// </summary>
-	/// <param name="tag">タグ</param>
-	void AddRoomTags(const std::string& tag) { roomTags_.push_back(tag); }
 
 	/// <summary>
 	/// 狂気値を設定
@@ -188,9 +176,6 @@ private:
 
 	// 状態
 	STATE state_;
-
-	// 部屋の識別タグ
-	std::vector<std::string> roomTags_;
 
 	// 状態別の更新関数マップ
 	std::unordered_map<STATE, std::function<void()>> stateUpdateFuncMap_;

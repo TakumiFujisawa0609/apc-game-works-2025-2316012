@@ -33,7 +33,6 @@ Player::Player(const Json& param) :
 	reportPer_ = 0;
 	isJump_ = false;
 	state_ = STATE::NONE;
-	roomTags_.push_back("A");
 	// 状態更新関数の登録
 	RegisterStateUpdateFunc(STATE::NONE, std::bind(&Player::UpdateNone, this));
 	RegisterStateUpdateFunc(STATE::ALIVE, std::bind(&Player::UpdateAlive, this));
@@ -75,19 +74,14 @@ void Player::Init()
 
 void Player::UpdateBody()
 {
-	// 部屋のタグを空にする
-	roomTags_.clear();
-
 	// 状態別更新処理
 	stateUpdateFuncMap_[state_]();
 }
 
 void Player::DrawMain()
 {
-	if (state_ == STATE::DEAD)
-	{
-		return;
-	}
+	return;
+
 	std::array frames = { 0,1,2,3,4,5 };
 	for (auto cnt : frames)
 	{
@@ -184,14 +178,4 @@ void Player::AddMadnessValue(const int madnessValue)
 		// 最大値を代入
 		madnessValue_ = MADNESS_MAX;
 	}
-}
-
-const std::vector<std::string>& Player::GetRoomTags() const
-{
-	if (roomTags_.empty())
-	{
-		std::vector<std::string> emptyTags = { "" };
-		return emptyTags;
-	}
-	return roomTags_;
 }

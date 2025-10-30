@@ -81,6 +81,10 @@ private:
 		"RoomC",
 		"RoomD",
 		"RoomE",
+		"Roof",
+		"CorriderA",
+		"CorriderB",
+		"CorriderC",
 	};
 
 	// 描画するタグリスト

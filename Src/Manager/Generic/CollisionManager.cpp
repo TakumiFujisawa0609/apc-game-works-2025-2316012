@@ -134,9 +134,6 @@ void CollisionManager::InitTagMatrix()
 
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::ENEMY)] = true;				// プレイヤーと敵
 
-	//collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::ROOM)] = true;				// プレイヤーと部屋
-	//collTagMatrix_[static_cast<int>(CollisionTags::TAG::ROOM)][static_cast<int>(CollisionTags::TAG::PLAYER)] = true;
-
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::MAIN_STAGE)][static_cast<int>(CollisionTags::TAG::ENEMY)] = true;			// メインステージと敵
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::ENEMY)][static_cast<int>(CollisionTags::TAG::MAIN_STAGE)] = true;
 

@@ -98,7 +98,7 @@ void StageManager::Draw()
 			for (const auto& tag : drawTagList_)
 			{
 				// プレイヤーのタグがオブジェクトと一致する場合
-				if (tag == object->GetRoomTag() || tag == "none")
+				if (tag == object->GetRoomTag())
 				{
 					// オブジェクトの描画
 					object->Draw();
@@ -202,5 +202,5 @@ StageManager::StageManager()
 
 StageManager::~StageManager()
 {
-	//rooms_.clear();
+	rooms_.clear();
 }
