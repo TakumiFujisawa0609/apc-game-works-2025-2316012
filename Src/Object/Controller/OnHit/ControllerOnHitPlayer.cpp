@@ -1,6 +1,7 @@
 #include "../../../Manager/Generic/CollisionTags.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../Actor/Character/Player.h"
+#include "../../Actor/Stage/StageObjectBase.h"
 #include "../../Collider/ColliderModel.h"
 #include "../ControllerAnimation.h"
 #include "ControllerOnHitPlayer.h"
@@ -12,6 +13,7 @@ ControllerOnHitPlayer::ControllerOnHitPlayer(Player& owner) :
 	RegisterOnHit(CollisionTags::TAG::MAIN_STAGE , [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitMainStage(opponentCollider); });
 	RegisterOnHit(CollisionTags::TAG::STAGE_GIMMICK, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStageObject(opponentCollider); });
 	RegisterOnHit(CollisionTags::TAG::ENEMY, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitEnemy(opponentCollider); });
+	RegisterOnHit(CollisionTags::TAG::ROOM, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitRoom(opponentCollider); });
 }
 
 ControllerOnHitPlayer::~ControllerOnHitPlayer()
@@ -89,4 +91,23 @@ void ControllerOnHitPlayer::OnHitEnemy(const std::weak_ptr<ColliderBase>& oppone
 {
 	// 死亡状態へ変更
 	owner_.ChangeState(Player::STATE::DEAD);
+}
+
+void ControllerOnHitPlayer::OnHitRoom(const std::weak_ptr<ColliderBase>& opponentCollider)
+{
+	// NULLチェック
+	if (const auto partner = opponentCollider.lock())
+	{
+		// パートナーの所有者参照アドレスを取得
+		const ActorBase& partnerOwner = partner->GetOwner();
+
+		// ダイナミックキャストで型変換
+		const auto stageObj = dynamic_cast<const StageObjectBase*>(&partnerOwner);
+
+		// 失敗した場合アサート
+		assert(stageObj != nullptr && "dynamic_castに失敗しました");
+
+		// オーナーの部屋タグを設定
+		owner_.AddRoomTags(stageObj->GetRoomTag());
+	}
 }

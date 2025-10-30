@@ -5,7 +5,6 @@ ChairMountain::ChairMountain(const std::string& key, const Json& mapParam, const
 {
 	Load();
 	Init();
-	isActive_ = true;
 }
 
 ChairMountain::~ChairMountain()

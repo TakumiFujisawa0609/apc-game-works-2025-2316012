@@ -8,8 +8,3 @@ StageMain::StageMain(const std::string& key, const Json& mapParam, const Json& c
 StageMain::~StageMain()
 {
 }
-
-void StageMain::Draw()
-{
-	// ‚È‚É‚à•`‰æ‚µ‚È‚¢
-}

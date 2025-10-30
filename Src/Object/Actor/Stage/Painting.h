@@ -16,6 +16,11 @@ public:
 	~Painting() override;
 
 	/// <summary>
+	/// •`‰æˆ—
+	/// </summary>
+	void Draw() override;
+
+	/// <summary>
 	/// ˆÙ•ÏŒã‚ÌŒãˆ—
 	/// </summary>
 	void Refresh() override;

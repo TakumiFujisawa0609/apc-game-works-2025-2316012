@@ -10,6 +10,12 @@ Painting::~Painting()
 {
 }
 
+void Painting::Draw()
+{
+	// 本オブジェクトのみ活動状態に限らず描画を行う
+	DrawMain();
+}
+
 void Painting::Refresh()
 {
 	// テクスチャを戻す
@@ -18,4 +24,6 @@ void Painting::Refresh()
 	// 初期化
 	textureIndex_ = -1;
 	preTexture_ = -1;
+
+	isActive_ = false;
 }

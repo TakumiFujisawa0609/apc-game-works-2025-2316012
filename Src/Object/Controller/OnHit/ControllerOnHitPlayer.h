@@ -28,4 +28,5 @@ private:
 	void OnHitMainStage(const std::weak_ptr<ColliderBase>& opponentCollider);			// メインステージ
 	void OnHitStageObject(const std::weak_ptr<ColliderBase>& opponentCollider);			// ステージオブジェクト
 	void OnHitEnemy(const std::weak_ptr<ColliderBase>& opponentCollider);				// 敵
+	void OnHitRoom(const std::weak_ptr<ColliderBase>& opponentCollider);				// 部屋
 };

@@ -12,6 +12,7 @@
     "colliderRadius": 30.0,
     "madnessUpdateStepDefault": 0.005,
     "madnessUpdateStepAdd": 0.001,
+    "firstRoomTag": "A",
     "collisionTag": "player",
     "colliderType": "capsule",
     "initPos": {

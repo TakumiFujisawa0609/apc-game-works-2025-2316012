@@ -80,6 +80,7 @@ void ActorBase::UpdateBody()
 
 void ActorBase::UpdateApply()
 {
+	transform_.Update();
 }
 
 void ActorBase::DrawMain()

@@ -24,33 +24,24 @@ public:
 	virtual void Load() override;
 
 	/// <summary>
-	/// 初期化処理
-	/// </summary>
-	virtual void Init() override;
-
-	/// <summary>
-	/// 更新処理
-	/// </summary>
-	virtual void Update() override;
-
-	/// <summary>
-	/// 描画処理
-	/// </summary>
-	virtual void Draw() override;
-
-	/// <summary>
 	/// モデルIDを返す
 	/// </summary>
 	/// <returns>モデルID</returns>
 	const int GetModelId() const { return transform_.modelId; }
+
+	/// <summary>
+	/// 部屋の識別タグを返す
+	/// </summary>
+	/// <returns></returns>
+	const std::string& GetRoomTag() const { return ROOM_TAG; }
 
 protected:
 
 	// ステージキー
 	const std::string STAGE_KEY;
 
-	// 処理の適用処理
-	void UpdateApply() override;
+	// 処理用部屋識別タグ
+	const std::string ROOM_TAG;
 
 	// メインの描画処理
 	void DrawMain() override;

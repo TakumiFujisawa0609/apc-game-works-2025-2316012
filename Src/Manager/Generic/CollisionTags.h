@@ -12,6 +12,7 @@ public:
 		NONE,
 		PLAYER,
 		MAIN_STAGE,				// メインステージ
+		ROOM,					// 部屋
 		DECO_STAGE,				// 装飾(ステージ)
 		STAGE_GIMMICK,			// ステージギミック
 		DECO_GIMMICK,			// 装飾(ギミック)

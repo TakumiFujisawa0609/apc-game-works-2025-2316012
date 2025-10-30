@@ -7,6 +7,7 @@
 #include "../../Object/Actor/Stage/StageObjectBase.h"
 
 class StageObjectBase;
+class Room;
 
 // JSON名前空間
 using Json = nlohmann::json;
@@ -70,13 +71,32 @@ private:
 	const std::string STAGE_FILE_NAME = "Stage";
 
 	// コライダー用ファイル名
-	const std::string COLLIDER_FILE_NAME = "StageObjectsCollider";
+	const std::string COLLIDER_FILE_NAME = "StageObjectsCollider";	
+	
+	// 部屋の名前配列
+	const std::vector<std::string> ROOMS =
+	{
+		"RoomA",
+		"RoomB",
+		"RoomC",
+		"RoomD",
+		"RoomE",
+	};
+
+	// 描画するタグリスト
+	std::vector<std::string> drawTagList_;
+
+	// 部屋配列
+	std::vector<Room*> rooms_;
 
 	// ステージオブジェクトの管理マップ
 	std::unordered_map<std::string, std::vector<std::unique_ptr<StageObjectBase>>> stageObjectsMap_;
 
 	// コライダー情報の管理マップ
 	std::unordered_map<std::string, std::vector<Json>> stageObjectColliserInfoMap_;
+
+	// メインルームがカメラ範囲内か調べる
+	void CheckMainRoomInClipCameraView();
 
 	//コンストラクタ
 	StageManager();

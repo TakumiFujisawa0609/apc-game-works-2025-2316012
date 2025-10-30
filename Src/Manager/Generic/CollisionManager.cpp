@@ -38,8 +38,8 @@ void CollisionManager::Update()
 			const auto& tag1 = colliders_[i]->GetTag();
 			const auto& tag2 = colliders_[j]->GetTag();
 
-			if (tag1 == CollisionTags::TAG::CHARACTER_GRAVITY_LINE && tag2 == CollisionTags::TAG::MAIN_STAGE ||
-				tag1 == CollisionTags::TAG::MAIN_STAGE && tag2 == CollisionTags::TAG::CHARACTER_GRAVITY_LINE)
+			if (tag1 == CollisionTags::TAG::ROOM && tag2 == CollisionTags::TAG::PLAYER ||
+				tag1 == CollisionTags::TAG::PLAYER && tag2 == CollisionTags::TAG::ROOM)
 			{
 				// YEAR
 				int a = 0;
@@ -89,6 +89,11 @@ void CollisionManager::Add(std::shared_ptr<ColliderBase> collider)
 		return;
 	}
 
+	if (collider->GetTag() == CollisionTags::TAG::ROOM)
+	{
+		int i =0;
+	}
+
 	// コライダーの追加
 	colliders_.push_back(collider);
 }
@@ -128,6 +133,9 @@ void CollisionManager::InitTagMatrix()
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)] = true;		// プレイヤーとステージオブジェクト
 
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::ENEMY)] = true;				// プレイヤーと敵
+
+	//collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER)][static_cast<int>(CollisionTags::TAG::ROOM)] = true;				// プレイヤーと部屋
+	//collTagMatrix_[static_cast<int>(CollisionTags::TAG::ROOM)][static_cast<int>(CollisionTags::TAG::PLAYER)] = true;
 
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::MAIN_STAGE)][static_cast<int>(CollisionTags::TAG::ENEMY)] = true;			// メインステージと敵
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::ENEMY)][static_cast<int>(CollisionTags::TAG::MAIN_STAGE)] = true;

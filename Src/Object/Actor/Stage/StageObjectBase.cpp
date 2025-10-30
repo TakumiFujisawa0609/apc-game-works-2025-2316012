@@ -10,9 +10,11 @@
 
 StageObjectBase::StageObjectBase(const std::string& key, const Json& mapParam, const Json& colliderParam) :
 	ActorBase(mapParam),
-	STAGE_KEY(key)
+	STAGE_KEY(key),
+	ROOM_TAG(mapParam["tag"])
 {
 	collider_ = collFtr_.Create(*this, colliderParam);
+	isActive_ = true;
 }
 
 StageObjectBase::~StageObjectBase()
@@ -26,33 +28,6 @@ void StageObjectBase::Load()
 
 	// 基底クラスの読み込み
 	ActorBase::Load();
-}
-
-void StageObjectBase::Init()
-{
-	// 基底クラスの初期化
-	ActorBase::Init();
-}
-
-void StageObjectBase::Update()
-{
-	UpdateBody();
-
-	UpdateApply();
-}
-
-void StageObjectBase::Draw()
-{
-	DrawMain();
-
-#ifdef _DEBUG
-	DebugDraw();
-#endif 
-}
-
-void StageObjectBase::UpdateApply()
-{	
-	transform_.Update();
 }
 
 void StageObjectBase::DrawMain()

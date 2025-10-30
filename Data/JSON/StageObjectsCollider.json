@@ -3,29 +3,131 @@
     "collisionTag": "mainStage",
     "colliderType": "model"
   },
-  "AreaA": {
-    "collisionTag": "decoStage",
-    "colliderType": "none"
+  "RoomA": {
+    "collisionTag": "room",
+    "colliderType": "box",
+    "colliderTopPos": {
+      "x": 1372,
+      "y": 300,
+      "z": 400
+    },
+    "colliderEndPos": {
+      "x": -420,
+      "y": 0,
+      "z": -650
+    }
   },
-  "AreaB": {
-    "collisionTag": "decoStage",
-    "colliderType": "none"
+  "RoomB": {
+    "collisionTag": "room",
+    "colliderType": "box",
+    "colliderTopPos": {
+      "x": 612,
+      "y": 260,
+      "z": -850
+    },
+    "colliderEndPos": {
+      "x": 1380,
+      "y": 0,
+      "z": -1630
+    }
   },
-  "AreaC": {
-    "collisionTag": "decoStage",
-    "colliderType": "none"
+  "RoomC": {
+    "collisionTag": "room",
+    "colliderType": "box",
+    "colliderTopPos": {
+      "x": -162,
+      "y": 260,
+      "z": -850
+    },
+    "colliderEndPos": {
+      "x": 645,
+      "y": 0,
+      "z": -1630
+    }
   },
-  "DecoA": {
-    "collisionTag": "decoStage",
-    "colliderType": "none"
+  "RoomD": {
+    "collisionTag": "room",
+    "colliderType": "box",
+    "colliderTopPos": {
+      "x": -150,
+      "y": 263,
+      "z": -1610
+    },
+    "colliderEndPos": {
+      "x": 1375,
+      "y": 0,
+      "z": -2154
+    }
   },
-  "DecoB": {
-    "collisionTag": "decoStage",
-    "colliderType": "none"
+  "RoomE": {
+    "collisionTag": "room",
+    "colliderType": "box",
+    "colliderTopPos": {
+      "x": -1630,
+      "y": 270,
+      "z": -590
+    },
+    "colliderEndPos": {
+      "x": -380,
+      "y": 0,
+      "z": -1900
+    }
   },
-  "DecoC": {
-    "collisionTag": "decoStage",
-    "colliderType": "none"
+  "CorriderA": {
+    "collisionTag": "room",
+    "colliderType": "box",
+    "colliderTopPos": {
+      "x": -160,
+      "y": 250,
+      "z": -300
+    },
+    "colliderEndPos": {
+      "x": 1420,
+      "y": 0,
+      "z": -880
+    }
+  },
+  "CorriderB": {
+    "collisionTag": "room",
+    "colliderType": "box",
+    "colliderTopPos": {
+      "x": -400,
+      "y": 250,
+      "z": -560
+    },
+    "colliderEndPos": {
+      "x": -90,
+      "y": 0,
+      "z": -2080
+    }
+  },
+  "CorriderC": {
+    "collisionTag": "room",
+    "colliderType": "box",
+    "colliderTopPos": {
+      "x": -1630,
+      "y": 250,
+      "z": -1170
+    },
+    "colliderEndPos": {
+      "x": -360,
+      "y": 0,
+      "z": -2110
+    }
+  },
+  "Roof": {
+    "collisionTag": "room",
+    "colliderType": "box",
+    "colliderTopPos": {
+      "x": -1750,
+      "y": 450,
+      "z": 420
+    },
+    "colliderEndPos": {
+      "x": 1500,
+      "y": 250,
+      "z": -2160
+    }
   },
   "Chair01": {
     "collisionTag": "stageGimmick",
@@ -111,7 +213,11 @@
     "collisionTag": "decoGimmick",
     "colliderType": "model"
   },
-  "AreaCBooks": {
+  "BooksD": {
+    "collisionTag": "decoStage",
+    "colliderType": "none"
+  },
+  "BooksE": {
     "collisionTag": "decoStage",
     "colliderType": "none"
   },

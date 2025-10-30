@@ -17,10 +17,5 @@ public:
 	/// デストラクタ
 	/// </summary>
 	~StageMain();
-
-	/// <summary>
-	/// 描画処理
-	/// </summary>
-	void Draw() override;
 };
 

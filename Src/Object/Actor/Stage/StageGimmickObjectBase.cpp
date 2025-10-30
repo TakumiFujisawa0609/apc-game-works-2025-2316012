@@ -28,7 +28,6 @@ void StageGimmickObjectBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCo
 
 void StageGimmickObjectBase::Refresh()
 {
-	isActive_ = false;
 }
 
 void StageGimmickObjectBase::SetChangeColor(const int red, const int green, const int blue)

@@ -1,7 +1,9 @@
 #include "../../Object/Actor/Stage/StageObjectBase.h"
 #include "../../Object/Actor/Stage/StageObjectFactory.h"
+#include "../../Object/Actor/Stage/Room.h"
 #include "../../Object/System/Load/ParameterLoad.h"
 #include "../../Utility/UtilityLoad.h"
+#include "CharacterManager.h"
 #include "StageManager.h"
 
 void StageManager::Load()
@@ -47,6 +49,17 @@ void StageManager::Load()
 		// マップに登録
 		stageObjectsMap_.emplace(params.first, std::move(objects));
 	}
+
+	for (auto& roomName : ROOMS)
+	{
+		StageObjectBase* object = stageObjectsMap_[roomName][0].get();
+		Room* room = dynamic_cast<Room*>(object);
+		if (room != nullptr) 
+		{
+			// キャスト成功
+			rooms_.push_back(room);
+		}
+	}
 }
 
 void StageManager::Init()
@@ -58,6 +71,8 @@ void StageManager::Init()
 			object->Init();
 		}
 	}
+
+	drawTagList_.push_back("A");
 }
 
 void StageManager::Update()
@@ -66,9 +81,12 @@ void StageManager::Update()
 	{
 		for (auto& object : objects.second)
 		{
-			object->Init();
+			object->Update();
 		}
 	}
+
+	// カメラ範囲か調べる
+	CheckMainRoomInClipCameraView();
 }
 
 void StageManager::Draw()
@@ -77,7 +95,18 @@ void StageManager::Draw()
 	{
 		for (auto& object : objects.second)
 		{
-			object->Draw();
+			for (const auto& tag : drawTagList_)
+			{
+				// プレイヤーのタグがオブジェクトと一致する場合
+				if (tag == object->GetRoomTag() || tag == "none")
+				{
+					// オブジェクトの描画
+					object->Draw();
+
+					// 次へ
+					continue;
+				}
+			}
 		}
 	}
 }
@@ -155,10 +184,23 @@ const Json& StageManager::GetStageObjectColliderParam(const std::string& key) co
 	return it->second.front();
 }
 
+void StageManager::CheckMainRoomInClipCameraView()
+{
+	drawTagList_.clear();
+	for (auto& room : rooms_)
+	{
+		if (room->CheckCameraViewClip())
+		{
+			drawTagList_.push_back(room->GetRoomTag());
+		}
+	}
+}
+
 StageManager::StageManager()
 {
 }
 
 StageManager::~StageManager()
 {
+	//rooms_.clear();
 }

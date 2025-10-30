@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Stage\Room.cpp" />
     <ClCompile Include="Src\Core\Title\CoreTitleBase.cpp" />
     <ClCompile Include="Src\Core\Game\MadnessGauge.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\ChairMountain.cpp" />
@@ -135,8 +136,10 @@
     <ClCompile Include="Src\Object\Actor\Stage\StageObjectFactory.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\StageMain.cpp" />
     <ClCompile Include="Src\Core\Title\TitleLogo.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\StageMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Stage\Room.h" />
     <ClInclude Include="Src\Core\Title\CoreTitleBase.h" />
     <ClInclude Include="Src\Core\Game\MadnessGauge.h" />
     <ClInclude Include="Src\Object\Actor\Stage\ChairMountain.h" />
@@ -300,6 +303,7 @@
     <ClInclude Include="Src\Object\Actor\Stage\StageObjectFactory.h" />
     <ClInclude Include="Src\Object\Actor\Stage\StageMain.h" />
     <ClInclude Include="Src\Core\Title\TitleLogo.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\StageMesh.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\Model\StandardModelPS.hlsl">

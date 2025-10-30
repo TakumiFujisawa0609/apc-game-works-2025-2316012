@@ -57,40 +57,58 @@
       "fontName": "KazukiReiwa"
     },
     {
-      "key": "AreaA",
+      "key": "RoomA",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/Main/AreaA.mv1"
+      "path": "Data/Model/Stage/Main/RoomA.mv1"
     },
     {
-      "key": "AreaB",
+      "key": "RoomB",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/Main/AreaB.mv1"
+      "path": "Data/Model/Stage/Main/RoomB.mv1"
     },
     {
-      "key": "AreaC",
+      "key": "RoomC",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/Main/AreaC.mv1"
+      "path": "Data/Model/Stage/Main/RoomC.mv1"
     },
     {
-      "key": "DecoA",
+      "key": "RoomD",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/Decoration/DecoA.mv1"
+      "path": "Data/Model/Stage/Main/RoomD.mv1"
     },
     {
-      "key": "DecoB",
+      "key": "RoomE",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/Decoration/DecoB.mv1"
+      "path": "Data/Model/Stage/Main/RoomE.mv1"
     },
     {
-      "key": "DecoC",
+      "key": "CorriderA",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/Decoration/DecoC.mv1"
+      "path": "Data/Model/Stage/Main/CorriderA.mv1"
+    },
+    {
+      "key": "CorriderB",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Main/CorriderB.mv1"
+    },
+    {
+      "key": "CorriderC",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Main/CorriderC.mv1"
+    },
+    {
+      "key": "Roof",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Main/Roof.mv1"
     },
     {
       "key": "Axe01",
@@ -183,10 +201,16 @@
       "path": "Data/Model/Stage/Gimmick/Sword01.mv1"
     },
     {
-      "key": "AreaCBooks",
+      "key": "BooksD",
       "sceneId": 3,
       "type": "model",
-      "path": "Data/Model/Stage/Gimmick/AreaCBooks.mv1"
+      "path": "Data/Model/Stage/Gimmick/BooksD.mv1"
+    },
+    {
+      "key": "BooksE",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/BooksE.mv1"
     },
     {
       "key": "player",
