@@ -30,15 +30,18 @@ void StageMain::Load()
 	material_->AddConstBufPS(FLOAT4{ 1.0f,1.0f, 1.0f, 1.0f });
 	material_->AddConstBufPS(FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
 	material_->AddConstBufPS(FLOAT4{ 0.01f, 0.01f, 0.01f, 0.0f });
-
-	// テクスチャを追加
-	material_->SetTextureBuf(3, resMng_.GetHandle("bloodyHands"));
 }
 
 void StageMain::Init()
 {
 	// 基底クラスの初期化処理
 	StageObjectBase::Init();
+}
+
+void StageMain::SetAnomaly()
+{
+	// テクスチャを追加
+	material_->SetTextureBuf(3, resMng_.GetHandle("bloodyHands"));
 }
 
 bool StageMain::CheckCameraViewClip()

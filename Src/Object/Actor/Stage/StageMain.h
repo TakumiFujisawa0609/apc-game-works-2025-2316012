@@ -32,6 +32,11 @@ public:
 	void Init() override;
 
 	/// <summary>
+	/// 異変の設定
+	/// </summary>
+	void SetAnomaly();
+
+	/// <summary>
 	/// オブジェクトがカメラ内か判定
 	/// </summary>
 	/// <returns>trueの場合カメラ内, そうでない場合flase</returns>
