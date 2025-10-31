@@ -57,6 +57,18 @@
       "fontName": "KazukiReiwa"
     },
     {
+      "key": "standardVS",
+      "sceneId": 0,
+      "type": "vertexShader",
+      "path": "Data/Shader/StandardModelVS.cso"
+    },
+    {
+      "key": "standardPS",
+      "sceneId": 0,
+      "type": "pixelShader",
+      "path": "Data/Shader/StandardModelPS.cso"
+    },
+    {
       "key": "RoomA",
       "sceneId": 3,
       "type": "model",
@@ -373,6 +385,12 @@
       "sceneId": 3,
       "type": "texture",
       "path": "Data/Image/Game/MadnessGaugePin.png"
+    },
+    {
+      "key": "bloodyHands",
+      "sceneId": 3,
+      "type": "texture",
+      "path": "Data/Image/Anomaly/BloodyHands.png"
     }
   ]
 }

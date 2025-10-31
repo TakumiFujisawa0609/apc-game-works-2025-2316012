@@ -1,19 +1,25 @@
 #pragma once
+#include <array>
 #include "AnomalyBase.h"
 
-class AnomalyGhost : public AnomalyBase
+class AnomalyBloodyRoom : public AnomalyBase
 {
 public:
 
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	AnomalyGhost();
+	AnomalyBloodyRoom();
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~AnomalyGhost();
+	~AnomalyBloodyRoom();
+
+	/// <summary>
+	/// 読み込み処理
+	/// </summary>
+	void Load() override;
 
 	/// <summary>
 	/// 初期化処理
@@ -28,6 +34,11 @@ public:
 
 private:
 
-	
+	// 異変を起こすオブジェクト数
+	static constexpr int OBJS = 2;
+
+	// 異変を起こすオブジェクトのキー
+	const std::string KEYS[OBJS] = {"RoomB", "RoomC"};
+
 };
 

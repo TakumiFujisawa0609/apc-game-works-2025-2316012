@@ -1,6 +1,6 @@
 #include "../../Object/Actor/Stage/StageObjectBase.h"
 #include "../../Object/Actor/Stage/StageObjectFactory.h"
-#include "../../Object/Actor/Stage/Room.h"
+#include "../../Object/Actor/Stage/StageMain.h"
 #include "../../Object/System/Load/ParameterLoad.h"
 #include "../../Utility/UtilityLoad.h"
 #include "CharacterManager.h"
@@ -50,14 +50,14 @@ void StageManager::Load()
 		stageObjectsMap_.emplace(params.first, std::move(objects));
 	}
 
-	for (auto& roomName : ROOMS)
+	for (auto& name : MAIN_STAGES)
 	{
-		StageObjectBase* object = stageObjectsMap_[roomName][0].get();
-		Room* room = dynamic_cast<Room*>(object);
-		if (room != nullptr) 
+		StageObjectBase* object = stageObjectsMap_[name][0].get();
+		StageMain* stage = dynamic_cast<StageMain*>(object);
+		if (stage != nullptr)
 		{
 			// ƒLƒƒƒXƒg¬Œ÷
-			rooms_.push_back(room);
+			mainStages_.push_back(stage);
 		}
 	}
 }
@@ -73,6 +73,14 @@ void StageManager::Init()
 	}
 
 	drawTagList_.push_back("A");
+	drawTagList_.push_back("B");
+	drawTagList_.push_back("C");
+	drawTagList_.push_back("D");
+	drawTagList_.push_back("E");
+	drawTagList_.push_back("R");
+	drawTagList_.push_back("CA");
+	drawTagList_.push_back("CB");
+	drawTagList_.push_back("CC");
 }
 
 void StageManager::Update()
@@ -187,11 +195,11 @@ const Json& StageManager::GetStageObjectColliderParam(const std::string& key) co
 void StageManager::CheckMainRoomInClipCameraView()
 {
 	drawTagList_.clear();
-	for (auto& room : rooms_)
+	for (auto& stage : mainStages_)
 	{
-		if (room->CheckCameraViewClip())
+		if (stage->CheckCameraViewClip())
 		{
-			drawTagList_.push_back(room->GetRoomTag());
+			drawTagList_.push_back(stage->GetRoomTag());
 		}
 	}
 }
@@ -202,5 +210,5 @@ StageManager::StageManager()
 
 StageManager::~StageManager()
 {
-	rooms_.clear();
+	mainStages_.clear();
 }

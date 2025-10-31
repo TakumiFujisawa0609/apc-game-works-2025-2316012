@@ -9,7 +9,7 @@ using Json = nlohmann::json;
 class StageObjectBase;
 class StageGimmickObjectBase;
 class StageMesh;
-class Room;
+class StageMain;
 class Painting;
 
 class StageObjectFactory
@@ -48,6 +48,6 @@ private:
 	std::unique_ptr<StageGimmickObjectBase> CreateStageObjectGimmick(const std::string& key, const Json& mapParam, const Json& colliderParam);
 	std::unique_ptr<Painting> CreatePainting(const std::string& key, const Json& mapParam, const Json& colliderParam);
 	std::unique_ptr<StageMesh> CreateStageMesh(const std::string& key, const Json& mapParam, const Json& colliderParam);
-	std::unique_ptr<Room> CreateRoom(const std::string& key, const Json& mapParam, const Json& colliderParam);
+	std::unique_ptr<StageMain> CreateStageMain(const std::string& key, const Json& mapParam, const Json& colliderParam);
 };
 

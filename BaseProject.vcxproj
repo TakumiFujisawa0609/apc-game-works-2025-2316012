@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Object\Actor\Stage\Room.cpp" />
+    <ClCompile Include="Src\Object\System\Anomaly\AnomalyBloodyRoom.cpp" />
     <ClCompile Include="Src\Core\Title\CoreTitleBase.cpp" />
     <ClCompile Include="Src\Core\Game\MadnessGauge.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\ChairMountain.cpp" />
@@ -139,7 +139,7 @@
     <ClCompile Include="Src\Object\Actor\Stage\StageMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Src\Object\Actor\Stage\Room.h" />
+    <ClInclude Include="Src\Object\System\Anomaly\AnomalyBloodyRoom.h" />
     <ClInclude Include="Src\Core\Title\CoreTitleBase.h" />
     <ClInclude Include="Src\Core\Game\MadnessGauge.h" />
     <ClInclude Include="Src\Object\Actor\Stage\ChairMountain.h" />
@@ -465,6 +465,7 @@
     </Link>
     <FxCompile>
       <ObjectFileOutput>$(ProjectDir)/Data/Shader/%(Filename).cso</ObjectFileOutput>
+      <ShaderModel>4.0</ShaderModel>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -509,6 +510,7 @@
     </Link>
     <FxCompile>
       <ObjectFileOutput>$(ProjectDir)/Data/Shader/%(Filename).cso</ObjectFileOutput>
+      <ShaderModel>4.0</ShaderModel>
     </FxCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

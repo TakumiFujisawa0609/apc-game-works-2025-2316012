@@ -3,6 +3,14 @@
 #include "../../Actor/Character/Ghost.h"
 #include "AnomalyGhost.h"
 
+AnomalyGhost::AnomalyGhost()
+{
+}
+
+AnomalyGhost::~AnomalyGhost()
+{
+}
+
 void AnomalyGhost::Init()
 {
 }

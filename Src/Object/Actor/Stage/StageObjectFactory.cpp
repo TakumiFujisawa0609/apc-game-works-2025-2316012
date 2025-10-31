@@ -3,7 +3,6 @@
 #include "Painting.h"
 #include "StageMain.h"
 #include "StageMesh.h"
-#include "Room.h"
 #include "StageObjectFactory.h"
 
 StageObjectFactory::StageObjectFactory()
@@ -11,15 +10,15 @@ StageObjectFactory::StageObjectFactory()
 	RegisterCreate("Painting01", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreatePainting(key, mapParam, colliderParam); });
 	RegisterCreate("Painting02", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreatePainting(key, mapParam, colliderParam); });
 	RegisterCreate("StageMesh", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMesh(key, mapParam, colliderParam); });
-	RegisterCreate("RoomA", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateRoom(key, mapParam, colliderParam); });
-	RegisterCreate("RoomB", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateRoom(key, mapParam, colliderParam); });
-	RegisterCreate("RoomC", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateRoom(key, mapParam, colliderParam); });
-	RegisterCreate("RoomD", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateRoom(key, mapParam, colliderParam); });
-	RegisterCreate("RoomE", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateRoom(key, mapParam, colliderParam); });
-	RegisterCreate("CorriderA", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateRoom(key, mapParam, colliderParam); });
-	RegisterCreate("CorriderB", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateRoom(key, mapParam, colliderParam); });
-	RegisterCreate("CorriderC", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateRoom(key, mapParam, colliderParam); });
-	RegisterCreate("Roof", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateRoom(key, mapParam, colliderParam); });
+	RegisterCreate("RoomA", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
+	RegisterCreate("RoomB", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
+	RegisterCreate("RoomC", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
+	RegisterCreate("RoomD", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
+	RegisterCreate("RoomE", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
+	RegisterCreate("CorriderA", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
+	RegisterCreate("CorriderB", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
+	RegisterCreate("CorriderC", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
+	RegisterCreate("Roof", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
 }
 
 StageObjectFactory::~StageObjectFactory()
@@ -70,7 +69,7 @@ std::unique_ptr<StageMesh> StageObjectFactory::CreateStageMesh(const std::string
 	return std::make_unique<StageMesh>(key, mapParam, colliderParam);
 }
 
-std::unique_ptr<Room> StageObjectFactory::CreateRoom(const std::string& key, const Json& mapParam, const Json& colliderParam)
+std::unique_ptr<StageMain> StageObjectFactory::CreateStageMain(const std::string& key, const Json& mapParam, const Json& colliderParam)
 {
-	return std::make_unique<Room>(key, mapParam, colliderParam);
+	return std::make_unique<StageMain>(key, mapParam, colliderParam);
 }

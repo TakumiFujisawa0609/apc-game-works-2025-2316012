@@ -36,6 +36,25 @@ VS_OUTPUT main(VS_INPUT VSInput)
     ret.svPos = mul(lViewPosition, g_base.projectionMatrix);
     
     // 頂点座標変換 +++++++++++++++++++++++++++++++++++++( 終了 )
+    // その他、ピクセルシェーダへ引継&初期化 ++++++++++++( 開始 )
+    // UV座標
+    ret.uv.x = VSInput.uv0.x;
+    ret.uv.y = VSInput.uv0.y;
+    // 法線
+    ret.normal = normalize(mul(VSInput.norm, (float3x3) g_base.localWorldMatrix));
+    // ディフューズカラー
+    ret.diffuse = VSInput.diffuse;
+    // スペキュラーカラーの取得
+    //ret.specular = VSInput.specular;
+    //タンジェント
+    ret.tan = normalize(mul(VSInput.tan, (float3x3) g_base.localWorldMatrix));
+    //バイノーマル
+    ret.bin = normalize(mul(VSInput.bin, (float3x3) g_base.localWorldMatrix));
+    // ライト方向(ローカル)
+    ret.lightDir = float3(0.0f, 0.0f, 0.0f);
+    // ライトから見た座標
+    ret.lightAtPos = float3(0.0f, 0.0f, 0.0f);
+    // その他、ピクセルシェーダへ引継&初期化 ++++++++++++( 終了 )
     // 出力パラメータを返す
     return ret;
 }

@@ -7,7 +7,7 @@
 #include "../../Object/Actor/Stage/StageObjectBase.h"
 
 class StageObjectBase;
-class Room;
+class StageMain;
 
 // JSON名前空間
 using Json = nlohmann::json;
@@ -74,7 +74,7 @@ private:
 	const std::string COLLIDER_FILE_NAME = "StageObjectsCollider";	
 	
 	// 部屋の名前配列
-	const std::vector<std::string> ROOMS =
+	const std::vector<std::string> MAIN_STAGES =
 	{
 		"RoomA",
 		"RoomB",
@@ -91,7 +91,7 @@ private:
 	std::vector<std::string> drawTagList_;
 
 	// 部屋配列
-	std::vector<Room*> rooms_;
+	std::vector<StageMain*> mainStages_;
 
 	// ステージオブジェクトの管理マップ
 	std::unordered_map<std::string, std::vector<std::unique_ptr<StageObjectBase>>> stageObjectsMap_;
