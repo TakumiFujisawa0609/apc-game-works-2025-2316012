@@ -391,6 +391,18 @@
       "sceneId": 3,
       "type": "texture",
       "path": "Data/Image/Anomaly/BloodyHands.png"
+    },
+    {
+      "key": "stageMainPs",
+      "sceneId": 3,
+      "type": "pixelShader",
+      "path": "Data/Shader/StageMainPS.cso"
+    },
+    {
+      "key": "stageMainVs",
+      "sceneId": 3,
+      "type": "vertexShader",
+      "path": "Data/Shader/StageMainVS.cso"
     }
   ]
 }

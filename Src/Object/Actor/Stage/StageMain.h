@@ -1,10 +1,11 @@
 #pragma once
-#include "StageObjectBase.h"
+#include "StageGimmickObjectBase.h"
 
 class ModelMaterial;
 class ModelRenderer;
+class ColliderModel;
 
-class StageMain : public StageObjectBase
+class StageMain : public StageGimmickObjectBase
 {
 public:
 
@@ -34,7 +35,12 @@ public:
 	/// <summary>
 	/// 異変の設定
 	/// </summary>
-	void SetAnomaly();
+	void SetAnomaly() override;
+
+	/// <summary>
+	/// 異変後の後処理
+	/// </summary>
+	void Refresh() override;
 
 	/// <summary>
 	/// オブジェクトがカメラ内か判定
@@ -50,11 +56,8 @@ private:
 	// レンダラー
 	std::unique_ptr<ModelRenderer> renderer_;
 
-	// 血の手用マテリアル
-	std::unique_ptr<ModelMaterial> bloodyMaterial_;
-
-	// 血の手用レンダラー
-	std::unique_ptr<ModelRenderer> bloodyRenderer_;
+	// コライダーモデル
+	std::shared_ptr<ColliderModel> colliderModel_;
 
 	// メイン描画
 	void DrawMain() override;

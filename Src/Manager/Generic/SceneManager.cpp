@@ -48,7 +48,8 @@ void SceneManager::Init(void)
 	Init3D();
 
 	// 初期シーンの設定
-	DoChangeScene(SCENE_ID::TITLE);
+	//DoChangeScene(SCENE_ID::TITLE);
+	CreateScene(std::make_unique<SceneTitle>());
 }
 
 void SceneManager::Init3D(void)
@@ -153,9 +154,6 @@ void SceneManager::CreateScene(std::shared_ptr<SceneBase> scene)
 		scenes_.front() = scene;
 	}
 
-	// 非同期処理を開始する
-	//SetUseASyncLoadFlag(true);
-
 	//データのロード
 	scenes_.front()->Load();
 }
@@ -207,6 +205,7 @@ void SceneManager::StartFadeIn(void)
 
 SceneManager::SceneManager(void)
 {
+	mainScreen_ = -1;
 	sceneId_ = SCENE_ID::NONE;
 	waitSceneId_ = SCENE_ID::NONE;
 	scenes_.clear();
@@ -226,9 +225,6 @@ void SceneManager::ResetDeltaTime(void)
 
 void SceneManager::DoChangeScene(SCENE_ID sceneId)
 {
-	// シーン変更によるリソースの処理
-	ResourceManager::GetInstance().SceneChangeResource(static_cast<int>(sceneId));
-
 	// シーンを変更する
 	sceneId_ = sceneId;
 

@@ -21,6 +21,8 @@ void AnomalyChairMountain::Init()
 
 void AnomalyChairMountain::Occurrence(Json& param)
 {
+
+
 	// ê∂ê¨
 	auto object = std::make_unique<ChairMountain>(KEY, param, stageMng_.GetStageObjectColliderParam(KEY));
 

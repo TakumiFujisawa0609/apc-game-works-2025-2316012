@@ -141,6 +141,7 @@ void CollisionManager::InitTagMatrix()
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::ENEMY_VIEW)][static_cast<int>(CollisionTags::TAG::MAIN_STAGE)] = true;
 
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)][static_cast<int>(CollisionTags::TAG::REPORT)] = true;		// ステージオブジェクトとレポート用ライン
+	collTagMatrix_[static_cast<int>(CollisionTags::TAG::DECO_GIMMICK)][static_cast<int>(CollisionTags::TAG::REPORT)] = true;		// ステージオブジェクトとレポート用ライン
 
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)][static_cast<int>(CollisionTags::TAG::ENEMY)] = true;		// ステージオブジェクトと敵
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::ENEMY)][static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)] = true;

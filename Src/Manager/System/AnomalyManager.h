@@ -21,6 +21,7 @@ public:
 		GHOST,			// ゴーストの出現
 		PAINTING,		// 絵の切り替え
 		CHAIR_MOUNTAIN,	// 椅子の山を置く
+		BLOODY_ROOM,	// 血の部屋
 		REPLACE,		// 置き換え
 		OCCUR,			// 何かが起こる
 		COLOR_CHANGE,	// 色変え
@@ -34,6 +35,7 @@ public:
 		{TYPE::GHOST,"Ghost"},
 		{TYPE::PAINTING,"Painting"},
 		{TYPE::CHAIR_MOUNTAIN,"ChairMountain"},
+		{TYPE::BLOODY_ROOM,"BloodyRoom"},
 		{TYPE::REPLACE,"Replace"},
 		{TYPE::OCCUR,"Occur"},
 		{TYPE::COLOR_CHANGE,"ColorChange"},

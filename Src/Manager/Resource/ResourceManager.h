@@ -62,6 +62,6 @@ private:
 
 	// デフォルトコンストラクタをprivateにして、
 	// 外部から生成できない様にする
-	ResourceManager(void);
-	~ResourceManager(void) = default;
+	ResourceManager();
+	~ResourceManager() = default;
 };

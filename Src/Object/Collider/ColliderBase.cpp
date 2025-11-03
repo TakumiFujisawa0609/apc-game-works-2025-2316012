@@ -6,6 +6,7 @@ ColliderBase::ColliderBase(ActorBase& owner, const CollisionTags::TAG tag) :
 	tag_(tag),
 	transformOwner_(owner_.GetTransform())
 {	
+	partnerTag_ = CollisionTags::TAG::NONE;
 	type_ = ColliderType::TYPE::MAX;
 	isHit_ = false;
 	isDelete_ = false;

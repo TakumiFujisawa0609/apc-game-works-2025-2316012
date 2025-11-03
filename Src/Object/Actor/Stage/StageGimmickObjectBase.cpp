@@ -5,6 +5,8 @@ StageGimmickObjectBase::StageGimmickObjectBase(const std::string& key, const Jso
 	StageObjectBase(key, mapParam, colliderParam)
 {
 	onHit_ = nullptr;
+	preTexture_ = -1;
+	textureIndex_ = -1;
 }
 
 StageGimmickObjectBase::~StageGimmickObjectBase()
@@ -24,6 +26,10 @@ void StageGimmickObjectBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCo
 {
 	// Õ“ËŒãˆ—
 	onHit_->OnHit(opponentCollider);
+}
+
+void StageGimmickObjectBase::SetAnomaly()
+{
 }
 
 void StageGimmickObjectBase::Refresh()

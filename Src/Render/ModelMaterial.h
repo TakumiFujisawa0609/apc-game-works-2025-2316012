@@ -24,10 +24,7 @@ public:
 	};
 
 	// コンストラクタ
-	ModelMaterial(
-		int vertexShader, int constBufFloat4SizeVS,
-		int pixelShader, int constBufFloat4SizePS
-	);
+	ModelMaterial(int vertexShader, int constBufFloat4SizeVS, int pixelShader, int constBufFloat4SizePS);
 
 	// デストラクタ
 	~ModelMaterial(void);

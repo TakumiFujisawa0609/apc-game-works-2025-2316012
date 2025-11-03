@@ -34,35 +34,37 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     // UV座標を取得
     float2 uv = PSInput.uv;
     
+    return float4(1.0f, 0.0f, 0.0f, 1.0f);
+    
     // 色の取得
     float4 color = diffuseMapTexture.Sample(diffuseMapSampler, uv);
     
     // TBN行列の構築
-    float3x3 TBN = float3x3(
-        PSInput.tan.xyz,        // 接線ベクトル
-        PSInput.bin.xyz,        // 従法線ベクトル
-        PSInput.normal.xyz      // 法線ベクトル
-    );
+    //float3x3 TBN = float3x3(
+    //    PSInput.tan.xyz,        // 接線ベクトル
+    //    PSInput.bin.xyz,        // 従法線ベクトル
+    //    PSInput.normal.xyz      // 法線ベクトル
+    //);
     
-    // 法線マップのサンプリングと変換
-    float4 normalMapColor = normalMapTexture.Sample(normalMapSampler, uv);
+    //// 法線マップのサンプリングと変換
+    //float4 normalMapColor = normalMapTexture.Sample(normalMapSampler, uv);
     
-    // タンジェント空間での法線ベクトル
-    float3 tanVec = normalMapColor.xyz * 2.0f - 1.0f;
+    //// タンジェント空間での法線ベクトル
+    //float3 tanVec = normalMapColor.xyz * 2.0f - 1.0f;
     
-    // ワールド空間へ変換
-    float3 world = normalize(mul(tanVec, TBN));
+    //// ワールド空間へ変換
+    //float3 world = normalize(mul(tanVec, TBN));
     
-    // ライトベクトルを正規化
-    float3 lightDir = normalize(g_light_dir.xyz);
+    //// ライトベクトルを正規化
+    //float3 lightDir = normalize(g_light_dir.xyz);
     
-    // ライティング計算
-    float lighting = max(0.0f, dot(world, -lightDir));
+    //// ライティング計算
+    //float lighting = max(0.0f, dot(world, -lightDir));
     
-    // 環境光とディフューズ光の加算
-    float3 ambient = color.rgb * g_color.rgb * g_ambient_color.rgb;
-    float3 diffuse = color.rgb * g_color.rgb * lighting;
-    color.xyz = saturate(ambient + diffuse);
+    //// 環境光とディフューズ光の加算
+    //float3 ambient = color.rgb * g_color.rgb * g_ambient_color.rgb;
+    //float3 diffuse = color.rgb * g_color.rgb * lighting;
+    //color.xyz = saturate(ambient + diffuse);
     
     // テクスチャのUV座標を生成
     float2 texUv = uv * tiling;
@@ -70,9 +72,13 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     // テクスチャ色の取得
     float4 texColor = subTexture.Sample(subSampler, texUv);
     
-    return texColor;
+    float3 rgb = color.rgb;
     
-
+    rgb.r += texColor.r;
+    
+    return float4(rgb, color.a);
+    ///////////////////////////////////////////////////////////////////////////////////
+    
     // 血の手のテクスチャのアルファ値を強度として利用
     float intensity = texColor.a;
     

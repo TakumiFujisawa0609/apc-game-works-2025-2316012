@@ -38,12 +38,12 @@ public:
 	/// <summary>
 	/// “Ç‚İ‚İˆ—
 	/// </summary>
-	virtual void Load() = 0;
+	virtual void Load() {};
 
 	/// <summary>
 	/// ‰ğ•úˆ—
 	/// </summary>
-	virtual void Release() = 0;
+	virtual void Release() {};
 
 	/// <summary>
 	/// í—Ş‚ğ•Ô‚·

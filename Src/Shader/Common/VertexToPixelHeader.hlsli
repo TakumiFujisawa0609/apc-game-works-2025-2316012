@@ -14,10 +14,10 @@ struct VertexToPixelLit
 	float3 vwPos		: TEXCOORD1;	// 座標( ビュー座標 )
 	float3 normal       : TEXCOORD2;	// 法線( ビュー座標 )
 	float4 diffuse      : COLOR0;		// ディフューズカラー
-	float3 lightDir     : TEXCOORD3;	// ライト方向(ローカル)
-	float3 lightAtPos   : TEXCOORD4;	// ライトから見た座標
-    float3 tan			: TANGENT;
-    float3 bin			: BINORMAL;
+	//float3 lightDir     : TEXCOORD3;	// ライト方向(ローカル)
+	//float3 lightAtPos   : TEXCOORD4;	// ライトから見た座標
+    float3 tan : TANGENT;
+    float3 bin : BINORMAL;
 };
 
 struct VertexToPixelShadow

@@ -1,11 +1,8 @@
 #include "../Application.h"
 #include "ModelMaterial.h"
 
-ModelMaterial::ModelMaterial(
-	int pixelShader, int constBufFloat4SizeVS,
-	int vertexShader, int constBufFloat4SizePS)
+ModelMaterial::ModelMaterial(int vertexShader, int constBufFloat4SizeVS, int pixelShader, int constBufFloat4SizePS)
 {
-
 	// 頂点シェーダの格納
 	shaderVS_ = vertexShader;
 
@@ -14,8 +11,6 @@ ModelMaterial::ModelMaterial(
 
 	// 頂点シェーダー用の定数バッファを作成
 	constBufVS_ = CreateShaderConstantBuffer(sizeof(FLOAT4) * constBufFloat4SizeVS);
-
-
 
 	// ピクセルシェーダの格納
 	shaderPS_ = pixelShader;
@@ -26,11 +21,8 @@ ModelMaterial::ModelMaterial(
 	// ピクセルシェーダー用の定数バッファを作成
 	constBufPS_ = CreateShaderConstantBuffer(sizeof(FLOAT4) * constBufFloat4SizePS);
 
-
-
 	// テクスチャアドレス
 	texAddress_ = TEXADDRESS::CLAMP;
-
 }
 
 void ModelMaterial::AddConstBufVS(const FLOAT4& contBuf)
@@ -140,4 +132,8 @@ ModelMaterial::~ModelMaterial(void)
 {
 	DeleteShaderConstantBuffer(constBufVS_);
 	DeleteShaderConstantBuffer(constBufPS_);
+
+
+	//DeleteShader(shaderVS_);
+	//DeleteShader(shaderPS_);
 }

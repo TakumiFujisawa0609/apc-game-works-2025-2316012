@@ -411,6 +411,9 @@
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyBloodyRoom.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Resource\ResourceAnimation.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Fader.h">
@@ -908,6 +911,9 @@
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyBloodyRoom.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Resource\ResourceAnimation.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\PostEffect\Vignette.hlsl" />
@@ -920,6 +926,8 @@
     <FxCompile Include="Src\Shader\Sprite\Glitch.hlsl" />
     <FxCompile Include="Src\Shader\PostEffect\NormalEffect.hlsl" />
     <FxCompile Include="Src\Shader\PostEffect\NightViewEffect.hlsl" />
+    <FxCompile Include="Src\Shader\Model\StageMainPS.hlsl" />
+    <FxCompile Include="Src\Shader\Model\StageMainVS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\Shader\Common\Pixel\PixelShader2DHeader.hlsli" />

@@ -23,7 +23,7 @@ void ResourceModel::Release()
 	{
 		for (auto model : duplicateModels_)
 		{
-			DeleteSoundMem(model);
+			MV1DeleteModel(model);
 		}
 	}
 

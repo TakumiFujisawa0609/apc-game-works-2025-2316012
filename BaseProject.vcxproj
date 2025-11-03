@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Resource\ResourceAnimation.cpp" />
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyBloodyRoom.cpp" />
     <ClCompile Include="Src\Core\Title\CoreTitleBase.cpp" />
     <ClCompile Include="Src\Core\Game\MadnessGauge.cpp" />
@@ -139,6 +140,7 @@
     <ClCompile Include="Src\Object\Actor\Stage\StageMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Resource\ResourceAnimation.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyBloodyRoom.h" />
     <ClInclude Include="Src\Core\Title\CoreTitleBase.h" />
     <ClInclude Include="Src\Core\Game\MadnessGauge.h" />
@@ -306,6 +308,18 @@
     <ClInclude Include="Src\Object\Actor\Stage\StageMesh.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Src\Shader\Model\StageMainPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\Model\StageMainVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="Src\Shader\Model\StandardModelPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
@@ -465,7 +479,7 @@
     </Link>
     <FxCompile>
       <ObjectFileOutput>$(ProjectDir)/Data/Shader/%(Filename).cso</ObjectFileOutput>
-      <ShaderModel>4.0</ShaderModel>
+      <ShaderModel>4.0_level_9_3</ShaderModel>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -510,7 +524,7 @@
     </Link>
     <FxCompile>
       <ObjectFileOutput>$(ProjectDir)/Data/Shader/%(Filename).cso</ObjectFileOutput>
-      <ShaderModel>4.0</ShaderModel>
+      <ShaderModel>4.0_level_9_3</ShaderModel>
     </FxCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

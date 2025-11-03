@@ -1,12 +1,13 @@
 {
   "Param": {
-    "firstTime": 45,
+    "firstTime": 5,
     "timeMax": 40,
     "timeMin": 20,
     "Weights": {
       "Ghost": 11,
       "Painting": 10,
-      "ChairMountain": 1
+      "ChairMountain": 1,
+      "BloodyRoom": 2
     }
   },
   "Ghost": [

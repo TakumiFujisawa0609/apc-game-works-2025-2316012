@@ -32,6 +32,11 @@ public:
 	void OnHit(const std::weak_ptr<ColliderBase>& opponentCollider) override;
 
 	/// <summary>
+	/// ˆÙ•Ï‚Ìİ’è
+	/// </summary>
+	virtual void SetAnomaly();
+
+	/// <summary>
 	/// ˆÙ•ÏŒã‚ÌŒãˆ—
 	/// </summary>
 	virtual void Refresh();

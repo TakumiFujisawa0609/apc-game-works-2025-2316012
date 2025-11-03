@@ -24,11 +24,21 @@ SceneBase::~SceneBase(void)
 
 void SceneBase::Load(void)
 {
+	// 非同期読み込み開始
+	loadingTime_ = 0.0f;	//読み込み時間初期化
+	//SetUseASyncLoadFlag(true);	
+	
+	// シーン内のリソースを読み込む
+	resMng_.SceneChangeResource(static_cast<int>(scnMng_.GetSceneID()));
+
 	//ローディング用文字列設定
-	loadingString_.fontHandle = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), 32, 0);
+	const std::wstring& fontName = resMng_.GetFontName("fontKazuki");
+	loadingString_.fontHandle = fontMng_.CreateMyFont(fontName, 32, 0);
 	loadingString_.color = UtilityCommon::WHITE;
 	loadingString_.pos = { LOADING_STRING_POS_X, LOADING_STRING_POS_Y };
 	loadingString_.string = L"Now loading";
+
+
 }
 
 void SceneBase::Init(void)
