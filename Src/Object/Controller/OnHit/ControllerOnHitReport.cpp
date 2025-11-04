@@ -11,8 +11,9 @@ ControllerOnHitReport::ControllerOnHitReport(Player& owner) :
 	systemMng_(GameSystemManager::GetInstance())
 {
 	report_ = nullptr;
-	RegisterOnHit(CollisionTags::TAG::GHOST, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStageObject(opponentCollider); });
+	RegisterOnHit(CollisionTags::TAG::GHOST, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitGhost(opponentCollider); });
 	RegisterOnHit(CollisionTags::TAG::STAGE_GIMMICK, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStageObject(opponentCollider); });
+	RegisterOnHit(CollisionTags::TAG::DECO_GIMMICK, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStageObject(opponentCollider); });
 }
 
 ControllerOnHitReport::~ControllerOnHitReport()
@@ -49,5 +50,8 @@ void ControllerOnHitReport::OnHitCommon()
 	stateMng_.ChangeState(GameStateManager::STATE::REPORTING);
 
 	// プレイヤーの狂気更新値減少
-	owner_.SubMadnessUpdateStep();
+	//owner_.SubMadnessUpdateStep();
+
+	// 狂気値を減らす
+	owner_.AddMadnessValue(-30);
 }

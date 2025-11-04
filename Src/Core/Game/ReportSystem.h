@@ -6,7 +6,6 @@
 #include "../../Common/CharacterString.h"
 #include "../Common/CircleGauge.h"
 
-class InputManager;
 class GameStateManager;
 class Timer;
 class ControllerTextAnimation;
@@ -24,8 +23,6 @@ public:
 		NONE,
 		WAIT,		// 待機
 		REPORTING,	// 報告中
-		MISS,		// 失敗
-		COMPLETE,	// 完了
 	};
 
 	// ゲージの最大値
@@ -83,18 +80,6 @@ private:
 	// 報告中のテキスト
 	const std::wstring REPORTING_TEXT = L"報告中";
 
-	// 完了時のテキスト
-	const std::wstring COMPLITE_TEXT = L"異変が報告されました";
-
-	// 失敗時のテキスト
-	const std::wstring MISS_TEXT = L"誤った報告がされました";
-
-	// 入力管理クラスの参照
-	InputManager& input_;
-
-	// ゲーム状態管理
-	GameStateManager& stateMng_;
-
 	// プレイヤークラスの参照
 	Player& player_;
 
@@ -113,15 +98,6 @@ private:
 	// 報告中時のテキスト
 	CharacterString reportingText_;
 
-	// 完了時のテキスト
-	CharacterString compliteText_;
-
-	// 失敗時のテキスト
-	CharacterString missText_;
-
-	// テキストアニメーションコントローラー
-	std::unique_ptr<ControllerTextAnimation> textAnimation_;
-
 	// タイマー
 	std::unique_ptr<Timer> timer_;
 
@@ -137,12 +113,8 @@ private:
 	// 状態別更新処理
 	void UpdateWait();
 	void UpdateReporting();
-	void UpdateMiss();
-	void UpdateComplete();
 
 	// 状態別描画処理
 	void DrawWait();
 	void DrawReporting();
-	void DrawMiss();
-	void DrawComplete();
 };

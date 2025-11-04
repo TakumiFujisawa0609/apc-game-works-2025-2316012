@@ -1,6 +1,9 @@
 #pragma once
 #include "../ActorBase.h"
 
+class ModelMaterial;
+class ModelRenderer;
+
 class StageObjectBase : public ActorBase
 {
 public:
@@ -43,6 +46,12 @@ protected:
 	// 処理用部屋識別タグ
 	const std::string ROOM_TAG;
 
+	// マテリアル
+	std::unique_ptr<ModelMaterial> material_;
+
+	// レンダラー
+	std::unique_ptr<ModelRenderer> renderer_;
+
 	// メインの描画処理
 	void DrawMain() override;
 
@@ -52,4 +61,3 @@ protected:
 	// デバッグ時の描画
 	void DebugDraw() override;
 };
-

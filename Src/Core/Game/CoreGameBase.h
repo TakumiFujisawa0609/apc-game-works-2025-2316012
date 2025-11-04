@@ -2,6 +2,7 @@
 #include "../CoreBase.h"
 
 class GameStateManager;
+class GameSystemManager;
 
 class CoreGameBase : public CoreBase
 {
@@ -17,8 +18,11 @@ public:
 	/// </summary>
 	virtual ~CoreGameBase() override;
 
-private:
+protected:
 
 	// ゲーム状態の管理参照
 	GameStateManager& stateMng_;
+
+	// システム管理クラスの参照
+	GameSystemManager& systemMng_;
 };

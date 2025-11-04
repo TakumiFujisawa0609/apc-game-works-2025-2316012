@@ -41,6 +41,11 @@ public:
 
 private:
 
+	static constexpr int ONE_MINUTES = 60;
+
+	// イベントフラグ
+	bool isEvent_;
+
 	// 状態管理クラスの参照
 	GameStateManager& stateMng_;
 

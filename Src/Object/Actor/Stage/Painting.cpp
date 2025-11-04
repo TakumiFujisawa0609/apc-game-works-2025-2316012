@@ -12,7 +12,7 @@ Painting::~Painting()
 
 void Painting::Draw()
 {
-	// 本オブジェクトのみ活動状態に限らず描画を行う
+	// 本オブジェクトは活動状態に限らず描画を行う
 	DrawMain();
 }
 

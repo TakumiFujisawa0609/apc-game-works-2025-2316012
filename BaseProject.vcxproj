@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Core\Game\Message.cpp" />
     <ClCompile Include="Src\Resource\ResourceAnimation.cpp" />
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyBloodyRoom.cpp" />
     <ClCompile Include="Src\Core\Title\CoreTitleBase.cpp" />
@@ -140,6 +141,7 @@
     <ClCompile Include="Src\Object\Actor\Stage\StageMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Core\Game\Message.h" />
     <ClInclude Include="Src\Resource\ResourceAnimation.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyBloodyRoom.h" />
     <ClInclude Include="Src\Core\Title\CoreTitleBase.h" />

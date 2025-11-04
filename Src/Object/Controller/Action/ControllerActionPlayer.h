@@ -49,6 +49,9 @@ private:
 	// 狂気値の追加量
 	static constexpr int MADNESS_ADD_VALUE = 1;
 
+	// 狂気条件値
+	static constexpr int MADNSEE_CONDITION = 50;
+
 	// レポート入力時間
 	const float REPORT_INPUT_TIME;
 
@@ -70,6 +73,9 @@ private:
 	// 着地判定
 	bool isEndLanding_;
 
+	// 警告判定
+	bool isWarningMadness_;
+
 	// 移動操作
 	void ProcessMove();
 
@@ -87,6 +93,9 @@ private:
 
 	// ラインの判定を生成
 	void CreateLineCollider();
+
+	// 狂気値の警告
+	void WarningMadness();
 
 	// 狂気値の影響から速度を取得
 	const float GetApplyMadnessToSpeed(float speed);

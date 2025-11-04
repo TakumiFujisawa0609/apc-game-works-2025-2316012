@@ -45,6 +45,9 @@ void AnomalyPainting::Init()
 
 void AnomalyPainting::Occurrence(Json& param)
 {
+	// Šî’êƒNƒ‰ƒX‚Ìˆ—
+	AnomalyBase::Occurrence(param);
+
 	// ”z—ñ‚Ì”ÍˆÍ‚©‚ç—”‚ğ¶¬
 	std::uniform_int_distribution<std::size_t> dist(0, paintingList_.size() - 1);
 

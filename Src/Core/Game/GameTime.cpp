@@ -4,13 +4,18 @@
 #include "../../Manager/Generic/GameStateManager.h"
 #include "../../Manager/Resource/ResourceManager.h"
 #include "../../Manager/Resource/FontManager.h"
+#include "../../Manager/System/GameSystemManager.h"
 #include "../../Utility/UtilityCommon.h"
 #include "../Common/Timer.h"
+#include "Message.h"
 #include "GameTime.h"
 
 GameTime::GameTime() :
 	 stateMng_(GameStateManager::GetInstance())
 {
+	isEvent_ = false;
+	todayText_ = CharacterString();
+	text_ = CharacterString();
 }
 
 GameTime::~GameTime()
@@ -25,6 +30,16 @@ void GameTime::Load()
 	// フォント
 	int font = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), FONT_SIZE, FONT_THICK);
 
+	// 日付文字列の設定
+	todayText_.pos = Vector2{ 0,0 };
+	todayText_.color = UtilityCommon::WHITE;
+	todayText_.string = GetYmdWstring();
+
+	// 時間文字列の設定
+	text_.pos = Vector2{ 200, 0 };
+	text_.color = UtilityCommon::WHITE;
+	text_.string = L"%d時%d分";
+
 	// フォントの反映
 	todayText_.fontHandle = font;
 	text_.fontHandle = font;
@@ -35,15 +50,8 @@ void GameTime::Init()
 	// タイマー初期化
 	timer_->InitCountUp();
 
-	// 日付文字列の設定
-	todayText_.pos = Vector2{ 0,0 };
-	todayText_.color = UtilityCommon::WHITE;
-	todayText_.string = GetYmdWstring();
-
-	// 時間文字列の設定
-	text_.pos = Vector2{ 200, 0 };
-	text_.color = UtilityCommon::WHITE;
-	text_.string = L"%d時%d分";
+	// イベント設定
+	isEvent_ = false;
 }
 
 void GameTime::Update()
@@ -54,6 +62,13 @@ void GameTime::Update()
 		// ゲームの終了処理
 		stateMng_.ChangeState(GameStateManager::STATE::NONE);
 	}
+
+	if (timer_->GetCount() >= ONE_MINUTES && !isEvent_)
+	{
+		systemMng_.ChangeMessage(Message::TYPE::ONE_MINNUTES_LATER);
+		isEvent_ = true;
+	}
+
 }
 
 void GameTime::Draw()

@@ -117,7 +117,7 @@ void CameraScreen::ChangeScreenMode(const SCREEN_MODE mode)
 	// ƒ‚[ƒh‚ÌØ‚è‘Ö‚¦
 	mode_ = mode;
 
-	// –ğÒ‚ç‚ÌŠˆ“®ó‘Ô‚ÌØ‚è‘Ö‚¦
+	// –ğÒ‚ÌŠˆ“®ó‘Ô‚ÌØ‚è‘Ö‚¦
 	SetActiveActors();
 }
 

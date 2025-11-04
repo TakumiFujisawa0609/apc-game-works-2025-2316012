@@ -5,6 +5,8 @@
 #include "../../../Utility/UtilityCommon.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Common/Quaternion.h"
+#include "../../../Render/ModelMaterial.h"
+#include "../../../Render/ModelRenderer.h"
 #include "../../Collider/ColliderModel.h"
 #include "../../Collider/ColliderFactory.h"
 
@@ -13,6 +15,8 @@ StageObjectBase::StageObjectBase(const std::string& key, const Json& mapParam, c
 	STAGE_KEY(key),
 	ROOM_TAG(mapParam["tag"])
 {
+	material_ = nullptr;
+	renderer_ = nullptr;
 	collider_ = collFtr_.Create(*this, colliderParam);
 	isActive_ = true;
 }
@@ -26,13 +30,28 @@ void StageObjectBase::Load()
 	// モデルの設定
 	transform_.SetModel(resMng_.GetHandle(STAGE_KEY));
 
+	// マテリアル生成
+	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("standardVs"), 0, resMng_.GetHandle("standardPs"), 3);
+
+	// レンダラー生成
+	renderer_ = std::make_unique<ModelRenderer>(transform_.modelId, *material_);
+
+	// バッファーの設定
+	material_->AddConstBufPS(FLOAT4{ 1.0f,1.0f, 1.0f, 1.0f });
+	material_->AddConstBufPS(FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
+	material_->AddConstBufPS(FLOAT4{ 0.01f, 0.01f, 0.01f, 0.0f });
+
 	// 基底クラスの読み込み
 	ActorBase::Load();
 }
 
 void StageObjectBase::DrawMain()
 {
-	MV1DrawModel(transform_.modelId);
+	// マテリアル設定
+	material_->SetConstBufPS(1, FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
+
+	// 描画
+	renderer_->Draw();
 }
 
 void StageObjectBase::InitTransform()

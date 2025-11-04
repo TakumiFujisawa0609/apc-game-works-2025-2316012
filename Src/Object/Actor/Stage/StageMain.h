@@ -1,8 +1,6 @@
 #pragma once
 #include "StageGimmickObjectBase.h"
 
-class ModelMaterial;
-class ModelRenderer;
 class ColliderModel;
 
 class StageMain : public StageGimmickObjectBase
@@ -33,6 +31,11 @@ public:
 	void Init() override;
 
 	/// <summary>
+	/// 描画
+	/// </summary>
+	void Draw() override;
+
+	/// <summary>
 	/// 異変の設定
 	/// </summary>
 	void SetAnomaly() override;
@@ -49,12 +52,6 @@ public:
 	bool CheckCameraViewClip();
 
 private:
-
-	// マテリアル
-	std::unique_ptr<ModelMaterial> material_;
-
-	// レンダラー
-	std::unique_ptr<ModelRenderer> renderer_;
 
 	// コライダーモデル
 	std::shared_ptr<ColliderModel> colliderModel_;

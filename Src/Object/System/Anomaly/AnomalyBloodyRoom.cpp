@@ -21,6 +21,9 @@ void AnomalyBloodyRoom::Init()
 
 void AnomalyBloodyRoom::Occurrence(Json& param)
 {
+	// Šî’êƒNƒ‰ƒX‚Ìˆ—
+	AnomalyBase::Occurrence(param);
+
 	// ƒ‰ƒ“ƒ_ƒ€
 	int index = GetRand(2);
 

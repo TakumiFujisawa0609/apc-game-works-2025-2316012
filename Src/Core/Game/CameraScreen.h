@@ -53,6 +53,12 @@ public:
 	void Draw() override;
 
 	/// <summary>
+	/// スクリーンの状態
+	/// </summary>
+	/// <returns>スクリーン状態を返す</returns>
+	const SCREEN_MODE GetScreenMode() const { return mode_; }
+
+	/// <summary>
 	/// カメラモードの遷移
 	/// </summary>
 	/// <param name="mode">カメラモード</param>

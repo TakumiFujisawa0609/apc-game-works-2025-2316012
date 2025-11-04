@@ -4,6 +4,7 @@
 class CharacterManager;
 class StageManager;
 class ResourceManager;
+class GameSystemManager;
 class Player;
 
 // JSON名前空間
@@ -50,7 +51,7 @@ protected:
 	// リソース管理クラス
 	ResourceManager& resMng_;
 
-	// プレイヤーのポインタ
-	Player* player_;
+	// ゲーム内のシステム管理クラス
+	GameSystemManager& systemMng_;
 };
 

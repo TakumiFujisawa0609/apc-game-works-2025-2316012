@@ -178,4 +178,10 @@ void Player::AddMadnessValue(const int madnessValue)
 		// Å‘å’l‚ğ‘ã“ü
 		madnessValue_ = MADNESS_MAX;
 	}
+	// Å¬’l–¢–‚Ìê‡
+	else if (madnessValue_ < 0)
+	{
+		// 0‚É‚·‚é
+		madnessValue_ = 0;
+	}
 }

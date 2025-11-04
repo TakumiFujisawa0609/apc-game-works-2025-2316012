@@ -5,8 +5,10 @@
 #include "../../../Manager/Generic/CollisionManager.h"
 #include "../../../Manager/Generic/CollisionTags.h"
 #include "../../../Manager/Generic/Camera.h"
+#include "../../../Manager/System/GameSystemManager.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Utility/UtilityCommon.h"
+#include "../../../Core/Game/Message.h"
 #include "../../Actor/Character/Player.h"
 #include "../../Collider/ColliderLine.h"
 #include "../ControllerAnimation.h"
@@ -22,6 +24,7 @@ ControllerActionPlayer::ControllerActionPlayer(Player& player) :
 	stepRotTime_ = 0.0f;
 	madnessStep_ = 0.0f;
 	isEndLanding_ = false;
+	isWarningMadness_ = false;
 }
 
 ControllerActionPlayer::~ControllerActionPlayer()
@@ -31,6 +34,7 @@ ControllerActionPlayer::~ControllerActionPlayer()
 void ControllerActionPlayer::Init()
 {
 	// 各種変数の初期化
+	isWarningMadness_ = false;
 	isEndLanding_ = false;
 }
 
@@ -41,6 +45,9 @@ void ControllerActionPlayer::Update()
 
 	// レポート操作処理
 	ProcessReport();
+
+	// 狂気値の警告
+	WarningMadness();
 }
 
 void ControllerActionPlayer::DebugDraw()
@@ -136,7 +143,7 @@ void ControllerActionPlayer::ProcessMove()
 		}
 
 		// ダッシュ中かつ狂気値が一定未満の場合
-		if (isDash && 50 > player_.GetMadnessValue())
+		if (isDash && MADNSEE_CONDITION > player_.GetMadnessValue())
 		{
 			// 速度を変更
 			speed = player_.GetSpeedRun();
@@ -323,6 +330,29 @@ void ControllerActionPlayer::CreateLineCollider()
 
 	// 判定に追加
 	collMng_.Add(std::move(coll));
+}
+
+void ControllerActionPlayer::WarningMadness()
+{
+	// 狂気値が一定未満の場合
+	if (player_.GetMadnessValue() < MADNSEE_CONDITION)
+	{
+		// 判定を無効にして受付状態にする
+		isWarningMadness_ = false;
+		return;
+	}
+	// または警告表示中の場合
+	else if (isWarningMadness_)
+	{
+		// 無視
+		return;
+	}
+
+	// メッセージを表示 
+	GameSystemManager::GetInstance().ChangeMessage(Message::TYPE::MADNESS);
+
+	// 判定を有効
+	isWarningMadness_ = true;
 }
 
 const float ControllerActionPlayer::GetApplyMadnessToSpeed(float speed)

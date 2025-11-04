@@ -3,6 +3,7 @@
 #include "../../../Manager/Resource/ResourceManager.h"
 #include "../../../Render/ModelMaterial.h"
 #include "../../../Render/ModelRenderer.h"
+#include "../../Controller/OnHit/ControllerOnHitStageObject.h"
 #include "../../Collider/ColliderBox.h"
 #include "../../Collider/ColliderModel.h"
 #include "StageMain.h"
@@ -10,8 +11,7 @@
 StageMain::StageMain(const std::string& key, const Json& mapParam, const Json& colliderParam):
 	StageGimmickObjectBase(key, mapParam, colliderParam)
 {
-	renderer_ = nullptr;
-	material_ = nullptr;
+	isActive_ = false;
 }
 
 StageMain::~StageMain()
@@ -20,8 +20,11 @@ StageMain::~StageMain()
 
 void StageMain::Load()
 {
-	// 基底クラスの読み込み処理
-	StageGimmickObjectBase::Load();
+	// モデルの設定
+	transform_.SetModel(resMng_.GetHandle(STAGE_KEY));
+
+	// 衝突後処理の生成
+	onHit_ = std::make_unique<ControllerOnHitStageObject>(*this);
 
 	// マテリアル生成
 	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("stageMainVs"), 0, resMng_.GetHandle("stageMainPs"), 3);
@@ -41,6 +44,12 @@ void StageMain::Init()
 	StageGimmickObjectBase::Init();
 }
 
+void StageMain::Draw()
+{
+	// 本オブジェクトは活動状態に限らず描画を行う
+	DrawMain();
+}
+
 void StageMain::SetAnomaly()
 {
 	// テクスチャを追加
@@ -49,6 +58,9 @@ void StageMain::SetAnomaly()
 	// 報告用にコライダーを設定
 	colliderModel_ = std::make_shared<ColliderModel>(*this, CollisionTags::TAG::DECO_GIMMICK);
 	collMng_.Add(colliderModel_);
+
+	// 活動状態の変更
+	isActive_ = true;
 }
 
 void StageMain::Refresh()
@@ -59,6 +71,9 @@ void StageMain::Refresh()
 	// コライダー削除
 	colliderModel_->SetDelete();
 	colliderModel_ = nullptr;
+
+	// 活動状態の変更
+	isActive_ = false;
 }
 
 bool StageMain::CheckCameraViewClip()

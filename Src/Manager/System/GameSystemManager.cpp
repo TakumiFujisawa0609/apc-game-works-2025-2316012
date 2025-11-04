@@ -6,6 +6,7 @@
 #include "../../Core/Game/GameTime.h"
 #include "../../Core/Game/CameraScreen.h"
 #include "../../Core/Game/MadnessGauge.h"
+#include "../../Core/Game/Message.h"
 #include "GameSystemManager.h"
 
 void GameSystemManager::Load()
@@ -18,6 +19,10 @@ void GameSystemManager::Load()
 	Player& player = dynamic_cast<Player&>(CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER));	// プレイヤークラスの取得
 	auto report = std::make_unique<ReportSystem>(player);
 	systemsMap_.emplace(TYPE::REPORT, std::move(report));
+
+	// メッセージの生成
+	auto message = std::make_unique<Message>();
+	systemsMap_.emplace(TYPE::MESSAGE, std::move(message));
 
 	// ゲーム時間の生成
 	auto gameTime = std::make_unique<GameTime>();
@@ -63,6 +68,22 @@ void GameSystemManager::Draw()
 	{
 		system.second->Draw();
 	}
+}
+
+void GameSystemManager::SetReporting()
+{
+}
+
+void GameSystemManager::ChangeMessage(const Message::TYPE type)
+{
+	CoreGameBase* system = systemsMap_.at(TYPE::MESSAGE).get();
+	Message* message = dynamic_cast<Message*>(system);
+
+	if (message != nullptr)
+	{
+		message->ChangeMessage(type);
+	}
+	
 }
 
 GameSystemManager::GameSystemManager()

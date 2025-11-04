@@ -1,15 +1,16 @@
 #include "../../../Manager/Generic/CharacterManager.h"
 #include "../../../Manager/Generic/StageManager.h"
 #include "../../../Manager/Resource/ResourceManager.h"
+#include "../../../Manager/System/GameSystemManager.h"
 #include "../../Actor/Character/Player.h"
 #include "AnomalyBase.h"
 
 AnomalyBase::AnomalyBase():
 	charaMng_(CharacterManager::GetInstance()),
 	stageMng_(StageManager::GetInstance()),
-	resMng_(ResourceManager::GetInstance())
+	resMng_(ResourceManager::GetInstance()),
+	systemMng_(GameSystemManager::GetInstance())
 {
-	player_ = nullptr;
 }
 
 AnomalyBase::~AnomalyBase()
@@ -18,7 +19,6 @@ AnomalyBase::~AnomalyBase()
 
 void AnomalyBase::Load()
 {
-	player_ = dynamic_cast<Player*>(&charaMng_.GetCharacter(CharacterManager::TYPE::PLAYER));
 }
 
 void AnomalyBase::Init()
@@ -28,5 +28,6 @@ void AnomalyBase::Init()
 void AnomalyBase::Occurrence(Json& param)
 {
 	// プレイヤーの狂気更新値を上昇させる
-	player_->AddMadnessUpdateStep();
+	const auto & player = dynamic_cast<Player*>(&charaMng_.GetCharacter(CharacterManager::TYPE::PLAYER));
+	player->AddMadnessValue(10);
 }

@@ -57,13 +57,13 @@
       "fontName": "KazukiReiwa"
     },
     {
-      "key": "standardVS",
+      "key": "standardVs",
       "sceneId": 0,
       "type": "vertexShader",
       "path": "Data/Shader/StandardModelVS.cso"
     },
     {
-      "key": "standardPS",
+      "key": "standardPs",
       "sceneId": 0,
       "type": "pixelShader",
       "path": "Data/Shader/StandardModelPS.cso"
