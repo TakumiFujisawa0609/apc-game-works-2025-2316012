@@ -18,6 +18,8 @@ struct VertexToPixelLit
 	//float3 lightAtPos   : TEXCOORD4;	// ÉâÉCÉgÇ©ÇÁå©ÇΩç¿ïW
     float3 tan : TANGENT;
     float3 bin : BINORMAL;
+    float fogFactor : FOG;
+    float lightPower : LIGHT_POW;
 };
 
 struct VertexToPixelShadow

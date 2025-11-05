@@ -33,6 +33,14 @@ void StageMain::Load()
 	renderer_ = std::make_unique<ModelRenderer>(transform_.modelId, *material_);
 
 	// バッファーの設定
+	VECTOR cameraPos = GetCameraPosition();
+	VECTOR lightPos = { 0.0f,0.0f,0.0f };
+	float fogStart;
+	float fogEnd;
+	GetFogStartEnd(&fogStart, &fogEnd);
+
+	material_->AddConstBufVS(FLOAT4{ cameraPos.x,cameraPos.y, cameraPos.z, fogStart });
+	material_->AddConstBufVS(FLOAT4{ lightPos.x,lightPos.y, lightPos.z, fogEnd });
 	material_->AddConstBufPS(FLOAT4{ 1.0f,1.0f, 1.0f, 1.0f });
 	material_->AddConstBufPS(FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
 	material_->AddConstBufPS(FLOAT4{ 0.01f, 0.01f, 0.01f, 0.0f });
@@ -95,7 +103,11 @@ void StageMain::DrawMain()
 {
 	// 通常描画
 	//MV1DrawModel(transform_.modelId);
-	
+	VECTOR cameraPos = GetCameraPosition();
+	float fogStart;
+	float fogEnd;
+	GetFogStartEnd(&fogStart, &fogEnd);
+	material_->SetConstBufVS(0, FLOAT4{ cameraPos.x,cameraPos.y,cameraPos.z, fogStart });
 	// マテリアル設定
 	material_->SetConstBufPS(1, FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
 	
