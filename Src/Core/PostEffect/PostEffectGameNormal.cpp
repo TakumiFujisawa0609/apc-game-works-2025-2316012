@@ -12,6 +12,7 @@ PostEffectGameNormal::PostEffectGameNormal()
 	blurStep_ = 0.0f;
 	invertStep_ = 0.0f;
 	flashPower_ = 0.0f;
+	grainStep_ = 0.0f;
 }
 
 PostEffectGameNormal::~PostEffectGameNormal()
@@ -27,6 +28,7 @@ void PostEffectGameNormal::Load()
 void PostEffectGameNormal::Init()
 {
 	// バッファー追加
+	material_->AddConstBuf(FLOAT4{ 0.0f,0.0f,0.0f,0.0f });
 	material_->AddConstBuf(FLOAT4{ 0.0f,0.0f,0.0f,0.0f });
 	material_->AddConstBuf(FLOAT4{ 0.0f,0.0f,0.0f,0.0f });
 
@@ -73,9 +75,13 @@ void PostEffectGameNormal::Draw()
 		// フラッシュの強度を決める
 		flashPower_ = MAX_FLASH_POWER / BLUR_CONDITION * (madnessValue - BLUR_CONDITION);
  	}
+
+	// フィルムグレインのステップを更新
+	grainStep_ += scnMng_.GetDeltaTime();
 	
 	// バッファーの更新
 	material_->SetConstBuf(1, FLOAT4{ blurStep_, Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, flashPower_ });
+	material_->SetConstBuf(2, FLOAT4{ grainStep_, GRAIN_POWER, 0.0f,0.0f });
 
 	// 基底クラスの処理
 	PostEffectBase::Draw();

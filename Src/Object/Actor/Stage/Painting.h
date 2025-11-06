@@ -16,6 +16,11 @@ public:
 	~Painting() override;
 
 	/// <summary>
+	/// “Ç‚İ‚İˆ—
+	/// </summary>
+	void Load() override;
+
+	/// <summary>
 	/// •`‰æˆ—
 	/// </summary>
 	void Draw() override;
@@ -26,5 +31,10 @@ public:
 	void Refresh() override;
 
 private:
+
+	/// <summary>
+	/// ƒƒCƒ“‚Ì•`‰æ
+	/// </summary>
+	void DrawMain() override;
 };
 

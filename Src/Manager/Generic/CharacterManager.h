@@ -88,6 +88,12 @@ public:
 	/// <returns>パラメータ</returns>
 	const Json& GetCharacterParam(const TYPE type) const { return paramMap_.at(NAME_LIST[static_cast<int>(type)]).front(); }
 
+	/// <summary>
+	/// プレイヤーライトの座標を返す
+	/// </summary>
+	/// <returns>ライト座標を返す</returns>
+	const VECTOR& GetPlayerLightPos() const;
+
 private:
 
 	// ファイル名

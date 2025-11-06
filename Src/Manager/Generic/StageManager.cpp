@@ -72,6 +72,7 @@ void StageManager::Init()
 		}
 	}
 
+	// 初期値
 	drawTagList_.push_back("A");
 	drawTagList_.push_back("B");
 	drawTagList_.push_back("C");
@@ -81,6 +82,23 @@ void StageManager::Init()
 	drawTagList_.push_back("CA");
 	drawTagList_.push_back("CB");
 	drawTagList_.push_back("CC");
+
+	// 透過リストと通常描画リストを分別
+	// 全オブジェクトを巡回し、リストに分類
+	for (auto& pair : stageObjectsMap_) 
+	{
+		for (auto& obj : pair.second)
+		{
+			if (obj->IsTranslucent())
+			{
+				translucentList_.push_back(obj.get());
+			}
+			else 
+			{
+				opaqueList_.push_back(obj.get());
+			}
+		}
+	}
 }
 
 void StageManager::Update()
@@ -99,21 +117,53 @@ void StageManager::Update()
 
 void StageManager::Draw()
 {
-	for (auto& objects : stageObjectsMap_)
-	{
-		for (auto& object : objects.second)
-		{
-			for (const auto& tag : drawTagList_)
-			{
-				// プレイヤーのタグがオブジェクトと一致する場合
-				if (tag == object->GetRoomTag())
-				{
-					// オブジェクトの描画
-					object->Draw();
+	//for (auto& objects : stageObjectsMap_)
+	//{
+	//	for (auto& object : objects.second)
+	//	{
+	//		for (const auto& tag : drawTagList_)
+	//		{
+	//			// プレイヤーのタグがオブジェクトと一致する場合
+	//			if (tag == object->GetRoomTag())
+	//			{
+	//				// オブジェクトの描画
+	//				object->Draw();
 
-					// 次へ
-					continue;
-				}
+	//				// 次へ
+	//				continue;
+	//			}
+	//		}
+	//	}
+	//}
+
+	for (const auto& obj : opaqueList_)
+	{
+		for (const auto& tag : drawTagList_)
+		{
+			// プレイヤーのタグがオブジェクトと一致する場合
+			if (tag == obj->GetRoomTag())
+			{
+				// オブジェクトの描画
+				obj->Draw();
+
+				// 次へ
+				continue;
+			}
+		}
+	}
+
+	for (const auto& obj : translucentList_)
+	{
+		for (const auto& tag : drawTagList_)
+		{
+			// プレイヤーのタグがオブジェクトと一致する場合
+			if (tag == obj->GetRoomTag())
+			{
+				// オブジェクトの描画
+				obj->Draw();
+
+				// 次へ
+				continue;
 			}
 		}
 	}
@@ -211,4 +261,6 @@ StageManager::StageManager()
 StageManager::~StageManager()
 {
 	mainStages_.clear();
+	translucentList_.clear();
+	opaqueList_.clear();
 }

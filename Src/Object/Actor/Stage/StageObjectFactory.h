@@ -11,6 +11,7 @@ class StageGimmickObjectBase;
 class StageMesh;
 class StageMain;
 class Painting;
+class Carpet;
 
 class StageObjectFactory
 {
@@ -49,5 +50,6 @@ private:
 	std::unique_ptr<Painting> CreatePainting(const std::string& key, const Json& mapParam, const Json& colliderParam);
 	std::unique_ptr<StageMesh> CreateStageMesh(const std::string& key, const Json& mapParam, const Json& colliderParam);
 	std::unique_ptr<StageMain> CreateStageMain(const std::string& key, const Json& mapParam, const Json& colliderParam);
+	std::unique_ptr<Carpet> CreateCarpet(const std::string& key, const Json& mapParam, const Json& colliderParam);
 };
 

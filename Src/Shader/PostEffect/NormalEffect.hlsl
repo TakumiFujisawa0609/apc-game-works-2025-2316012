@@ -19,10 +19,27 @@ static float3 FLASH_COLOR = { 0.0f, 0.0f, 0.0f };
 cbuffer cbParam : register(b4)
 {
     float4 g_color;         // 色
+    
     float g_distance;       // 画素の距離
     float2 g_screen_size;   // スクリーンサイズ
     float g_flash_power;    // フラッシュの強さ
+    
+    //float g_step;           // ステップ(時間)
+    //float g_grain_power;    // フィルムグレイン強さ
+    //float2 dummy;
 }
+
+//float Random(in float2 uv, in float time)
+//{
+//    // 時間 (Time) をランダム性に加えることで、ノイズを毎フレーム動かす
+//    float t = time * 0.05f; // ノイズの変化速度を調整
+    
+//    // UV座標と時間を使って、特定の大きな値とドット積を計算し、サインで周期的な値を得る
+//    float value = dot(uv + t, float2(12.9898, 78.233));
+    
+//    // frac()で小数部を取り出し、さらに大きな値で乗算してから小数部を取ることで、ランダム性を高める
+//    return frac(sin(value) * 43758.5453123);
+//}
 
 float4 main(PS_INPUT PSInput) : SV_TARGET
 {   
@@ -31,7 +48,18 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
     
     // 色の取得
     float4 color = tex.Sample(texSampler, uv);
+    
+    // フィルムグレイン
+    //-------------------------------------------------------------------------
+    //// ノイズの生成
+    //float noise = Random(uv, g_step);
+    
+    //// ノイズ値を範囲内に調整
+    //float grain = (noise * 2.0f - 1.0f) * g_grain_power;
 
+    //// ノイズをもとの色に加算
+    //color.rgb += grain;
+    
     // 魚眼
     //-------------------------------------------------------------------------
     // 中心からのベクトル
@@ -44,8 +72,8 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
     float r = length(offset);
 
     // 魚眼効果樽型歪曲）
-    float k = 0.1; // 歪みの強さ（大きくすると歪む）
-    float scale = 1.0 + k * r * r;
+    float k = 0.1f; // 歪みの強さ（大きくすると歪む）
+    float scale = 1.0f + k * r * r;
 
     offset /= scale;
     //-------------------------------------------------------------------------
@@ -78,7 +106,7 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
     float dist = distance(uv, CENTER);
 
     // 色の強さを距離に応じて調整（端に行くほど強い）
-    float factor = saturate(dist * 2.0) * g_flash_power;
+    float factor = saturate(dist * 2.0f) * g_flash_power;
     
     //色を追加
     float3 rgb = lerp(color.rgb, FLASH_COLOR, factor);

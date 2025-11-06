@@ -16,6 +16,7 @@ Camera::Camera(void) :
 	cameraUp_ = VECTOR();
 	mode_ = MODE::NONE;
 	pos_ = Utility3D::VECTOR_ZERO;
+	cameraLightPos_ = Utility3D::VECTOR_ZERO;
 	targetPos_ = Utility3D::VECTOR_ZERO;
 	followTransform_ = nullptr;
 
@@ -105,6 +106,11 @@ VECTOR Camera::GetForward(void) const
 Camera::MODE Camera::GetMode() const
 {
 	return mode_;
+}
+
+const VECTOR& Camera::GetCameraLightPos() const
+{
+	return cameraLightPos_;
 }
 
 void Camera::SetPos(const VECTOR& pos)

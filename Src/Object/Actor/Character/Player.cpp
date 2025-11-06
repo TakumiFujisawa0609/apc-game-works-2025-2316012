@@ -13,6 +13,8 @@
 #include "../../Controller/OnHit/ControllerOnHitPlayer.h"
 #include "../../Controller/OnHit/ControllerOnHitReport.h"
 #include "../../Controller/OnHit/ControllerOnHitGravity.h"
+#include "../../Controller/OnHit/ControllerOnHitPlayerLight.h"
+#include "../../Controller/ControllerLight.h"
 #include "Player.h"
 
 const std::string Player::ANIM_JUMP = "jump";	//ジャンプ
@@ -33,6 +35,7 @@ Player::Player(const Json& param) :
 	reportPer_ = 0;
 	isJump_ = false;
 	state_ = STATE::NONE;
+	light_ = nullptr;
 	// 状態更新関数の登録
 	RegisterStateUpdateFunc(STATE::NONE, std::bind(&Player::UpdateNone, this));
 	RegisterStateUpdateFunc(STATE::ALIVE, std::bind(&Player::UpdateAlive, this));
@@ -51,10 +54,15 @@ void Player::Load()
 	// アクション制御クラスの生成
 	action_ = std::make_unique<ControllerActionPlayer>(*this);
 
+	// ライト制御クラスの生成
+	light_ = std::make_unique<ControllerLight>(*this);
+	light_->Load();
+
 	// 衝突後の処理クラス
 	onHitMap_[CollisionTags::TAG::PLAYER] = std::make_unique<ControllerOnHitPlayer>(*this);
 	onHitMap_[CollisionTags::TAG::REPORT] = std::make_unique<ControllerOnHitReport>(*this);
 	onHitMap_[CollisionTags::TAG::CHARACTER_GRAVITY_LINE] = std::make_unique<ControllerOnHitGravity>(*this);
+	onHitMap_[CollisionTags::TAG::PLAYER_LIGHT] = std::make_unique<ControllerOnHitPlayerLight>(*this);
 
 	// 基底クラスの読み込み処理
 	CharacterBase::Load();
@@ -70,6 +78,9 @@ void Player::Init()
 
 	// 初期状態
 	state_ = STATE::ALIVE;
+
+	// ライトの初期更新
+	light_->Update();
 }
 
 void Player::UpdateBody()
@@ -81,12 +92,7 @@ void Player::UpdateBody()
 void Player::DrawMain()
 {
 	return;
-
-	std::array frames = { 0,1,2,3,4,5 };
-	for (auto cnt : frames)
-	{
-		MV1DrawFrame(transform_.modelId, cnt);
-	}
+	MV1DrawFrame(transform_.modelId, 0);
 }
 
 void Player::InitAnimation()
@@ -133,7 +139,10 @@ void Player::UpdateAlive()
 	// 移動
 	move_->Update();
 
-	onHitMap_[CollisionTags::TAG::PLAYER]->Test();
+	// ライト
+	light_->Update();
+
+	//onHitMap_[CollisionTags::TAG::PLAYER]->Test();
 }
 
 void Player::UpdateDead()

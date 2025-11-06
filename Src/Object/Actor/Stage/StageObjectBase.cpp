@@ -1,5 +1,5 @@
-#include "StageObjectBase.h"
 #include "../../../Manager/Resource/ResourceManager.h"
+#include "../../../Manager/Generic/CharacterManager.h"
 #include "../../../Manager/Generic/CollisionManager.h"
 #include "../../../Manager/Generic/CollisionTags.h"
 #include "../../../Utility/UtilityCommon.h"
@@ -9,16 +9,19 @@
 #include "../../../Render/ModelRenderer.h"
 #include "../../Collider/ColliderModel.h"
 #include "../../Collider/ColliderFactory.h"
+#include "StageObjectBase.h"
 
 StageObjectBase::StageObjectBase(const std::string& key, const Json& mapParam, const Json& colliderParam) :
 	ActorBase(mapParam),
 	STAGE_KEY(key),
-	ROOM_TAG(mapParam["tag"])
+	ROOM_TAG(mapParam["tag"]),
+	charaMng_(CharacterManager::GetInstance())
 {
 	material_ = nullptr;
 	renderer_ = nullptr;
 	collider_ = collFtr_.Create(*this, colliderParam);
 	isActive_ = true;
+	isTrans_ = false;
 }
 
 StageObjectBase::~StageObjectBase()
@@ -31,7 +34,7 @@ void StageObjectBase::Load()
 	transform_.SetModel(resMng_.GetHandle(STAGE_KEY));
 
 	// マテリアル生成
-	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("standardVs"), 0, resMng_.GetHandle("standardPs"), 3);
+	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("standardVs"), 2, resMng_.GetHandle("standardPs"), 3);
 
 	// レンダラー生成
 	renderer_ = std::make_unique<ModelRenderer>(transform_.modelId, *material_);
@@ -45,9 +48,10 @@ void StageObjectBase::Load()
 
 	material_->AddConstBufVS(FLOAT4{ cameraPos.x,cameraPos.y, cameraPos.z, fogStart });
 	material_->AddConstBufVS(FLOAT4{ lightPos.x,lightPos.y, lightPos.z, fogEnd });
-	material_->AddConstBufPS(FLOAT4{ 1.0f,1.0f, 1.0f, fogEnd });
+
+	material_->AddConstBufPS(FLOAT4{ 1.0f,1.0f, 1.0f, 1.0f });
 	material_->AddConstBufPS(FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
-	material_->AddConstBufPS(FLOAT4{ 0.01f, 0.01f, 0.01f, 0.0f });
+	material_->AddConstBufPS(FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
 
 	// 基底クラスの読み込み
 	ActorBase::Load();
@@ -58,10 +62,12 @@ void StageObjectBase::DrawMain()
 	// マテリアル設定
 	material_->SetConstBufPS(1, FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
 	VECTOR cameraPos = GetCameraPosition();
+	VECTOR lightPos = charaMng_.GetPlayerLightPos();
 	float fogStart;
 	float fogEnd;
 	GetFogStartEnd(&fogStart, &fogEnd);
 	material_->SetConstBufVS(0, FLOAT4{ cameraPos.x,cameraPos.y,cameraPos.z, fogStart });
+	material_->SetConstBufVS(1, FLOAT4{ lightPos.x,lightPos.y,lightPos.z, fogEnd });
 	// 描画
 	renderer_->Draw();
 }

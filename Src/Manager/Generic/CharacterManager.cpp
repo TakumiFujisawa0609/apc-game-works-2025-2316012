@@ -3,6 +3,7 @@
 #include "../../Object/Actor/Character/Player.h"
 #include "../../Object/Actor/Character/Enemy.h"
 #include "../../Object/Actor/Character/Ghost.h"
+#include "../../Object/Controller/ControllerLight.h"
 #include "CharacterManager.h"
 
 void CharacterManager::Load()
@@ -108,6 +109,13 @@ void CharacterManager::AddCharacter(const TYPE type, std::unique_ptr<CharacterBa
 		characterMap_.emplace(type, std::move(characters));
 		return;
 	}
+}
+
+const VECTOR& CharacterManager::GetPlayerLightPos() const
+{
+	CharacterBase* character = characterMap_.at(TYPE::PLAYER).front().get();
+	Player* player = dynamic_cast<Player*>(character);
+	return player->GetControllerLight().GetLightPos();
 }
 
 CharacterManager::CharacterManager()

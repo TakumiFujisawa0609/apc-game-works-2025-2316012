@@ -403,6 +403,18 @@
       "sceneId": 3,
       "type": "vertexShader",
       "path": "Data/Shader/StageMainVS.cso"
+    },
+    {
+      "key": "paintingPs",
+      "sceneId": 3,
+      "type": "pixelShader",
+      "path": "Data/Shader/PaintingPS.cso"
+    },
+    {
+      "key": "paintingVs",
+      "sceneId": 3,
+      "type": "vertexShader",
+      "path": "Data/Shader/PaintingVS.cso"
     }
   ]
 }

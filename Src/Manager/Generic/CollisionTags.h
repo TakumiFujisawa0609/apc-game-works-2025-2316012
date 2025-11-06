@@ -21,6 +21,7 @@ public:
 		ENEMY,					// 敵
 		ENEMY_VIEW,				// 敵の視線
 		CHARACTER_GRAVITY_LINE, // 重力判定用線 
+		PLAYER_LIGHT,			// ライト
 		MAX
 	};
 

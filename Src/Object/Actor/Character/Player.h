@@ -4,6 +4,7 @@
 #include "CharacterBase.h"
 
 class ControllerOnHitReport;
+class ControllerLight;
 
 class Player : public CharacterBase
 {
@@ -97,6 +98,18 @@ public:
 	const int GetMadnessValue() const { return madnessValue_; }
 
 	/// <summary>
+	/// ライト座標を返す
+	/// </summary>
+	/// <returns>ライト座標</returns>
+	const VECTOR& GetLightPos() const { return lightPos_; }
+
+	/// <summary>
+	/// ライトを返す
+	/// </summary>
+	/// <returns>ライト</returns>
+	ControllerLight& GetControllerLight() { return *light_; }
+
+	/// <summary>
 	/// ジャンプ判定を返す
 	/// </summary>
 	/// <returns>ジャンプ判定</returns>
@@ -142,6 +155,11 @@ public:
 	/// </summary>
 	void SubMadnessUpdateStep() { madnessUpdateStep_ -= MADNESS_UPDATE_STEP_ADD; }
 
+	/// <summary>
+	/// ライト座標の設定
+	/// </summary>
+	void SetLightPos(const VECTOR& pos) { lightPos_ = pos; }
+
 private:
 
 	// ジャンプ量
@@ -174,8 +192,14 @@ private:
 	// 狂気更新用ステップ値
 	float madnessUpdateStep_;
 
+	// ライト座標
+	VECTOR lightPos_;
+
 	// 状態
 	STATE state_;
+
+	// ライト
+	std::unique_ptr<ControllerLight> light_;
 
 	// 状態別の更新関数マップ
 	std::unordered_map<STATE, std::function<void()>> stateUpdateFuncMap_;

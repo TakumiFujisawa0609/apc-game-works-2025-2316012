@@ -45,7 +45,13 @@ private:
 	static constexpr float BLUR_SPEED = 0.1f;
 
 	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 2;
+	static constexpr int CONST_BUFFER_SIZE = 3;
+
+	// フィルムグレインの強さ
+	static constexpr int GRAIN_POWER = 2;
+
+	// フィルムグレインステップ
+	float grainStep_;
 
 	// フラッシュ強さ
 	float flashPower_;

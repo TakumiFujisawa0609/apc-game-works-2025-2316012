@@ -1,6 +1,7 @@
 #pragma once
 #include "../ActorBase.h"
 
+class CharacterManager;
 class ModelMaterial;
 class ModelRenderer;
 
@@ -38,13 +39,33 @@ public:
 	/// <returns></returns>
 	const std::string& GetRoomTag() const { return ROOM_TAG; }
 
+	/// <summary>
+	/// ステージキーを返す
+	/// </summary>
+	/// <returns>ステージキー</returns>
+	const std::string& GetStageKey() const { return STAGE_KEY; }
+
+	/// <summary>
+	/// 透過描画判定(順番を後半に回すか)
+	/// </summary>
+	/// <returns>trueの場合順番を後半に回す</returns>
+	const bool IsTranslucent() const { return isTrans_; }
+
 protected:
+	
+	// キャラクター管理クラス
+	CharacterManager& charaMng_;
 
 	// ステージキー
 	const std::string STAGE_KEY;
 
 	// 処理用部屋識別タグ
 	const std::string ROOM_TAG;
+
+	const VECTOR AMBIENT = { 0.5f, 0.5f, 0.5f };
+
+	// 透過描画判定
+	bool isTrans_;
 
 	// マテリアル
 	std::unique_ptr<ModelMaterial> material_;

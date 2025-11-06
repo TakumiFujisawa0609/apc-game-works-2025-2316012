@@ -1,4 +1,7 @@
+#include "../../../Manager/Generic/Camera.h"
+#include "../../../Manager/Generic/SceneManager.h"
 #include "../../../Manager/Generic/CollisionManager.h"
+#include "../../../Manager/Generic/CharacterManager.h"
 #include "../../../Manager/Generic/CollisionTags.h"
 #include "../../../Manager/Resource/ResourceManager.h"
 #include "../../../Render/ModelMaterial.h"
@@ -27,7 +30,7 @@ void StageMain::Load()
 	onHit_ = std::make_unique<ControllerOnHitStageObject>(*this);
 
 	// マテリアル生成
-	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("stageMainVs"), 0, resMng_.GetHandle("stageMainPs"), 3);
+	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("standardVs"), 2, resMng_.GetHandle("standardPs"), 3);
 
 	// レンダラー生成
 	renderer_ = std::make_unique<ModelRenderer>(transform_.modelId, *material_);
@@ -43,7 +46,7 @@ void StageMain::Load()
 	material_->AddConstBufVS(FLOAT4{ lightPos.x,lightPos.y, lightPos.z, fogEnd });
 	material_->AddConstBufPS(FLOAT4{ 1.0f,1.0f, 1.0f, 1.0f });
 	material_->AddConstBufPS(FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
-	material_->AddConstBufPS(FLOAT4{ 0.01f, 0.01f, 0.01f, 0.0f });
+	material_->AddConstBufPS(FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
 }
 
 void StageMain::Init()
@@ -104,10 +107,12 @@ void StageMain::DrawMain()
 	// 通常描画
 	//MV1DrawModel(transform_.modelId);
 	VECTOR cameraPos = GetCameraPosition();
+	VECTOR lightPos = charaMng_.GetPlayerLightPos();
 	float fogStart;
 	float fogEnd;
 	GetFogStartEnd(&fogStart, &fogEnd);
 	material_->SetConstBufVS(0, FLOAT4{ cameraPos.x,cameraPos.y,cameraPos.z, fogStart });
+	material_->SetConstBufVS(1, FLOAT4{ lightPos.x,lightPos.y, lightPos.z, fogEnd });
 	// マテリアル設定
 	material_->SetConstBufPS(1, FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
 	

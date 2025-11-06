@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Stage\Carpet.cpp" />
+    <ClCompile Include="Src\Object\Controller\ControllerLight.cpp" />
+    <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitPlayerLight.cpp" />
     <ClCompile Include="Src\Core\Game\Message.cpp" />
     <ClCompile Include="Src\Resource\ResourceAnimation.cpp" />
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyBloodyRoom.cpp" />
@@ -141,6 +144,9 @@
     <ClCompile Include="Src\Object\Actor\Stage\StageMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Stage\Carpet.h" />
+    <ClInclude Include="Src\Object\Controller\ControllerLight.h" />
+    <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitPlayerLight.h" />
     <ClInclude Include="Src\Core\Game\Message.h" />
     <ClInclude Include="Src\Resource\ResourceAnimation.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyBloodyRoom.h" />
@@ -310,6 +316,14 @@
     <ClInclude Include="Src\Object\Actor\Stage\StageMesh.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Src\Shader\Model\PaintingPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\Model\PaintingVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="Src\Shader\Model\StageMainPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>

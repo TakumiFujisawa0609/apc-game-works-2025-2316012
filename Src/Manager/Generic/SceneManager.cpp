@@ -73,12 +73,12 @@ void SceneManager::Init3D(void)
 	SetLightEnable(false);
 
 	// ライトの設定
-	//ChangeLightTypeDir({ 0.3f, -0.7f, 0.8f });
+	ChangeLightTypeDir({ 0.2f, -1.0f, 0.2f });
 
 	// フォグ設定
 	SetFogEnable(true);
 	SetFogColor(5, 5, 5);
-	SetFogStartEnd(100.0f, 500.0f);
+	SetFogStartEnd(500.0f, 1000.0f);
 
 }
 

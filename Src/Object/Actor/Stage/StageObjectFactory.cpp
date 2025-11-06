@@ -2,6 +2,7 @@
 #include "StageGimmickObjectBase.h"
 #include "Painting.h"
 #include "StageMain.h"
+#include "Carpet.h"
 #include "StageMesh.h"
 #include "StageObjectFactory.h"
 
@@ -19,6 +20,8 @@ StageObjectFactory::StageObjectFactory()
 	RegisterCreate("CorriderB", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
 	RegisterCreate("CorriderC", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
 	RegisterCreate("Roof", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
+	RegisterCreate("Carpet01", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateCarpet(key, mapParam, colliderParam); });
+	RegisterCreate("Carpet03", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateCarpet(key, mapParam, colliderParam); });
 }
 
 StageObjectFactory::~StageObjectFactory()
@@ -72,4 +75,9 @@ std::unique_ptr<StageMesh> StageObjectFactory::CreateStageMesh(const std::string
 std::unique_ptr<StageMain> StageObjectFactory::CreateStageMain(const std::string& key, const Json& mapParam, const Json& colliderParam)
 {
 	return std::make_unique<StageMain>(key, mapParam, colliderParam);
+}
+
+std::unique_ptr<Carpet> StageObjectFactory::CreateCarpet(const std::string& key, const Json& mapParam, const Json& colliderParam)
+{
+	return std::make_unique<Carpet>(key, mapParam, colliderParam);
 }

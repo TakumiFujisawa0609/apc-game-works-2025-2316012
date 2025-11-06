@@ -147,6 +147,12 @@ public:
 	MODE GetMode() const;
 
 	/// <summary>
+	/// ライトカメラ座標を返す
+	/// </summary>
+	/// <returns></returns>
+	const VECTOR& GetCameraLightPos() const;
+
+	/// <summary>
 	/// カメラ位置の設定
 	/// </summary>
 	/// <param name="pos">座標</param>
@@ -191,6 +197,9 @@ private:
 
 	// カメラの上方向
 	VECTOR cameraUp_;
+
+	// カメラライト座標
+	VECTOR cameraLightPos_;
 
 	// モード別更新ステップ関数管理
 	std::function<void()> beforeDrawFunc_;

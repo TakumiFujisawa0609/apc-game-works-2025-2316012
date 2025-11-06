@@ -414,6 +414,18 @@
     <ClCompile Include="Src\Resource\ResourceAnimation.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Core\Game\Message.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitPlayerLight.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Controller\ControllerLight.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Stage\Carpet.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Fader.h">
@@ -914,6 +926,18 @@
     <ClInclude Include="Src\Resource\ResourceAnimation.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\Game\Message.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitPlayerLight.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Controller\ControllerLight.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Stage\Carpet.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\PostEffect\Vignette.hlsl" />
@@ -928,6 +952,8 @@
     <FxCompile Include="Src\Shader\PostEffect\NightViewEffect.hlsl" />
     <FxCompile Include="Src\Shader\Model\StageMainPS.hlsl" />
     <FxCompile Include="Src\Shader\Model\StageMainVS.hlsl" />
+    <FxCompile Include="Src\Shader\Model\PaintingPS.hlsl" />
+    <FxCompile Include="Src\Shader\Model\PaintingVS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\Shader\Common\Pixel\PixelShader2DHeader.hlsli" />

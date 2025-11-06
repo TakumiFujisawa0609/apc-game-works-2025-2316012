@@ -13,9 +13,8 @@ cbuffer cbParam : register(b7)
 {
     float3 g_camera_pos;
     float g_fog_start;
-    
-    float3 g_light_pos;   
-    float g_fog_end;
+    float g_fog_end;   
+    float3 dummy;
 }
 
 VS_OUTPUT main(VS_INPUT VSInput)
@@ -61,12 +60,6 @@ VS_OUTPUT main(VS_INPUT VSInput)
     float foglength = length(lWorldPosition.xyz - g_camera_pos);
     float fog = (g_fog_end - foglength) / (g_fog_end - g_fog_start);
     ret.fogFactor = saturate(fog);
-    
-    // ポイントライト
-    // 1. ライトベクトルの計算
-    float lightDit = 200.0f;
-    float lightLength = length(lWorldPosition.xyz - g_light_pos);
-    ret.lightPower = saturate((lightDit - lightLength) / lightDit);
     
     // その他、ピクセルシェーダへ引継&初期化 ++++++++++++( 終了 )
     // 出力パラメータを返す

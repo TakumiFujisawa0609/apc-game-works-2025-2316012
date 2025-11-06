@@ -93,6 +93,12 @@ private:
 	// 部屋配列
 	std::vector<StageMain*> mainStages_;
 
+	// 通常描画リスト
+	std::vector<StageObjectBase*> opaqueList_;
+
+	// 透過描画リスト
+	std::vector<StageObjectBase*> translucentList_;
+
 	// ステージオブジェクトの管理マップ
 	std::unordered_map<std::string, std::vector<std::unique_ptr<StageObjectBase>>> stageObjectsMap_;
 
