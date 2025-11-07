@@ -5,12 +5,15 @@
 #include "../../../Manager/Generic/Camera.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../../Utility/Utility3D.h"
+#include "../../../Render/ModelMaterial.h"
+#include "../../../Render/ModelRenderer.h"
 #include "../../Controller/ControllerAnimation.h"
 #include "../../Controller/Action/ControllerActionBase.h"
 #include "../../Controller/ControllerMove.h"
 #include "../../Controller/ControllerRotate.h"
 #include "../../Controller/ControllerGravity.h"
 #include "../../Controller/OnHit/ControllerOnHitBase.h"
+#include "../../Controller/Draw/ControllerDrawBase.h"
 #include "../../Collider/ColliderLine.h"
 #include "../../Collider/ColliderCapsule.h"
 #include "../../Collider/ColliderFactory.h"
@@ -38,6 +41,7 @@ CharacterBase::CharacterBase(const Json& param) :
 	move_ = nullptr;
 	rotate_ = nullptr;
 	gravity_ = nullptr;
+	draw_ = nullptr;
 	goalQuaRot_ = Quaternion();
 	collider_ = collFtr_.Create(*this, param);
 }
@@ -125,7 +129,7 @@ void CharacterBase::UpdateApply()
 
 void CharacterBase::DrawMain()
 {
-	MV1DrawModel(transform_.modelId);
+	draw_->Draw();
 }
 
 void CharacterBase::SetGravityCollider()
@@ -139,7 +143,6 @@ void CharacterBase::SetGravityCollider()
 
 	colliderLine_->SetLocalPosPointHead(gravHitPosUp);
 	colliderLine_->SetLocalPosPointEnd(gravHitPosDown);
-
 }
 
 void CharacterBase::DebugDraw()

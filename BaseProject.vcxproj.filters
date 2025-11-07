@@ -426,6 +426,12 @@
     <ClCompile Include="Src\Object\Actor\Stage\Carpet.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawBase.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawEnemy.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Fader.h">
@@ -938,6 +944,12 @@
     <ClInclude Include="Src\Object\Actor\Stage\Carpet.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawEnemy.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\PostEffect\Vignette.hlsl" />
@@ -954,6 +966,8 @@
     <FxCompile Include="Src\Shader\Model\StageMainVS.hlsl" />
     <FxCompile Include="Src\Shader\Model\PaintingPS.hlsl" />
     <FxCompile Include="Src\Shader\Model\PaintingVS.hlsl" />
+    <FxCompile Include="Src\Shader\Model\EnemyVS.hlsl" />
+    <FxCompile Include="Src\Shader\Model\EnemyPS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\Shader\Common\Pixel\PixelShader2DHeader.hlsli" />

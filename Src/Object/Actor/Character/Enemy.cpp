@@ -15,6 +15,7 @@
 #include "../../Controller/OnHit/ControllerOnHitEnemy.h"
 #include "../../Controller/OnHit/ControllerOnHitEnemyView.h"
 #include "../../Controller/OnHit/ControllerOnHitGravity.h"
+#include "../../Controller/Draw/ControllerDrawEnemy.h"
 #include "Enemy.h"
 
 const std::string Enemy::ANIM_ACTION = "action";		// 攻撃
@@ -70,6 +71,10 @@ void Enemy::Load()
 
 	// 視野用の衝突後処理の生成
 	onHitView_ = std::make_unique<ControllerOnHitEnemyView>(*this);
+
+	// 描画用クラス読み込み
+	draw_ = std::make_unique<ControllerDrawEnemy>(transform_.modelId);
+	draw_->Load();
 }
 
 void Enemy::Init()

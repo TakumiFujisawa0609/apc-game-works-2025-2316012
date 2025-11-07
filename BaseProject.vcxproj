@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawEnemy.cpp" />
+    <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Carpet.cpp" />
     <ClCompile Include="Src\Object\Controller\ControllerLight.cpp" />
     <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitPlayerLight.cpp" />
@@ -144,6 +146,8 @@
     <ClCompile Include="Src\Object\Actor\Stage\StageMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawEnemy.h" />
+    <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawBase.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Carpet.h" />
     <ClInclude Include="Src\Object\Controller\ControllerLight.h" />
     <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitPlayerLight.h" />
@@ -316,6 +320,18 @@
     <ClInclude Include="Src\Object\Actor\Stage\StageMesh.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Src\Shader\Model\EnemyPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\Model\EnemyVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="Src\Shader\Model\PaintingPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>

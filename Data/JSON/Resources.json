@@ -415,6 +415,18 @@
       "sceneId": 3,
       "type": "vertexShader",
       "path": "Data/Shader/PaintingVS.cso"
+    },
+    {
+      "key": "enemyPs",
+      "sceneId": 3,
+      "type": "pixelShader",
+      "path": "Data/Shader/EnemyPS.cso"
+    },
+    {
+      "key": "enemyVs",
+      "sceneId": 3,
+      "type": "vertexShader",
+      "path": "Data/Shader/EnemyVS.cso"
     }
   ]
 }

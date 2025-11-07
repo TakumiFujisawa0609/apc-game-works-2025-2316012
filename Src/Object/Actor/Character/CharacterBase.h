@@ -12,6 +12,7 @@ class ControllerMove;
 class ControllerRotate;
 class ControllerGravity;
 class ControllerOnHitBase;
+class ControllerDrawBase;
 
 class CharacterBase : public ActorBase
 {
@@ -238,6 +239,9 @@ protected:
 
 	// 重力制御クラス
 	std::unique_ptr<ControllerGravity> gravity_;
+
+	// 描画制御クラス
+	std::unique_ptr<ControllerDrawBase> draw_;
 
 	// 衝突後処理の制御クラス
 	std::unordered_map<CollisionTags::TAG, std::unique_ptr<ControllerOnHitBase>> onHitMap_;
