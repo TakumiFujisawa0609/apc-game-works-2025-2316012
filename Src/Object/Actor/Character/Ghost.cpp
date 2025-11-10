@@ -60,7 +60,8 @@ void Ghost::Create(const Json& param)
 
 void Ghost::DrawMain()
 {
-	CharacterBase::DrawMain();
+	MV1DrawModel(transform_.modelId);
+	//CharacterBase::DrawMain();
 }
 
 void Ghost::InitAnimation()

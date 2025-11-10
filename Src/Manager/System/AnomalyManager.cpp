@@ -51,6 +51,8 @@ void AnomalyManager::Init()
 	{
 		anomaly.second->Init();
 	}
+
+	OccurAnomaly(TYPE::GHOST);
 }
 
 void AnomalyManager::Update()

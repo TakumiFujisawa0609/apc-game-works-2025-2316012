@@ -42,6 +42,7 @@ void ResourceManager::Init(void)
 	int sizeY = -1;
 	int sceneId = -1;
 	std::string key = "";
+	std::string soundType = "";
 	std::string stringType = "";
 	std::wstring path = L"";
 	std::string fontName = "";
@@ -51,7 +52,7 @@ void ResourceManager::Init(void)
 	std::ifstream ifs((Application::PATH_JSON + "Resources.json").c_str());
 	
 	//読み込めない場合アサート
-	assert(ifs.is_open(), "ファイルが開けません");
+	assert(ifs.is_open() && "ファイルが開けません");
 	
 	json j;
 	ifs >> j;
@@ -67,7 +68,7 @@ void ResourceManager::Init(void)
 
 		//列挙型へ変換
 		auto it = RESOURCE_TYPE_MAP.find(stringType);
-		assert(it != RESOURCE_TYPE_MAP.end(), "登録されてない種類です");
+		assert(it != RESOURCE_TYPE_MAP.end() && "登録されてない種類です");
 		ResourceBase::RESOURCE_TYPE type = it->second;
 		
 		//情報の格納
@@ -95,7 +96,8 @@ void ResourceManager::Init(void)
 			break;
 
 		case ResourceBase::RESOURCE_TYPE::SOUND:
-			resource = make_unique<ResourceSound>(type, path, sceneId);
+			soundType = res["soundType"].get<std::string>();
+			resource = make_unique<ResourceSound>(type, path, soundType, sceneId);
 			break;
 
 		case ResourceBase::RESOURCE_TYPE::FONT:
@@ -172,6 +174,50 @@ void ResourceManager::SceneChangeResource(const int nextSceneId)
 			loadedMap_.emplace(p.first, p.second.get());
 		}
 	}
+}
+
+std::unordered_map<std::string, ResourceSound*>& ResourceManager::GetSceneSounds() const
+{
+	// シーンリソースを格納するマップ
+	static std::unordered_map<std::string, ResourceSound*> sceneSounds;
+
+	// 空じゃないか確認
+	if (loadedMap_.empty())
+	{
+		assert(false && "読み込んだリソースがありません");
+		return sceneSounds;
+	}
+
+	// 指定した種類のリソースを探す
+	for (auto& p : resourcesMap_)
+	{
+		// 指定した種類のリソースだけを抽出
+		if (p.second->GetType() == ResourceBase::RESOURCE_TYPE::SOUND)
+		{
+			// 読み込んだリソースか確認
+			auto it = loadedMap_.find(p.first);
+			if (it != loadedMap_.end())
+			{
+				// 実行時型チェック
+				ResourceSound* sound = dynamic_cast<ResourceSound*>(p.second.get());
+				
+				// 型が正しい場合
+				if (sound != nullptr)
+				{
+					// 格納	
+					sceneSounds.emplace(p.first, sound);
+				}
+				// 型が不正な場合
+				else 
+				{
+					assert(false && "型情報がSOUNDなのにキャストに失敗しました");
+				}
+			}
+		}
+	}
+
+	// シーンリソースを返す
+	return sceneSounds;
 }
 
 const int ResourceManager::GetHandle(const std::string& key) const

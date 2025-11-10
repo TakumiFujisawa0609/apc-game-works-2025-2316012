@@ -1,4 +1,5 @@
 #include "../../../Manager/Generic/GameStateManager.h"
+#include "../../../Manager/Resource/SoundManager.h"
 #include "../../../Manager/System/GameSystemManager.h"
 #include "../../../Core/Game/ReportSystem.h"
 #include "../../../Object/Actor/Stage/StageObjectBase.h"
@@ -53,5 +54,11 @@ void ControllerOnHitReport::OnHitCommon()
 	//owner_.SubMadnessUpdateStep();
 
 	// 狂気値を減らす
-	owner_.AddMadnessValue(-30);
+	owner_.AddMadnessValue(-100);
+
+	// 全ての効果音停止
+	sndMng_.StopAllSe();
+
+	// サウンド再生
+	sndMng_.PlaySe(SoundType::SE::REPORTING);
 }

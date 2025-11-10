@@ -13,22 +13,18 @@ class SceneTitle : public SceneBase
 public:
 
 	// コンストラクタ
-	SceneTitle(void);
+	SceneTitle();
 
 	// デストラクタ
-	~SceneTitle(void);
+	~SceneTitle();
 
 	// 読み込み処理
-	void Load(void) override;
+	void Load() override;
 
 	// 初期化処理
-	void Init(void) override;
+	void Init() override;
 
 private:
-
-	// サウンド
-	int se_;				// 効果音
-	int bgm_;				// BGM
 
 	// ロゴ
 	std::unique_ptr<TitleLogo> logo_;
@@ -38,11 +34,11 @@ private:
 	std::unique_ptr<PixelMaterial> keyMaterial_;
 
 	// 更新関数
-	void NormalUpdate(void) override;
+	void NormalUpdate() override;
 
 	// 描画関数
-	void NormalDraw(void) override;
+	void NormalDraw() override;
 
 	// 処理の変更
-	void ChangeNormal(void) override;
+	void ChangeNormal() override;
 };

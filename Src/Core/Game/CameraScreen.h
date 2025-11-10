@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include "CoreGameBase.h"
 #include "../../Common/Sprite.h"
+#include "../../Common/Image.h"
+#include "../../Common/CharacterString.h"
 
 class PostEffectBase;
 class InputManager;
@@ -19,7 +21,6 @@ public:
 	{
 		NORMAL,		// 通常
 		NIGHT_VIEW,	// 暗視
-		DEBUG		// デバッグ
 	};
 
 	/// <summary>
@@ -79,7 +80,10 @@ private:
 	SCREEN_MODE mode_;
 
 	// カメラフレーム
-	Sprite cameraFrame_;
+	Image cameraFrame_;
+
+	// カメラ切り替え用のアイコン
+	Sprite switchIcon_;
 
 	// スクリーンモード別にエフェクトを管理
 	std::unordered_map<SCREEN_MODE, std::unique_ptr<PostEffectBase>> effectMap_;

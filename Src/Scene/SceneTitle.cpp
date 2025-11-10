@@ -13,7 +13,7 @@
 #include "../Core/Title/TitleLogo.h"
 #include "SceneTitle.h"
 
-SceneTitle::SceneTitle(void)
+SceneTitle::SceneTitle()
 {
 	// 更新関数のセット
 	updataFunc_ = std::bind(&SceneTitle::LoadingUpdate, this);
@@ -22,18 +22,16 @@ SceneTitle::SceneTitle(void)
 	drawFunc_ = std::bind(&SceneTitle::LoadingDraw, this);
 	
 	// 変数の初期化
-	se_ = -1;
-	bgm_ = -1;
 	logo_ = nullptr;
 	keyMaterial_ = nullptr;
 	keyRenderer_ = nullptr;
 }
 
-SceneTitle::~SceneTitle(void)
+SceneTitle::~SceneTitle()
 {
 }
 
-void SceneTitle::Load(void)
+void SceneTitle::Load()
 {
 	//親クラスの読み込み
 	SceneBase::Load();
@@ -47,17 +45,9 @@ void SceneTitle::Load(void)
 	keyMaterial_ = std::make_unique<PixelMaterial>(Nps, 1);
 	keyMaterial_->AddTextureBuf(resMng_.GetHandle("pleaseSpaceKey"));
 	keyRenderer_ = std::make_unique<PixelRenderer>(*keyMaterial_);
-
-	// サウンドの取得
-	se_ = resMng_.GetHandle("testSe");
-	bgm_ = resMng_.GetHandle("titleBgm");
-
-	// サウンドの追加
-	sndMng_.Add(se_, SOUNDTYPE::SE);
-	sndMng_.Add(bgm_, SOUNDTYPE::BGM);
 }
 
-void SceneTitle::Init(void)
+void SceneTitle::Init()
 {
 	keyRenderer_->SetPos({ Application::SCREEN_HALF_X - 476 / 2, 500 });
 	keyRenderer_->SetSize({ 476, 48 });
@@ -67,23 +57,24 @@ void SceneTitle::Init(void)
 	logo_->Init();
 
 	// BGMの再生
-	sndMng_.Play(bgm_);
+	sndMng_.PlayBgm(SoundType::BGM::TITLE);
 }
 
-void SceneTitle::NormalUpdate(void)
+void SceneTitle::NormalUpdate()
 {	
 	// シーン遷移
 	if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_DECISION))
 	{
-		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::GAME);
-		sndMng_.Stop(bgm_);
+		scnMng_.ChangeScene(SceneManager::SCENE_ID::GAME);
+		sndMng_.StopBgm(SoundType::BGM::TITLE);
+		sndMng_.PlaySe(SoundType::SE::GAME_START);
 	}
 
 	// ロゴ更新
 	logo_->Update();
 }
 
-void SceneTitle::NormalDraw(void)
+void SceneTitle::NormalDraw()
 {
 	// 背景
 	DrawBox(
@@ -104,7 +95,7 @@ void SceneTitle::NormalDraw(void)
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
-void SceneTitle::ChangeNormal(void)
+void SceneTitle::ChangeNormal()
 {
 	//処理変更
 	updataFunc_ = std::bind(&SceneTitle::NormalUpdate, this);

@@ -31,14 +31,15 @@ void SceneBase::Load(void)
 	// シーン内のリソースを読み込む
 	resMng_.SceneChangeResource(static_cast<int>(scnMng_.GetSceneID()));
 
+	// サウンドのリソースの切り替え
+	sndMng_.SceneChangeResources();
+
 	//ローディング用文字列設定
 	const std::wstring& fontName = resMng_.GetFontName("fontKazuki");
 	loadingString_.fontHandle = fontMng_.CreateMyFont(fontName, 32, 0);
 	loadingString_.color = UtilityCommon::WHITE;
 	loadingString_.pos = { LOADING_STRING_POS_X, LOADING_STRING_POS_Y };
 	loadingString_.string = L"Now loading";
-
-
 }
 
 void SceneBase::Init(void)

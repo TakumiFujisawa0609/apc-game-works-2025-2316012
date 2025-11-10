@@ -1,9 +1,11 @@
 #include "../../../Manager/Generic/GameStateManager.h"
+#include "../../../Manager/Resource/SoundManager.h"
 #include "../../Collider/ColliderBase.h"
 #include "ControllerOnHitBase.h"
 
 ControllerOnHitBase::ControllerOnHitBase() :
-    stateMng_(GameStateManager::GetInstance())
+    stateMng_(GameStateManager::GetInstance()),
+	sndMng_(SoundManager::GetInstance())
 {
     cnt_ = 0;
 }

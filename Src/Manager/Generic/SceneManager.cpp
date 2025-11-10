@@ -8,6 +8,7 @@
 #include "../Resource/ResourceManager.h"
 #include "../Resource/SoundManager.h"
 #include "../Resource/FontManager.h"
+#include "../System/ScoreManager.h"
 #include "Camera.h"
 #include "SceneManager.h"
 
@@ -26,13 +27,16 @@ void SceneManager::Init(void)
 	camera_ = std::make_unique<Camera>();
 	camera_->Init();
 
-	//サウンド管理生成
+	// サウンド管理生成
 	SoundManager::CreateInstance();
 
-	//フォント管理クラス生成
+	// フォント管理クラス生成
 	FontManager::CreateInstance();
 
-	//シーン遷移中
+	// スコア管理生成
+	ScoreManager::CreateInstance();
+
+	// シーン遷移中
 	isSceneChanging_ = true;
 
 	// デルタタイム
@@ -41,7 +45,7 @@ void SceneManager::Init(void)
 	// スクリーン
 	mainScreen_ = MakeScreen(Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y);
 
-	//ウィンドウがアクティブ状態でなくとも処理を行う
+	// ウィンドウがアクティブ状態でなくとも処理を行う
 	SetAlwaysRunFlag(true);
 
 	// 3D用の設定
@@ -79,7 +83,6 @@ void SceneManager::Init3D(void)
 	SetFogEnable(true);
 	SetFogColor(5, 5, 5);
 	SetFogStartEnd(500.0f, 1000.0f);
-
 }
 
 void SceneManager::Update(void)
@@ -99,7 +102,7 @@ void SceneManager::Update(void)
 		Fade();
 	}
 	
-	//シーンごとの更新
+	// シーンごとの更新
 	scenes_.back()->Update();
 
 	// カメラ更新
@@ -182,6 +185,7 @@ void SceneManager::Release(void)
 	//全てのシーンで使うシングルトンクラスやリソースはここで解放する
 	FontManager::GetInstance().Destroy();
 	SoundManager::GetInstance().Destroy();
+	ScoreManager::GetInstance().Destroy();
 }
 
 void SceneManager::ChangeScene(SCENE_ID nextId)

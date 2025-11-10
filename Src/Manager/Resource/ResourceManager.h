@@ -5,6 +5,7 @@
 #include "../../Resource/ResourceBase.h"
 
 class ResourceBase;
+class ResourceSound;
 
 class ResourceManager : public Singleton<ResourceManager>
 {
@@ -30,6 +31,12 @@ public:
 	/// </summary>
 	/// <param name="nextSceneId">次シーンのID</param>
 	void SceneChangeResource(const int nextSceneId);
+
+	/// <summary>
+	/// シーンで用いるサウンドを返す
+	/// </summary>
+	/// <returns>シーンで用いるサウンド</returns>
+	std::unordered_map<std::string, ResourceSound*>& GetSceneSounds() const;
 
 	/// <summary>
 	/// 指定したキーのリソースを返す

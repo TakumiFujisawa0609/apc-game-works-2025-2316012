@@ -1,9 +1,13 @@
 #pragma once
 #include "Vector2.h"
+
 struct Sprite
 {
 	// テクスチャハンドルID
-	int handleId;	
+	const int* handleIds;
+
+	// 表示する番号
+	int index;
 
 	// テクスチャの位置
 	Vector2 pos;	

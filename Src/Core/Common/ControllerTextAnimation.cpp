@@ -1,10 +1,12 @@
 #include "../../Manager/Generic/SceneManager.h"
+#include "../../Manager/Resource/SoundManager.h"
 #include "ControllerTextAnimation.h"
 
 ControllerTextAnimation::ControllerTextAnimation(CharacterString& text, const float charPerFrame) :
 	text_(text),
 	charPerFrame_(charPerFrame),
-	scnMng_(SceneManager::GetInstance())
+	scnMng_(SceneManager::GetInstance()),
+	sndMng_(SoundManager::GetInstance())
 {
 	textData_ = text_.string;
 	step_ = 0.0f;
@@ -42,6 +44,9 @@ void ControllerTextAnimation::Update()
 
 		// ステップを初期化
 		step_ = 0.0f;
+
+		// 効果音の再生
+		SoundManager::GetInstance().PlaySe(SoundType::SE::KEBOARD);
 	}
 }
 

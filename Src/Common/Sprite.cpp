@@ -1,8 +1,9 @@
-#include "Sprite.h"
 #include <DxLib.h>
+#include "Sprite.h"
 
 Sprite::Sprite() :
-	handleId(-1),
+	handleIds(nullptr),
+	index(0),
 	pos(Vector2(0, 0)),
 	size(Vector2(0, 0)),
 	div(Vector2(1, 1)),
@@ -33,7 +34,7 @@ const void Sprite::Draw() const
 	DrawGraph(
 		pos.x,
 		pos.y,
-		handleId,
+		handleIds[index],
 		isTrans
 	);
 }
@@ -45,7 +46,7 @@ const void Sprite::DrawRota() const
 		pos.y,
 		scale,
 		angle,
-		handleId,
+		handleIds[index],
 		isTrans,
 		isFlipX,
 		isFlipY
@@ -59,7 +60,7 @@ const void Sprite::DrawExtend() const
 		pos.y,
 		size.x + pos.x,
 		size.y + pos.y,
-		handleId,
+		handleIds[index],
 		isTrans
 	);
 }

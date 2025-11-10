@@ -4,6 +4,7 @@
 #include "../../../Manager/Generic/GameStateManager.h"
 #include "../../../Manager/Generic/StageManager.h"
 #include "../../../Manager/Generic/Camera.h"
+#include "../../../Manager/System/ScoreManager.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Core/Common/Timer.h"
@@ -470,8 +471,13 @@ void ControllerActionEnemy::UpdateAction()
 		// 画面揺れが終わった場合
 		if (shake_->IsEnd())
 		{
-			// リザルトに変わる
+			// ゲームオーバーに設定
+			ScoreManager::GetInstance().SetEndState(ScoreManager::END_STATE::DEAD);
+
+			// シーン遷移
 			scnMng_.ChangeScene(SceneManager::SCENE_ID::RESULT);
+
+			// ゲーム状態をNONEに変更
 			GameStateManager::GetInstance().ChangeState(GameStateManager::STATE::NONE);
 			return;
 		}

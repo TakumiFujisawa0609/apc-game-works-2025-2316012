@@ -5,6 +5,7 @@
 #include "../../Manager/Resource/ResourceManager.h"
 #include "../../Manager/Resource/FontManager.h"
 #include "../../Manager/System/GameSystemManager.h"
+#include "../../Manager/System/ScoreManager.h"
 #include "../../Utility/UtilityCommon.h"
 #include "../Common/Timer.h"
 #include "Message.h"
@@ -25,7 +26,7 @@ GameTime::~GameTime()
 void GameTime::Load()
 {
 	// 時間
-	timer_ = std::make_unique<Timer>(300.0f);
+	timer_ = std::make_unique<Timer>(60.0f);
 
 	// フォント
 	int font = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), FONT_SIZE, FONT_THICK);
@@ -61,6 +62,13 @@ void GameTime::Update()
 	{
 		// ゲームの終了処理
 		stateMng_.ChangeState(GameStateManager::STATE::NONE);
+
+		// シーン遷移
+		scnMng_.ChangeScene(SceneManager::SCENE_ID::RESULT);
+
+		// ゲームオーバーに設定
+		ScoreManager::GetInstance().SetEndState(ScoreManager::END_STATE::CLEAR);
+		return;
 	}
 
 	if (timer_->GetCount() >= ONE_MINUTES && !isEvent_)

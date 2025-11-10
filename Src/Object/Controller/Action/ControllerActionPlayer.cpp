@@ -5,6 +5,7 @@
 #include "../../../Manager/Generic/CollisionManager.h"
 #include "../../../Manager/Generic/CollisionTags.h"
 #include "../../../Manager/Generic/Camera.h"
+#include "../../../Manager/Resource/SoundManager.h"
 #include "../../../Manager/System/GameSystemManager.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Utility/UtilityCommon.h"
@@ -247,6 +248,18 @@ void ControllerActionPlayer::ProcessReport()
 
 		// 新しい進捗率を計算
 		newPercent = nowPercent + step;
+	}
+
+	// 入力中の効果音再生
+	if (input_.IsTrgDown(InputManager::TYPE::ANOMARY_REPORT))
+	{
+		// 再生
+		sndMng_.PlaySe(SoundType::SE::REPORT);
+	}
+	else if (input_.IsTrgUp(InputManager::TYPE::ANOMARY_REPORT))
+	{
+		// 停止
+		sndMng_.StopSe(SoundType::SE::REPORT);
 	}
 
 	// 進捗率が最大値以上の場合

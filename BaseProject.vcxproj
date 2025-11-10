@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Manager\System\ScoreManager.cpp" />
+    <ClCompile Include="Src\Manager\Resource\SoundType.cpp" />
     <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawEnemy.cpp" />
     <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Carpet.cpp" />
@@ -144,8 +146,11 @@
     <ClCompile Include="Src\Object\Actor\Stage\StageMain.cpp" />
     <ClCompile Include="Src\Core\Title\TitleLogo.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\StageMesh.cpp" />
+    <ClCompile Include="Src\Common\Image.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Manager\System\ScoreManager.h" />
+    <ClInclude Include="Src\Manager\Resource\SoundType.h" />
     <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawEnemy.h" />
     <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawBase.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Carpet.h" />
@@ -318,6 +323,7 @@
     <ClInclude Include="Src\Object\Actor\Stage\StageMain.h" />
     <ClInclude Include="Src\Core\Title\TitleLogo.h" />
     <ClInclude Include="Src\Object\Actor\Stage\StageMesh.h" />
+    <ClInclude Include="Src\Common\Image.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\Model\EnemyPS.hlsl">

@@ -9,8 +9,10 @@
 #include "../Manager/Generic/GameStateManager.h"
 #include "../Manager/Resource/ResourceManager.h"
 #include "../Manager/Resource/FontManager.h"
+#include "../Manager/Resource/SoundManager.h"
 #include "../Manager/System/GameSystemManager.h"
 #include "../Manager/System/AnomalyManager.h"
+#include "../Manager/System/ScoreManager.h"
 #include "../Utility/UtilityCommon.h"
 #include "../Object/Actor/Character/CharacterBase.h"
 #include "../Object/Actor/Stage/StageObjectBase.h"
@@ -102,6 +104,9 @@ void SceneGame::Init(void)
 	// ゲーム状態管理クラス初期化
 	GameStateManager::GetInstance().Init();
 
+	// スコアを初期化
+	ScoreManager::GetInstance().Init();
+
 	// カメラ設定
 	mainCamera.SetFollow(&CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform());
 	mainCamera.ChangeMode(Camera::MODE::FPS);
@@ -109,6 +114,9 @@ void SceneGame::Init(void)
 #ifdef _DEBUG	
 	test_->Init();
 #endif 
+
+	// BGMの再生
+	sndMng_.PlayBgm(SoundType::BGM::GAME);
 }
 
 void SceneGame::NormalUpdate(void)

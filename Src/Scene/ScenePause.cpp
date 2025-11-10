@@ -14,7 +14,6 @@ ScenePause::ScenePause(void)
 	//ï`âÊä÷êîÇÃÉZÉbÉg
 	drawFunc_ = std::bind(&ScenePause::NormalDraw, this);
 
-	imgTest_ = -1;
 	pauseFont_ = -1;
 	selectIndex_ = 0;
 	
@@ -40,7 +39,6 @@ ScenePause::~ScenePause(void)
 
 void ScenePause::Load(void)
 {
-	imgTest_ = resMng_.GetHandle("testImage");
 	pauseFont_ = fontMng_.CreateMyFont(resMng_.GetFontName("fontHanazome"), FONT_SIZE, FONT_THICK);
 }
 
@@ -87,16 +85,6 @@ void ScenePause::NormalDraw(void)
 		Application::SCREEN_SIZE_Y- MARGINT,
 		UtilityCommon::WHITE,
 		true);	
-	
-	DrawRotaGraph(
-		Application::SCREEN_HALF_X,
-		Application::SCREEN_HALF_Y,
-		1.0f,
-		0.0f,
-		imgTest_,
-		true,
-		false
-	);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	for (int i = 0; i < LIST_MAX; ++i)

@@ -1,4 +1,5 @@
 #include "../../../Manager/Generic/CollisionTags.h"
+#include "../../../Manager/Resource/SoundManager.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../Actor/Character/Player.h"
 #include "../../Actor/Stage/StageObjectBase.h"
@@ -91,6 +92,12 @@ void ControllerOnHitPlayer::OnHitEnemy(const std::weak_ptr<ColliderBase>& oppone
 {
 	// €–Só‘Ô‚Ö•ÏX
 	owner_.ChangeState(Player::STATE::DEAD);
+
+	// Œø‰Ê‰¹‚ÌÄ¶
+	sndMng_.PlaySe(SoundType::SE::JUMP_SCARE);
+
+	// BGM‚Ì’â~
+	sndMng_.StopBgm(SoundType::BGM::GAME);
 }
 
 void ControllerOnHitPlayer::OnHitRoom(const std::weak_ptr<ColliderBase>& opponentCollider)

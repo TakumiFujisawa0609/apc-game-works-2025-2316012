@@ -27,6 +27,9 @@ public:
 
 private:
 
+	// テキスト
+	CharacterString text_;
+
 	// 更新関数
 	void NormalUpdate() override;
 

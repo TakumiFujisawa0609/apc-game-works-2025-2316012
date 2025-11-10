@@ -5,6 +5,7 @@
 
 class CharacterBase;
 class CollisionManager;
+class SoundManager;
 
 class ControllerActionBase : public ControllerBase
 {
@@ -45,6 +46,7 @@ protected:
 	
 	// Õ“Ë”»’èŠÇ—ƒNƒ‰ƒX‚ÌQÆ
 	CollisionManager& collMng_;
+	SoundManager& sndMng_;
 
 private:
 

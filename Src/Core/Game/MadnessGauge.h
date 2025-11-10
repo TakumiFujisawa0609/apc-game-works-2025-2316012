@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreGameBase.h"
-#include "../../Common/Sprite.h"
+#include "../../Common/Image.h"
 
 class Player;
 
@@ -44,10 +44,10 @@ private:
 	const Player& player_;
 
 	// ゲージ
-	Sprite gauge_;
+	Image gauge_;
 
 	// ピン
-	Sprite pin_;
+	Image pin_;
 
 	// ゲージサイズ
 	Vector2 gaugeSize_;

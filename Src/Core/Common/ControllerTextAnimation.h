@@ -4,6 +4,7 @@
 #include "../../Common/CharacterString.h"
 
 class SceneManager;
+class SoundManager;
 
 /// <summary>
 /// テキストを一文字ずつ描画させる為のコントローラー
@@ -66,6 +67,9 @@ private:
 
 	// シーン管理クラスの参照
 	SceneManager& scnMng_;
+
+	// サウンド管理クラスの参照
+	SoundManager& sndMng_;
 
 	// 元の文字列
 	std::wstring textData_;	

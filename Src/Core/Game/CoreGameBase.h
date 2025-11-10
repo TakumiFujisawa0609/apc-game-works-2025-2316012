@@ -1,6 +1,7 @@
 #pragma once
 #include "../CoreBase.h"
 
+class SoundManager;
 class GameStateManager;
 class GameSystemManager;
 
@@ -19,6 +20,9 @@ public:
 	virtual ~CoreGameBase() override;
 
 protected:
+
+	// サウンド管理クラスの参照
+	SoundManager& sndMng_;
 
 	// ゲーム状態の管理参照
 	GameStateManager& stateMng_;

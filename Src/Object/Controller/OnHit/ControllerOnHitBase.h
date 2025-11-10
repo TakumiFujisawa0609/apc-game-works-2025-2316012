@@ -9,6 +9,7 @@
 class CharacterBase;
 class ColliderBase;
 class GameStateManager;
+class SoundManager;
 
 class ControllerOnHitBase : public ControllerBase
 {
@@ -43,6 +44,9 @@ protected:
 
 	// ゲーム状態管理クラス参照
 	GameStateManager& stateMng_;
+
+	// サウンド管理クラス参照
+	SoundManager& sndMng_;
 
 	//タグ別衝突後の処理の登録
 	void RegisterOnHit(const CollisionTags::TAG tag, std::function<void(const std::weak_ptr<ColliderBase>&)> onHit);

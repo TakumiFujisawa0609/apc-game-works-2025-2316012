@@ -97,7 +97,7 @@ private:
 	static constexpr float SHAKE_POWER = 10.0f;
 
 	// 画面シェイク時間
-	static constexpr float SHAKE_TIME = 5.0f;
+	static constexpr float SHAKE_TIME = 3.0f;
 
 	// 追跡範囲
 	static constexpr float CHASE_RANGE = 1500.0f;

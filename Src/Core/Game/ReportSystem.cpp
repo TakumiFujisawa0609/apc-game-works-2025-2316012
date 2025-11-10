@@ -5,7 +5,9 @@
 #include "../../Manager/Generic/CharacterManager.h"
 #include "../../Manager/Resource/ResourceManager.h"
 #include "../../Manager/Resource/FontManager.h"
+#include "../../Manager/Resource/SoundManager.h"
 #include "../../Manager/System/GameSystemManager.h"
+#include "../../Manager/System/ScoreManager.h"
 #include "../../Utility/UtilityCommon.h"
 #include "../../Object/Actor/Character/Player.h"
 #include "../Common/Timer.h"
@@ -14,7 +16,8 @@
 #include "ReportSystem.h"
 
 ReportSystem::ReportSystem(Player& player) :
-	player_(player)
+	player_(player),
+	scoreMng_(ScoreManager::GetInstance())
 {	
 	// 各種変数の初期化
 	state_ = STATE::NONE;
@@ -104,6 +107,9 @@ void ReportSystem::UpdateWait()
 
 		// テキストをミスに設定
 		systemMng_.ChangeMessage(Message::TYPE::REPORT_MISS);
+
+		// ミスしたとき用にスコアを減算
+		scoreMng_.AddScore(SCORE_MISS);
 	}
 }
 
@@ -124,6 +130,12 @@ void ReportSystem::UpdateReporting()
 		// 文字列の初期化
 		reportingText_.string = REPORTING_TEXT;
 		commaStep_ = 0.0f;
+
+		// 効果音の停止
+		sndMng_.StopSe(SoundType::SE::REPORTING);
+
+		// 成功したときのスコア加算
+		scoreMng_.AddScore(SCORE_SUCCESS);
 		return;
 	}
 

@@ -7,6 +7,7 @@
 #include "../Common/CircleGauge.h"
 
 class GameStateManager;
+class ScoreManager;
 class Timer;
 class ControllerTextAnimation;
 class Player;
@@ -77,11 +78,20 @@ private:
 	// 完了時のテキスト表示時間
 	static constexpr float TEXT_DISPLAY_TIME = 2.0f;
 
+	// ミス時のスコア
+	static constexpr int SCORE_MISS = -500;
+
+	// 成功時のスコア
+	static constexpr int SCORE_SUCCESS = 1000;
+
 	// 報告中のテキスト
 	const std::wstring REPORTING_TEXT = L"報告中";
 
 	// プレイヤークラスの参照
 	Player& player_;
+
+	// スコア管理クラスの参照
+	ScoreManager& scoreMng_;
 
 	// 状態
 	STATE state_;

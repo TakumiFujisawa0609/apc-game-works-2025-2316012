@@ -41,11 +41,12 @@ private:
 	// キーボード操作説明文
 	const std::wstring MANUAL_KEY = 
 		L"操作方法\n"
-		"移動		:WASD\n"
-		"ダッシュ	:LShift\n"
-		"報告		:R\n"
-		"カメラ		:Mouse\n"
-		"ポーズ		:P\n"
+		"移動			:WASD\n"
+		"ダッシュ		:LShift\n"
+		"報告			:R\n"
+		"カメラ切り替え	:E\n"
+		"カメラ			:Mouse\n"
+		"ポーズ			:P\n"
 		;
 
 	// テキスト
