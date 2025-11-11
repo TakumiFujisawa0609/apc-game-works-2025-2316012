@@ -170,6 +170,12 @@ public:
 	/// <param name="targetPos">注視点</param>
 	void SetTargetPos(const VECTOR& targetPos);
 
+	/// <summary>
+	/// 角度の設定
+	/// </summary>
+	/// <param name="angles">角度</param>
+	void SetAngles(const VECTOR& angles);
+
 private:
 
 	InputManager& input_;
@@ -228,6 +234,7 @@ private:
 
 	// モード別更新ステップ
 	void SetBeforeDrawNone() {};
+	void SetBeforeDrawFixedPoint();
 	void SetBeforeDrawFollow();
 	void SetBeforeDrawFps();
 	void SetBeforeDrawFree();

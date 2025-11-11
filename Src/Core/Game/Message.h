@@ -18,6 +18,7 @@ public:
 		START,
 		ENEMY_RESPOWN,
 		MADNESS,
+		MADNESS_PINCH,
 		ONE_MINNUTES_LATER,
 		REPORT_COMPLITE,
 		REPORT_MISS,
@@ -65,10 +66,11 @@ private:
 	const std::unordered_map<TYPE, std::vector<std::wstring>> MESSAGE_LIST =
 	{
 		{TYPE::NONE,{L""}},
-		{TYPE::START,{L"始業の時間になりました",L"調査を開始してください"} },
+		{TYPE::START,{L"始業の時間になりました",L"午前5時まで調査を開始してください"} },
 		{TYPE::ONE_MINNUTES_LATER,{ L"異変が起きやすい時刻になりました", L"十分に警戒して調査を行ってください"}},
 		{TYPE::ENEMY_RESPOWN,{ L"危険な生命体の反応を感知しました", L"見つけ次第直ちに逃げてください"}},
 		{TYPE::MADNESS,{ L"精神状態が不安定になっています", L"異変を報告して回復してください"}},
+		{TYPE::MADNESS_PINCH,{ L"もうすぐで倒れてしまいます", L"早急に異変を報告して回復してください"}},
 		{TYPE::REPORT_COMPLITE,{L"異変が報告されました"}},
 		{TYPE::REPORT_MISS,{L"誤った報告がされました"}},
 	};

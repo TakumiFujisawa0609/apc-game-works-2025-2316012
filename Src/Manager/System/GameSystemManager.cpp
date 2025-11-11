@@ -33,8 +33,8 @@ void GameSystemManager::Load()
 	systemsMap_.emplace(TYPE::MANUAL, std::move(manual));
 
 	// ã∂ãCÉQÅ[ÉWÇÃê∂ê¨
-	auto mad = std::make_unique<MadnessGauge>(player);
-	systemsMap_.emplace(TYPE::MADNESS, std::move(mad));
+	//auto mad = std::make_unique<MadnessGauge>(player);
+	//systemsMap_.emplace(TYPE::MADNESS, std::move(mad));
 
 	// ì«Ç›çûÇ›
 	for (auto& system : systemsMap_)

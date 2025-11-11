@@ -40,15 +40,6 @@ void CameraScreen::Load()
 	auto nightViewEffect = std::make_unique<PostEffectNightView>();
 	effectMap_.emplace(SCREEN_MODE::NIGHT_VIEW, std::move(nightViewEffect));
 
-	int font = FontManager::GetInstance().CreateMyFont(resMng_.GetFontName("fontKazuki"), 16, FONT_THICK);
-	const Vector2 POS = { Application::SCREEN_SIZE_X - 70, Application::SCREEN_SIZE_Y - 128 - 20  };
-
-	// テキストの設定
-	text_.string = L"カメラの切り替え";
-	text_.fontHandle = font;
-	text_.pos = POS;
-	text_.color = UtilityCommon::WHITE;
-
 	// 読み込み処理
 	for (auto& effect : effectMap_)
 	{
@@ -66,8 +57,9 @@ void CameraScreen::Init()
 	cameraFrame_.size = { Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y };
 
 	// スイッチアイコンの初期化
-	switchIcon_.pos = { Application::SCREEN_SIZE_X - 64, Application::SCREEN_SIZE_Y - 64 };
+	switchIcon_.pos = { Application::SCREEN_SIZE_X - 80, Application::SCREEN_SIZE_Y - 64 };
 	switchIcon_.size = { 128, 128 };
+	switchIcon_.scale = 0.7f;
 
 	// 初期化処理
 	for (auto& effect : effectMap_)
@@ -127,9 +119,6 @@ void CameraScreen::Draw()
 
 	// アイコンの描画
 	switchIcon_.DrawRota();
-
-	// テキストの描画
-	text_.DrawCenter();
 }
 
 void CameraScreen::ChangeScreenMode(const SCREEN_MODE mode)

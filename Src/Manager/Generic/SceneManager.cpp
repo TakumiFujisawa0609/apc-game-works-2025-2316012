@@ -108,6 +108,9 @@ void SceneManager::Update(void)
 	// カメラ更新
 	camera_->Update();
 
+	// サウンドの更新
+	SoundManager::GetInstance().Update();
+
 }
 
 void SceneManager::Draw(void)

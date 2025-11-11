@@ -26,7 +26,7 @@ GameTime::~GameTime()
 void GameTime::Load()
 {
 	// 時間
-	timer_ = std::make_unique<Timer>(60.0f);
+	timer_ = std::make_unique<Timer>(300.0f);
 
 	// フォント
 	int font = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), FONT_SIZE, FONT_THICK);
@@ -61,13 +61,7 @@ void GameTime::Update()
 	if (timer_->CountUp())
 	{
 		// ゲームの終了処理
-		stateMng_.ChangeState(GameStateManager::STATE::NONE);
-
-		// シーン遷移
-		scnMng_.ChangeScene(SceneManager::SCENE_ID::RESULT);
-
-		// ゲームオーバーに設定
-		ScoreManager::GetInstance().SetEndState(ScoreManager::END_STATE::CLEAR);
+		stateMng_.SetGameClear();
 		return;
 	}
 

@@ -30,7 +30,7 @@ void StageMain::Load()
 	onHit_ = std::make_unique<ControllerOnHitStageObject>(*this);
 
 	// マテリアル生成
-	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("standardVs"), 2, resMng_.GetHandle("standardPs"), 3);
+	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("stageMainVs"), 2, resMng_.GetHandle("stageMainPs"), 3);
 
 	// レンダラー生成
 	renderer_ = std::make_unique<ModelRenderer>(transform_.modelId, *material_);

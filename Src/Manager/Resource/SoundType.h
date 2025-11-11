@@ -42,6 +42,8 @@ public:
 		REPORT,
 		REPORTING,
 		CAMERA_MODE_CAHNGE,
+		ENEMY_FOUND,
+		PLAYER_DIE,
 		MAX
 	};
 

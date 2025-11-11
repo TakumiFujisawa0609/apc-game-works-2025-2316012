@@ -4,6 +4,7 @@
 #include "../../../Manager/Generic/GameStateManager.h"
 #include "../../../Manager/Generic/StageManager.h"
 #include "../../../Manager/Generic/Camera.h"
+#include "../../../Manager/Resource/SoundManager.h"
 #include "../../../Manager/System/ScoreManager.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../../Utility/Utility3D.h"
@@ -15,7 +16,7 @@
 #include "../../Collider/ColliderSphere.h"
 #include "../ControllerPathFinder.h"
 #include "../ControllerAnimation.h"
-#include "../ControllerCameraTransition.h"
+#include "../Camera/ControllerCameraJumpScare.h"
 #include "ControllerActionEnemy.h"
 
 ControllerActionEnemy::ControllerActionEnemy(Enemy& owner) :
@@ -48,7 +49,7 @@ ControllerActionEnemy::ControllerActionEnemy(Enemy& owner) :
 
 	// 処理で使うインスタンスの生成
 	timer_ = std::make_unique<Timer>();
-	transition_ = std::make_unique<ControllerCameraTransition>();
+	transition_ = std::make_unique<ControllerCameraJumpScare>();
 	shake_ = std::make_unique<ScreenShake>();
 }
 
@@ -233,6 +234,9 @@ void ControllerActionEnemy::ChangeStateSearch()
 
 	// 視野外に設定
 	isViewRange_ = false;
+
+	// 効果音の停止
+	sndMng_.FadeOutSe(SoundType::SE::ENEMY_FOUND);
 }
 
 void ControllerActionEnemy::ChangeStateIdle()
@@ -271,9 +275,6 @@ void ControllerActionEnemy::ChangeStateAction()
 
 	// アニメーションを実行
 	animation_.Play(Enemy::ANIM_ACTION);
-
-	// カメラを固定する
-	mainCamera.ChangeMode(Camera::MODE::FIXED_POINT);	
 	
 	// 所有者の座標取得
 	VECTOR pos = owner_.GetTransform().pos;
@@ -303,6 +304,9 @@ void ControllerActionEnemy::UpdateSearch()
 	// ターゲットを見つけた場合
 	if (IsSearchTarget())
 	{
+		// 効果音の再生
+		sndMng_.PlaySe(SoundType::SE::ENEMY_FOUND);
+
 		// 処理を飛ばす
 		return;
 	}
@@ -471,14 +475,8 @@ void ControllerActionEnemy::UpdateAction()
 		// 画面揺れが終わった場合
 		if (shake_->IsEnd())
 		{
-			// ゲームオーバーに設定
-			ScoreManager::GetInstance().SetEndState(ScoreManager::END_STATE::DEAD);
-
-			// シーン遷移
-			scnMng_.ChangeScene(SceneManager::SCENE_ID::RESULT);
-
-			// ゲーム状態をNONEに変更
-			GameStateManager::GetInstance().ChangeState(GameStateManager::STATE::NONE);
+			// ゲームオーバーの設定
+			GameStateManager::GetInstance().SetGameOver();
 			return;
 		}
 	}

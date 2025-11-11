@@ -209,10 +209,12 @@ void SceneGame::DebugDraw(void)
 	// カメラ位置
 	VECTOR cPos = mainCamera.GetPos();
 	VECTOR cTarget = mainCamera.GetTargetPos();
+	VECTOR cAngles = mainCamera.GetAngles();
 
 	// 描画
 	DrawFormatString(0, 60, UtilityCommon::RED, L"カメラ位置：%2f,%2f,%2f", cPos.x, cPos.y, cPos.z);
 	DrawFormatString(0, 80, UtilityCommon::RED, L"注視点位置：%2f,%2f,%2f", cTarget.x, cTarget.y, cTarget.z);
+	DrawFormatString(0, 100, UtilityCommon::RED, L"カメラ角度：%2f,%2f,%2f", cAngles.x, cAngles.y, cAngles.z);
 
 	AnomalyManager::GetInstance().DebugDraw();
 }

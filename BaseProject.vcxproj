@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Controller\Camera\ControllerCameraPlayerDead.cpp" />
+    <ClCompile Include="Src\Object\Controller\Camera\ControllerCameraBase.cpp" />
+    <ClCompile Include="Src\Scene\State\Game\GameStateMadnessEnd.cpp" />
     <ClCompile Include="Src\Manager\System\ScoreManager.cpp" />
     <ClCompile Include="Src\Manager\Resource\SoundType.cpp" />
     <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawEnemy.cpp" />
@@ -48,7 +51,7 @@
     <ClCompile Include="Src\Core\Game\ReportSystem.cpp" />
     <ClCompile Include="Src\Manager\Generic\ResultManager.cpp" />
     <ClCompile Include="Src\Core\Common\ScreenShake.cpp" />
-    <ClCompile Include="Src\Object\Controller\ControllerCameraTransition.cpp" />
+    <ClCompile Include="Src\Object\Controller\Camera\ControllerCameraJumpScare.cpp" />
     <ClCompile Include="Src\Manager\Generic\GameStateManager.cpp" />
     <ClCompile Include="Src\Scene\State\Game\GameStateJumpScare.cpp" />
     <ClCompile Include="Src\Object\Controller\Action\State\Enemy\EnemyStateBase.cpp" />
@@ -149,6 +152,9 @@
     <ClCompile Include="Src\Common\Image.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Controller\Camera\ControllerCameraPlayerDead.h" />
+    <ClInclude Include="Src\Object\Controller\Camera\ControllerCameraBase.h" />
+    <ClInclude Include="Src\Scene\State\Game\GameStateMadnessEnd.h" />
     <ClInclude Include="Src\Manager\System\ScoreManager.h" />
     <ClInclude Include="Src\Manager\Resource\SoundType.h" />
     <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawEnemy.h" />
@@ -178,7 +184,7 @@
     <ClInclude Include="Src\Core\Game\ReportSystem.h" />
     <ClInclude Include="Src\Manager\Generic\ResultManager.h" />
     <ClInclude Include="Src\Core\Common\ScreenShake.h" />
-    <ClInclude Include="Src\Object\Controller\ControllerCameraTransition.h" />
+    <ClInclude Include="Src\Object\Controller\Camera\ControllerCameraJumpScare.h" />
     <ClInclude Include="Src\Manager\Generic\GameStateManager.h" />
     <ClInclude Include="Src\Scene\State\Game\GameStateJumpScare.h" />
     <ClInclude Include="Src\Object\Controller\Action\State\Enemy\EnemyStateBase.h" />

@@ -527,6 +527,20 @@
       "path": "Data/Sound/SE/SeChangeCameraMode.mp3"
     },
     {
+      "key": "seEnemyFound",
+      "sceneId": 3,
+      "type": "sound",
+      "soundType": "se",
+      "path": "Data/Sound/SE/SeEnemyFound.mp3"
+    },   
+    {
+      "key": "sePlayerDie",
+      "sceneId": 3,
+      "type": "sound",
+      "soundType": "se",
+      "path": "Data/Sound/SE/SePlayerDie.mp3"
+    },
+    {
       "key": "cameraSwitchIcons",
       "sceneId": 3,
       "type": "sprite",

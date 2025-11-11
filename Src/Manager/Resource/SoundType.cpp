@@ -25,5 +25,7 @@ const std::map<std::string, SoundType::SE> SoundType::KEY_SE_MAP =
     {"seNoiseSwitch", SoundType::SE::NOISE_SWITCH},
     {"seReport", SoundType::SE::REPORT},
     {"seReporting", SoundType::SE::REPORTING},
-    {"seCameraChangeMode", SoundType::SE::CAMERA_MODE_CAHNGE}
+    {"seCameraChangeMode", SoundType::SE::CAMERA_MODE_CAHNGE},
+	{"seEnemyFound", SoundType::SE::ENEMY_FOUND},
+	{"sePlayerDie", SoundType::SE::PLAYER_DIE}
 };

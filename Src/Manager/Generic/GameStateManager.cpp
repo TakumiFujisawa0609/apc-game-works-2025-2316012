@@ -1,8 +1,10 @@
-#include "SceneManager.h"
 #include "../../Scene/State/Game/GameStateBase.h"
 #include "../../Scene/State/Game/GameStateJumpScare.h"
 #include "../../Scene/State/Game/GameStatePlay.h"
 #include "../../Scene/State/Game/GameStateReporting.h"
+#include "../../Scene/State/Game/GameStateMadnessEnd.h"
+#include "../System/ScoreManager.h"
+#include "SceneManager.h"
 #include "GameStateManager.h"
 
 void GameStateManager::Load()
@@ -18,6 +20,10 @@ void GameStateManager::Load()
 	// ジャンプスケア中の処理の生成
 	auto jump = std::make_unique<GameStateJumpScare>();
 	stateMap_.emplace(STATE::JUMP_SCARE, std::move(jump));
+
+	// 狂気終了処理の生成
+	auto madnessEnd = std::make_unique<GameStateMadnessEnd>();
+	stateMap_.emplace(STATE::MADNESS_END, std::move(madnessEnd));
 }
 
 void GameStateManager::Init()
@@ -56,6 +62,30 @@ void GameStateManager::Draw()
 void GameStateManager::ChangeState(const STATE state)
 {
 	state_ = state;
+}
+
+void GameStateManager::SetGameClear()
+{
+	// ゲームの終了状態を設定
+	ScoreManager::GetInstance().SetEndState(ScoreManager::END_STATE::CLEAR);
+
+	// シーンをリザルトへ
+	SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
+
+	// 自身の状態をNONEにする
+	state_ = STATE::NONE;
+}
+
+void GameStateManager::SetGameOver()
+{
+	// ゲームの終了状態を設定
+	ScoreManager::GetInstance().SetEndState(ScoreManager::END_STATE::DEAD);
+
+	// シーンをリザルトへ
+	SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
+
+	// 自身の状態をNONEにする
+	state_ = STATE::NONE;
 }
 
 GameStateManager::GameStateManager()

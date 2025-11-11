@@ -20,6 +20,7 @@ public:
 		PLAY,
 		REPORTING,
 		JUMP_SCARE,
+		MADNESS_END,
 	};
 
 	/// <summary>
@@ -46,6 +47,16 @@ public:
 	/// 状態遷移
 	/// </summary>
 	void ChangeState(const STATE state);
+
+	/// <summary>
+	/// ゲームクリアの設定
+	/// </summary>
+	void SetGameClear();
+
+	/// <summary>
+	/// ゲームオーバーの設定
+	/// </summary>
+	void SetGameOver();
 
 private:
 

@@ -51,6 +51,7 @@ private:
 
 	// 狂気条件値
 	static constexpr int MADNSEE_CONDITION = 50;
+	static constexpr int MADNSEE_CONDITION_PINCH = 90;
 
 	// レポート入力時間
 	const float REPORT_INPUT_TIME;
@@ -75,6 +76,7 @@ private:
 
 	// 警告判定
 	bool isWarningMadness_;
+	bool isWarningMadnessPinch_;
 
 	// 移動操作
 	void ProcessMove();

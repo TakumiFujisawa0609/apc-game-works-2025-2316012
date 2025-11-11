@@ -4,7 +4,7 @@
 class Enemy;
 class ControllerAnimation;
 class ControllerPathFinder;
-class ControllerCameraTransition;
+class ControllerCameraJumpScare;
 class ColliderSphere;
 class ScreenShake;
 class Timer;
@@ -153,7 +153,7 @@ private:
 	std::unique_ptr<Timer> timer_;	
 	
 	// カメラのトランジション
-	std::unique_ptr<ControllerCameraTransition> transition_;
+	std::unique_ptr<ControllerCameraJumpScare> transition_;
 
 	// 画面シェイク
 	std::unique_ptr<ScreenShake> shake_;

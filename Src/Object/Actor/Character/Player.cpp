@@ -1,8 +1,9 @@
 #include "../../../Application.h"
 #include "../../../Manager/Generic/SceneManager.h"
-#include "../../../Manager/Generic/Camera.h"
+#include "../../../Manager/Generic/GameStateManager.h"
 #include "../../../Manager/Generic/Camera.h"
 #include "../../../Manager/Resource/ResourceManager.h"
+#include "../../../Manager/Resource/SoundManager.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../Controller/ControllerAnimation.h"
@@ -14,6 +15,7 @@
 #include "../../Controller/OnHit/ControllerOnHitReport.h"
 #include "../../Controller/OnHit/ControllerOnHitGravity.h"
 #include "../../Controller/OnHit/ControllerOnHitPlayerLight.h"
+#include "../../Controller/Camera/ControllerCameraPlayerDead.h"
 #include "../../Controller/ControllerLight.h"
 #include "Player.h"
 
@@ -36,10 +38,12 @@ Player::Player(const Json& param) :
 	isJump_ = false;
 	state_ = STATE::NONE;
 	light_ = nullptr;
+	cameraDead_ = nullptr;
 	// 状態更新関数の登録
 	RegisterStateUpdateFunc(STATE::NONE, std::bind(&Player::UpdateNone, this));
 	RegisterStateUpdateFunc(STATE::ALIVE, std::bind(&Player::UpdateAlive, this));
-	RegisterStateUpdateFunc(STATE::DEAD, std::bind(&Player::UpdateDead, this));
+	RegisterStateUpdateFunc(STATE::DEAD_ENEMY, std::bind(&Player::UpdateDeadEnemy, this));
+	RegisterStateUpdateFunc(STATE::DEAD_MADNESS, std::bind(&Player::UpdateDeadMadness, this));
 }
 
 Player::~Player()
@@ -57,6 +61,9 @@ void Player::Load()
 	// ライト制御クラスの生成
 	light_ = std::make_unique<ControllerLight>(*this);
 	light_->Load();
+
+	// カメラ制御クラス
+	cameraDead_ = std::make_unique<ControllerCameraPlayerDead>();
 
 	// 衝突後の処理クラス
 	onHitMap_[CollisionTags::TAG::PLAYER] = std::make_unique<ControllerOnHitPlayer>(*this);
@@ -79,6 +86,9 @@ void Player::Init()
 	// 初期状態
 	state_ = STATE::ALIVE;
 
+	// カメラ制御の初期化
+	cameraDead_->Init();
+
 	// ライトの初期更新
 	light_->Update();
 }
@@ -91,8 +101,11 @@ void Player::UpdateBody()
 
 void Player::DrawMain()
 {
-	return;
-	MV1DrawFrame(transform_.modelId, 0);
+	//MV1DrawModel(transform_.modelId);
+	//if (state_ == STATE::DEAD_MADNESS)
+	//{
+	//	MV1DrawModel(transform_.modelId);
+	//}
 }
 
 void Player::InitAnimation()
@@ -145,8 +158,31 @@ void Player::UpdateAlive()
 	//onHitMap_[CollisionTags::TAG::PLAYER]->Test();
 }
 
-void Player::UpdateDead()
+void Player::UpdateDeadEnemy()
 {
+}
+
+void Player::UpdateDeadMadness()
+{
+	if (animation_->GetPlayType() != ANIM_DIE && animation_->GetPlayType() != ANIM_SLEEP)
+	{
+		animation_->Play(ANIM_DIE, true);
+	}
+	// 終了処理
+	if (cameraDead_->IsEnd())
+	{
+		GameStateManager::GetInstance().SetGameOver();
+		return;
+	}
+
+	//// アニメーションの再生
+	//if (animation_->IsEnd() && animation_->GetPlayType() == ANIM_DIE)
+	//{
+	//	// 眠るアニメーションに切り替え
+	//	animation_->Play(ANIM_SLEEP, true);
+	//}
+
+	cameraDead_->Update();
 }
 
 void Player::DebugDraw()
@@ -182,10 +218,28 @@ void Player::AddMadnessValue(const int madnessValue)
 	madnessValue_ += madnessValue;
 
 	// 最大値を超える場合
-	if (madnessValue_ > MADNESS_MAX)
+	if (madnessValue_ >= MADNESS_MAX)
 	{
 		// 最大値を代入
 		madnessValue_ = MADNESS_MAX;
+
+		// 状態遷移
+		state_ = STATE::DEAD_MADNESS;
+
+		// カメラ制御の設定
+		cameraDead_->Set(
+			VAdd(mainCamera.GetPos(), VECTOR{ 0.0f, 10.0f - mainCamera.GetPos().y, 0.0f }),
+			VAdd(mainCamera.GetTargetPos(), VECTOR{ 0.0f, -3000.0f - mainCamera.GetTargetPos().y, 0.0f }),
+			1.8f);
+
+		// ゲームステートの変更
+		GameStateManager::GetInstance().ChangeState(GameStateManager::STATE::MADNESS_END);
+
+		// 応急処置
+		transform_.pos = VAdd(transform_.pos, VScale(mainCamera.GetForward(),150.0f));
+
+		// 効果音の再生
+		SoundManager::GetInstance().PlaySe(SoundType::SE::PLAYER_DIE);
 	}
 	// 最小値未満の場合
 	else if (madnessValue_ < 0)

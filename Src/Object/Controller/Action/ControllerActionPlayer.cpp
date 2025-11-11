@@ -26,6 +26,7 @@ ControllerActionPlayer::ControllerActionPlayer(Player& player) :
 	madnessStep_ = 0.0f;
 	isEndLanding_ = false;
 	isWarningMadness_ = false;
+	isWarningMadnessPinch_ = false;
 }
 
 ControllerActionPlayer::~ControllerActionPlayer()
@@ -36,6 +37,7 @@ void ControllerActionPlayer::Init()
 {
 	// 各種変数の初期化
 	isWarningMadness_ = false;
+	isWarningMadnessPinch_ = false;
 	isEndLanding_ = false;
 }
 
@@ -348,24 +350,31 @@ void ControllerActionPlayer::CreateLineCollider()
 void ControllerActionPlayer::WarningMadness()
 {
 	// 狂気値が一定未満の場合
-	if (player_.GetMadnessValue() < MADNSEE_CONDITION)
+	if (player_.GetMadnessValue() >= MADNSEE_CONDITION && !isWarningMadness_)
+	{	
+		// メッセージを表示 
+		GameSystemManager::GetInstance().ChangeMessage(Message::TYPE::MADNESS);
+		isWarningMadness_ = true;
+	}
+	else if(player_.GetMadnessValue() < MADNSEE_CONDITION && isWarningMadness_)
 	{
 		// 判定を無効にして受付状態にする
 		isWarningMadness_ = false;
-		return;
+	}
+
+
+	if (player_.GetMadnessValue() >= MADNSEE_CONDITION_PINCH && !isWarningMadnessPinch_)
+	{
+		// メッセージを表示 
+		GameSystemManager::GetInstance().ChangeMessage(Message::TYPE::MADNESS_PINCH);
+		isWarningMadnessPinch_ = true;
 	}
 	// または警告表示中の場合
-	else if (isWarningMadness_)
+	else if(player_.GetMadnessValue() < MADNSEE_CONDITION_PINCH && isWarningMadnessPinch_)
 	{
-		// 無視
-		return;
+		// 判定を無効にして受付状態にする
+		isWarningMadnessPinch_ = false;
 	}
-
-	// メッセージを表示 
-	GameSystemManager::GetInstance().ChangeMessage(Message::TYPE::MADNESS);
-
-	// 判定を有効
-	isWarningMadness_ = true;
 }
 
 const float ControllerActionPlayer::GetApplyMadnessToSpeed(float speed)

@@ -5,6 +5,7 @@
 
 class ControllerOnHitReport;
 class ControllerLight;
+class ControllerCameraPlayerDead;
 
 class Player : public CharacterBase
 {
@@ -17,7 +18,8 @@ public:
 	{
 		NONE,
 		ALIVE,
-		DEAD,
+		DEAD_ENEMY,
+		DEAD_MADNESS,
 	};
 
 	//アニメ種別キー
@@ -201,6 +203,9 @@ private:
 	// ライト
 	std::unique_ptr<ControllerLight> light_;
 
+	// カメラ制御(プレイヤー死亡時)
+	std::unique_ptr<ControllerCameraPlayerDead> cameraDead_;
+
 	// 状態別の更新関数マップ
 	std::unordered_map<STATE, std::function<void()>> stateUpdateFuncMap_;
 
@@ -222,7 +227,8 @@ private:
 	// 状態別更新処理	
 	void UpdateNone() {};	// 何もしない
 	void UpdateAlive();		// 生存状態の更新
-	void UpdateDead();		// 死亡状態の更新
+	void UpdateDeadEnemy();	// 敵による死亡状態の更新
+	void UpdateDeadMadness(); // 狂気による死亡状態の更新
 
 	// デバッグ描画
 	void DebugDraw() override;

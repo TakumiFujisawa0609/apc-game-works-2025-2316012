@@ -336,7 +336,7 @@
     <ClCompile Include="Src\Manager\Generic\GameStateManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Controller\ControllerCameraTransition.cpp">
+    <ClCompile Include="Src\Object\Controller\Camera\ControllerCameraJumpScare.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\Common\ScreenShake.cpp">
@@ -439,6 +439,15 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Manager\System\ScoreManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Scene\State\Game\GameStateMadnessEnd.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Controller\Camera\ControllerCameraBase.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Controller\Camera\ControllerCameraPlayerDead.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -863,7 +872,7 @@
     <ClInclude Include="Src\Manager\Generic\GameStateManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Controller\ControllerCameraTransition.h">
+    <ClInclude Include="Src\Object\Controller\Camera\ControllerCameraJumpScare.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Common\ScreenShake.h">
@@ -966,6 +975,15 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Manager\System\ScoreManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Scene\State\Game\GameStateMadnessEnd.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Controller\Camera\ControllerCameraBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Controller\Camera\ControllerCameraPlayerDead.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

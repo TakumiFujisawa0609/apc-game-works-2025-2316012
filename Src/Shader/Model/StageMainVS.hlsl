@@ -57,15 +57,14 @@ VS_OUTPUT main(VS_INPUT VSInput)
     // バイノーマル
     ret.bin = normalize(mul(VSInput.bin, (float3x3) g_base.localWorldMatrix));
     
-    
-    
     // フォグの強さ
     float foglength = length(lWorldPosition.xyz - g_camera_pos);
     float fog = (g_fog_end - foglength) / (g_fog_end - g_fog_start);
     ret.fogFactor = saturate(fog);
     
     // ポイントライト
-    float lightDit = 500.0f;
+    // 1. ライトベクトルの計算
+    float lightDit = 200.0f;
     float lightLength = length(lWorldPosition.xyz - g_light_pos);
     ret.lightPower = saturate((lightDit - lightLength) / lightDit);
     

@@ -73,6 +73,11 @@ void Camera::SetTargetPos(const VECTOR& targetPos)
 	targetPos_ = targetPos;
 }
 
+void Camera::SetAngles(const VECTOR& angles)
+{
+	angles_ = angles;
+}
+
 VECTOR Camera::GetPos(void) const
 {
 	return pos_;
@@ -304,7 +309,7 @@ void Camera::ChangeModeNone()
 
 void Camera::ChangeModeFixedPoint()
 {
-	beforeDrawFunc_ = std::bind(&Camera::SetBeforeDrawNone, this);
+	beforeDrawFunc_ = std::bind(&Camera::SetBeforeDrawFixedPoint, this);
 }
 
 void Camera::ChangeModeFollow()
@@ -323,6 +328,12 @@ void Camera::ChangeModeFps()
 void Camera::ChangeModeFree()
 {
 	beforeDrawFunc_ = std::bind(&Camera::SetBeforeDrawFree, this);
+}
+
+void Camera::SetBeforeDrawFixedPoint()
+{
+	//Šp“x‚ðŒvŽZ
+	rot_ = (Quaternion::Quaternion(angles_));
 }
 
 void Camera::SetBeforeDrawFollow(void)

@@ -91,7 +91,7 @@ void ControllerOnHitPlayer::OnHitStageObject(const std::weak_ptr<ColliderBase>& 
 void ControllerOnHitPlayer::OnHitEnemy(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
 	// €–Só‘Ô‚Ö•ÏX
-	owner_.ChangeState(Player::STATE::DEAD);
+	owner_.ChangeState(Player::STATE::DEAD_ENEMY);
 
 	// Œø‰Ê‰¹‚ÌÄ¶
 	sndMng_.PlaySe(SoundType::SE::JUMP_SCARE);
