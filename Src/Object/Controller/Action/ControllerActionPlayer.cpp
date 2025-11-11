@@ -349,31 +349,60 @@ void ControllerActionPlayer::CreateLineCollider()
 
 void ControllerActionPlayer::WarningMadness()
 {
+	const int madndess = player_.GetMadnessValue();
+
 	// 狂気値が一定未満の場合
-	if (player_.GetMadnessValue() >= MADNSEE_CONDITION && !isWarningMadness_)
+	if (madndess >= MADNSEE_CONDITION && !isWarningMadness_)
 	{	
 		// メッセージを表示 
 		GameSystemManager::GetInstance().ChangeMessage(Message::TYPE::MADNESS);
 		isWarningMadness_ = true;
+
+		// 呼吸音を再生開始(初期時は音量0)
+		sndMng_.PlaySe(SoundType::SE::BREATHING, true, 0);
 	}
-	else if(player_.GetMadnessValue() < MADNSEE_CONDITION && isWarningMadness_)
+	else if(madndess < MADNSEE_CONDITION && isWarningMadness_)
 	{
 		// 判定を無効にして受付状態にする
 		isWarningMadness_ = false;
 	}
-
-
-	if (player_.GetMadnessValue() >= MADNSEE_CONDITION_PINCH && !isWarningMadnessPinch_)
+	if (madndess >= MADNSEE_CONDITION_PINCH && !isWarningMadnessPinch_)
 	{
 		// メッセージを表示 
 		GameSystemManager::GetInstance().ChangeMessage(Message::TYPE::MADNESS_PINCH);
 		isWarningMadnessPinch_ = true;
+
+		// 呼吸音の停止
+		sndMng_.StopSe(SoundType::SE::BREATHING);
+
+		// 以降の処理は無視
+		return;
 	}
 	// または警告表示中の場合
-	else if(player_.GetMadnessValue() < MADNSEE_CONDITION_PINCH && isWarningMadnessPinch_)
+	else if(madndess < MADNSEE_CONDITION_PINCH && isWarningMadnessPinch_)
 	{
 		// 判定を無効にして受付状態にする
 		isWarningMadnessPinch_ = false;
+	}
+
+	if (!isWarningMadness_)
+	{
+		return;
+	}
+
+	// 狂気値に合わせて呼吸音の音量を調整
+	constexpr int VOLUME_STEP = 2;
+
+	// 音量の計算
+	int volume = VOLUME_STEP * (madndess - MADNSEE_CONDITION);
+
+	// 音量の設定
+	sndMng_.ChangeVolumeSe(volume, SoundType::SE::BREATHING);
+
+	// ループチェック
+	if (!sndMng_.IsCheckPlaySe(SoundType::SE::BREATHING))
+	{
+		sndMng_.PlaySe(SoundType::SE::BREATHING, true, volume);
 	}
 }
 

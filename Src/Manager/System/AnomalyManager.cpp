@@ -52,7 +52,9 @@ void AnomalyManager::Init()
 		anomaly.second->Init();
 	}
 
-	//OccurAnomaly(TYPE::BLOODY_ROOM);
+	OccurAnomaly(TYPE::GHOST);
+	OccurAnomaly(TYPE::GHOST);
+	OccurAnomaly(TYPE::GHOST);
 }
 
 void AnomalyManager::Update()

@@ -1,5 +1,6 @@
 #include <nlohmann/json.hpp>
 #include "../../../Manager/Generic/StageManager.h"
+#include "../../../Manager/Resource/SoundManager.h"
 #include "../../Actor/Stage/ChairMountain.h"
 #include "AnomalyChairMountain.h"
 
@@ -29,4 +30,16 @@ void AnomalyChairMountain::Occurrence(Json& param)
 
 	// ’Ç‰Á
 	stageMng_.Add(KEY, std::move(object));
+
+	// Œø‰Ê‰¹‚Ì”z—ñ
+	std::vector<SoundType::SE> seTypes = { SoundType::SE::NOISE_GATAN, SoundType::SE::NOISE_PACHI,SoundType::SE::NOISE_SWITCH,SoundType::SE::NOISE_GON, SoundType::SE::NOISE_METAL };
+
+	// ƒ‰ƒ“ƒ_ƒ€‚Å”Ô†‚ğæ“¾
+	int seIndex = GetRand(static_cast<int>(seTypes.size() - 1));
+	
+	// ƒ‰ƒ“ƒ_ƒ€‚Å‰¹—Ê‚ğİ’è
+	int volume = 30 + GetRand(20);
+
+	// Œø‰Ê‰¹Ä¶
+	sndMng_.PlaySe(seTypes[seIndex], volume);
 }

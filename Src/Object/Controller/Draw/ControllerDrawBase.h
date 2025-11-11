@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <DxLib.h>
 #include "../ControllerBase.h"
 
 class ResourceManager;

@@ -1,4 +1,5 @@
 #include "../../../Manager/Resource/ResourceManager.h"
+#include "../../../Manager/Resource/SoundManager.h"
 #include "../../../Manager/Generic/StageManager.h"
 #include "../../Actor/Stage/StageMain.h"
 #include "AnomalyBloodyRoom.h"
@@ -36,4 +37,15 @@ void AnomalyBloodyRoom::Occurrence(Json& param)
 	// ˆÙ•Ïİ’è
 	stage->SetAnomaly();
 
+	// Œø‰Ê‰¹‚Ì”z—ñ
+	std::vector<SoundType::SE> seTypes = { SoundType::SE::NOISE_GATAN, SoundType::SE::NOISE_PACHI,SoundType::SE::NOISE_SWITCH,SoundType::SE::NOISE_GON, SoundType::SE::NOISE_METAL, SoundType::SE::GIRLS_HELP, SoundType::SE::GIRLS_LAUGHTER };
+
+	// ƒ‰ƒ“ƒ_ƒ€‚Å”Ô†‚ğæ“¾
+	int seIndex = GetRand(static_cast<int>(seTypes.size() - 1));
+
+	// ƒ‰ƒ“ƒ_ƒ€‚Å‰¹—Ê‚ğİ’è
+	int volume = 30 + GetRand(20);
+
+	// Œø‰Ê‰¹Ä¶
+	sndMng_.PlaySe(seTypes[seIndex], volume);
 }

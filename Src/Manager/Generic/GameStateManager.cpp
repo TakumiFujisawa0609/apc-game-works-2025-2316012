@@ -3,6 +3,7 @@
 #include "../../Scene/State/Game/GameStatePlay.h"
 #include "../../Scene/State/Game/GameStateReporting.h"
 #include "../../Scene/State/Game/GameStateMadnessEnd.h"
+#include "../Resource/SoundManager.h"
 #include "../System/ScoreManager.h"
 #include "SceneManager.h"
 #include "GameStateManager.h"
@@ -74,6 +75,10 @@ void GameStateManager::SetGameClear()
 
 	// 自身の状態をNONEにする
 	state_ = STATE::NONE;
+
+	// サウンドの停止
+	SoundManager::GetInstance().StopAllSe();	
+	SoundManager::GetInstance().StopBgm(SoundType::BGM::GAME);	
 }
 
 void GameStateManager::SetGameOver()
@@ -86,6 +91,10 @@ void GameStateManager::SetGameOver()
 
 	// 自身の状態をNONEにする
 	state_ = STATE::NONE;
+
+	// サウンドの停止
+	SoundManager::GetInstance().StopAllSe();
+	SoundManager::GetInstance().StopBgm(SoundType::BGM::GAME);
 }
 
 GameStateManager::GameStateManager()

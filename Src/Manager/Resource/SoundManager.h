@@ -86,6 +86,27 @@ public:
 	/// </summary>
 	/// <param name="volume">SEのデフォルト音量</param>
 	void SetDefaultVolumeSe(const int volume) { defaultVolumeSe_ = volume; }
+	
+	/// <summary>
+	/// 音量調整(BGM)
+	/// </summary>
+	/// <param name="volume">音量</param>
+	/// <param name="bgm">BGMの種類</param>
+	void ChangeVolumeBgm(const int volume, const SoundType::BGM bgm);
+
+	/// <summary>
+	/// 音量調整(SE)
+	/// </summary>
+	/// <param name="volume">音量</param>
+	/// <param name="se">SEの種類</param>
+	void ChangeVolumeSe(const int volume, const SoundType::SE se);
+
+	/// <summary>
+	/// 指定したSEが再生中か確認
+	/// </summary>
+	/// <param name="se">SEの種類</param>
+	/// <returns>trueの場合再生中,falseの場合非再生中</returns>
+	bool IsCheckPlaySe(const SoundType::SE se) const;
 
 private:
 
@@ -131,9 +152,7 @@ private:
 	int defaultVolumeBgm_;	// BGM
 	int defaultVolumeSe_;	// SE
 
-	// 音量調整
-	void ChangeVolumeBgm(const int volume, const SoundType::BGM bgm);
-	void ChangeVolumeSe(const int volume, const SoundType::SE se);
+	
 
 	//再生種類を返す
 	int GetPlayType(const SoundType::TYPE soundType);

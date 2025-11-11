@@ -44,7 +44,7 @@ void SceneResult::Load()
 	}
 	else
 	{
-		text_.string = L"‚ A‚â‚ç‚ê‚½‚ñ‚Å‚·‚ËB‚¨‰÷‚İ‚¨‰÷‚â‚İ";
+		text_.string = L"¡‰ñ‚Ì’À‹à‚Í0‰~‚Å‚·";
 	}
 }
 

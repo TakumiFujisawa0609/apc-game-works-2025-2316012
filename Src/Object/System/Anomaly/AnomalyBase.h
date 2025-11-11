@@ -5,6 +5,7 @@ class CharacterManager;
 class StageManager;
 class ResourceManager;
 class GameSystemManager;
+class SoundManager;
 class Player;
 
 // JSON名前空間
@@ -53,5 +54,8 @@ protected:
 
 	// ゲーム内のシステム管理クラス
 	GameSystemManager& systemMng_;
+
+	// サウンドの管理クラス
+	SoundManager& sndMng_;
 };
 

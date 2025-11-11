@@ -240,6 +240,18 @@ void SoundManager::ChangeVolumeSe(const int volume, const SoundType::SE se)
 	ChangeVolumeSoundMem(MAX * volume / defaultVolumeSe_, loadedSeMap_[se].handle);
 }
 
+bool SoundManager::IsCheckPlaySe(const SoundType::SE se) const
+{
+	//音源があるか確認
+	auto it = loadedSeMap_.find(se);
+
+	//音源がない場合強制停止
+	assert(it != loadedSeMap_.end() && "追加していない音源の確認をしようとしています");
+
+	// 再生中か確認
+	return CheckSoundMem(loadedSeMap_.at(se).handle);
+}
+
 void SoundManager::Release()
 {
 	loadedBgmMap_.clear();

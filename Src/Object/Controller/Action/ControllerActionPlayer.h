@@ -99,6 +99,9 @@ private:
 	// 狂気値の警告
 	void WarningMadness();
 
+	// 狂気による効果音の再生
+	void MadnessSePlay();
+
 	// 狂気値の影響から速度を取得
 	const float GetApplyMadnessToSpeed(float speed);
 };

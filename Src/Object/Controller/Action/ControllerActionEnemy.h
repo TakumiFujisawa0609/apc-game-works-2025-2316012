@@ -116,6 +116,12 @@ private:
 	static constexpr int IDLE_TIME_MAX = 5;	// 最大
 	static constexpr int IDLE_TIME_RANGE = IDLE_TIME_MAX - IDLE_TIME_MIN; // 範囲
 
+	// 心拍音の最大音量
+	static constexpr int HEART_BEAT_MAX_VOLUME = 100;
+
+	// 心拍音の最小音量
+	static constexpr int HEART_BEAT_MIN_VOLUME = 50;
+
 	// 所有者の参照インスタンス
 	Enemy& owner_;
 
@@ -201,4 +207,7 @@ private:
 
 	// ランダムで目的地のインデックスを返す
 	int GetRandGoalIndex();
+
+	// 心拍音の処理
+	void HeartBeat();
 };

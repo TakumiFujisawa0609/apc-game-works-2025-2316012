@@ -10,7 +10,7 @@
     "jumpAcceptTime": 0.5,
     "reportInputTime": 2.5,
     "colliderRadius": 30.0,
-    "madnessUpdateStepDefault": 0.5,
+    "madnessUpdateStepDefault": 0.02,
     "madnessUpdateStepAdd": 0.001,
     "collisionTag": "player",
     "colliderType": "capsule",

@@ -11,6 +11,7 @@
 #include "../../Controller/ControllerGravity.h"
 #include "../../Controller/OnHit/ControllerOnHitBase.h"
 #include "../../Controller/OnHit/ControllerOnHitGhost.h"
+#include "../../Controller/Draw/ControllerDrawGhost.h"
 #include "../../Collider/ColliderCapsule.h"
 #include "Ghost.h"
 
@@ -30,6 +31,10 @@ void Ghost::Load()
 
 	// ゴーストの衝突後の処理
 	onHitMap_[CollisionTags::TAG::GHOST] = std::make_unique<ControllerOnHitGhost>(*this);
+
+	// 描画制御クラスの生成
+	draw_ = std::make_unique<ControllerDrawGhost>(transform_.modelId);
+	draw_->Load();
 
 	CharacterBase::Load();
 }
@@ -60,8 +65,7 @@ void Ghost::Create(const Json& param)
 
 void Ghost::DrawMain()
 {
-	MV1DrawModel(transform_.modelId);
-	//CharacterBase::DrawMain();
+	draw_->Draw();
 }
 
 void Ghost::InitAnimation()

@@ -408,6 +408,18 @@
       "path": "Data/Shader/EnemyVS.cso"
     },
     {
+      "key": "ghostPs",
+      "sceneId": 3,
+      "type": "pixelShader",
+      "path": "Data/Shader/GhostPS.cso"
+    },
+    {
+      "key": "ghostVs",
+      "sceneId": 3,
+      "type": "vertexShader",
+      "path": "Data/Shader/GhostVS.cso"
+    },
+    {
       "key": "bgmGame",
       "sceneId": 3,
       "type": "sound",
@@ -532,7 +544,7 @@
       "type": "sound",
       "soundType": "se",
       "path": "Data/Sound/SE/SeEnemyFound.mp3"
-    },   
+    },
     {
       "key": "sePlayerDie",
       "sceneId": 3,

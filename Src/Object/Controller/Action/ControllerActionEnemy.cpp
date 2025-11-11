@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "../../../Manager/Generic/CharacterManager.h"
 #include "../../../Manager/Generic/CollisionManager.h"
 #include "../../../Manager/Generic/SceneManager.h"
@@ -237,6 +238,7 @@ void ControllerActionEnemy::ChangeStateSearch()
 
 	// 効果音の停止
 	sndMng_.FadeOutSe(SoundType::SE::ENEMY_FOUND);
+	sndMng_.FadeOutSe(SoundType::SE::HEART_BEAT);
 }
 
 void ControllerActionEnemy::ChangeStateIdle()
@@ -305,7 +307,8 @@ void ControllerActionEnemy::UpdateSearch()
 	if (IsSearchTarget())
 	{
 		// 効果音の再生
-		sndMng_.PlaySe(SoundType::SE::ENEMY_FOUND);
+		sndMng_.PlaySe(SoundType::SE::ENEMY_FOUND);	// 発見音
+		sndMng_.PlaySe(SoundType::SE::HEART_BEAT);	// 心拍音
 
 		// 処理を飛ばす
 		return;
@@ -419,6 +422,9 @@ void ControllerActionEnemy::UpdateChase()
 		// ターゲットまでの経路を探索
 		FindPathToTarget();
 	}
+
+	// 心拍音調整
+	HeartBeat();
 }
 
 void ControllerActionEnemy::UpdateChaseNear()
@@ -459,6 +465,9 @@ void ControllerActionEnemy::UpdateChaseNear()
 		// 目標回転角度の設定
 		owner_.SetGoalQuaRot(Quaternion::LookRotation(dir));
 	}
+
+	// 心拍音調整
+	HeartBeat();
 }
 
 void ControllerActionEnemy::UpdateAction()
@@ -629,4 +638,35 @@ int ControllerActionEnemy::GetRandGoalIndex()
 {
 	int index = GetRand(totalPoints_ - 1);
 	return index;
+}
+
+void ControllerActionEnemy::HeartBeat()
+{
+	// プレイヤーとの距離を調べる
+	// ターゲット位置を取得
+	VECTOR targetPos = targetTransform_.pos;
+
+	// 自身の位置を取得
+	VECTOR myPos = owner_.GetTransform().pos;
+
+	// 自身からターゲットまでのベクトル
+	VECTOR toTarget = VSub(targetPos, myPos);
+
+	// ターゲットまでの距離を計算
+	float distanceSq = VDot(toTarget, toTarget);
+
+	// ターゲットとの距離に合わせて音量を調整
+	int clampDistance = static_cast<int>(std::min(CHASE_RANGE, std::max(NEAR_RANGE, distanceSq)));
+
+	// 音量を線形補間
+	int volume = UtilityCommon::Lerp(HEART_BEAT_MIN_VOLUME, HEART_BEAT_MAX_VOLUME, clampDistance);
+
+	// 心拍音調整
+	sndMng_.ChangeVolumeSe(volume, SoundType::SE::HEART_BEAT);
+
+	// 心拍音のループチェック
+	if (!sndMng_.IsCheckPlaySe(SoundType::SE::HEART_BEAT))
+	{
+		sndMng_.PlaySe(SoundType::SE::HEART_BEAT, true, volume);
+	}
 }
