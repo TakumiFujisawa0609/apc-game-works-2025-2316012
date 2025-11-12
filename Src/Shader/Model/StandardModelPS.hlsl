@@ -10,18 +10,29 @@
 //PS
 #include "../Common/Pixel/PixelShader3DHeader.hlsli"
 
+// ライトの色
 static float3 POINT_LIGHT_COLOR = { 0.4f, 0.4f, 0.3f };
-//static float3 POINT_LIGHT_COLOR = { 0.8f, 0.8f, 0.6f };
+
+// フォグの色
 static float3 FOG_COLOR = { 0.0f, 0.0f, 0.0f };
+
+// スポットライトの角度
+static float SPOT_LIGHT_ANGLE_DEG = cos(radians(90.0f)); 
 
 // 定数バッファ：スロット4番目(b4と書く)
 cbuffer cbParam : register(b4)
 {
-    float4 g_color; // 色
-    float3 g_light_dir; // ライト方向
+    float3 g_light_dir;         // ライト方向
     float dummy;
-    float3 g_ambient_color; // 環境光
+    
+    float3 g_ambient_color;     // 環境光
     float dummy2;
+    
+    float3 g_spot_light_pos;    // スポットライト位置
+    float dummy3;
+    
+    float3 g_spot_light_dir;    // スポットライト方向
+    float dummy4;
 }
 
 float4 main(PS_INPUT PSInput) : SV_TARGET0
@@ -31,7 +42,7 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     // ベースカラー
     float4 texColor = diffuseMapTexture.Sample(diffuseMapSampler, uv);
     float3 material = texColor.rgb;
- 
+    
     // 法線計算
     const float3 tanNormal = normalize(normalMapTexture.Sample(normalMapSampler, uv).xyz * 2 - 1);
     const float3x3 tangentViewMat = transpose(float3x3(normalize(PSInput.tan), normalize(PSInput.bin), normalize(PSInput.normal)));
@@ -61,14 +72,42 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
  
     // 最終カラー 
     float3 litColor = saturate(ambientAttenuated + diffuse) * 0.4f;
+    
  
     // フォグ適用
     float fogFactor = saturate(1.0f - PSInput.fogFactor); // 0=カメラ近, 1=遠
     float3 foggedColor = lerp(litColor, FOG_COLOR, fogFactor);
     
-    // ポイントライト
-    foggedColor += (POINT_LIGHT_COLOR * PSInput.lightPower);
-    //foggedColor *= (1 - PSInput.lightPower + 0.2f);
+    //// ポイントライト
+    //foggedColor += (POINT_LIGHT_COLOR * PSInput.lightPower);
+    
+    // ピクセル位置と光源の位置からベクトルを計算
+    float3 spotPixel = PSInput.vwPos - g_spot_light_pos;
+    float distSq = dot(spotPixel, spotPixel);   // 距離の2乗
 
+    // 距離による減衰
+    float attenuation = 1.0f / (1.0f + 0.01f * distSq); // 0.01f は調整係数
+    
+    // スポットライトの向きとピクセルへのベクトルの角度計算
+    float3 L = normalize(spotPixel);
+    float cosAngle = dot(-L, g_spot_light_dir);
+    
+    // スポットの円錐内判定と角度による減衰
+    if (cosAngle > SPOT_LIGHT_ANGLE_DEG)
+    {
+        // 円錐に近づくほど減衰させるためのPower関数
+        float spotIntensity = pow(cosAngle, 10.0f); // 10.0f は調整係数
+        
+        // スポットライトのディフューズ光の計算
+        float NdotLSpot = max(0.0f, dot(normal, -L));
+        
+        // スポットライトの最終的な光の強さ
+        float3 spotLight = POINT_LIGHT_COLOR * NdotLSpot * attenuation * spotIntensity;
+        
+        // 色の加算
+        foggedColor += spotLight;
+    }
+    
+    // 色の出力
     return float4(foggedColor, texColor.a);
 }

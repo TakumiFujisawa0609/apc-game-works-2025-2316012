@@ -23,14 +23,36 @@ StageMain::~StageMain()
 
 void StageMain::Load()
 {
-	// モデルの設定
+	//// モデルの設定
+	//transform_.SetModel(resMng_.GetHandle(STAGE_KEY));
+
+	//// 衝突後処理の生成
+	//onHit_ = std::make_unique<ControllerOnHitStageObject>(*this);
+
+	//// マテリアル生成
+	//material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("stageMainVs"), 2, resMng_.GetHandle("stageMainPs"), 3);
+
+	//// レンダラー生成
+	//renderer_ = std::make_unique<ModelRenderer>(transform_.modelId, *material_);
+
+	//// バッファーの設定
+	//VECTOR cameraPos = GetCameraPosition();
+	//VECTOR lightPos = { 0.0f,0.0f,0.0f };
+	//float fogStart;
+	//float fogEnd;
+	//GetFogStartEnd(&fogStart, &fogEnd);
+
+	//material_->AddConstBufVS(FLOAT4{ cameraPos.x,cameraPos.y, cameraPos.z, fogStart });
+	//material_->AddConstBufVS(FLOAT4{ lightPos.x,lightPos.y, lightPos.z, fogEnd });
+	//material_->AddConstBufPS(FLOAT4{ 1.0f,1.0f, 1.0f, 1.0f });
+	//material_->AddConstBufPS(FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
+	//material_->AddConstBufPS(FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
+
+		// モデルの設定
 	transform_.SetModel(resMng_.GetHandle(STAGE_KEY));
 
-	// 衝突後処理の生成
-	onHit_ = std::make_unique<ControllerOnHitStageObject>(*this);
-
 	// マテリアル生成
-	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("stageMainVs"), 2, resMng_.GetHandle("stageMainPs"), 3);
+	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("standardVs"), 2, resMng_.GetHandle("standardPs"), 3);
 
 	// レンダラー生成
 	renderer_ = std::make_unique<ModelRenderer>(transform_.modelId, *material_);
@@ -41,12 +63,26 @@ void StageMain::Load()
 	float fogStart;
 	float fogEnd;
 	GetFogStartEnd(&fogStart, &fogEnd);
+	VECTOR spotLightDir = mainCamera.GetForward();
 
 	material_->AddConstBufVS(FLOAT4{ cameraPos.x,cameraPos.y, cameraPos.z, fogStart });
 	material_->AddConstBufVS(FLOAT4{ lightPos.x,lightPos.y, lightPos.z, fogEnd });
-	material_->AddConstBufPS(FLOAT4{ 1.0f,1.0f, 1.0f, 1.0f });
+
+	//material_->AddConstBufPS(FLOAT4{ 1.0f,1.0f, 1.0f, 1.0f });
+	//material_->AddConstBufPS(FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
+	//material_->AddConstBufPS(FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
+
+	//material_->AddConstBufPS(FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, AMBIENT.x });
+	//material_->AddConstBufPS(FLOAT4{ AMBIENT.y, AMBIENT.z, lightPos.x, lightPos.y });
+	//material_->AddConstBufPS(FLOAT4{ lightPos.z, spotLightDir.x,spotLightDir.y,spotLightDir.z });
+
 	material_->AddConstBufPS(FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
 	material_->AddConstBufPS(FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
+	material_->AddConstBufPS(FLOAT4{ lightPos.x, lightPos.y,lightPos.z, 0.0f });
+	material_->AddConstBufPS(FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,0.0f });
+
+	// 基底クラスの読み込み
+	ActorBase::Load();
 }
 
 void StageMain::Init()
@@ -105,17 +141,19 @@ bool StageMain::CheckCameraViewClip()
 void StageMain::DrawMain()
 {
 	// 通常描画
-	//MV1DrawModel(transform_.modelId);
 	VECTOR cameraPos = GetCameraPosition();
 	VECTOR lightPos = charaMng_.GetPlayerLightPos();
 	float fogStart;
 	float fogEnd;
 	GetFogStartEnd(&fogStart, &fogEnd);
+	VECTOR spotLightDir = mainCamera.GetForward();
 	material_->SetConstBufVS(0, FLOAT4{ cameraPos.x,cameraPos.y,cameraPos.z, fogStart });
-	material_->SetConstBufVS(1, FLOAT4{ lightPos.x,lightPos.y, lightPos.z, fogEnd });
-	// マテリアル設定
-	material_->SetConstBufPS(1, FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
-	
+	material_->SetConstBufVS(1, FLOAT4{ lightPos.x,lightPos.y,lightPos.z, fogEnd });
+
+	material_->SetConstBufPS(0,FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
+	material_->SetConstBufPS(1,FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
+	material_->SetConstBufPS(2,FLOAT4{ lightPos.x, lightPos.y,lightPos.z, 0.0f });
+	material_->SetConstBufPS(3,FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,0.0f });
 	// 描画
 	renderer_->Draw();
 }

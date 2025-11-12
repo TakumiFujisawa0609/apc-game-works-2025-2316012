@@ -1,7 +1,9 @@
 #include "../../../Manager/Resource/ResourceManager.h"
 #include "../../../Manager/Generic/CharacterManager.h"
 #include "../../../Manager/Generic/CollisionManager.h"
+#include "../../../Manager/Generic/SceneManager.h"
 #include "../../../Manager/Generic/CollisionTags.h"
+#include "../../../Manager/Generic/Camera.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Common/Quaternion.h"
@@ -45,13 +47,19 @@ void StageObjectBase::Load()
 	float fogStart;
 	float fogEnd;
 	GetFogStartEnd(&fogStart, &fogEnd);
+	VECTOR spotLightDir = mainCamera.GetForward();
 
 	material_->AddConstBufVS(FLOAT4{ cameraPos.x,cameraPos.y, cameraPos.z, fogStart });
 	material_->AddConstBufVS(FLOAT4{ lightPos.x,lightPos.y, lightPos.z, fogEnd });
 
-	material_->AddConstBufPS(FLOAT4{ 1.0f,1.0f, 1.0f, 1.0f });
+	//material_->AddConstBufPS(FLOAT4{ 1.0f,1.0f, 1.0f, 1.0f });
+	//material_->AddConstBufPS(FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
+	//material_->AddConstBufPS(FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
+
 	material_->AddConstBufPS(FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
 	material_->AddConstBufPS(FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
+	material_->AddConstBufPS(FLOAT4{ lightPos.x, lightPos.y,lightPos.z, 0.0f });
+	material_->AddConstBufPS(FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,0.0f });
 
 	// Šî’êƒNƒ‰ƒX‚Ì“Ç‚Ýž‚Ý
 	ActorBase::Load();
@@ -66,8 +74,14 @@ void StageObjectBase::DrawMain()
 	float fogStart;
 	float fogEnd;
 	GetFogStartEnd(&fogStart, &fogEnd);
+	VECTOR spotLightDir = mainCamera.GetForward();
 	material_->SetConstBufVS(0, FLOAT4{ cameraPos.x,cameraPos.y,cameraPos.z, fogStart });
 	material_->SetConstBufVS(1, FLOAT4{ lightPos.x,lightPos.y,lightPos.z, fogEnd });
+
+	material_->SetConstBufPS(0, FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
+	material_->SetConstBufPS(1, FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
+	material_->SetConstBufPS(2, FLOAT4{ lightPos.x, lightPos.y,lightPos.z, 0.0f });
+	material_->SetConstBufPS(3, FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,0.0f });
 	// •`‰æ
 	renderer_->Draw();
 }

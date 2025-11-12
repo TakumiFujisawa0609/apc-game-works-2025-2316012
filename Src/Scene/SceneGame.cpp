@@ -112,7 +112,9 @@ void SceneGame::Init(void)
 	mainCamera.ChangeMode(Camera::MODE::FPS);
 
 #ifdef _DEBUG	
+
 	test_->Init();
+
 #endif 
 
 	// BGM‚ÌÄ¶

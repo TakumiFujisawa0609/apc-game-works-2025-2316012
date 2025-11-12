@@ -24,8 +24,10 @@ SceneBase::~SceneBase(void)
 
 void SceneBase::Load(void)
 {
+	// 読み込み時間初期化
+	loadingTime_ = 0.0f;	
+	
 	// 非同期読み込み開始
-	loadingTime_ = 0.0f;	//読み込み時間初期化
 	//SetUseASyncLoadFlag(true);	
 	
 	// シーン内のリソースを読み込む
