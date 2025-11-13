@@ -118,6 +118,13 @@ const VECTOR& CharacterManager::GetPlayerLightPos() const
 	return player->GetControllerLight().GetLightPos();
 }
 
+const bool CharacterManager::IsPlayerLight() const
+{
+	CharacterBase* character = characterMap_.at(TYPE::PLAYER).front().get();
+	Player* player = dynamic_cast<Player*>(character);
+	return player->GetControllerLight().IsLight();
+}
+
 CharacterManager::CharacterManager()
 {
 }

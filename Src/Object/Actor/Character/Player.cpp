@@ -90,7 +90,7 @@ void Player::Init()
 	cameraDead_->Init();
 
 	// ライトの初期更新
-	light_->Update();
+	light_->Init();
 }
 
 void Player::UpdateBody()

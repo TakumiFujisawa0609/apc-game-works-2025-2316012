@@ -78,6 +78,7 @@ VS_OUTPUT main(VS_INPUT VSInput)
     lWorldPosition.x = dot(lLocalPosition, lL_W_Mat[0]);
     lWorldPosition.y = dot(lLocalPosition, lL_W_Mat[1]);
     lWorldPosition.z = dot(lLocalPosition, lL_W_Mat[2]);
+    ret.world = lWorldPosition.xyz;
     
     // 法線スキニング
     lWorldNormal.x = dot(float4(localNormal, 0.0f), lL_W_Mat[0]);
@@ -104,7 +105,7 @@ VS_OUTPUT main(VS_INPUT VSInput)
     ret.diffuse = VSInput.diffuse;
     
     // スペキュラーカラー
-    ret.specular = VSInput.specular;
+    //ret.specular = VSInput.specular;
     
     // フォグの強さ
     float foglength = length(lWorldPosition.xyz - g_camera_pos);

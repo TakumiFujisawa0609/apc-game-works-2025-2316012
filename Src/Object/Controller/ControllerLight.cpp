@@ -2,6 +2,8 @@
 #include "../../Manager/Generic/SceneManager.h"
 #include "../../Manager/Generic/Camera.h"
 #include "../../Manager/Generic/CollisionManager.h"
+#include "../../Manager/Generic/InputManager.h"
+#include "../../Manager/Resource/SoundManager.h"
 #include "../../Utility/Utility3D.h"
 #include "../Actor/ActorBase.h"
 #include "../Collider/ColliderLine.h"
@@ -9,10 +11,13 @@
 #include "ControllerLight.h"
 
 ControllerLight::ControllerLight(ActorBase& owner) :
-	owner_(owner)
+	owner_(owner),
+	input_(InputManager::GetInstance()),
+	sndMng_(SoundManager::GetInstance())
 {
 	lightPos_ = Utility3D::VECTOR_ZERO;
 	collider_ = nullptr;
+	isLight_ = false;
 }
 
 ControllerLight::~ControllerLight()
@@ -26,6 +31,14 @@ void ControllerLight::Load()
 
 	// コライダー追加
 	CollisionManager::GetInstance().Add(collider_);
+}
+
+void ControllerLight::Init()
+{
+	// 初期状態は電源を付けておく
+	isLight_ = true;
+
+	Update();
 }
 
 void ControllerLight::Update()
@@ -48,4 +61,14 @@ void ControllerLight::Update()
 
 	// 末端の位置を取得
 	lightPos_ = endPos;
+
+	// 電源の判定
+	if (input_.IsTrgDown(InputManager::TYPE::LIGHT_SWITCH))
+	{
+		// 電源の切り替え
+		isLight_ = !isLight_;
+
+		// 効果音の再生
+		sndMng_.PlaySe(SoundType::SE::NOISE_SWITCH);
+	}
 }

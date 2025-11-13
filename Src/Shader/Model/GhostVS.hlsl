@@ -6,7 +6,7 @@
 #define VERTEX_INPUT DX_MV1_VERTEX_TYPE_8FRAME
 
 // OUT
-#define VS_OUTPUT VertexToPixelLit
+#define VS_OUTPUT VertexToPixelSpecular
 #include "../Common/Vertex/VertexShader3DHeader.hlsli"
 
 #define L_W_MAT g_localWorldMatrix.lwMatrix

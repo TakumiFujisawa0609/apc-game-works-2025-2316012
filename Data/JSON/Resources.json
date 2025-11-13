@@ -270,6 +270,12 @@
       "path": "Data/Shader/NormalSprite.cso"
     },
     {
+      "key": "snowNoizeEffect",
+      "sceneId": 0,
+      "type": "pixelShader",
+      "path": "Data/Shader/SnowNoiseEffect.cso"
+    },
+    {
       "key": "glitchPs",
       "sceneId": 1,
       "type": "pixelShader",

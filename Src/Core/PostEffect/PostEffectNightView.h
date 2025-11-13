@@ -13,7 +13,7 @@ public:
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~PostEffectNightView();
+	~PostEffectNightView() override;
 
 	/// <summary>
 	/// 読み込み処理

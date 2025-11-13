@@ -17,7 +17,7 @@ public:
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~PostEffectBase();
+	virtual ~PostEffectBase();
 
 	/// <summary>
 	/// 読み込み処理

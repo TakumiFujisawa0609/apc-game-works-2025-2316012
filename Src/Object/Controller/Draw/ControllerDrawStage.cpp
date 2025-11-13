@@ -4,21 +4,21 @@
 #include "../../../Manager/Resource/ResourceManager.h"
 #include "../../../Render/ModelMaterial.h"
 #include "../../../Render/ModelRenderer.h"
-#include "ControllerDrawEnemy.h"
+#include "ControllerDrawStage.h"
 
-ControllerDrawEnemy::ControllerDrawEnemy(const int model) :
-	ControllerDrawBase(model)
+ControllerDrawStage::ControllerDrawStage(const int modelId)
+	: ControllerDrawBase(modelId)
 {
 }
 
-ControllerDrawEnemy::~ControllerDrawEnemy()
+ControllerDrawStage::~ControllerDrawStage()
 {
 }
 
-void ControllerDrawEnemy::Load()
+void ControllerDrawStage::Load()
 {
 	// マテリアル生成
-	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("enemyVs"), 2, resMng_.GetHandle("enemyPs"), 4);
+	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("standardVs"), 2, resMng_.GetHandle("standardPs"), 4);
 
 	// レンダラー生成
 	renderer_ = std::make_unique<ModelRenderer>(model_, *material_);
@@ -48,14 +48,14 @@ void ControllerDrawEnemy::Load()
 	material_->AddConstBufVS(FLOAT4{ lightPos.x,lightPos.y, lightPos.z, fogEnd });
 
 	// VSのバッファーの更新
-	material_->AddConstBufPS(FLOAT4{ lightDir.x,lightDir.y,lightDir.z, 0.0f });
+	material_->AddConstBufPS(FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, 0.0f });
 	material_->AddConstBufPS(FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
 	material_->AddConstBufPS(FLOAT4{ cameraPos.x, cameraPos.y,cameraPos.z, isSwitch });
 	material_->AddConstBufPS(FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,0.0f });
 }
 
-void ControllerDrawEnemy::UpdateBuffer()
-{	
+void ControllerDrawStage::UpdateBuffer()
+{
 	// カメラ位置の取得
 	VECTOR cameraPos = GetCameraPosition();
 

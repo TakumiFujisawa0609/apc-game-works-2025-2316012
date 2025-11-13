@@ -45,10 +45,12 @@ public:
 
 		CAMERA_MODE_CHANGE,	// カメラモード切替
 
+		LIGHT_SWITCH,		// ライトのON/OFF
+
 		DEBUG_SCENE_CHANGE, // デバッグシーン遷移
 		DEBUG_CAMERA_CHANGE,// デバッグカメラビュー変更
 		CREATE_POSITION,	// 位置リストの生成
-		OPEN_FILE,
+		OPEN_FILE,			// ファイルを開く
 	};
 
 	/// <summary>

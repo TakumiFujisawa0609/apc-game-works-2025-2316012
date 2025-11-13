@@ -8,6 +8,7 @@ class ResourceManager;
 class SoundManager;
 class InputManager;
 class FontManager;
+class PostEffectSnowNoise;
 
 class SceneBase
 {
@@ -56,6 +57,12 @@ protected:
 	//更新処理管理
 	std::function<void(void)> updataFunc_;
 	std::function<void(void)> drawFunc_;
+
+	// ローディング中ポストエフェクト
+	std::unique_ptr<PostEffectSnowNoise> snowNoiseEffect_;
+
+	// ローディング用スクリーン
+	int loadingScreen_;
 
 	//ローディング経過時間
 	float loadingTime_;

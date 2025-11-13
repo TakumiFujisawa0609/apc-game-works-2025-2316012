@@ -32,6 +32,12 @@ public:
 	/// </summary>
 	virtual void Draw();
 
+	/// <summary>
+	/// テクスチャの設定
+	/// </summary>
+	/// <param name="texture"></param>
+	virtual void SetTexture(const int texture);
+
 protected:
 
 	// インスタンスの参照
@@ -39,7 +45,8 @@ protected:
 	CharacterManager& charaMng_;
 
 	// 環境光
-	const VECTOR AMBIENT = { 0.5f, 0.5f, 0.5f };
+	//const VECTOR AMBIENT = { 0.02, 0.02, 0.05 };
+	const VECTOR AMBIENT = { 0.5, 0.5, 0.5 };
 
 	// モデル
 	const int model_;

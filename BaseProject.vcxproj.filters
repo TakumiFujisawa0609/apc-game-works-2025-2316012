@@ -453,6 +453,15 @@
     <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawGhost.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawStage.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawPainting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\PostEffect\PostEffectSnowNoise.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Fader.h">
@@ -992,6 +1001,15 @@
     <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawGhost.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawStage.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawPainting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\PostEffect\PostEffectSnowNoise.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\PostEffect\Vignette.hlsl" />
@@ -1012,6 +1030,7 @@
     <FxCompile Include="Src\Shader\Model\EnemyPS.hlsl" />
     <FxCompile Include="Src\Shader\Model\GhostVS.hlsl" />
     <FxCompile Include="Src\Shader\Model\GhostPS.hlsl" />
+    <FxCompile Include="Src\Shader\PostEffect\SnowNoiseEffect.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\Shader\Common\Pixel\PixelShader2DHeader.hlsli" />
@@ -1022,5 +1041,6 @@
     <None Include="Src\Shader\Common\Vertex\VertexShader3DHeader.hlsli" />
     <None Include="Src\Shader\Common\VertexToPixelHeader.hlsli" />
     <None Include="Src\Core\Common\ControllerSpriteAnimation.h" />
+    <None Include="Src\Shader\Common\Pixel\PixelShaderCommonFunction.hlsli" />
   </ItemGroup>
 </Project>

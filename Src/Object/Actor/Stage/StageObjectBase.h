@@ -2,8 +2,7 @@
 #include "../ActorBase.h"
 
 class CharacterManager;
-class ModelMaterial;
-class ModelRenderer;
+class ControllerDrawBase;
 
 class StageObjectBase : public ActorBase
 {
@@ -52,9 +51,6 @@ public:
 	const bool IsTranslucent() const { return isTrans_; }
 
 protected:
-	
-	// キャラクター管理クラス
-	CharacterManager& charaMng_;
 
 	// ステージキー
 	const std::string STAGE_KEY;
@@ -62,16 +58,11 @@ protected:
 	// 処理用部屋識別タグ
 	const std::string ROOM_TAG;
 
-	const VECTOR AMBIENT = { 0.5f, 0.5f, 0.5f };
-
 	// 透過描画判定
 	bool isTrans_;
 
-	// マテリアル
-	std::unique_ptr<ModelMaterial> material_;
-
-	// レンダラー
-	std::unique_ptr<ModelRenderer> renderer_;
+	// 描画の制御
+	std::unique_ptr<ControllerDrawBase> draw_;
 
 	// メインの描画処理
 	void DrawMain() override;

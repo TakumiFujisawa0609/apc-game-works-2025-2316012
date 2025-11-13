@@ -21,16 +21,6 @@ public:
 	~StageMain() override;
 
 	/// <summary>
-	/// 読み込み処理
-	/// </summary>
-	void Load() override;
-	
-	/// <summary>
-	/// 初期化
-	/// </summary>
-	void Init() override;
-
-	/// <summary>
 	/// 描画
 	/// </summary>
 	void Draw() override;
@@ -55,8 +45,5 @@ private:
 
 	// コライダーモデル
 	std::shared_ptr<ColliderModel> colliderModel_;
-
-	// メイン描画
-	void DrawMain() override;
 };
 

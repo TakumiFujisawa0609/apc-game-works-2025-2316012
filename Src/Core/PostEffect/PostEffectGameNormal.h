@@ -13,7 +13,7 @@ public:
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~PostEffectGameNormal();
+	~PostEffectGameNormal() override;
 
 	/// <summary>
 	/// 読み込み処理

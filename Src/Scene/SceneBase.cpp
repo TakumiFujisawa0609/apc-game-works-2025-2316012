@@ -5,6 +5,7 @@
 #include "../Manager/Resource/ResourceManager.h"
 #include "../Manager/Resource/FontManager.h"
 #include "../Manager/Resource/SoundManager.h"
+#include "../Core/PostEffect/PostEffectSnowNoise.h"
 #include "../Utility/UtilityCommon.h"
 #include "SceneBase.h"
 
@@ -16,10 +17,13 @@ SceneBase::SceneBase(void) :
 	sndMng_(SoundManager::GetInstance())
 {
 	loadingTime_ = -1;
+	loadingScreen_ = -1;
+	snowNoiseEffect_ = nullptr;
 }
 
 SceneBase::~SceneBase(void)
 {
+	DeleteGraph(loadingScreen_);
 }
 
 void SceneBase::Load(void)
@@ -28,7 +32,14 @@ void SceneBase::Load(void)
 	loadingTime_ = 0.0f;	
 	
 	// 非同期読み込み開始
-	//SetUseASyncLoadFlag(true);	
+	//SetUseASyncLoadFlag(true);
+	
+	// ポストエフェクトの生成
+	snowNoiseEffect_ = std::make_unique<PostEffectSnowNoise>();
+	snowNoiseEffect_->Load();
+
+	// ポストエフェクトスクリーン
+	loadingScreen_ = MakeScreen(Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, true);
 	
 	// シーン内のリソースを読み込む
 	resMng_.SceneChangeResource(static_cast<int>(scnMng_.GetSceneID()));
@@ -46,6 +57,8 @@ void SceneBase::Load(void)
 
 void SceneBase::Init(void)
 {
+	// ポストエフェクト初期化
+	snowNoiseEffect_->Init();
 }
 
 void SceneBase::Update(void)
@@ -86,7 +99,22 @@ void SceneBase::NormalUpdate(void)
 }
 
 void SceneBase::LoadingDraw(void)
-{
+{	
+	//スクリーンの設定
+	SetDrawScreen(loadingScreen_);
+
+	// 画面を初期化
+	ClearDrawScreen();
+
+	// ポストエフェクトの描画
+	snowNoiseEffect_->Draw();
+
+	// メインに戻す
+	SetDrawScreen(scnMng_.GetMainScreen());
+
+	// 描画
+	DrawGraph(0, 0, loadingScreen_, false);
+
 	//NowLoadingの描画
 	DrawNowLoading();
 }

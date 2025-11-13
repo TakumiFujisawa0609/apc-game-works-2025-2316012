@@ -38,6 +38,12 @@ void ControllerDrawBase::Draw()
 	renderer_->Draw();
 }
 
+void ControllerDrawBase::SetTexture(const int texture)
+{
+	// テクスチャを追加
+	material_->SetTextureBuf(7, texture);
+}
+
 void ControllerDrawBase::UpdateBuffer()
 {
 }

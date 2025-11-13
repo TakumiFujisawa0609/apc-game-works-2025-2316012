@@ -94,6 +94,12 @@ public:
 	/// <returns>ライト座標を返す</returns>
 	const VECTOR& GetPlayerLightPos() const;
 
+	/// <summary>
+	/// /プレイヤーライトの電源判定を返す
+	/// </summary>
+	/// <returns>ライトの電源判定</returns>
+	const bool IsPlayerLight() const;
+
 private:
 
 	// ファイル名

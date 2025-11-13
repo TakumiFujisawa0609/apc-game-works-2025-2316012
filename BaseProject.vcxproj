@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Core\PostEffect\PostEffectSnowNoise.cpp" />
+    <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawPainting.cpp" />
+    <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawStage.cpp" />
     <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawGhost.cpp" />
     <ClCompile Include="Src\Object\Controller\Camera\ControllerCameraPlayerDead.cpp" />
     <ClCompile Include="Src\Object\Controller\Camera\ControllerCameraBase.cpp" />
@@ -153,6 +156,9 @@
     <ClCompile Include="Src\Common\Image.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Core\PostEffect\PostEffectSnowNoise.h" />
+    <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawPainting.h" />
+    <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawStage.h" />
     <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawGhost.h" />
     <ClInclude Include="Src\Object\Controller\Camera\ControllerCameraPlayerDead.h" />
     <ClInclude Include="Src\Object\Controller\Camera\ControllerCameraBase.h" />
@@ -410,6 +416,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
+    <FxCompile Include="Src\Shader\PostEffect\SnowNoiseEffect.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Src\Shader\PostEffect\Vignette.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
@@ -431,6 +443,7 @@
     <None Include="Src\Core\Common\ControllerSpriteAnimation.h" />
     <None Include="Src\Shader\Common\Pixel\PixelShader2DHeader.hlsli" />
     <None Include="Src\Shader\Common\Pixel\PixelShader3DHeader.hlsli" />
+    <None Include="Src\Shader\Common\Pixel\PixelShaderCommonFunction.hlsli" />
     <None Include="Src\Shader\Common\VertexToPixelHeader.hlsli" />
     <None Include="Src\Shader\Common\Vertex\CommonShader3DHeader.hlsli" />
     <None Include="Src\Shader\Common\Vertex\VertexInput.hlsli" />

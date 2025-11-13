@@ -36,8 +36,11 @@ void InputManager::Init()
 	RegisterTrigger(TYPE::PAUSE, { KEY_INPUT_BACK }, { BTN::SELECT });
 
 	// 報告処理
-	RegisterTrigger(TYPE::ANOMARY_REPORT, { KEY_INPUT_R }, { BTN::R_BUTTON }, STICK::MAX, MOUSE::CLICK_LEFT);
+	RegisterTrigger(TYPE::ANOMARY_REPORT, { KEY_INPUT_R }, { BTN::R_BUTTON, BTN::R_TRIGGER }, STICK::MAX, MOUSE::CLICK_LEFT);
 	RegisterTrigger(TYPE::CAMERA_MODE_CHANGE, { KEY_INPUT_E }, { BTN::RB_TOP });
+
+	// ライトの電源切り替え処理
+	RegisterTrigger(TYPE::LIGHT_SWITCH, { KEY_INPUT_Q }, { BTN::RB_LEFT });
 
 	// デバッグ操作
 	RegisterTrigger(TYPE::DEBUG_SCENE_CHANGE, { KEY_INPUT_RSHIFT }, { });
