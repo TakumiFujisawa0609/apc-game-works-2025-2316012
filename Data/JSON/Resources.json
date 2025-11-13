@@ -559,6 +559,13 @@
       "path": "Data/Sound/SE/SePlayerDie.mp3"
     },
     {
+      "key": "seTvNoiseSnow",
+      "sceneId": 0,
+      "type": "sound",
+      "soundType": "se",
+      "path": "Data/Sound/SE/SeTvNoiseSnow.mp3"
+    },
+    {
       "key": "cameraSwitchIcons",
       "sceneId": 3,
       "type": "sprite",

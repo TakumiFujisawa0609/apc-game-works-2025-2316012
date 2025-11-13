@@ -32,12 +32,6 @@ private:
 	// 重力
 	const float GRAVITY;
 
-	//重力
-	float gravity_;
-
-	//重力方向
-	VECTOR dir_;
-
 	// 重力による移動量
 	void CalcGravityPow();
 };

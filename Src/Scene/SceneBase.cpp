@@ -47,10 +47,13 @@ void SceneBase::Load(void)
 	// サウンドのリソースの切り替え
 	sndMng_.SceneChangeResources();
 
+	// 効果音の再生
+	sndMng_.PlaySe(SoundType::SE::TV_NOISE_SNOW, true, 50);
+
 	//ローディング用文字列設定
 	const std::wstring& fontName = resMng_.GetFontName("fontKazuki");
 	loadingString_.fontHandle = fontMng_.CreateMyFont(fontName, 32, 0);
-	loadingString_.color = UtilityCommon::WHITE;
+	loadingString_.color = UtilityCommon::RED;
 	loadingString_.pos = { LOADING_STRING_POS_X, LOADING_STRING_POS_Y };
 	loadingString_.string = L"Now loading";
 }
@@ -82,6 +85,9 @@ void SceneBase::LoadingUpdate(void)
 	{
 		//非同期処理を無効にする
 		SetUseASyncLoadFlag(false);
+
+		// 効果音の停止
+		sndMng_.StopSe(SoundType::SE::TV_NOISE_SNOW);
 
 		//初期化処理
 		Init();

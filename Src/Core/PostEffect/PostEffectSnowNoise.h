@@ -33,7 +33,10 @@ public:
 private:
 
 	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 2;
+	static constexpr int CONST_BUFFER_SIZE = 1;
+
+	//ブラーを掛ける距離
+	static constexpr float BLUR_DISTANCE = 3.0f;
 
 	// 時間
 	float time_;

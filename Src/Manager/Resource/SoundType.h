@@ -44,6 +44,7 @@ public:
 		CAMERA_MODE_CAHNGE,
 		ENEMY_FOUND,
 		PLAYER_DIE,
+		TV_NOISE_SNOW,
 		MAX
 	};
 
