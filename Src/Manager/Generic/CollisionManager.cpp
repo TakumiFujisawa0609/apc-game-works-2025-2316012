@@ -27,6 +27,9 @@ void CollisionManager::Update()
 
 		for (int j = i + 1; j < size; j++)
 		{
+			auto& collider = colliders_[i];
+			auto& collider2 = colliders_[j];
+
 			// 所有者が非活動状態の場合
 			if (!colliders_[j]->GetOwner().IsActive())
 			{
@@ -38,8 +41,8 @@ void CollisionManager::Update()
 			const auto& tag1 = colliders_[i]->GetTag();
 			const auto& tag2 = colliders_[j]->GetTag();
 
-			if (tag1 == CollisionTags::TAG::MAIN_STAGE && tag2 == CollisionTags::TAG::PLAYER_LIGHT ||
-				tag1 == CollisionTags::TAG::PLAYER_LIGHT && tag2 == CollisionTags::TAG::MAIN_STAGE)
+			if (tag1 == CollisionTags::TAG::ENEMY && tag2 == CollisionTags::TAG::STAGE_GIMMICK ||
+				tag1 == CollisionTags::TAG::STAGE_GIMMICK && tag2 == CollisionTags::TAG::ENEMY)
 			{
 				// YEAR
 				int a = 0;
@@ -149,7 +152,7 @@ void CollisionManager::InitTagMatrix()
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::GHOST)][static_cast<int>(CollisionTags::TAG::REPORT)] = true;				// ゴーストとレポート用ライン
 
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::CHARACTER_GRAVITY_LINE)][static_cast<int>(CollisionTags::TAG::MAIN_STAGE)] = true;				// 重力とステージ
-	collTagMatrix_[static_cast<int>(CollisionTags::TAG::CHARACTER_GRAVITY_LINE)][static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)] = true;				// 重力とステージ
+	//collTagMatrix_[static_cast<int>(CollisionTags::TAG::CHARACTER_GRAVITY_LINE)][static_cast<int>(CollisionTags::TAG::STAGE_GIMMICK)] = true;				// 重力とステージ
 
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::PLAYER_LIGHT)][static_cast<int>(CollisionTags::TAG::MAIN_STAGE)] = true;				// ライトとステージ
 	collTagMatrix_[static_cast<int>(CollisionTags::TAG::MAIN_STAGE)][static_cast<int>(CollisionTags::TAG::PLAYER_LIGHT)] = true;				// ライトとステージ

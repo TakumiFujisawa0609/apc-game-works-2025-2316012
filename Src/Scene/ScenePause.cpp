@@ -7,7 +7,7 @@
 #include "../Manager/Generic/InputManager.h"
 #include "../Utility/UtilityCommon.h"
 
-ScenePause::ScenePause(void)
+ScenePause::ScenePause()
 {
 	//更新関数のセット
 	updataFunc_ = std::bind(&ScenePause::NormalUpdate, this);
@@ -33,22 +33,24 @@ ScenePause::ScenePause(void)
 	};
 }
 
-ScenePause::~ScenePause(void)
+ScenePause::~ScenePause()
 {
 }
 
-void ScenePause::Load(void)
+void ScenePause::Load()
 {
-	pauseFont_ = fontMng_.CreateMyFont(resMng_.GetFontName("fontHanazome"), FONT_SIZE, FONT_THICK);
+	//pauseFont_ = fontMng_.CreateMyFont(resMng_.GetFontName("fontHanazome"), FONT_SIZE, FONT_THICK);
 }
 
-void ScenePause::Init(void)
+void ScenePause::Init()
 {	
 	
 }
 
-void ScenePause::NormalUpdate(void)
+void ScenePause::NormalUpdate()
 {
+	pauseFont_ = fontMng_.CreateMyFont(resMng_.GetFontName("fontHanazome"), FONT_SIZE, FONT_THICK);
+
 	if (inputMng_.IsTrgDown(InputManager::TYPE::PAUSE) || inputMng_.IsTrgDown(InputManager::TYPE::SELECT_CANCEL))
 	{
 		//シーンを戻す
@@ -72,7 +74,7 @@ void ScenePause::NormalUpdate(void)
 	}
 }
 
-void ScenePause::NormalDraw(void)
+void ScenePause::NormalDraw()
 {
 	static constexpr int MARGINT = 50;
 	static constexpr int OFFSET_Y = 200;

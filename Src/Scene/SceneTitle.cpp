@@ -33,8 +33,12 @@ SceneTitle::~SceneTitle()
 
 void SceneTitle::Load()
 {
-	//親クラスの読み込み
 	SceneBase::Load();
+}
+
+void SceneTitle::Init()
+{
+	SceneBase::Init();
 
 	// ロゴの生成
 	logo_ = std::make_unique<TitleLogo>();
@@ -45,10 +49,7 @@ void SceneTitle::Load()
 	keyMaterial_ = std::make_unique<PixelMaterial>(Nps, 1);
 	keyMaterial_->AddTextureBuf(resMng_.GetHandle("pleaseSpaceKey"));
 	keyRenderer_ = std::make_unique<PixelRenderer>(*keyMaterial_);
-}
 
-void SceneTitle::Init()
-{
 	keyRenderer_->SetPos({ Application::SCREEN_HALF_X - 476 / 2, 500 });
 	keyRenderer_->SetSize({ 476, 48 });
 	keyRenderer_->MakeSquereVertex();
@@ -65,8 +66,13 @@ void SceneTitle::NormalUpdate()
 	// シーン遷移
 	if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_DECISION))
 	{
+		// シーン遷移
 		scnMng_.ChangeScene(SceneManager::SCENE_ID::GAME);
+
+		// BGMの停止
 		sndMng_.StopBgm(SoundType::BGM::TITLE);
+
+		// 効果音の再生
 		sndMng_.PlaySe(SoundType::SE::GAME_START);
 	}
 
@@ -100,4 +106,7 @@ void SceneTitle::ChangeNormal()
 	//処理変更
 	updataFunc_ = std::bind(&SceneTitle::NormalUpdate, this);
 	drawFunc_ = std::bind(&SceneTitle::NormalDraw, this);
+
+	//フェードイン開始
+	scnMng_.StartFadeIn();
 }

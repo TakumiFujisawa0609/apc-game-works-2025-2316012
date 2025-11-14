@@ -44,3 +44,7 @@ void ControllerOnHitBase::RegisterOnHit(const CollisionTags::TAG tag, std::funct
 {
 	onHitMap_[tag] = onHit;
 }
+
+void ControllerOnHitBase::OnHitNone(const std::weak_ptr<ColliderBase>& onHit)
+{
+}

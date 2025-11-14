@@ -87,6 +87,8 @@ private:
 		"CorriderC",
 	};
 
+	std::unordered_map<std::string, std::vector<Json>> paramStageMap_;
+
 	// 描画するタグリスト
 	std::vector<std::string> drawTagList_;
 

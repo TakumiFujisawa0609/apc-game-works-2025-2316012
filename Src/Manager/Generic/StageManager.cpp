@@ -9,7 +9,7 @@
 void StageManager::Load()
 {
 	// パラメータステージマップを取得
-	auto& paramStageMap = UtilityLoad::GetJsonMapArrayData(STAGE_FILE_NAME);
+	paramStageMap_ = UtilityLoad::GetJsonMapArrayData(STAGE_FILE_NAME);
 
 	// パラメーターコライダーマップを取得
 	stageObjectColliserInfoMap_ = UtilityLoad::GetJsonMapArrayData(COLLIDER_FILE_NAME);
@@ -18,7 +18,7 @@ void StageManager::Load()
 	auto factory = std::make_unique<StageObjectFactory>();
 
 	// パラメータ数分オブジェクト生成
-	for (auto& params : paramStageMap)
+	for (auto& params : paramStageMap_)
 	{		
 		// オブジェクト格納用配列
 		std::vector<std::unique_ptr<StageObjectBase>> objects;
@@ -64,6 +64,56 @@ void StageManager::Load()
 
 void StageManager::Init()
 {
+	// パラメーターコライダーマップを取得
+	stageObjectColliserInfoMap_ = UtilityLoad::GetJsonMapArrayData(COLLIDER_FILE_NAME);
+
+	// ファクトリーの生成
+	auto factory = std::make_unique<StageObjectFactory>();
+
+	// パラメータ数分オブジェクト生成
+	for (auto& params : paramStageMap_)
+	{
+		// オブジェクト格納用配列
+		std::vector<std::unique_ptr<StageObjectBase>> objects;
+
+		// 要素分パラメータ格納
+		for (auto& param : params.second)
+		{
+			// コライダー情報を検索
+			const auto& collInfo = stageObjectColliserInfoMap_.find(params.first);
+
+			// 中身が空もしくは配列で格納されている場合
+			if (collInfo->second.empty())
+			{
+				// 想定外のため終了
+				return;
+			}
+
+			// オブジェクト生成
+			auto object = factory->Create(params.first, param, collInfo->second[0]);
+
+			// オブジェクト読み込み
+			object->Load();
+
+			// 配列に格納
+			objects.push_back(std::move(object));
+		}
+
+		// マップに登録
+		stageObjectsMap_.emplace(params.first, std::move(objects));
+	}
+
+	for (auto& name : MAIN_STAGES)
+	{
+		StageObjectBase* object = stageObjectsMap_[name][0].get();
+		StageMain* stage = dynamic_cast<StageMain*>(object);
+		if (stage != nullptr)
+		{
+			// キャスト成功
+			mainStages_.push_back(stage);
+		}
+	}
+
 	for (auto& objects : stageObjectsMap_)
 	{
 		for (auto& object : objects.second)

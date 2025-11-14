@@ -1,10 +1,12 @@
 #include <chrono>
 #include <DxLib.h>
 #include <EffekseerForDXLib.h>
+#include "../../Application.h"
 #include "../../Scene/SceneTitle.h"
 #include "../../Scene/SceneMenu.h"
 #include "../../Scene/SceneGame.h"
 #include "../../Scene/SceneResult.h"
+#include "../../Common/Loading.h"
 #include "../Resource/ResourceManager.h"
 #include "../Resource/SoundManager.h"
 #include "../Resource/FontManager.h"
@@ -12,8 +14,7 @@
 #include "Camera.h"
 #include "SceneManager.h"
 
-
-void SceneManager::Init(void)
+void SceneManager::Init()
 {
 	//シーンID初期化
 	sceneId_ = SCENE_ID::TITLE;
@@ -36,6 +37,10 @@ void SceneManager::Init(void)
 	// スコア管理生成
 	ScoreManager::CreateInstance();
 
+	// 読み込み中処理管理クラス生成
+	Loading::CreateInstance();
+	Loading::GetInstance().Init();
+
 	// シーン遷移中
 	isSceneChanging_ = true;
 
@@ -52,11 +57,10 @@ void SceneManager::Init(void)
 	Init3D();
 
 	// 初期シーンの設定
-	//DoChangeScene(SCENE_ID::TITLE);
-	CreateScene(std::make_unique<SceneTitle>());
+	CreateScene(std::make_shared<SceneTitle>());
 }
 
-void SceneManager::Init3D(void)
+void SceneManager::Init3D()
 {
 	// 背景色設定
 	SetBackgroundColor(0, 0, 0);
@@ -85,7 +89,7 @@ void SceneManager::Init3D(void)
 	SetFogStartEnd(100.0f, 500.0f);
 }
 
-void SceneManager::Update(void)
+void SceneManager::Update()
 {
 	//if (scene_ == nullptr) { return; }
 
@@ -96,9 +100,13 @@ void SceneManager::Update(void)
 	preTime_ = nowTime;
 	totalTime_ += deltaTime_;
 
+	// フェーダー更新
 	fader_->Update();
+
+	// シーンチェンジ中の処理
 	if (isSceneChanging_)
 	{
+		// フェード処理
 		Fade();
 	}
 	
@@ -110,10 +118,9 @@ void SceneManager::Update(void)
 
 	// サウンドの更新
 	SoundManager::GetInstance().Update();
-
 }
 
-void SceneManager::Draw(void)
+void SceneManager::Draw()
 {
 	// メインスクリーンを指定
 	SetDrawScreen(mainScreen_);
@@ -138,7 +145,7 @@ void SceneManager::Draw(void)
 
 	// Effekseerにより再生中のエフェクトを描画する。
 	DrawEffekseer3D();
-	
+
 	// 暗転・明転
 	fader_->Draw();
 
@@ -152,7 +159,7 @@ void SceneManager::Draw(void)
 	DrawGraph(screenPos_.x, screenPos_.y, mainScreen_, true);
 }
 
-void SceneManager::CreateScene(std::shared_ptr<SceneBase> scene)
+void SceneManager::CreateScene(const std::shared_ptr<SceneBase>& scene)
 {
 	if (scenes_.empty())
 	{
@@ -167,7 +174,7 @@ void SceneManager::CreateScene(std::shared_ptr<SceneBase> scene)
 	scenes_.front()->Load();
 }
 
-void SceneManager::PushScene(std::shared_ptr<SceneBase> scene)
+void SceneManager::PushScene(const std::shared_ptr<SceneBase>& scene)
 {
 	scene->Init();
 	scenes_.push_back(scene);
@@ -181,7 +188,7 @@ void SceneManager::PopScene()
 	}
 }
 
-void SceneManager::Release(void)
+void SceneManager::Release()
 {
 	DeleteGraph(mainScreen_);
 
@@ -189,9 +196,10 @@ void SceneManager::Release(void)
 	FontManager::GetInstance().Destroy();
 	SoundManager::GetInstance().Destroy();
 	ScoreManager::GetInstance().Destroy();
+	Loading::GetInstance().Destroy();
 }
 
-void SceneManager::ChangeScene(SCENE_ID nextId)
+void SceneManager::ChangeScene(const SCENE_ID nextId, const Fader::STATE fadeState)
 {
 
 	// フェード処理が終わってからシーンを変える場合もあるため、
@@ -199,21 +207,21 @@ void SceneManager::ChangeScene(SCENE_ID nextId)
 	waitSceneId_ = nextId;
 
 	// フェードアウト(暗転)を開始する
-	fader_->SetFade(Fader::STATE::FADE_OUT);
+	fader_->SetFade(fadeState);
 	isSceneChanging_ = true;
 
 }
 
-void SceneManager::StartFadeIn(void)
+void SceneManager::StartFadeIn(const Fader::STATE fadeState)
 {
 	//フェードを明ける
-	fader_->SetFade(Fader::STATE::FADE_IN);
+	fader_->SetFade(fadeState);
 
 	//シーンチェンジ
 	isSceneChanging_ = false;
 }
 
-SceneManager::SceneManager(void)
+SceneManager::SceneManager()
 {
 	mainScreen_ = -1;
 	sceneId_ = SCENE_ID::NONE;
@@ -227,7 +235,7 @@ SceneManager::SceneManager(void)
 	screenPos_ = {};
 }
 
-void SceneManager::ResetDeltaTime(void)
+void SceneManager::ResetDeltaTime()
 {
 	deltaTime_ = 0.016f;
 	preTime_ = std::chrono::system_clock::now();
@@ -249,16 +257,16 @@ void SceneManager::DoChangeScene(SCENE_ID sceneId)
 	switch (sceneId_)
 	{
 	case SCENE_ID::TITLE:
-		CreateScene(std::make_unique<SceneTitle>());
+		CreateScene(std::make_shared<SceneTitle>());
 		break;
 	case SCENE_ID::GAME:
-		CreateScene(std::make_unique<SceneGame>());
+		CreateScene(std::make_shared<SceneGame>());
 		break;
 	case SCENE_ID::MENU:
-		CreateScene(std::make_unique<SceneMenu>());
+		CreateScene(std::make_shared<SceneMenu>());
 		break;
 	case SCENE_ID::RESULT:
-		CreateScene(std::make_unique<SceneResult>());
+		CreateScene(std::make_shared<SceneResult>());
 		break;
 	}
 
@@ -269,13 +277,14 @@ void SceneManager::DoChangeScene(SCENE_ID sceneId)
 	waitSceneId_ = SCENE_ID::NONE;
 }
 
-void SceneManager::Fade(void)
+void SceneManager::Fade()
 {
 
 	Fader::STATE fState = fader_->GetState();
 	switch (fState)
 	{
 	case Fader::STATE::FADE_IN:
+	case Fader::STATE::FINISH:
 		// 明転中
 		if (fader_->IsEnd())
 		{
@@ -285,6 +294,7 @@ void SceneManager::Fade(void)
 		}
 		break;
 	case Fader::STATE::FADE_OUT:
+	case Fader::STATE::IMMEDIATE:
 		// 暗転中
 		if (fader_->IsEnd())
 		{

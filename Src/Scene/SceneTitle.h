@@ -1,7 +1,5 @@
 #pragma once
 #include "SceneBase.h"
-#include "../Common/Sprite.h"
-#include "../Common/CharacterString.h"
 
 class TitleLogo;
 class PixelMaterial;

@@ -1,49 +1,36 @@
 #pragma once
 #include<functional>
-#include "../Application.h"
-#include "../Common/CharacterString.h"
+#include<memory>
 
 class SceneManager;
 class ResourceManager;
 class SoundManager;
 class InputManager;
 class FontManager;
-class PostEffectSnowNoise;
+class Loading;
 
 class SceneBase
 {
 
 public:
 
-	//最低ローディング時間
-	static constexpr float LOADING_TIME = 2.0f;
-
-	//フォントサイズ
-	static constexpr int FONT_SIZE = 28;
-
-	//ローディング
-	static constexpr int COMMA_MAX_NUM = 7;											//「now loading......」のコンマの数
-	static constexpr float COMMA_TIME = 0.5f;										//「now loading......」のコンマ数を増やす時間
-	static constexpr int LOADING_STRING_POS_X = Application::SCREEN_SIZE_X - 300;	//「now loading......」の座標X
-	static constexpr int LOADING_STRING_POS_Y = Application::SCREEN_SIZE_Y - 40;	//「now loading......」の座標Y
-
 	// コンストラクタ
 	SceneBase(void);
 
 	// デストラクタ
-	virtual ~SceneBase(void);
+	virtual ~SceneBase();
 
 	// 読み込み処理
-	virtual void Load(void);
+	virtual void Load();
 
 	// 初期化処理
-	virtual void Init(void);
+	virtual void Init();
 
 	// 更新ステップ
-	virtual void Update(void);
+	virtual void Update();
 
 	// 描画処理
-	virtual void Draw(void);
+	virtual void Draw();
 
 protected:
 
@@ -53,35 +40,20 @@ protected:
 	SoundManager& sndMng_;
 	SceneManager& scnMng_;
 	FontManager& fontMng_;
+	Loading& loading_;
 
 	//更新処理管理
-	std::function<void(void)> updataFunc_;
-	std::function<void(void)> drawFunc_;
-
-	// ローディング中ポストエフェクト
-	std::unique_ptr<PostEffectSnowNoise> snowNoiseEffect_;
-
-	// ローディング用スクリーン
-	int loadingScreen_;
-
-	//ローディング経過時間
-	float loadingTime_;
-
-	//ローディング文字列
-	CharacterString loadingString_;
+	std::function<void()> updataFunc_;
+	std::function<void()> drawFunc_;
 
 	//更新関数
-	virtual void LoadingUpdate(void);
-	virtual void NormalUpdate(void);
+	virtual void LoadingUpdate();
+	virtual void NormalUpdate();
 
 	//描画関数
-	virtual void LoadingDraw(void);
-	virtual void NormalDraw(void);
+	virtual void LoadingDraw();
+	virtual void NormalDraw();
 
 	//ローディング処理から通常処理へ
-	virtual void ChangeNormal(void);
-	
-	//「now loading......」の描画
-	void DrawNowLoading(void);
-
+	virtual void ChangeNormal();
 };

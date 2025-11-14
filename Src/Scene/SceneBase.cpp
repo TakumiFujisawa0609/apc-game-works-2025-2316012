@@ -5,151 +5,85 @@
 #include "../Manager/Resource/ResourceManager.h"
 #include "../Manager/Resource/FontManager.h"
 #include "../Manager/Resource/SoundManager.h"
+#include "../Common/Loading.h"
 #include "../Core/PostEffect/PostEffectSnowNoise.h"
 #include "../Utility/UtilityCommon.h"
 #include "SceneBase.h"
 
-SceneBase::SceneBase(void) :
+SceneBase::SceneBase() :
 	resMng_(ResourceManager::GetInstance()),
 	scnMng_(SceneManager::GetInstance()),
 	inputMng_(InputManager::GetInstance()),
 	fontMng_(FontManager::GetInstance()),
-	sndMng_(SoundManager::GetInstance())
+	sndMng_(SoundManager::GetInstance()),
+	loading_(Loading::GetInstance())
 {
-	loadingTime_ = -1;
-	loadingScreen_ = -1;
-	snowNoiseEffect_ = nullptr;
 }
 
-SceneBase::~SceneBase(void)
+SceneBase::~SceneBase()
 {
-	DeleteGraph(loadingScreen_);
 }
 
-void SceneBase::Load(void)
+void SceneBase::Load()
 {
-	// 読み込み時間初期化
-	loadingTime_ = 0.0f;	
-	
-	// 非同期読み込み開始
-	//SetUseASyncLoadFlag(true);
-	
-	// ポストエフェクトの生成
-	snowNoiseEffect_ = std::make_unique<PostEffectSnowNoise>();
-	snowNoiseEffect_->Load();
-
-	// ポストエフェクトスクリーン
-	loadingScreen_ = MakeScreen(Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, true);
-	
-	// シーン内のリソースを読み込む
-	resMng_.SceneChangeResource(static_cast<int>(scnMng_.GetSceneID()));
-
-	// サウンドのリソースの切り替え
-	sndMng_.SceneChangeResources();
-
 	// 効果音の再生
 	sndMng_.PlaySe(SoundType::SE::TV_NOISE_SNOW, true, 50);
 
-	//ローディング用文字列設定
-	const std::wstring& fontName = resMng_.GetFontName("fontKazuki");
-	loadingString_.fontHandle = fontMng_.CreateMyFont(fontName, 32, 0);
-	loadingString_.color = UtilityCommon::RED;
-	loadingString_.pos = { LOADING_STRING_POS_X, LOADING_STRING_POS_Y };
-	loadingString_.string = L"Now loading";
+	// 非同期読み込み開始
+	loading_.StartASyncLoad();
+	
+	// シーン内のリソースを読み込む
+	resMng_.SceneChangeResource(static_cast<int>(scnMng_.GetSceneID()));
 }
 
-void SceneBase::Init(void)
+void SceneBase::Init()
 {
-	// ポストエフェクト初期化
-	snowNoiseEffect_->Init();
+	// サウンドのリソースの切り替え
+	sndMng_.SceneChangeResources();
 }
 
-void SceneBase::Update(void)
+void SceneBase::Update()
 {
 	updataFunc_();
-	return;
 }
 
-void SceneBase::Draw(void)
+void SceneBase::Draw()
 {
 	drawFunc_();
-	return;
 }
 
-void SceneBase::LoadingUpdate(void)
+void SceneBase::LoadingUpdate()
 {
-	bool loadTimeOver = UtilityCommon::IsTimeOver(loadingTime_, LOADING_TIME);
-
-	//ロードが完了したか判断
-	if (GetASyncLoadNum() == 0 && loadTimeOver)
+	// ローディング中の場合
+	if (loading_.IsLoading())
 	{
-		//非同期処理を無効にする
-		SetUseASyncLoadFlag(false);
-
-		// 効果音の停止
-		sndMng_.StopSe(SoundType::SE::TV_NOISE_SNOW);
-
-		//初期化処理
-		Init();
-
-		//フェードイン開始
-		scnMng_.StartFadeIn();
-
-		//通常の処理へ移る
-		ChangeNormal();
-	}
-}
-
-void SceneBase::NormalUpdate(void)
-{
-}
-
-void SceneBase::LoadingDraw(void)
-{	
-	//スクリーンの設定
-	SetDrawScreen(loadingScreen_);
-
-	// 画面を初期化
-	ClearDrawScreen();
-
-	// ポストエフェクトの描画
-	snowNoiseEffect_->Draw();
-
-	// メインに戻す
-	SetDrawScreen(scnMng_.GetMainScreen());
-
-	// 描画
-	DrawGraph(0, 0, loadingScreen_, false);
-
-	//NowLoadingの描画
-	DrawNowLoading();
-}
-
-void SceneBase::NormalDraw(void)
-{
-}
-
-void SceneBase::ChangeNormal(void)
-{
-}
-
-void SceneBase::DrawNowLoading(void)
-{
-	//ロード中
-	auto time = scnMng_.GetTotalTime();
-	int count = static_cast<int>(time / COMMA_TIME);
-	count %= COMMA_MAX_NUM;
-
-	loadingString_.string = L"Now Loading";
-	std::wstring dotStr = L".";
-
-	//テキストの設定
-	for (int i = 0; i < count; i++)
-	{
-		loadingString_.string += dotStr;
+		// ローディング中の更新処理
+		loading_.Update();
+		return;
 	}
 
-	//文字の描画
-	loadingString_.Draw();
+	// ローディング完了後の処理
+	// 初期化
+	Init();
 
+	// 処理の変更
+	ChangeNormal();
+}
+
+void SceneBase::NormalUpdate()
+{
+}
+
+void SceneBase::LoadingDraw()
+{
+	// ローディング画面の描画
+	loading_.Draw();
+}
+
+void SceneBase::NormalDraw()
+{
+}
+
+void SceneBase::ChangeNormal()
+{
 }

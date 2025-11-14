@@ -18,22 +18,22 @@ public:
 	static constexpr int LIST_MAX = static_cast<int>(LIST::MAX);
 
 	// コンストラクタ
-	ScenePause(void);
+	ScenePause();
 
 	// デストラクタ
-	~ScenePause(void) override;
+	~ScenePause() override;
 
 	//読み込み処理
-	void Load(void)override;
+	void Load()override;
 
 	//初期化処理
-	void Init(void)override;
+	void Init()override;
 
 	//更新関数
-	void NormalUpdate(void)override;
+	void NormalUpdate()override;
 
 	//描画関数
-	void NormalDraw(void)override;
+	void NormalDraw()override;
 
 private:
 	

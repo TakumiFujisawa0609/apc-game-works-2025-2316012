@@ -1,6 +1,7 @@
 #pragma once
 #include <unordered_map>
-#include "../../Template/Singleton.h"
+#include "../Application.h"
+#include "../Template/Singleton.h"
 #include "../Common/CharacterString.h"
 
 class PostEffectSnowNoise;
@@ -27,6 +28,17 @@ public:
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// 非同期読み込みの開始
+	/// </summary>
+	void StartASyncLoad();
+
+	/// <summary>
+	/// 非同期読み込み中か判定
+	/// </summary>
+	/// <returns>trueの場合非同期処理中、falseの場合終了済み</returns>
+	const bool IsLoading() const { return isLoading_; }
+
 private:
 
 	//最低ローディング時間
@@ -47,8 +59,11 @@ private:
 	// ローディング用スクリーン
 	int loadingScreen_;
 
-	//ローディング経過時間
+	// ローディング経過時間
 	float loadingTime_;
+
+	// ローディング中かどうか
+	bool isLoading_;
 
 	//ローディング文字列
 	CharacterString loadingString_;

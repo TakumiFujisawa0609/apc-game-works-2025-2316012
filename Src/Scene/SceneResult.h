@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneBase.h"
+#include "../Common/CharacterString.h"
 
 class SceneResult : public SceneBase
 {

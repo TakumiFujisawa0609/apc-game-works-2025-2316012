@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\Manager\System\Loading.cpp" />
+    <ClCompile Include="Src\Common\Loading.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectSnowNoise.cpp" />
     <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawPainting.cpp" />
     <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawStage.cpp" />
@@ -157,7 +157,7 @@
     <ClCompile Include="Src\Common\Image.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Src\Manager\System\Loading.h" />
+    <ClInclude Include="Src\Common\Loading.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectSnowNoise.h" />
     <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawPainting.h" />
     <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawStage.h" />

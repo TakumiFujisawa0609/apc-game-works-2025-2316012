@@ -28,6 +28,11 @@ SceneResult::~SceneResult()
 
 void SceneResult::Load()
 {
+	SceneBase::Load();
+}
+
+void SceneResult::Init()
+{	
 	int font = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), 56, 0);
 
 	// テキスト設定
@@ -48,16 +53,12 @@ void SceneResult::Load()
 	}
 }
 
-void SceneResult::Init()
-{
-}
-
 void SceneResult::NormalUpdate()
 {
 	// シーン遷移
 	if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_DECISION))
 	{
-		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::TITLE);
+		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::TITLE, Fader::STATE::IMMEDIATE);
 	}
 }
 
@@ -82,4 +83,7 @@ void SceneResult::ChangeNormal()
 	// 処理変更
 	updataFunc_ = std::bind(&SceneResult::NormalUpdate, this);
 	drawFunc_ = std::bind(&SceneResult::NormalDraw, this);
+
+	//フェードイン開始
+	scnMng_.StartFadeIn(Fader::STATE::FINISH);
 }

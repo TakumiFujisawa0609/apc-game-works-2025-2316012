@@ -51,6 +51,9 @@ protected:
 	//タグ別衝突後の処理の登録
 	void RegisterOnHit(const CollisionTags::TAG tag, std::function<void(const std::weak_ptr<ColliderBase>&)> onHit);
 
+	// 衝突後処理
+	void OnHitNone(const std::weak_ptr<ColliderBase>& onHit);
+
 	//衝突後の処理を管理するマップ
 	std::unordered_map<CollisionTags::TAG, std::function<void(const std::weak_ptr<ColliderBase>&)>> onHitMap_;
 

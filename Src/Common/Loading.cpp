@@ -1,18 +1,15 @@
 #include <DxLib.h>
-#include "../../Application.h"
-#include "../../Manager/Generic/SceneManager.h"
-#include "../../Manager/Resource/ResourceManager.h"
-#include "../../Manager/Resource/SoundManager.h"
-#include "../../Manager/Resource/FontManager.h"
-#include "../../Utility/UtilityCommon.h"
-#include "../../Core/PostEffect/PostEffectSnowNoise.h"
+#include "../Application.h"
+#include "../Manager/Generic/SceneManager.h"
+#include "../Manager/Resource/ResourceManager.h"
+#include "../Manager/Resource/SoundManager.h"
+#include "../Manager/Resource/FontManager.h"
+#include "../Utility/UtilityCommon.h"
+#include "../Core/PostEffect/PostEffectSnowNoise.h"
 #include "Loading.h"
 
 void Loading::Init()
 {
-	// 非同期読み込み開始
-	//SetUseASyncLoadFlag(true);
-
 	// ポストエフェクトの生成
 	snowNoiseEffect_ = std::make_unique<PostEffectSnowNoise>();
 	snowNoiseEffect_->Load();
@@ -40,7 +37,20 @@ void Loading::Init()
 void Loading::Update()
 {
 	// ローディング経過時間更新
-	loadingTime_ += SceneManager::GetInstance().GetDeltaTime();
+	bool loadTimeOver = UtilityCommon::IsTimeOver(loadingTime_, LOADING_TIME);
+
+	//ロードが完了したか判断
+	if (GetASyncLoadNum() == 0 && loadTimeOver)
+	{
+		//非同期処理を無効にする
+		SetUseASyncLoadFlag(false);		
+		
+		// 非同期読み込みの終了判定
+		isLoading_ = false;
+
+		// 効果音の停止
+		SoundManager::GetInstance().StopSe(SoundType::SE::TV_NOISE_SNOW);
+	}
 }
 
 void Loading::Draw()
@@ -62,6 +72,18 @@ void Loading::Draw()
 
 	// NowLoadingの描画
 	DrawNowLoading();
+}
+
+void Loading::StartASyncLoad() 
+{
+	// ローディング中フラグを立てる
+	isLoading_ = true;
+
+	// 非同期読み込みを有効にする
+	SetUseASyncLoadFlag(true);
+
+	// ローディング時間の初期化
+	loadingTime_ = 0.0f;
 }
 
 void Loading::DrawNowLoading(void)
@@ -86,8 +108,12 @@ void Loading::DrawNowLoading(void)
 
 Loading::Loading()
 {
+	loadingTime_ = 0.0f;
+	loadingScreen_ = -1;
+	isLoading_ = false;
 }
 
 Loading::~Loading()
 {
+	DeleteGraph(loadingScreen_);
 }

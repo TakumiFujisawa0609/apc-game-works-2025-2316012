@@ -9,7 +9,7 @@ ControllerOnHitGravity::ControllerOnHitGravity(CharacterBase& owner) :
 {
 	// è’ìÀï®ï ä÷êîÇÃìoò^
 	RegisterOnHit(CollisionTags::TAG::MAIN_STAGE, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStage(opponentCollider); });
-	RegisterOnHit(CollisionTags::TAG::STAGE_GIMMICK, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStage(opponentCollider); });
+	RegisterOnHit(CollisionTags::TAG::STAGE_GIMMICK, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitNone(opponentCollider); });
 }
 
 ControllerOnHitGravity::~ControllerOnHitGravity()

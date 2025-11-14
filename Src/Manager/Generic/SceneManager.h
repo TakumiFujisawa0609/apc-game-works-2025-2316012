@@ -59,14 +59,14 @@ public:
 	/// 先頭の（Updateが呼ばれる）シーンを切り替える
 	/// </summary>
 	/// <param name="scene">切り替え先のシーン</param>
-	void CreateScene(std::shared_ptr<SceneBase> scene);
+	void CreateScene(const std::shared_ptr<SceneBase>& scene);
 
 	/// <summary>
 	/// シーンをプッシュする。スタックの数が増える
 	/// 一番上のシーンのUpdateしか呼ばれません。
 	/// </summary>
 	/// <param name="scene">積むシーン</param>
-	void PushScene(std::shared_ptr<SceneBase> scene);
+	void PushScene(const std::shared_ptr<SceneBase>& scene);
 
 	/// <summary>
 	/// スタックの頭のシーンを削除する。
@@ -78,18 +78,18 @@ public:
 	/// シーン遷移
 	/// </summary>
 	/// <param name="nextId">変更先のシーン</param>
-	void ChangeScene(SCENE_ID nextId);
+	void ChangeScene(const SCENE_ID nextId, const Fader::STATE fadeState = Fader::STATE::FADE_OUT);
 	
 	/// <summary>
 	/// フェードを始める
 	/// </summary>
-	void StartFadeIn();
+	void StartFadeIn(const Fader::STATE fadeState = Fader::STATE::FADE_IN);
 
 	/// <summary>
 	/// スクリーン座標
 	/// </summary>
 	/// <param name="pos">スクリーン座標</param>
-	void SetScreenPos(const Vector2 pos) { screenPos_ = pos; }
+	void SetScreenPos(const Vector2& pos) { screenPos_ = pos; }
 
 	/// <summary>
 	/// メインスクリーンを返す
