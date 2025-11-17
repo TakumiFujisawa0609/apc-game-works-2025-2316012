@@ -78,7 +78,7 @@ void SceneTitle::NormalUpdate()
 	if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_DECISION))
 	{
 		// ƒV[ƒ“‘JˆÚ
-		//scnMng_.ChangeScene(SceneManager::SCENE_ID::GAME);
+		scnMng_.ChangeScene(SceneManager::SCENE_ID::GAME);
 
 		// BGM‚Ì’â~
 		sndMng_.StopBgm(SoundType::BGM::TITLE);

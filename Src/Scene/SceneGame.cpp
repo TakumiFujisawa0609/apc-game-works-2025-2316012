@@ -61,6 +61,8 @@ void SceneGame::Load()
 
 void SceneGame::Init(void)
 {
+	SceneBase::Init();
+
 	// キャラクター
 	CharacterManager::GetInstance().Load();
 
