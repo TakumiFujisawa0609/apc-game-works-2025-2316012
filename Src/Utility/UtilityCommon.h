@@ -140,4 +140,12 @@ public:
 	 //<returns>変換後のSJISの文字列</returns>
 	static std::string ConvertUtf8ToSjis(const std::string& utf8_str);
 
+	/// <summary>
+	/// 最小値・最大値による線形スケーリング
+	/// </summary>
+	/// <param name="value">値</param>
+	/// <param name="min">最小値</param>
+	/// <param name="max">最大値</param>
+	/// <returns>0.0f~1.0fの値</returns>
+	static float NormalizeMinMax(const float value, const float min, const float max);
 };

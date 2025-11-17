@@ -2,6 +2,7 @@
 #include "SceneBase.h"
 
 class TitleLogo;
+class PostEffectRipples;
 class PixelMaterial;
 class PixelRenderer;
 
@@ -24,8 +25,13 @@ public:
 
 private:
 
+	int effectScreen_;
+
 	// ロゴ
 	std::unique_ptr<TitleLogo> logo_;
+
+	// 波紋エフェクト
+	std::unique_ptr<PostEffectRipples> ripples_;
 
 	// キー画像
 	std::unique_ptr<PixelRenderer> keyRenderer_;

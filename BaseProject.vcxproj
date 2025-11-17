@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Core\PostEffect\PostEffectRipples.cpp" />
     <ClCompile Include="Src\Common\Loading.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectSnowNoise.cpp" />
     <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawPainting.cpp" />
@@ -157,6 +158,7 @@
     <ClCompile Include="Src\Common\Image.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Core\PostEffect\PostEffectRipples.h" />
     <ClInclude Include="Src\Common\Loading.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectSnowNoise.h" />
     <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawPainting.h" />
@@ -409,6 +411,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Src\Shader\PostEffect\NormalEffect.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\PostEffect\RipplisEffect.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>

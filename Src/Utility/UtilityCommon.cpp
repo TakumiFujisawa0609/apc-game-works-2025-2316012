@@ -421,3 +421,17 @@ std::string UtilityCommon::ConvertUtf8ToSjis(const std::string& utf8_str)
     WideCharToMultiByte(932, 0, wstr.c_str(), -1, &sjis[0], sjlen, nullptr, nullptr);
     return sjis;
 }
+
+float UtilityCommon::NormalizeMinMax(const float value, const float min, const float max)
+{
+    if (max == min)
+    {
+        return 0.0; // 分母が0になる場合は0を返すなどのエラー処理
+    }
+    double normalized = (value - min) / (max - min);
+
+    // 0から1の範囲にクランプ（収める）する
+    if (normalized < 0.0) return 0.0;
+    if (normalized > 1.0) return 1.0;
+    return normalized;
+}

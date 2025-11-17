@@ -566,6 +566,12 @@
       "path": "Data/Sound/SE/SeTvNoiseSnow.mp3"
     },
     {
+      "key": "repplisEffect",
+      "sceneId": 1,
+      "type": "pixelShader",
+      "path": "Data/Shader/RipplisEffect.cso"
+    },
+    {
       "key": "cameraSwitchIcons",
       "sceneId": 3,
       "type": "sprite",
