@@ -156,6 +156,11 @@
     <ClCompile Include="Src\Core\Title\TitleLogo.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\StageMesh.cpp" />
     <ClCompile Include="Src\Common\Image.cpp" />
+    <ClCompile Include="Src\Core\Title\TitleButton.cpp" />
+    <ClCompile Include="Src\Scene\State\Title\TitleStateBase.cpp" />
+    <ClCompile Include="Src\Scene\State\Title\TitleStateExplanation.cpp" />
+    <ClCompile Include="Src\Scene\State\Title\TitleStateMain.cpp" />
+    <ClCompile Include="Src\Scene\State\Title\TitleStateSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Core\PostEffect\PostEffectRipples.h" />
@@ -342,6 +347,11 @@
     <ClInclude Include="Src\Core\Title\TitleLogo.h" />
     <ClInclude Include="Src\Object\Actor\Stage\StageMesh.h" />
     <ClInclude Include="Src\Common\Image.h" />
+    <ClInclude Include="Src\Core\Title\TitleButton.h" />
+    <ClInclude Include="Src\Scene\State\Title\TitleStateBase.h" />
+    <ClInclude Include="Src\Scene\State\Title\TitleStateExplanation.h" />
+    <ClInclude Include="Src\Scene\State\Title\TitleStateMain.h" />
+    <ClInclude Include="Src\Scene\State\Title\TitleStateSelect.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\Model\EnemyPS.hlsl">

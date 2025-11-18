@@ -35,6 +35,9 @@ void InputManager::Init()
 	RegisterTrigger(TYPE::SELECT_CANCEL, { KEY_INPUT_BACK }, { BTN::RB_DOWN });
 	RegisterTrigger(TYPE::PAUSE, { KEY_INPUT_BACK }, { BTN::SELECT });
 
+	// É^ÉCÉgÉãê‡ñæ
+	RegisterTrigger(TYPE::EXPLANTION_SKIP, { KEY_INPUT_RETURN }, { BTN::RB_TOP });
+
 	// ïÒçêèàóù
 	RegisterTrigger(TYPE::ANOMARY_REPORT, { KEY_INPUT_R }, { BTN::R_BUTTON, BTN::R_TRIGGER }, STICK::MAX, MOUSE::CLICK_LEFT);
 	RegisterTrigger(TYPE::CAMERA_MODE_CHANGE, { KEY_INPUT_E }, { BTN::RB_TOP });

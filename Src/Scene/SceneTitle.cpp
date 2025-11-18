@@ -9,9 +9,9 @@
 #include "../Manager/Resource/FontManager.h"
 #include "../Render/PixelMaterial.h"
 #include "../Render/PixelRenderer.h"
-#include "../Utility/UtilityCommon.h"
-#include "../Core/Title/TitleLogo.h"
-#include "../Core/PostEffect/PostEffectRipples.h"
+#include "State/Title/TitleStateExplanation.h"
+#include "State/Title/TitleStateMain.h"
+#include "State/Title/TitleStateSelect.h"
 #include "SceneTitle.h"
 
 SceneTitle::SceneTitle()
@@ -21,18 +21,12 @@ SceneTitle::SceneTitle()
 
 	// 描画関数のセット
 	drawFunc_ = std::bind(&SceneTitle::LoadingDraw, this);
-	
-	// 変数の初期化
-	effectScreen_ = -1;
-	logo_ = nullptr;
-	keyMaterial_ = nullptr;
-	keyRenderer_ = nullptr;
-	ripples_ = nullptr;
+
+	state_ = STATE::NONE;
 }
 
 SceneTitle::~SceneTitle()
 {
-	DeleteGraph(effectScreen_);
 }
 
 void SceneTitle::Load()
@@ -42,89 +36,37 @@ void SceneTitle::Load()
 
 void SceneTitle::Init()
 {
+	// 基底クラスの初期化
 	SceneBase::Init();
 
-	// ロゴの生成
-	logo_ = std::make_unique<TitleLogo>();
-	logo_->Load();
+	// 状態別処理の生成
+	stateMap_.emplace(STATE::MAIN, std::make_unique<TitleStateMain>(*this));
+	stateMap_.emplace(STATE::EXPLANATION, std::make_unique<TitleStateExplanation>(*this));
+	stateMap_.emplace(STATE::SELECT, std::make_unique<TitleStateSelect>(*this));
 
-	// ポストエフェクト
-	ripples_ = std::make_unique<PostEffectRipples>();
-	ripples_->Init();
+	// 各種初期化処理
+	for (const auto& it : stateMap_)
+	{
+		it.second->Init();
+	}
 
-	// ロゴ画像の設定
-	int Nps = resMng_.GetHandle("normalSpritePs");
-	keyMaterial_ = std::make_unique<PixelMaterial>(Nps, 1);
-	keyMaterial_->AddTextureBuf(resMng_.GetHandle("pleaseSpaceKey"));
-	keyRenderer_ = std::make_unique<PixelRenderer>(*keyMaterial_);
+	// 初期状態
+	state_ = STATE::MAIN;
+}
 
-	keyRenderer_->SetPos({ Application::SCREEN_HALF_X - 476 / 2, 500 });
-	keyRenderer_->SetSize({ 476, 48 });
-	keyRenderer_->MakeSquereVertex();
-
-	// ロゴ初期化
-	logo_->Init();
-
-	// BGMの再生
-	sndMng_.PlayBgm(SoundType::BGM::TITLE);
-
-	// スクリーンの生成
-	effectScreen_ = MakeScreen(Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, true);
+void SceneTitle::ChangeState(const STATE state)
+{
+	state_ = state;
 }
 
 void SceneTitle::NormalUpdate()
 {	
-	// シーン遷移
-	if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_DECISION))
-	{
-		// シーン遷移
-		scnMng_.ChangeScene(SceneManager::SCENE_ID::GAME);
-
-		// BGMの停止
-		sndMng_.StopBgm(SoundType::BGM::TITLE);
-
-		// 効果音の再生
-		sndMng_.PlaySe(SoundType::SE::GAME_START);
-	}
-
-	// ロゴ更新
-	logo_->Update();
+	stateMap_[state_]->Update();
 }
 
 void SceneTitle::NormalDraw()
 {
-	// 背景
-	DrawBox(
-		0,
-		0,
-		Application::SCREEN_SIZE_X,
-		Application::SCREEN_SIZE_Y,
-		UtilityCommon::WHITE,
-		true
-	);
-
-	// ロゴ描画
-	logo_->Draw();
-
-	// キー
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
-	keyRenderer_->Draw();
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-
-	//スクリーンの設定
-	SetDrawScreen(effectScreen_);
-
-	// 画面を初期化
-	ClearDrawScreen();
-
-	// ポストエフェクト描画
-	ripples_->Draw();
-
-	// メインに戻す
-	SetDrawScreen(scnMng_.GetMainScreen());
-
-	// 描画
-	DrawGraph(0, 0, effectScreen_, false);
+	stateMap_[state_]->Draw();
 }
 
 void SceneTitle::ChangeNormal()

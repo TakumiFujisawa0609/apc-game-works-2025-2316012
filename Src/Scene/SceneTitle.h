@@ -1,15 +1,24 @@
 #pragma once
+#include <unordered_map>
 #include "SceneBase.h"
 
-class TitleLogo;
-class PostEffectRipples;
-class PixelMaterial;
-class PixelRenderer;
+class TitleStateBase;
 
 class SceneTitle : public SceneBase
 {
 
 public:
+
+	/// <summary>
+	/// 状態
+	/// </summary>
+	enum class STATE
+	{
+		NONE,
+		MAIN,
+		EXPLANATION,
+		SELECT,
+	};
 
 	// コンストラクタ
 	SceneTitle();
@@ -23,19 +32,16 @@ public:
 	// 初期化処理
 	void Init() override;
 
+	// 状態遷移
+	void ChangeState(const STATE state);
+
 private:
 
-	int effectScreen_;
+	// 状態
+	STATE state_;
 
-	// ロゴ
-	std::unique_ptr<TitleLogo> logo_;
-
-	// 波紋エフェクト
-	std::unique_ptr<PostEffectRipples> ripples_;
-
-	// キー画像
-	std::unique_ptr<PixelRenderer> keyRenderer_;
-	std::unique_ptr<PixelMaterial> keyMaterial_;
+	// 状態管理
+	std::unordered_map<STATE, std::unique_ptr<TitleStateBase>> stateMap_;
 
 	// 更新関数
 	void NormalUpdate() override;

@@ -47,6 +47,8 @@ public:
 
 		LIGHT_SWITCH,		// ライトのON/OFF
 
+		EXPLANTION_SKIP,	// 説明のスキップ
+
 		DEBUG_SCENE_CHANGE, // デバッグシーン遷移
 		DEBUG_CAMERA_CHANGE,// デバッグカメラビュー変更
 		CREATE_POSITION,	// 位置リストの生成

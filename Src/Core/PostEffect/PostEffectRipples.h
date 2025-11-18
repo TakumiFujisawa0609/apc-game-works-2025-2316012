@@ -28,18 +28,22 @@ public:
 	/// </summary>
 	void Draw() override;
 
+	/// <summary>
+	/// エフェクト開始の設定
+	/// </summary>
+	void SetStart() { isRepples_ = true; };
+
 private:
 
 	// 入力管理クラス
 	InputManager& input_;
 
 	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 2;
+	static constexpr int CONST_BUFFER_SIZE = 1;
 
 	// 時間
 	float time_;
 
-	float amplitude_;
-	float frequency_;
-	Vector2F centerUv_;
+	// 波紋の開始判定
+	bool isRepples_;
 };
