@@ -36,8 +36,24 @@ public:
 
 private:
 
+	enum class STATE
+	{
+		NONE,
+		WAIT,	// 待機
+		EFFECT, // エフェクト
+	};
+
 	// ポストエフェクト用スクリーン
 	int effectScreen_;
+
+	// 透過率
+	float screenAlpha_;
+
+	// ステップ
+	float step_;
+
+	// 更新処理
+	std::function<void()> update_;
 
 	// ロゴ
 	std::unique_ptr<TitleLogo> logo_;
@@ -47,5 +63,8 @@ private:
 
 	// 波紋エフェクト
 	std::unique_ptr<PostEffectRipples> ripples_;
+
+	void UpdateWait();
+	void UpdateEffect();
 };
 

@@ -284,7 +284,7 @@ void SceneManager::Fade()
 	switch (fState)
 	{
 	case Fader::STATE::FADE_IN:
-	case Fader::STATE::FINISH:
+	case Fader::STATE::IMMEDIATE:
 		// –¾“]’†
 		if (fader_->IsEnd())
 		{
@@ -294,7 +294,7 @@ void SceneManager::Fade()
 		}
 		break;
 	case Fader::STATE::FADE_OUT:
-	case Fader::STATE::IMMEDIATE:
+	case Fader::STATE::FINISH:
 		// ˆÃ“]’†
 		if (fader_->IsEnd())
 		{

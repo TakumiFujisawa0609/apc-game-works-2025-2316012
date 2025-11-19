@@ -168,6 +168,9 @@ void SceneGame::ChangeNormal(void)
 	// 処理変更
 	updataFunc_ = std::bind(&SceneGame::NormalUpdate, this);
 	drawFunc_ = std::bind(&SceneGame::NormalDraw, this);
+
+	//フェードイン開始
+	scnMng_.StartFadeIn();
 }
 
 void SceneGame::DebugUpdate(void)

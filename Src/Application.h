@@ -55,15 +55,23 @@ public:
 	/// <returns>解放成功の場合true,そうじゃない場合false</returns>
 	bool Release();
 
+	/// <summary>
+	/// ゲーム終了処理
+	/// </summary>
+	void GameEnd();
+
 private:
 
-	//FPS
+	// ゲームの終了判定
+	bool isGameEnd_;
+
+	// FPS
 	std::unique_ptr<FpsControl> fps_;
 
-	//コンストラクタ
+	// コンストラクタ
 	Application();
 
-	//デストラクタ
+	// デストラクタ
 	~Application() = default;
 
 	// Effekseerの初期化

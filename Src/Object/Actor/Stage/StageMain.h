@@ -18,7 +18,7 @@ public:
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~StageMain() override;
+	virtual ~StageMain() override;
 
 	/// <summary>
 	/// 描画
@@ -28,12 +28,12 @@ public:
 	/// <summary>
 	/// 異変の設定
 	/// </summary>
-	void SetAnomaly() override;
+	virtual void SetAnomaly() override;
 
 	/// <summary>
 	/// 異変後の後処理
 	/// </summary>
-	void Refresh() override;
+	virtual void Refresh() override;
 
 	/// <summary>
 	/// オブジェクトがカメラ内か判定
@@ -41,7 +41,7 @@ public:
 	/// <returns>trueの場合カメラ内, そうでない場合flase</returns>
 	bool CheckCameraViewClip();
 
-private:
+protected:
 
 	// コライダーモデル
 	std::shared_ptr<ColliderModel> colliderModel_;

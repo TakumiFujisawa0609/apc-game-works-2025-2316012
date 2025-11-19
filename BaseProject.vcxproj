@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawGrassRoom.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\GrassRoom.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectRipples.cpp" />
     <ClCompile Include="Src\Common\Loading.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectSnowNoise.cpp" />
@@ -163,6 +165,8 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawGrassRoom.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\GrassRoom.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectRipples.h" />
     <ClInclude Include="Src\Common\Loading.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectSnowNoise.h" />
@@ -377,6 +381,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\Model\GrassRoomPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Src\Shader\Model\PaintingPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

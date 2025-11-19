@@ -71,7 +71,7 @@ void GameStateManager::SetGameClear()
 	ScoreManager::GetInstance().SetEndState(ScoreManager::END_STATE::CLEAR);
 
 	// シーンをリザルトへ
-	SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
+	SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT, Fader::STATE::FINISH);
 
 	// 自身の状態をNONEにする
 	state_ = STATE::NONE;
@@ -87,7 +87,7 @@ void GameStateManager::SetGameOver()
 	ScoreManager::GetInstance().SetEndState(ScoreManager::END_STATE::DEAD);
 
 	// シーンをリザルトへ
-	SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT);
+	SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT, Fader::STATE::FINISH);
 
 	// 自身の状態をNONEにする
 	state_ = STATE::NONE;

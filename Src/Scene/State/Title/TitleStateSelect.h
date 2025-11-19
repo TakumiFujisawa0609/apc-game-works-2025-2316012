@@ -1,5 +1,7 @@
 #pragma once
-#include "../Title/TitleStateBase.h"
+#include <array>
+#include "TitleStateBase.h"
+#include "../../../Common/CharacterString.h"
 
 class TitleStateSelect : public TitleStateBase
 {
@@ -31,5 +33,60 @@ public:
 	void Draw() override;
 
 private:
+
+	// 状態
+	enum class STATE
+	{
+		NONE,
+		SELECT,
+		START,
+		END
+	};
+
+	// 選択項目
+	enum class TYPE
+	{
+		START,
+		END,
+		MAX
+	};
+
+	// 選択項目総数
+	static constexpr int TYPE_MAX = static_cast<int>(TYPE::MAX);
+
+	// 選択項目
+	int type_;
+
+	// 選択後用のステップ
+	float afterStep_;
+
+	// 選択項目用テキスト
+	std::array<CharacterString, TYPE_MAX> selectTexts_;
+
+	// 選択後に表示するテキスト
+	CharacterString afterText_;
+
+	// 項目別処理の管理
+	std::unordered_map<TYPE, std::function<void()>> changeMap_;
+
+	// 更新処理
+	std::function<void()> update_;
+
+	// 描画処理
+	std::function<void()> draw_;
+
+	// 状態遷移処理
+	void ChangeStart();
+	void ChangeEnd();
+
+	// 状態別更新処理
+	void UpdateNone() {};
+	void UpdateSelect();
+	void UpdateStart();
+	void UpdateEnd();
+
+	// 状態別描画処理
+	void DrawSelect();
+	void DrawAfter();
 };
 

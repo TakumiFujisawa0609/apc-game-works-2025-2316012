@@ -85,5 +85,5 @@ void SceneResult::ChangeNormal()
 	drawFunc_ = std::bind(&SceneResult::NormalDraw, this);
 
 	//フェードイン開始
-	scnMng_.StartFadeIn(Fader::STATE::FINISH);
+	scnMng_.StartFadeIn(Fader::STATE::IMMEDIATE);
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "TitleStateBase.h"
+#include "../../../Common/CharacterString.h"
 
 class TitleStateExplanation : public TitleStateBase
 {
@@ -32,7 +33,8 @@ public:
 
 private:
 
-	
+	// スキップテキスト
+	CharacterString skipText_;
 
 };
 

@@ -13,6 +13,8 @@ TitleStateMain::TitleStateMain(SceneTitle& parent) :
 	TitleStateBase(parent)
 {
 	effectScreen_ = -1;
+	screenAlpha_ = 0.0f;
+	step_ = 0.0f;
 	logo_ = nullptr;
 	button_ = nullptr;
 }
@@ -35,10 +37,20 @@ void TitleStateMain::Init()
 
 	// ポストエフェクト
 	ripples_ = std::make_unique<PostEffectRipples>();
+	ripples_->Load();
 	ripples_->Init();
 
 	// BGMの再生
 	sndMng_.PlayBgm(SoundType::BGM::TITLE);
+
+	// 初期更新処理
+	update_ = std::bind(&TitleStateMain::UpdateWait, this);
+
+	// 初期透過率
+	screenAlpha_ = UtilityCommon::ALPHA_MAX;
+
+	// スクリーンの生成
+	effectScreen_ = MakeScreen(Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, true);
 }
 
 void TitleStateMain::Update()
@@ -49,18 +61,8 @@ void TitleStateMain::Update()
 	// ボタンの更新
 	button_->Update();
 
-	// ゲーム開始の入力をした場合
-	if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_DECISION))
-	{
-		// 状態遷移
-		parent_.ChangeState(SceneTitle::STATE::SELECT);
-
-		// BGMの停止
-		sndMng_.StopBgm(SoundType::BGM::TITLE);
-
-		// 効果音の再生
-		sndMng_.PlaySe(SoundType::SE::GAME_START);
-	}
+	// 一部状態別処理
+	update_();
 }
 
 void TitleStateMain::Draw()
@@ -74,6 +76,8 @@ void TitleStateMain::Draw()
 		UtilityCommon::WHITE,
 		true
 	);
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)screenAlpha_);
 
 	// ロゴ描画
 	logo_->Draw();
@@ -95,4 +99,37 @@ void TitleStateMain::Draw()
 
 	// 描画
 	DrawGraph(0, 0, effectScreen_, false);
+
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+}
+
+void TitleStateMain::UpdateWait()
+{
+	// ゲーム開始の入力をした場合
+	if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_DECISION))
+	{
+		// 更新処理の変更
+		update_ = std::bind(&TitleStateMain::UpdateEffect, this);
+
+		// エフェクトの再生
+		ripples_->SetStart();
+
+		// BGMの停止
+		sndMng_.StopBgm(SoundType::BGM::TITLE);
+
+		// 効果音の再生
+		sndMng_.PlaySe(SoundType::SE::GAME_START);
+	}
+}
+
+void TitleStateMain::UpdateEffect()
+{
+	step_ += scnMng_.GetDeltaTime();
+	constexpr float TIME = 10.0f;
+	screenAlpha_ -= UtilityCommon::ALPHA_MAX / TIME * step_;
+	if (screenAlpha_ < 0.0f)
+	{
+		// 状態遷移
+		parent_.ChangeState(SceneTitle::STATE::EXPLANATION);
+	}
 }

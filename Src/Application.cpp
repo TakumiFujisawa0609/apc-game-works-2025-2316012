@@ -68,10 +68,12 @@ void Application::Run()
 	auto& sceneManager = SceneManager::GetInstance();
 
 	// ゲームループ
-	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
+	while (ProcessMessage() == 0 && (CheckHitKey(KEY_INPUT_ESCAPE) == 0 || isGameEnd_))
 	{
-		// 更新処理
+		// 入力更新処理
 		inputManager.Update();
+
+		// シーン更新処理
 		sceneManager.Update();
 
 		// 描画処理
@@ -112,8 +114,14 @@ bool Application::Release()
 	return true;
 }
 
+void Application::GameEnd()
+{
+	isGameEnd_ = true;
+}
+
 Application::Application()
 {
+	isGameEnd_ = false;
 	fps_ = nullptr;
 }
 

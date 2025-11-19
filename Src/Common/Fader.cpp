@@ -53,13 +53,6 @@ void Fader::SetFade(const STATE state)
 
 	// ó‘Ô‚²‚Æ‚Ìˆ—‚ğÀs
 	setMap_[state]();
-
-	// ó‘Ô‚ªNONEˆÈŠO‚Ìê‡AI—¹”»’è‚ğƒŠƒZƒbƒg
-	if (state_ != STATE::NONE)
-	{
-		isPreEnd_ = false;
-		isEnd_ = false;
-	}
 }
 
 void Fader::RegisterStateSetFunction(const STATE state, const std::function<void()> function)
@@ -81,6 +74,8 @@ void Fader::SetNone()
 void Fader::SetFadeOut()
 {
 	alpha_ = 0;
+	isPreEnd_ = false;
+	isEnd_ = false;
 
 	// ˆ—‚Ì“o˜^
 	update_ = std::bind(&Fader::UpdateFadeOut, this);
@@ -90,6 +85,8 @@ void Fader::SetFadeOut()
 void Fader::SetFadeIn()
 {
 	alpha_ = MAX_ALPHA;
+	isPreEnd_ = false;
+	isEnd_ = false;
 
 	// ˆ—‚Ì“o˜^
 	update_ = std::bind(&Fader::UpdateFadeIn, this);
@@ -99,6 +96,8 @@ void Fader::SetFadeIn()
 void Fader::SetImmediate()
 {
 	alpha_ = MAX_ALPHA;
+	isPreEnd_ = true;
+	isEnd_ = true;
 
 	// ˆ—‚Ì“o˜^
 	update_ = std::bind(&Fader::UpdateNone, this);
@@ -108,6 +107,8 @@ void Fader::SetImmediate()
 void Fader::SetFinish()
 {
 	alpha_ = 0;
+	isPreEnd_ = true;
+	isEnd_ = true;
 
 	// ˆ—‚Ì“o˜^
 	update_ = std::bind(&Fader::UpdateNone, this);
