@@ -4,13 +4,15 @@
 #include "../../../Manager/Resource/ResourceManager.h"
 #include "../../../Render/ModelMaterial.h"
 #include "../../../Render/ModelRenderer.h"
+#include "../../../Utility/Utility3D.h"
 #include "../../Actor/Stage/GrassRoom.h"
 #include "ControllerDrawGrassRoom.h"
 
-ControllerDrawGrassRoom::ControllerDrawGrassRoom(const int model, GrassRoom& parent) :
+ControllerDrawGrassRoom::ControllerDrawGrassRoom(const int model, GrassRoom& owner) :
 	ControllerDrawBase(model),
-	parent_(parent)
+	owner_(owner)
 {
+	startPos_ = Utility3D::VECTOR_ZERO;
 }
 
 ControllerDrawGrassRoom::~ControllerDrawGrassRoom()
@@ -48,9 +50,6 @@ void ControllerDrawGrassRoom::Load()
 	// 異変の開始位置を計算
 	startPos_ = MV1GetFramePosition(model_, 2);
 
-	// 距離の初期化
-	distance_ = 0.0f;
-
 	// PSのバッファーの追加
 	material_->AddConstBufVS(FLOAT4{ cameraPos.x,cameraPos.y, cameraPos.z, fogStart });
 	material_->AddConstBufVS(FLOAT4{ lightPos.x,lightPos.y, lightPos.z, fogEnd });
@@ -60,7 +59,7 @@ void ControllerDrawGrassRoom::Load()
 	material_->AddConstBufPS(FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
 	material_->AddConstBufPS(FLOAT4{ cameraPos.x, cameraPos.y,cameraPos.z, isSwitch });
 	material_->AddConstBufPS(FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,0.0f });
-	material_->AddConstBufPS(FLOAT4{ startPos_.x, startPos_.y, startPos_.z,distance_ });
+	material_->AddConstBufPS(FLOAT4{ startPos_.x, startPos_.y, startPos_.z,0.0f });
 }
 
 void ControllerDrawGrassRoom::UpdateBuffer()
@@ -94,5 +93,5 @@ void ControllerDrawGrassRoom::UpdateBuffer()
 	material_->SetConstBufPS(1, FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
 	material_->SetConstBufPS(2, FLOAT4{ cameraPos.x, cameraPos.y,cameraPos.z, isSwitch });
 	material_->SetConstBufPS(3, FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,0.0f });
-	material_->SetConstBufPS(4, FLOAT4{ startPos_.x, startPos_.y, startPos_.z,distance_ });
+	material_->SetConstBufPS(4, FLOAT4{ startPos_.x, startPos_.y, startPos_.z,owner_.GetDistance() });
 }

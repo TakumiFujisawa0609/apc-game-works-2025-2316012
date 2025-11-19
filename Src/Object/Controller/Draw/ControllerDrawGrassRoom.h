@@ -11,7 +11,7 @@ public:
 	/// コンストラクタ
 	/// </summary>
 	/// <param name="model">モデルID</param>
-	ControllerDrawGrassRoom(const int model, GrassRoom& parent);
+	ControllerDrawGrassRoom(const int model, GrassRoom& owner);
 
 	/// <summary>
 	/// デストラクタ
@@ -26,13 +26,10 @@ public:
 private:
 
 	// 親クラスの参照
-	GrassRoom& parent_;
+	GrassRoom& owner_;
 
 	// 異変開始位置
 	VECTOR startPos_;
-
-	// 影響を及ぼす距離
-	float distance_;
 
 	// バッファーの更新
 	void UpdateBuffer() override;

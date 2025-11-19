@@ -29,6 +29,11 @@ public:
 	void Init() override;
 
 	/// <summary>
+	/// XVˆ—
+	/// </summary>
+	void Update() override;
+
+	/// <summary>
 	/// ˆÙ•Ï‚Ìİ’è
 	/// </summary>
 	void SetAnomaly() override;
@@ -50,4 +55,3 @@ private:
 	float distance_;
 
 };
-
