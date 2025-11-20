@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Stage\Sub\Grass.cpp" />
+    <ClCompile Include="Src\Render\BillboardRenderer.cpp" />
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyGrassRoom.cpp" />
     <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawGrassRoom.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\GrassRoom.cpp" />
@@ -166,6 +168,8 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Stage\Sub\Grass.h" />
+    <ClInclude Include="Src\Render\BillboardRenderer.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyGrassRoom.h" />
     <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawGrassRoom.h" />
     <ClInclude Include="Src\Object\Actor\Stage\GrassRoom.h" />
@@ -384,11 +388,23 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
     </FxCompile>
+    <FxCompile Include="Src\Shader\Model\GrassPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Src\Shader\Model\GrassRoomPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\Model\GrassVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="Src\Shader\Model\PaintingPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

@@ -8,6 +8,7 @@
 
 class StageObjectBase;
 class StageMain;
+class Grass;
 
 // JSON名前空間
 using Json = nlohmann::json;
@@ -65,6 +66,17 @@ public:
 	/// <returns>コライダーの情報</returns>
 	const Json& GetStageObjectColliderParam(const std::string& key) const;
 
+	/// <summary>
+	/// 草のオブジェクトを追加
+	/// </summary>
+	/// <param name="grass">草オブジェクト</param>
+	void AddGrass(std::unique_ptr<Grass> grass);
+
+	/// <summary>
+	/// 草のオブジェクトを削除
+	/// </summary>
+	void DeleteAllGrass();
+
 private:
 
 	// 配置用ファイル名
@@ -87,6 +99,7 @@ private:
 		"CorriderC",
 	};
 
+	// パラメーターを保持するマップ
 	std::unordered_map<std::string, std::vector<Json>> paramStageMap_;
 
 	// 描画するタグリスト
@@ -100,6 +113,9 @@ private:
 
 	// 透過描画リスト
 	std::vector<StageObjectBase*> translucentList_;
+
+	// 草のリスト
+	std::vector<std::unique_ptr<Grass>> grassList_;
 
 	// ステージオブジェクトの管理マップ
 	std::unordered_map<std::string, std::vector<std::unique_ptr<StageObjectBase>>> stageObjectsMap_;

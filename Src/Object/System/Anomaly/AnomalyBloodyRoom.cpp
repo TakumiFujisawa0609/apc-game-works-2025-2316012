@@ -26,7 +26,7 @@ void AnomalyBloodyRoom::Occurrence(Json& param)
 	AnomalyBase::Occurrence(param);
 
 	// ランダム
-	int index = GetRand(2);
+	int index = GetRand(OBJS);
 
 	// キーを値別に取得
 	std::string key = index == 0 ? "RoomB" : "RoomC";
