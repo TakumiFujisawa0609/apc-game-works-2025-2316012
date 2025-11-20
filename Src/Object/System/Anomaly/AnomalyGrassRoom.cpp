@@ -1,0 +1,45 @@
+#include "../../../Manager/Resource/ResourceManager.h"
+#include "../../../Manager/Resource/SoundManager.h"
+#include "../../../Manager/Generic/StageManager.h"
+#include "../../Actor/Stage/GrassRoom.h"
+#include "AnomalyGrassRoom.h"
+
+AnomalyGrassRoom::AnomalyGrassRoom()
+{
+}
+
+AnomalyGrassRoom::~AnomalyGrassRoom()
+{
+}
+
+void AnomalyGrassRoom::Load()
+{
+}
+
+void AnomalyGrassRoom::Init()
+{
+}
+
+void AnomalyGrassRoom::Occurrence(Json& param)
+{
+	// 基底クラスの処理
+	AnomalyBase::Occurrence(param);
+
+	// ステージのポインタ
+	GrassRoom* stage = dynamic_cast<GrassRoom*>(stageMng_.GetStageObjects(KEY)[0].get());
+
+	// 異変設定
+	stage->SetAnomaly();
+
+	// 効果音の配列
+	std::vector<SoundType::SE> seTypes = { SoundType::SE::NOISE_GATAN, SoundType::SE::NOISE_PACHI,SoundType::SE::NOISE_SWITCH,SoundType::SE::NOISE_GON, SoundType::SE::NOISE_METAL, SoundType::SE::GIRLS_HELP, SoundType::SE::GIRLS_LAUGHTER };
+
+	// ランダムで番号を取得
+	int seIndex = GetRand(static_cast<int>(seTypes.size() - 1));
+
+	// ランダムで音量を設定
+	int volume = 30 + GetRand(20);
+
+	// 効果音再生
+	sndMng_.PlaySe(seTypes[seIndex], volume);
+}

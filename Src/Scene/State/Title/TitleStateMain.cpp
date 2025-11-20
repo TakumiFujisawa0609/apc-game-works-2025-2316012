@@ -125,8 +125,8 @@ void TitleStateMain::UpdateWait()
 void TitleStateMain::UpdateEffect()
 {
 	step_ += scnMng_.GetDeltaTime();
-	constexpr float TIME = 10.0f;
-	screenAlpha_ -= UtilityCommon::ALPHA_MAX / TIME * step_;
+	constexpr float ALPHA_RATE = 1.39f;
+	screenAlpha_ -= ALPHA_RATE;
 	if (screenAlpha_ < 0.0f)
 	{
 		// ó‘Ô‘JˆÚ

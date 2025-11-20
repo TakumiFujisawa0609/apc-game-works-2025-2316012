@@ -12,6 +12,7 @@ class StageMesh;
 class StageMain;
 class Painting;
 class Carpet;
+class GrassRoom;
 
 class StageObjectFactory
 {
@@ -51,5 +52,6 @@ private:
 	std::unique_ptr<StageMesh> CreateStageMesh(const std::string& key, const Json& mapParam, const Json& colliderParam);
 	std::unique_ptr<StageMain> CreateStageMain(const std::string& key, const Json& mapParam, const Json& colliderParam);
 	std::unique_ptr<Carpet> CreateCarpet(const std::string& key, const Json& mapParam, const Json& colliderParam);
+	std::unique_ptr<GrassRoom> CreateGrassRoom(const std::string& key, const Json& mapParam, const Json& colliderParam);
 };
 

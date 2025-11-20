@@ -5,6 +5,7 @@
 #include "../../../Render/ModelMaterial.h"
 #include "../../../Render/ModelRenderer.h"
 #include "../../../Utility/Utility3D.h"
+#include "../../../Utility/UtilityCommon.h"
 #include "../../Actor/Stage/GrassRoom.h"
 #include "ControllerDrawGrassRoom.h"
 
@@ -49,6 +50,7 @@ void ControllerDrawGrassRoom::Load()
 
 	// 異変の開始位置を計算
 	startPos_ = MV1GetFramePosition(model_, 2);
+	startPos_ = VScale(startPos_, -1);
 
 	// PSのバッファーの追加
 	material_->AddConstBufVS(FLOAT4{ cameraPos.x,cameraPos.y, cameraPos.z, fogStart });
@@ -60,6 +62,13 @@ void ControllerDrawGrassRoom::Load()
 	material_->AddConstBufPS(FLOAT4{ cameraPos.x, cameraPos.y,cameraPos.z, isSwitch });
 	material_->AddConstBufPS(FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,0.0f });
 	material_->AddConstBufPS(FLOAT4{ startPos_.x, startPos_.y, startPos_.z,0.0f });
+}
+
+void ControllerDrawGrassRoom::Draw()
+{
+	ControllerDrawBase::Draw();
+
+	DrawSphere3D(startPos_, 100.0f, 10, UtilityCommon::RED, UtilityCommon::RED, true);
 }
 
 void ControllerDrawGrassRoom::UpdateBuffer()

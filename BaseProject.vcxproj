@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\System\Anomaly\AnomalyGrassRoom.cpp" />
     <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawGrassRoom.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\GrassRoom.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectRipples.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\System\Anomaly\AnomalyGrassRoom.h" />
     <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawGrassRoom.h" />
     <ClInclude Include="Src\Object\Actor\Stage\GrassRoom.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectRipples.h" />

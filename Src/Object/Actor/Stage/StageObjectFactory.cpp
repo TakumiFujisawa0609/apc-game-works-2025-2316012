@@ -5,6 +5,7 @@
 #include "Carpet.h"
 #include "StageMesh.h"
 #include "StageObjectFactory.h"
+#include "GrassRoom.h"
 
 StageObjectFactory::StageObjectFactory()
 {
@@ -14,7 +15,7 @@ StageObjectFactory::StageObjectFactory()
 	RegisterCreate("RoomA", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
 	RegisterCreate("RoomB", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
 	RegisterCreate("RoomC", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
-	RegisterCreate("RoomD", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
+	RegisterCreate("RoomD", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateGrassRoom(key, mapParam, colliderParam); });
 	RegisterCreate("RoomE", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
 	RegisterCreate("CorriderA", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
 	RegisterCreate("CorriderB", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
@@ -80,4 +81,9 @@ std::unique_ptr<StageMain> StageObjectFactory::CreateStageMain(const std::string
 std::unique_ptr<Carpet> StageObjectFactory::CreateCarpet(const std::string& key, const Json& mapParam, const Json& colliderParam)
 {
 	return std::make_unique<Carpet>(key, mapParam, colliderParam);
+}
+
+std::unique_ptr<GrassRoom> StageObjectFactory::CreateGrassRoom(const std::string& key, const Json& mapParam, const Json& colliderParam)
+{
+	return std::make_unique<GrassRoom>(key, mapParam, colliderParam);
 }

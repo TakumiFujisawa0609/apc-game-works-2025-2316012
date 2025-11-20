@@ -378,6 +378,18 @@
       "path": "Data/Image/Anomaly/BloodyHands.png"
     },
     {
+      "key": "grassLand",
+      "sceneId": 3,
+      "type": "texture",
+      "path": "Data/Image/Anomaly/GrassLand.png"
+    },
+    {
+      "key": "grass",
+      "sceneId": 3,
+      "type": "texture",
+      "path": "Data/Image/Anomaly/Grass.png"
+    },
+    {
       "key": "stageMainPs",
       "sceneId": 3,
       "type": "pixelShader",
@@ -394,6 +406,12 @@
       "sceneId": 3,
       "type": "pixelShader",
       "path": "Data/Shader/PaintingPS.cso"
+    },
+    {
+      "key": "grassRoomPs",
+      "sceneId": 3,
+      "type": "pixelShader",
+      "path": "Data/Shader/GrassRoomPS.cso"
     },
     {
       "key": "paintingVs",

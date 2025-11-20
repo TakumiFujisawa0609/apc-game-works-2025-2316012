@@ -52,13 +52,17 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     float3 normal = CalculateNormal(PSInput.tan, PSInput.bin, PSInput.normal, tanNormal);
     
     // 開始位置とワールド座標の差を計算
-    float3 diff = g_start_pos - PSInput.world;
+    float3 revWorld = PSInput.world;
+    // ワールド座標をY軸周りに180度回転 (XとZの符号を反転)
+    revWorld.x = -revWorld.x;
+    revWorld.z = -revWorld.z;
+    float3 diff = g_start_pos - revWorld;
     
     // 求めた差から距離を計算
     float distance = length(diff);
     
     // 頂点位置までの距離が範囲内の場合
-    if (g_distance > distance)
+    if (g_distance < distance)
     {
         // 3方向のUVを生成（それぞれタイリングとfracを適用）
         float2 uv_xz = frac(PSInput.world.xz / TILING);
@@ -84,7 +88,10 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
                   color_xy * blend_weights.z; // Z軸支配(壁)
         
         // 色を加算
-        material += subColor.rgb;
+        material = subColor.rgb;
+        
+        return float4(1, 0, 0, 1);
+
     }
  
     // 光の方向

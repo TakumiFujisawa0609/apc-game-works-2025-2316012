@@ -16,6 +16,9 @@ class AnomalyManager : public Singleton<AnomalyManager>
 
 public:
 
+	/// <summary>
+	/// 種類
+	/// </summary>
 	enum class TYPE
 	{
 		GHOST,			// ゴーストの出現
@@ -26,6 +29,7 @@ public:
 		OCCUR,			// 何かが起こる
 		COLOR_CHANGE,	// 色変え
 		APPEARANCE,		// 出現
+		GRASS_ROOM,
 		MAX
 	};
 
@@ -39,7 +43,8 @@ public:
 		{TYPE::REPLACE,"Replace"},
 		{TYPE::OCCUR,"Occur"},
 		{TYPE::COLOR_CHANGE,"ColorChange"},
-		{TYPE::APPEARANCE,"Appearance"}
+		{TYPE::APPEARANCE,"Appearance"},
+		{TYPE::GRASS_ROOM,"GrassRoom"}
 	};
 	
 	/// <summary>

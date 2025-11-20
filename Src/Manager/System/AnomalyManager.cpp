@@ -5,6 +5,7 @@
 #include "../../Object/System/Anomaly/AnomalyPainting.h"
 #include "../../Object/System/Anomaly/AnomalyChairMountain.h"
 #include "../../Object/System/Anomaly/AnomalyBloodyRoom.h"
+#include "../../Object/System/Anomaly/AnomalyGrassRoom.h"
 #include "../../Utility/UtilityLoad.h"
 #include "../../Core/Common/Timer.h"
 #include "AnomalyManager.h"
@@ -19,6 +20,7 @@ void AnomalyManager::Load()
 	anomalyMap_[TYPE::PAINTING] = std::make_unique<AnomalyPainting>();
 	anomalyMap_[TYPE::CHAIR_MOUNTAIN] = std::make_unique<AnomalyChairMountain>();
 	anomalyMap_[TYPE::BLOODY_ROOM] = std::make_unique<AnomalyBloodyRoom>();
+	anomalyMap_[TYPE::GRASS_ROOM] = std::make_unique<AnomalyGrassRoom>();
 
 	// ŠeŽíˆÙ•Ï‚Ì“Ç‚Ýž‚Ýˆ—
 	auto& paramFile = anomalyFile_["Param"][0];
@@ -66,7 +68,8 @@ void AnomalyManager::Update()
 		}
 
 		// ˆÙ•Ï”­¶
-		OccurAnomaly(GetRandType());
+		OccurAnomaly(TYPE::GRASS_ROOM);
+		//OccurAnomaly(GetRandType());
 
 		// ŽŸ‰ñ‚Ü‚Å‚ÌŽžŠÔ‚ðƒ‰ƒ“ƒ_ƒ€Ý’è
 		timer_->SetGoalTime(timeMin_ + GetRand(timeMax_ - timeMin_));

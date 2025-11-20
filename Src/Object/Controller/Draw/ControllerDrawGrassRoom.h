@@ -23,6 +23,11 @@ public:
 	/// </summary>
 	void Load() override;
 
+	/// <summary>
+	/// 描画処理
+	/// </summary>
+	void Draw() override;
+
 private:
 
 	// 親クラスの参照

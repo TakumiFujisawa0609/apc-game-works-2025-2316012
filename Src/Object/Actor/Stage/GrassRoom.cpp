@@ -33,6 +33,7 @@ void GrassRoom::Load()
 
 void GrassRoom::Init()
 {
+	StageMain::Init();
 }
 
 void GrassRoom::Update()
@@ -41,9 +42,8 @@ void GrassRoom::Update()
 	if (isActive_)
 	{
 		// ãóó£ÇÃçXêV
-		constexpr float SPEED = 1000.0f;
-		const float deltaTime = scnMng_.GetDeltaTime();
-		distance_ += deltaTime * deltaTime * SPEED;
+		//constexpr float SPEED = 0.005f;
+		//distance_ += SPEED / 100;
 	}
 }
 
