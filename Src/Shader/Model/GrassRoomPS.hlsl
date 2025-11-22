@@ -61,6 +61,10 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     // 求めた差から距離を計算
     float distance = length(diff);
     
+    //distance /= 1000.0f;
+    
+    //return float4(distance, distance, distance, 1.0f);
+    
     // 頂点位置までの距離が範囲内の場合
     if (g_distance < distance)
     {
@@ -109,7 +113,7 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     
     // サブテクスチャ色の取得
     float4 subTexColor = subTexture.Sample(subSampler, uv);
-    litColor += subTexColor.rgb;
+    litColor += subTexColor.rgb * 0.0f;
    
     // フォグ適用
     float3 foggedColor = ApplyFog(litColor, PSInput.fogFactor);

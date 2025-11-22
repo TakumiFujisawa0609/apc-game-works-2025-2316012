@@ -42,8 +42,8 @@ void GrassRoom::Update()
 	if (isActive_)
 	{
 		// ãóó£ÇÃçXêV
-		//constexpr float SPEED = 0.005f;
-		//distance_ += SPEED / 100;
+		constexpr float SPEED = 0.005f;
+		distance_ += SPEED / 100;
 	}
 }
 
