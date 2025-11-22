@@ -414,6 +414,18 @@
       "path": "Data/Shader/GrassRoomPS.cso"
     },
     {
+      "key": "grassPs",
+      "sceneId": 3,
+      "type": "pixelShader",
+      "path": "Data/Shader/GrassPS.cso"
+    },
+    {
+      "key": "grassVs",
+      "sceneId": 3,
+      "type": "vertexShader",
+      "path": "Data/Shader/GrassVS.cso"
+    },
+    {
       "key": "paintingVs",
       "sceneId": 3,
       "type": "vertexShader",

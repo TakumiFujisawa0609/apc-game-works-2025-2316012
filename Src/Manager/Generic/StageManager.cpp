@@ -3,6 +3,7 @@
 #include "../../Object/Actor/Stage/StageMain.h"
 #include "../../Object/System/Load/ParameterLoad.h"
 #include "../../Utility/UtilityLoad.h"
+#include "../../Object/Actor/Stage/Sub/Grass.h"
 #include "CharacterManager.h"
 #include "StageManager.h"
 
@@ -64,56 +65,6 @@ void StageManager::Load()
 
 void StageManager::Init()
 {
-	//// パラメーターコライダーマップを取得
-	//stageObjectColliserInfoMap_ = UtilityLoad::GetJsonMapArrayData(COLLIDER_FILE_NAME);
-
-	//// ファクトリーの生成
-	//auto factory = std::make_unique<StageObjectFactory>();
-
-	//// パラメータ数分オブジェクト生成
-	//for (auto& params : paramStageMap_)
-	//{
-	//	// オブジェクト格納用配列
-	//	std::vector<std::unique_ptr<StageObjectBase>> objects;
-
-	//	// 要素分パラメータ格納
-	//	for (auto& param : params.second)
-	//	{
-	//		// コライダー情報を検索
-	//		const auto& collInfo = stageObjectColliserInfoMap_.find(params.first);
-
-	//		// 中身が空もしくは配列で格納されている場合
-	//		if (collInfo->second.empty())
-	//		{
-	//			// 想定外のため終了
-	//			return;
-	//		}
-
-	//		// オブジェクト生成
-	//		auto object = factory->Create(params.first, param, collInfo->second[0]);
-
-	//		// オブジェクト読み込み
-	//		object->Load();
-
-	//		// 配列に格納
-	//		objects.push_back(std::move(object));
-	//	}
-
-	//	// マップに登録
-	//	stageObjectsMap_.emplace(params.first, std::move(objects));
-	//}
-
-	//for (auto& name : MAIN_STAGES)
-	//{
-	//	StageObjectBase* object = stageObjectsMap_[name][0].get();
-	//	StageMain* stage = dynamic_cast<StageMain*>(object);
-	//	if (stage != nullptr)
-	//	{
-	//		// キャスト成功
-	//		mainStages_.push_back(stage);
-	//	}
-	//}
-
 	for (auto& objects : stageObjectsMap_)
 	{
 		for (auto& object : objects.second)
@@ -161,31 +112,17 @@ void StageManager::Update()
 		}
 	}
 
+	for (auto& grass : grassList_)
+	{
+		grass->Update();
+	}
+
 	// カメラ範囲か調べる
 	CheckMainRoomInClipCameraView();
 }
 
 void StageManager::Draw()
 {
-	//for (auto& objects : stageObjectsMap_)
-	//{
-	//	for (auto& object : objects.second)
-	//	{
-	//		for (const auto& tag : drawTagList_)
-	//		{
-	//			// プレイヤーのタグがオブジェクトと一致する場合
-	//			if (tag == object->GetRoomTag())
-	//			{
-	//				// オブジェクトの描画
-	//				object->Draw();
-
-	//				// 次へ
-	//				continue;
-	//			}
-	//		}
-	//	}
-	//}
-
 	for (const auto& obj : opaqueList_)
 	{
 		for (const auto& tag : drawTagList_)
@@ -216,6 +153,11 @@ void StageManager::Draw()
 				continue;
 			}
 		}
+	}
+
+	for (auto& grass : grassList_)
+	{
+		grass->Draw();
 	}
 }
 
@@ -256,6 +198,11 @@ void StageManager::Sweep()
 	}
 }
 
+void StageManager::DeleteGrass()
+{
+	grassList_.clear();
+}
+
 void StageManager::Add(const std::string& type, std::unique_ptr<StageObjectBase> stageObject)
 {
 	// 指定されたTYPEのキーがマップに存在するか検索
@@ -273,6 +220,11 @@ void StageManager::Add(const std::string& type, std::unique_ptr<StageObjectBase>
 		stageObjectsMap_.emplace(type, std::move(objects));
 		return;
 	}
+}
+
+void StageManager::AddGrass(std::unique_ptr<Grass> grass)
+{
+	grassList_.push_back(std::move(grass));
 }
 
 const Json& StageManager::GetStageObjectColliderParam(const std::string& key) const

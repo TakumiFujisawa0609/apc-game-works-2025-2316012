@@ -49,8 +49,7 @@ void ControllerDrawGrassRoom::Load()
 	VECTOR lightDir = GetLightDirection();
 
 	// 異変の開始位置を計算
-	startPos_ = MV1GetFramePosition(model_, 2);
-	startPos_ = VScale(startPos_, -1);
+	startPos_ = owner_.GetStartPos();
 
 	// PSのバッファーの追加
 	material_->AddConstBufVS(FLOAT4{ cameraPos.x,cameraPos.y, cameraPos.z, fogStart });

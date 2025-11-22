@@ -6,8 +6,10 @@
 #include "../../Template/Singleton.h"
 #include "../../Object/Actor/Stage/StageObjectBase.h"
 
+class GrassRoom;
 class StageObjectBase;
 class StageMain;
+class Grass;
 
 // JSON名前空間
 using Json = nlohmann::json;
@@ -45,11 +47,22 @@ public:
 	void Sweep();
 
 	/// <summary>
+	/// 草の削除
+	/// </summary>
+	void DeleteGrass();
+
+	/// <summary>
 	/// ステージオブジェクトの追加
 	/// </summary>
 	/// <param name="type">種類</param>
 	/// <param name="stageObject">ステージオブジェクト/param>
 	void Add(const std::string& type, std::unique_ptr<StageObjectBase> stageObject);
+
+	/// <summary>
+	/// 草の追加
+	/// </summary>
+	/// <param name="grass"></param>
+	void AddGrass(std::unique_ptr<Grass> grass);
 
 	/// <summary>
 	/// 指定したステージオブジェクトの配列を返す
@@ -100,6 +113,9 @@ private:
 
 	// 透過描画リスト
 	std::vector<StageObjectBase*> translucentList_;
+
+	// 草の部屋
+	std::vector<std::unique_ptr<Grass>> grassList_;
 
 	// ステージオブジェクトの管理マップ
 	std::unordered_map<std::string, std::vector<std::unique_ptr<StageObjectBase>>> stageObjectsMap_;
