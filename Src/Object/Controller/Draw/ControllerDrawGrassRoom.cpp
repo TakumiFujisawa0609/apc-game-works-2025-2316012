@@ -66,8 +66,6 @@ void ControllerDrawGrassRoom::Load()
 void ControllerDrawGrassRoom::Draw()
 {
 	ControllerDrawBase::Draw();
-
-	DrawSphere3D(startPos_, 100.0f, 10, UtilityCommon::RED, UtilityCommon::RED, true);
 }
 
 void ControllerDrawGrassRoom::UpdateBuffer()

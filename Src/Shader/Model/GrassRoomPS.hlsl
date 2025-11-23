@@ -20,6 +20,12 @@ static float SPOT_LIGHT_ANGLE_COS = cos(radians(30.0f));
 // タイリング
 static float TILING = 300.0f;
 
+// 境界までの幅
+static float EDGE_WIDTH = 5.0f;
+
+// ハイライト色
+static float3 HIGHLIGHT_COLOR = (1.0f, 1.0f, 1.0f);
+
 // 定数バッファ：スロット4番目(b4と書く)
 cbuffer cbParam : register(b4)
 {
@@ -57,6 +63,9 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     // 求めた差から距離を計算
     float distance = length(diff);
     
+    // ハイライトを計算する用
+    float highlightIntensity = 0.0f;
+    
     // 頂点位置までの距離が範囲内の場合
     if (g_distance > distance)
     {
@@ -86,8 +95,20 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
         // 色を加算
         material = subColor.rgb;
         
-        //return float4(1,0,0,1);
-
+        // 拡大距離に対する現在のdistanceの比率
+        float ratio = distance / g_distance;
+        
+        // 境界付近でピークになるように計算(smoothstep(最小値, 最大値, 現在の値))
+        highlightIntensity = 0.5f * (1.0f - smoothstep(0.8f, 1.0f, 1.0f - (1.0f - ratio) * 2.0f));
+        
+        // 境界からの距離
+        float distEdge = abs(g_distance - distance);
+        
+        // 境界からの距離が0近いほど1に近くなる
+        highlightIntensity = 1.0f - saturate(distEdge / EDGE_WIDTH);
+        
+        // 強度調整
+        highlightIntensity *= 2.0f; 
     }
  
     // 光の方向
@@ -116,6 +137,9 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     // 電源がオンの場合
     // スポットライトの色計算
     float3 spotLight = CalculateSpotLite(PSInput.world, g_spot_light_pos, g_spot_light_dir, normal);
+    
+    // ハイライトの加算
+    foggedColor += HIGHLIGHT_COLOR * highlightIntensity;
 
     // 色の加算(電源がオフの場合0乗算で追加値なし)
     foggedColor += spotLight * g_is_light;
