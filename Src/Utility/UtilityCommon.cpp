@@ -326,14 +326,53 @@ int UtilityCommon::WrapStepIndex(const int index, const int step, const int min,
     return value;
 }
 
-float UtilityCommon::EaseInQuad(const float time, const float start, const float change)
+float UtilityCommon::EaseInQuad(const float _time, const float _totalTime, const float _start, const float _end)
 {
-    return change * time * time + start;
+    float distance = _end - _start;
+    float t = _time / _totalTime;
+    return distance * t * t + _start;
 }
 
-float UtilityCommon::EaseOutQuad(const float time, const float start, const float change)
+float UtilityCommon::EaseOutQuad(const float _time, const float _totalTime, const float _start, const float _end)
 {
-    return -change * time * (time - 2) + start;
+    float distance = _end - _start;
+    float t = _time / _totalTime;
+    return -distance * _time * (_time - 2) + _start;
+}
+
+float UtilityCommon::EaseInOutBack(float _time, const float _totalTime, const float _start, const float _end)
+{
+    // 補間定数1
+    constexpr float C1 = 1.70158f;
+
+    // 補間定数2（オーバーシュート調整用）
+    constexpr float C2 = C1 * 1.525f;
+
+    // 開始から終了までの距離
+    float distance = _end - _start;
+
+    // 補間係数
+    float t = _time / _totalTime;
+
+    // Clamp t to [0, 1]
+    if (t < 0.0f) t = 0.0f;
+    if (t > 1.0f) t = 1.0f;
+
+    // 補間の実行（EaseInOutBack）
+    float easedT;
+    if (t < 0.5f)
+    {
+        float twoT = 2.0f * t;
+        easedT = (twoT * twoT * ((C2 + 1.0f) * twoT - C2)) / 2.0f;
+    }
+    else
+    {
+        float twoTMinus2 = 2.0f * t - 2.0f;
+        easedT = (twoTMinus2 * twoTMinus2 * ((C2 + 1.0f) * twoTMinus2 + C2) + 2.0f) / 2.0f;
+    }
+
+    // 値の補間
+    return distance * easedT + _start;
 }
 
 std::vector<std::vector<int>> UtilityCommon::LoadCSVData(const std::wstring& filePath)

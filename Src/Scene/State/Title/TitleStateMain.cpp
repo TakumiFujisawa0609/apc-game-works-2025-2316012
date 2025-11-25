@@ -41,7 +41,7 @@ void TitleStateMain::Init()
 	ripples_->Init();
 
 	// BGMの再生
-	sndMng_.PlayBgm(SoundType::BGM::TITLE);
+	sndMng_.PlayBgm(SoundType::BGM::TITLE_MAIN);
 
 	// 初期更新処理
 	update_ = std::bind(&TitleStateMain::UpdateWait, this);
@@ -55,12 +55,6 @@ void TitleStateMain::Init()
 
 void TitleStateMain::Update()
 {
-	// ロゴの更新
-	logo_->Update();
-
-	// ボタンの更新
-	button_->Update();
-
 	// 一部状態別処理
 	update_();
 }
@@ -77,14 +71,14 @@ void TitleStateMain::Draw()
 		true
 	);
 
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)screenAlpha_);
-
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)screenAlpha_);	
+	
 	// ロゴ描画
 	logo_->Draw();
 
 	// ボタン描画
 	button_->Draw();
-
+	
 	//スクリーンの設定
 	SetDrawScreen(effectScreen_);
 
@@ -105,6 +99,12 @@ void TitleStateMain::Draw()
 
 void TitleStateMain::UpdateWait()
 {
+	// ロゴの更新
+	logo_->Update();
+
+	// ボタンの更新
+	button_->Update();
+
 	// ゲーム開始の入力をした場合
 	if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_DECISION))
 	{
@@ -115,10 +115,14 @@ void TitleStateMain::UpdateWait()
 		ripples_->SetStart();
 
 		// BGMの停止
-		sndMng_.StopBgm(SoundType::BGM::TITLE);
+		sndMng_.StopBgm(SoundType::BGM::TITLE_MAIN);
 
 		// 効果音の再生
 		sndMng_.PlaySe(SoundType::SE::GAME_START);
+
+		// エフェクト個々の再生停止
+		logo_->SetIsEffect(false);
+		button_->SetIsEffect(false);
 	}
 }
 

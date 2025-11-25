@@ -28,6 +28,7 @@ Input::Input(void)
 	Add(KEY_INPUT_TAB);
 	Add(KEY_INPUT_C);
 	Add(KEY_INPUT_V);
+	Add(KEY_INPUT_BACK);
 }
 
 Input::~Input(void)

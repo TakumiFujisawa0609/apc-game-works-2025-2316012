@@ -1,4 +1,3 @@
-#include "ScenePause.h"
 #include <DxLib.h>
 #include "../Application.h"
 #include "../Manager/Resource/ResourceManager.h"
@@ -6,6 +5,7 @@
 #include "../Manager/Generic/SceneManager.h"
 #include "../Manager/Generic/InputManager.h"
 #include "../Utility/UtilityCommon.h"
+#include "ScenePause.h"
 
 ScenePause::ScenePause()
 {
@@ -22,15 +22,22 @@ ScenePause::ScenePause()
 	{
 		{LIST::RESUME,[this]()
 		{
-			//ポーズを解除して前のシーンに戻る
+			// ポーズを解除して前のシーンに戻る
 			scnMng_.PopScene();
 		}},
 		{LIST::TITLE,[this]()
 		{
-			//タイトルシーンに戻る
+			// タイトルシーンに戻る
 			scnMng_.ChangeScene(SceneManager::SCENE_ID::TITLE);
+		}},
+		{LIST::GAME_END,[this]()
+		{
+			// ゲーム終了
+			Application::GetInstance().GameEnd();
 		}}
 	};
+
+	pauseFont_ = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), FONT_SIZE, FONT_THICK);
 }
 
 ScenePause::~ScenePause()
@@ -49,7 +56,6 @@ void ScenePause::Init()
 
 void ScenePause::NormalUpdate()
 {
-	pauseFont_ = fontMng_.CreateMyFont(resMng_.GetFontName("fontHanazome"), FONT_SIZE, FONT_THICK);
 
 	if (inputMng_.IsTrgDown(InputManager::TYPE::PAUSE) || inputMng_.IsTrgDown(InputManager::TYPE::SELECT_CANCEL))
 	{
@@ -59,12 +65,12 @@ void ScenePause::NormalUpdate()
 	}
 	else if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_DOWN))
 	{
-		selectIndex_ = UtilityCommon::WrapStepIndex(selectIndex_, -1, 0, LIST_MAX);
+		selectIndex_ = UtilityCommon::WrapStepIndex(selectIndex_, 1, 0, LIST_MAX);
 		return;
 	}
 	else if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_UP))
 	{
-		selectIndex_ = UtilityCommon::WrapStepIndex(selectIndex_, 1, 0, LIST_MAX);
+		selectIndex_ = UtilityCommon::WrapStepIndex(selectIndex_, -1, 0, LIST_MAX);
 		return;
 	}
 	else if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_DECISION))
@@ -92,7 +98,7 @@ void ScenePause::NormalDraw()
 	for (int i = 0; i < LIST_MAX; ++i)
 	{
 		//カラーを設定
-		int color = UtilityCommon::BLUE;
+		int color = UtilityCommon::BLACK;
 		if (i == selectIndex_)
 		{
 			color = UtilityCommon::RED; // 選択中は赤色
@@ -100,7 +106,7 @@ void ScenePause::NormalDraw()
 
 		//座標位置を設定
 		int posX = static_cast<int>(Application::SCREEN_HALF_X - pasueList_[i].length() * FONT_SIZE / 2);
-		int posY = Application::SCREEN_HALF_Y - OFFSET_Y * i;
+		int posY = Application::SCREEN_HALF_Y - OFFSET_Y + 150.0f * i;
 
 		//文字列を描画
 		DrawFormatStringToHandle(

@@ -17,7 +17,9 @@ public:
 	// BGM‚ÌŽí—Þ
 	enum class BGM
 	{
-		TITLE,
+		TITLE_MAIN,
+		TITLE_EXPLANATION,
+		TITLE_SELECT,
 		GAME,
 		RESULT,
 		MAX
@@ -45,6 +47,14 @@ public:
 		ENEMY_FOUND,
 		PLAYER_DIE,
 		TV_NOISE_SNOW,
+		BUG_1,
+		BUG_2,
+		SELECT,
+		DECISION,
+		CAVEAT,
+		DRUM_ROLL,
+		DRUM_ROLL_END,
+		RESULT_START,
 		MAX
 	};
 

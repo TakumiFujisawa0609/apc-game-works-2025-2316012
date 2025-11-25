@@ -39,10 +39,13 @@ private:
 	InputManager& input_;
 
 	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 1;
+	static constexpr int CONST_BUFFER_SIZE = 2;
 
 	// 時間
 	float time_;
+
+	// フィルムグレイン用のステップ
+	float filmGrainStep_;
 
 	// 波紋の開始判定
 	bool isRepples_;

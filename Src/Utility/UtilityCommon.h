@@ -104,20 +104,33 @@ public:
 	/// <summary>
 	/// イーズイン
 	/// </summary>
-	/// <param name="time">時間</param>
-	/// <param name="start">開始値</param>
-	/// <param name="change">変化量</param>
-	/// /// <returns>計算結果</returns>
-	static float EaseInQuad(const float time, const float start, const float change);
+	/// <param name="_time">経過時間</param>
+	/// <param name="_totalTime">アニメーション総時間</param>
+	/// <param name="_start">開始位置</param>
+	/// <param name="_end">終了位置</param>
+	/// <returns>変化量</returns>
+	static float EaseInQuad(float _time, const float _totalTime, const float _start, const float _end);
+
 
 	/// <summary>
 	/// イーズアウト
 	/// </summary>
-	/// <param name="time">時間</param>
-	/// <param name="start">開始値</param>
-	/// <param name="change">変化量</param>
-	/// <returns>計算結果</returns>
-	static float EaseOutQuad(const float time, const float start, const float change);
+	/// <param name="_time">経過時間</param>
+	/// <param name="_totalTime">アニメーション総時間</param>
+	/// <param name="_start">開始位置</param>
+	/// <param name="_end">終了位置</param>
+	/// <returns>変化量</returns>
+	static float EaseOutQuad(float _time, const float _totalTime, const float _start, const float _end);
+
+	/// <summary>
+	/// イーズインアウトバック
+	/// </summary>
+	/// <param name="_time">経過時間</param>
+	/// <param name="_totalTime">アニメーション総時間</param>
+	/// <param name="_start">開始位置</param>
+	/// <param name="_end">終了位置</param>
+	/// <returns>変化量</returns>
+	static float EaseInOutBack(float _time, const float _totalTime, const float _start, const float _end);
 
 	/// <summary>
 	/// CSVファイルの読み込み

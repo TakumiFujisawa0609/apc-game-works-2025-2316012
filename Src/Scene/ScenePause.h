@@ -9,8 +9,9 @@ public:
 
 	enum class LIST
 	{
-		RESUME,  // 続ける
-		TITLE,   // タイトルに戻る
+		RESUME,		// 続ける
+		TITLE,		// タイトルに戻る
+		GAME_END,   // ゲームの終了
 		MAX
 	};
 
@@ -41,7 +42,7 @@ private:
 	static constexpr int PAUSE_ALPHA = 128; 
 
 	//フォントサイズ
-	static constexpr int FONT_SIZE = 32;
+	static constexpr int FONT_SIZE = 56;
 	static constexpr int FONT_THICK = 3; // フォントの太さ
 
 	//ポーズフォント
@@ -54,7 +55,8 @@ private:
 	std::wstring pasueList_[LIST_MAX] =
 	{
 		L"つづける",
-		L"タイトルへ戻る"
+		L"タイトルへ戻る",
+		L"ゲーム終了"
 	};
 
 	//リスト選択テーブル

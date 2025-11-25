@@ -3,7 +3,9 @@
 // •¶Žš—ñ‚©‚çenum ‚Ì‘Î‰ž•\
 const std::map<std::string, SoundType::BGM> SoundType::KEY_BGM_MAP =
 {
-	{"bgmTitle",SoundType::BGM::TITLE},
+	{"bgmTitleMain",SoundType::BGM::TITLE_MAIN},
+	{"bgmTitleExplanation",SoundType::BGM::TITLE_EXPLANATION},
+	{"bgmTitleSelect",SoundType::BGM::TITLE_SELECT},
 	{"bgmGame", SoundType::BGM::GAME},
 	{"bgmResult", SoundType::BGM::RESULT}
 };
@@ -28,5 +30,13 @@ const std::map<std::string, SoundType::SE> SoundType::KEY_SE_MAP =
     {"seCameraChangeMode", SoundType::SE::CAMERA_MODE_CAHNGE},
 	{"seEnemyFound", SoundType::SE::ENEMY_FOUND},
 	{"sePlayerDie", SoundType::SE::PLAYER_DIE},
-	{"seTvNoiseSnow", SoundType::SE::TV_NOISE_SNOW}
+	{"seTvNoiseSnow", SoundType::SE::TV_NOISE_SNOW},
+	{"seBug1", SoundType::SE::BUG_1},
+	{"seBug2", SoundType::SE::BUG_2},
+	{"seSelect", SoundType::SE::SELECT},
+	{"seDecision", SoundType::SE::DECISION},
+	{"seCaveat", SoundType::SE::CAVEAT},
+	{"seDrumRoll", SoundType::SE::DRUM_ROLL},
+	{"seDrumRollEnd", SoundType::SE::DRUM_ROLL_END},
+	{"seResultStart", SoundType::SE::RESULT_START},
 };

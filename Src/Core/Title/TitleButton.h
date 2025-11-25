@@ -20,18 +20,7 @@ public:
 	/// </summary>
 	void Init() override;
 
-	/// <summary>
-	/// XVˆ—
-	/// </summary>
-	void Update() override;
-
-	/// <summary>
-	/// •`‰æˆ—
-	/// </summary>
-	void Draw() override;
-
 private:
-
 
 };
 

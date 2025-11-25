@@ -10,7 +10,6 @@ TitleLogo::TitleLogo()
 {
 	logo_ = -1;
 	step_ = 0.0f;
-	isGlitch_ = false;
 	timer_ = nullptr;
 }
 
@@ -19,7 +18,7 @@ TitleLogo::~TitleLogo()
 }
 
 void TitleLogo::Load()
-{
+{	
 	int ps = resMng_.GetHandle("glitchPs");
 	logo_ = resMng_.GetHandle("titleLogo");
 	material_ = std::make_unique<PixelMaterial>(ps, 2);				// マテリアルの生成
@@ -34,7 +33,7 @@ void TitleLogo::Load()
 
 void TitleLogo::Init()
 {
-	isGlitch_ = false;
+	isEffect_ = false;
 	pos_ = { 320, 260 };
 	renderer_->SetPos(pos_);
 	renderer_->SetSize({ 640, 160 });
@@ -48,25 +47,25 @@ void TitleLogo::Update()
 	if (timer_->CountUp())
 	{
 		// グリッチ中の場合
-		if (isGlitch_)
+		if (isEffect_)
 		{
 			// 通常描画の設定
 			timer_->SetGoalTime(NORMAL_DRAW_TIME);
-			isGlitch_ = false;
+			isEffect_ = false;
 		}
 		// 通常描画の場合
 		else
 		{
 			// グリッチ描画設定
 			timer_->SetGoalTime(GLITCH_DRAW_TIME);
-			isGlitch_ = true;
+			isEffect_ = true;
 		}
 	}
 }
 
 void TitleLogo::Draw()
 {
-	if (isGlitch_)
+	if (isEffect_)
 	{
 		// ステップ更新
 		step_ += scnMng_.GetDeltaTime();
@@ -78,9 +77,9 @@ void TitleLogo::Draw()
 		material_->SetConstBuf(1, { step_, strength, GLITCH_SPEED, DIV_NUM });
 
 		// 描画
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, UtilityCommon::ALPHA_MAX);
+		//SetDrawBlendMode(DX_BLENDMODE_ALPHA, UtilityCommon::ALPHA_MAX);
 		renderer_->Draw();
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		//SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 	else
 	{

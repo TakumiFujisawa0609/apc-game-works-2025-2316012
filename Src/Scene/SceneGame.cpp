@@ -178,7 +178,7 @@ void SceneGame::DebugUpdate(void)
 	// ƒV[ƒ“‘JˆÚ
 	if (inputMng_.IsTrgDown(InputManager::TYPE::DEBUG_SCENE_CHANGE))
 	{
-		scnMng_.ChangeScene(SceneManager::SCENE_ID::TITLE);
+		scnMng_.ChangeScene(SceneManager::SCENE_ID::RESULT);
 		return;
 	}
 
@@ -201,9 +201,9 @@ void SceneGame::DebugUpdate(void)
 		};
 	}
 
-	test_->Update();
+	/*test_->Update();
 
-	createPositionList_->Update();
+	createPositionList_->Update();*/
 }
 
 void SceneGame::DebugDraw(void)
