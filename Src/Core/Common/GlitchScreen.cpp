@@ -1,7 +1,7 @@
 #include <DxLib.h>
 #include <random>
 #include <chrono>
-#include "../../Manager/Generic/SceneManager.h"
+#include "../../Manager/Common/SceneManager.h"
 #include "../../Application.h"
 #include "GlitchScreen.h"
 

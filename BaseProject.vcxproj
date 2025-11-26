@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Core\PostEffect\PostEffectCracks.cpp" />
+    <ClCompile Include="Src\Manager\Game\GameEffectManager.cpp" />
     <ClCompile Include="Src\Core\Common\GlitchScreen.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectTitleSelect.cpp" />
     <ClCompile Include="Src\Render\BillboardRenderer.cpp" />
@@ -170,6 +172,8 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Core\PostEffect\PostEffectCracks.h" />
+    <ClInclude Include="Src\Manager\Game\GameEffectManager.h" />
     <ClInclude Include="Src\Core\Common\GlitchScreen.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectTitleSelect.h" />
     <ClInclude Include="Src\Render\BillboardRenderer.h" />

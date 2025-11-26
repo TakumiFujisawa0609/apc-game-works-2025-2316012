@@ -1,9 +1,9 @@
 #pragma once
 
-class SceneGame;
 class StageManager;
 class CharacterManager;
 class GameSystemManager;
+class GameEffectManager;
 
 class GameStateBase
 {
@@ -40,5 +40,6 @@ protected:
 	StageManager& stageMng_;
 	CharacterManager& charaMng_;
 	GameSystemManager& systemMng_;
+	GameEffectManager& effectMng_;
 };
 

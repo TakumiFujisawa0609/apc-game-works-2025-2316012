@@ -3,6 +3,7 @@
 #include "../../../Manager/Game/CollisionManager.h"
 #include "../../../Manager/Game/GameSystemManager.h"
 #include "../../../Manager/Game/AnomalyManager.h"
+#include "../../../Manager/Game/GameEffectManager.h"
 #include "../../../Object/Actor/Stage/StageObjectBase.h"
 #include "../../../Object/Actor/Character/CharacterBase.h"
 #include "../../../Core/Game/ReportSystem.h"
@@ -52,6 +53,9 @@ void GameStatePlay::Draw()
 
 	// キャラクター描画
 	charaMng_.Draw();
+
+	// ポストエフェクトの描画
+	effectMng_.Draw();
 
 	// システム描画
 	systemMng_.Draw();

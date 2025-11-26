@@ -13,6 +13,7 @@
 #include "../Manager/Game/GameStateManager.h"
 #include "../Manager/Game/GameSystemManager.h"
 #include "../Manager/Game/AnomalyManager.h"
+#include "../Manager/Game/GameEffectManager.h"
 #include "../Utility/UtilityCommon.h"
 #include "../Object/Actor/Character/CharacterBase.h"
 #include "../Object/Actor/Stage/StageObjectBase.h"
@@ -39,6 +40,7 @@ SceneGame::SceneGame()
 	GameSystemManager::CreateInstance();
 	AnomalyManager::CreateInstance();
 	GameStateManager::CreateInstance();
+	GameEffectManager::CreateInstance();
 }
 
 SceneGame::~SceneGame()
@@ -51,6 +53,7 @@ SceneGame::~SceneGame()
 	GameSystemManager::GetInstance().Destroy();
 	AnomalyManager::GetInstance().Destroy();
 	GameStateManager::GetInstance().Destroy();
+	GameEffectManager::GetInstance().Destroy();
 }
 
 void SceneGame::Load()
@@ -61,6 +64,7 @@ void SceneGame::Load()
 
 void SceneGame::Init(void)
 {
+	// 基底クラスの初期化
 	SceneBase::Init();
 
 	// キャラクター
@@ -108,6 +112,9 @@ void SceneGame::Init(void)
 
 	// スコアを初期化
 	ScoreManager::GetInstance().Init();
+
+	// エフェクト管理クラスの初期化
+	GameEffectManager::GetInstance().Init();
 
 	// カメラ設定
 	mainCamera.SetFollow(&CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform());
