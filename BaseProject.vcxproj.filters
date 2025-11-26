@@ -492,6 +492,15 @@
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyGrassRoom.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Render\BillboardRenderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Stage\Sub\Grass.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\PostEffect\PostEffectTitleSelect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Fader.h">
@@ -1070,6 +1079,15 @@
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyGrassRoom.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Render\BillboardRenderer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Stage\Sub\Grass.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\PostEffect\PostEffectTitleSelect.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\PostEffect\Vignette.hlsl" />
@@ -1093,6 +1111,9 @@
     <FxCompile Include="Src\Shader\PostEffect\SnowNoiseEffect.hlsl" />
     <FxCompile Include="Src\Shader\PostEffect\RipplisEffect.hlsl" />
     <FxCompile Include="Src\Shader\Model\GrassRoomPS.hlsl" />
+    <FxCompile Include="Src\Shader\Model\GrassPS.hlsl" />
+    <FxCompile Include="Src\Shader\Model\GrassVS.hlsl" />
+    <FxCompile Include="Src\Shader\PostEffect\TitleSelectEffect.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\Shader\Common\Pixel\PixelShader2DHeader.hlsli" />

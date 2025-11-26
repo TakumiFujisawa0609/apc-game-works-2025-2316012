@@ -68,8 +68,8 @@ void AnomalyManager::Update()
 		}
 
 		// ˆÙ•Ï”­¶
-		OccurAnomaly(TYPE::GRASS_ROOM);
-		//OccurAnomaly(GetRandType());
+		//OccurAnomaly(TYPE::GRASS_ROOM);
+		OccurAnomaly(GetRandType());
 
 		// ŽŸ‰ñ‚Ü‚Å‚ÌŽžŠÔ‚ðƒ‰ƒ“ƒ_ƒ€Ý’è
 		timer_->SetGoalTime(timeMin_ + GetRand(timeMax_ - timeMin_));

@@ -2,6 +2,9 @@
 #include <array>
 #include "TitleStateBase.h"
 #include "../../../Common/CharacterString.h"
+#include "../../../Common/Image.h"
+
+class PostEffectTitleSelect;
 
 class TitleStateSelect : public TitleStateBase
 {
@@ -60,11 +63,20 @@ private:
 	// 選択後用のステップ
 	float afterStep_;
 
+	// エフェクトスクリーン
+	int effectScreen_;
+
+	// 選択背景
+	Image selectBack_;
+
 	// 選択項目用テキスト
 	std::array<CharacterString, TYPE_MAX> selectTexts_;
 
 	// 選択後に表示するテキスト
 	CharacterString afterText_;
+
+	// エフェクト
+	std::unique_ptr<PostEffectTitleSelect> effect_;
 
 	// 項目別処理の管理
 	std::unordered_map<TYPE, std::function<void()>> changeMap_;
@@ -88,5 +100,7 @@ private:
 	// 状態別描画処理
 	void DrawSelect();
 	void DrawAfter();
-};
 
+	// グリッチエフェクトの適用
+	void GlitchEffect();
+};

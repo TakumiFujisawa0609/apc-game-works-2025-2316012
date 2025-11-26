@@ -1,10 +1,10 @@
 {
   "resources": [
     {
-      "key": "bgmTitle",
+      "key": "bgmTitleMain",
       "sceneId": 1,
       "type": "sound",
-      "path": "Data/Sound/BGM/BgmTitle.mp3",
+      "path": "Data/Sound/BGM/BgmTitleMain.mp3",
       "soundType": "bgm"
     },
     {
@@ -513,7 +513,7 @@
     },
     {
       "key": "seKeboard",
-      "sceneId": 3,
+      "sceneId": 0,
       "type": "sound",
       "soundType": "se",
       "path": "Data/Sound/SE/SeKeboard.mp3"
@@ -602,6 +602,12 @@
       "path": "Data/Shader/RipplisEffect.cso"
     },
     {
+      "key": "titleSelectEffect",
+      "sceneId": 1,
+      "type": "pixelShader",
+      "path": "Data/Shader/TitleSelectEffect.cso"
+    },
+    {
       "key": "cameraSwitchIcons",
       "sceneId": 3,
       "type": "sprite",
@@ -610,6 +616,115 @@
       "divY": 1,
       "sizeX": 128,
       "sizeY": 128
+    },
+    {
+      "key": "bgmTitleExplanation",
+      "sceneId": 1,
+      "type": "sound",
+      "path": "Data/Sound/BGM/BgmTitleExplanation.mp3",
+      "soundType": "bgm"
+    },
+    {
+      "key": "bgmTitleSelect",
+      "sceneId": 1,
+      "type": "sound",
+      "path": "Data/Sound/BGM/BgmTitleSelect.mp3",
+      "soundType": "bgm"
+    },
+    {
+      "key": "seBug1",
+      "sceneId": 1,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeBug1.mp3",
+      "soundType": "se"
+    },
+    {
+      "key": "seBug2",
+      "sceneId": 1,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeBug2.mp3",
+      "soundType": "se"
+    },
+    {
+      "key": "seCaveat",
+      "sceneId": 1,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeCaveat.mp3",
+      "soundType": "se"
+    },
+    {
+      "key": "seSelect",
+      "sceneId": 1,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeSelect.mp3",
+      "soundType": "se"
+    },
+    {
+      "key": "seDecision",
+      "sceneId": 1,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeDecision.mp3",
+      "soundType": "se"
+    },
+    {
+      "key": "titleExplanation",
+      "sceneId": 1,
+      "type": "sprite",
+      "path": "Data/Image/Title/Explanation.png",
+      "divX": 4,
+      "divY": 2,
+      "sizeX": 256,
+      "sizeY": 256
+    },
+    {
+      "key": "window",
+      "sceneId": 1,
+      "type": "texture",
+      "path": "Data/Image/Title/Window.png"
+    },
+    {
+      "key": "selectBack",
+      "sceneId": 1,
+      "type": "texture",
+      "path": "Data/Image/Title/SelectBack.png"
+    },
+    {
+      "key": "bgmResult",
+      "sceneId": 4,
+      "type": "sound",
+      "path": "Data/Sound/BGM/BgmResult.mp3",
+      "soundType": "bgm"
+    },
+    {
+      "key": "seDrumRoll",
+      "sceneId": 4,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeDrumRoll.mp3",
+      "soundType": "se"
+    },
+    {
+      "key": "seDrumRollEnd",
+      "sceneId": 4,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeDrumRollEnd.mp3",
+      "soundType": "se"
+    },
+    {
+      "key": "seResultStart",
+      "sceneId": 4,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeResultStart.mp3",
+      "soundType": "se"
+    },
+    {
+      "key": "ranks",
+      "sceneId": 4,
+      "type": "sprite",
+      "path": "Data/Image/Result/Ranks.png",
+      "divX": 5,
+      "divY": 1,
+      "sizeX": 256,
+      "sizeY": 256
     }
   ]
 }

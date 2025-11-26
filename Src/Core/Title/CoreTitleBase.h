@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "../CoreBase.h"
+#include "../Common/Image.h"
 
 class PixelMaterial;
 class PixelRenderer;
@@ -19,8 +20,21 @@ public:
 	/// </summary>
 	~CoreTitleBase() override;
 
+	/// <summary>
+	/// 描画処理
+	/// </summary>
+	void Draw() override;
+
+	/// <summary>
+	/// エフェクトの判定を設定
+	/// </summary>
+	/// <param name="isEffect">エフェクトの判定</param>
+	void SetIsEffect(const bool isEffect) { isEffect_ = isEffect; }
+
 protected:
 
+	bool isEffect_;
+	Image img_;
 	std::unique_ptr<PixelMaterial> material_;
 	std::unique_ptr<PixelRenderer> renderer_;
 

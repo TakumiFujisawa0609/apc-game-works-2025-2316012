@@ -69,9 +69,6 @@ private:
 	// ステップ
 	float step_;
 
-	// グリッチで描画するか判定
-	bool isGlitch_;
-
 	// タイマー
 	std::unique_ptr<Timer> timer_;
 };
