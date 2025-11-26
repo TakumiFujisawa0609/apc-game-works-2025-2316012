@@ -1,5 +1,5 @@
-#include "../../../Manager/Generic/SceneManager.h"
-#include "../../../Manager/Generic/Camera.h"
+#include "../../../Manager/Common/SceneManager.h"
+#include "../../../Manager/Common/Camera.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "ControllerCameraJumpScare.h"

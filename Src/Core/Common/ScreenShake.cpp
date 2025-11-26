@@ -1,6 +1,6 @@
 #include <DxLib.h>
 #include <random>
-#include "../Manager/Generic/SceneManager.h"
+#include "../Manager/Common/SceneManager.h"
 #include "ScreenShake.h"
 
 namespace

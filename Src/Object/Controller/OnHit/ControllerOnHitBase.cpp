@@ -1,5 +1,5 @@
-#include "../../../Manager/Generic/GameStateManager.h"
-#include "../../../Manager/Resource/SoundManager.h"
+#include "../../../Manager/Game/GameStateManager.h"
+#include "../../../Manager/Common/SoundManager.h"
 #include "../../Collider/ColliderBase.h"
 #include "ControllerOnHitBase.h"
 

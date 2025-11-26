@@ -1,5 +1,5 @@
-#include "../../../Manager/Generic/CollisionTags.h"
-#include "../../../Manager/Generic/GameStateManager.h"
+#include "../../../Manager/Game/CollisionTags.h"
+#include "../../../Manager/Game/GameStateManager.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../Actor/Character/Player.h"
 #include "../../Collider/ColliderModel.h"

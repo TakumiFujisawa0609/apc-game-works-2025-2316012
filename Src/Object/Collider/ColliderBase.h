@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Manager/Generic/CollisionTags.h"
+#include "../../Manager/Game/CollisionTags.h"
 #include "../Common/Transform.h"
 #include "ColliderType.h"
 

@@ -1,4 +1,4 @@
-#include "../../Manager/Generic/CharacterManager.h"
+#include "../../Manager/Game/CharacterManager.h"
 #include "../../Object/Actor/Character/Player.h"
 #include "../../Core/Game/CoreGameBase.h"
 #include "../../Core/Game/ReportSystem.h"

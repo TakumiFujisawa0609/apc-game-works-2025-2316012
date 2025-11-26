@@ -1,5 +1,5 @@
-#include "../../../Manager/Generic/CharacterManager.h"
-#include "../../../Manager/Resource/SoundManager.h"
+#include "../../../Manager/Game/CharacterManager.h"
+#include "../../../Manager/Common/SoundManager.h"
 #include "../../Actor/Character/CharacterBase.h"
 #include "AnomalyAppearance.h"
 

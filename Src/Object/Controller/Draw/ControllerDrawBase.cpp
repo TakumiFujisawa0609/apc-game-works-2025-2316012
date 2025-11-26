@@ -1,5 +1,5 @@
-#include "../../../Manager/Generic/CharacterManager.h"
-#include "../../../Manager/Resource/ResourceManager.h"
+#include "../../../Manager/Game/CharacterManager.h"
+#include "../../../Manager/Common/ResourceManager.h"
 #include "../../../Render/ModelMaterial.h"
 #include "../../../Render/ModelRenderer.h"
 #include "ControllerDrawBase.h"

@@ -1,4 +1,4 @@
-#include "../../Manager/Generic/SceneManager.h"
+#include "../../Manager/Common/SceneManager.h"
 #include "Timer.h"
 
 Timer::Timer(const float goalTime) :

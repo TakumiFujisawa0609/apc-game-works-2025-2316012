@@ -1,5 +1,4 @@
 #include <DxLib.h>
-#include "CollisionManager.h"
 #include "Input.h"
 
 Input::Input(void)

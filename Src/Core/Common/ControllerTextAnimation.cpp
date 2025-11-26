@@ -1,5 +1,5 @@
-#include "../../Manager/Generic/SceneManager.h"
-#include "../../Manager/Resource/SoundManager.h"
+#include "../../Manager/Common/SceneManager.h"
+#include "../../Manager/Common/SoundManager.h"
 #include "ControllerTextAnimation.h"
 
 ControllerTextAnimation::ControllerTextAnimation(CharacterString& text, const float charPerFrame) :

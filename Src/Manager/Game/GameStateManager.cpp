@@ -3,9 +3,9 @@
 #include "../../Scene/State/Game/GameStatePlay.h"
 #include "../../Scene/State/Game/GameStateReporting.h"
 #include "../../Scene/State/Game/GameStateMadnessEnd.h"
-#include "../Resource/SoundManager.h"
-#include "../System/ScoreManager.h"
-#include "SceneManager.h"
+#include "../Common/SoundManager.h"
+#include "../Common/ScoreManager.h"
+#include "../Common/SceneManager.h"
 #include "GameStateManager.h"
 
 void GameStateManager::Load()

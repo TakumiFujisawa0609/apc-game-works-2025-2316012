@@ -1,8 +1,8 @@
-#include "../../../Manager/Generic/CharacterManager.h"
-#include "../../../Manager/Generic/StageManager.h"
-#include "../../../Manager/Resource/ResourceManager.h"
-#include "../../../Manager/Resource/SoundManager.h"
-#include "../../../Manager/System/GameSystemManager.h"
+#include "../../../Manager/Game/CharacterManager.h"
+#include "../../../Manager/Game/StageManager.h"
+#include "../../../Manager/Common/ResourceManager.h"
+#include "../../../Manager/Common/SoundManager.h"
+#include "../../../Manager/Game/GameSystemManager.h"
 #include "../../Actor/Character/Player.h"
 #include "AnomalyBase.h"
 

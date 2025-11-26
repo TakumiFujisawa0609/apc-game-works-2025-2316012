@@ -1,5 +1,5 @@
 #include "../Application.h"
-#include "../Manager/Generic/SceneManager.h"
+#include "../Manager/Common/SceneManager.h"
 #include "../Render/PixelMaterial.h"
 #include "../Render/PixelRenderer.h"
 #include "PostEffectBase.h"

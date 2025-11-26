@@ -1,4 +1,4 @@
-#include "../../../Manager/Resource/ResourceManager.h"
+#include "../../../Manager/Common/ResourceManager.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../Collider/ColliderBox.h"

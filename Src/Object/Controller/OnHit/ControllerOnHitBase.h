@@ -3,7 +3,7 @@
 #include <functional>
 #include <string>
 #include <unordered_map>
-#include "../../../Manager/Generic/CollisionTags.h"
+#include "../../../Manager/Game/CollisionTags.h"
 #include "../ControllerBase.h"
 
 class CharacterBase;

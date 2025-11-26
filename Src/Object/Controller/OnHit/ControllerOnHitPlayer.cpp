@@ -1,5 +1,5 @@
-#include "../../../Manager/Generic/CollisionTags.h"
-#include "../../../Manager/Resource/SoundManager.h"
+#include "../../../Manager/Game/CollisionTags.h"
+#include "../../../Manager/Common/SoundManager.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../Actor/Character/Player.h"
 #include "../../Actor/Stage/StageObjectBase.h"

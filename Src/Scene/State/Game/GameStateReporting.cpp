@@ -1,5 +1,5 @@
 #include <cassert>
-#include "../../../Manager/System/GameSystemManager.h"
+#include "../../../Manager/Game/GameSystemManager.h"
 #include "../../../Core/Game/ReportSystem.h"
 #include "GameStateReporting.h"
 

@@ -1,5 +1,5 @@
 #include "UtilityCommon.h"
-#include "../Manager/Generic/SceneManager.h"
+#include "../Manager/Common/SceneManager.h"
 
 int UtilityCommon::Round(float v)
 {
