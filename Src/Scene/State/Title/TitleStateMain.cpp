@@ -5,6 +5,7 @@
 #include "../../../Core/Title/TitleButton.h"
 #include "../../../Core/Title/TitleLogo.h"
 #include "../../../Core/PostEffect/PostEffectRipples.h"
+#include "../../../Core/Common/GlitchScreen.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../SceneTitle.h"
 #include "TitleStateMain.h"

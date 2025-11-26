@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Core\Common\GlitchScreen.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectTitleSelect.cpp" />
     <ClCompile Include="Src\Render\BillboardRenderer.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Sub\Grass.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Core\Common\GlitchScreen.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectTitleSelect.h" />
     <ClInclude Include="Src\Render\BillboardRenderer.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Sub\Grass.h" />

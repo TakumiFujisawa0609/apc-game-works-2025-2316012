@@ -5,6 +5,7 @@
 #include "../../../Common/Image.h"
 
 class PostEffectTitleSelect;
+class GlitchScreen;
 
 class TitleStateSelect : public TitleStateBase
 {
@@ -75,6 +76,9 @@ private:
 	// 選択後に表示するテキスト
 	CharacterString afterText_;
 
+	// グリッチ
+	std::unique_ptr<GlitchScreen> glitch_;
+
 	// エフェクト
 	std::unique_ptr<PostEffectTitleSelect> effect_;
 
@@ -100,7 +104,4 @@ private:
 	// 状態別描画処理
 	void DrawSelect();
 	void DrawAfter();
-
-	// グリッチエフェクトの適用
-	void GlitchEffect();
 };
