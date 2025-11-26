@@ -123,7 +123,7 @@ private:
 	static constexpr int HEART_BEAT_MIN_VOLUME = 50;
 
 	// ガラスが破壊されるまでの時間
-	static constexpr float GLASS_BREAK_TIME = 2.2f;
+	static constexpr float GLASS_BREAK_TIME = 2.0f;
 
 	// 所有者の参照インスタンス
 	Enemy& owner_;

@@ -157,8 +157,9 @@ void TitleStateSelect::UpdateSelect()
 	}
 
 	selectBack_.pos = selectTexts_[type_].pos;
+	selectBack_.pos.y += 25;
 	selectBack_.size.x = selectTexts_[type_].string.length() * 52;
-	selectBack_.size.y = 60;
+	selectBack_.size.y = 50;
 }
 
 void TitleStateSelect::UpdateStart()

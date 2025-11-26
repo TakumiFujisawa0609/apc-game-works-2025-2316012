@@ -67,9 +67,6 @@ void GameStateManager::ChangeState(const STATE state)
 
 void GameStateManager::SetGameClear()
 {
-	// ゲームの終了状態を設定
-	ScoreManager::GetInstance().SetEndState(ScoreManager::END_STATE::CLEAR);
-
 	// シーンをリザルトへ
 	SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT, Fader::STATE::FINISH);
 
@@ -77,20 +74,21 @@ void GameStateManager::SetGameClear()
 	state_ = STATE::NONE;
 
 	// サウンドの停止
-	SoundManager::GetInstance().StopAllSe();	
-	SoundManager::GetInstance().StopBgm(SoundType::BGM::GAME);	
+	SoundManager& sndMng = SoundManager::GetInstance();
+	sndMng.StopAllSe();
+	sndMng.StopBgm(SoundType::BGM::GAME);
 }
 
 void GameStateManager::SetGameOver()
 {
-	// ゲームの終了状態を設定
-	ScoreManager::GetInstance().SetEndState(ScoreManager::END_STATE::DEAD);
-
 	// シーンをリザルトへ
 	SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::RESULT, Fader::STATE::FINISH);
 
 	// 自身の状態をNONEにする
 	state_ = STATE::NONE;
+
+	// 死亡時はスコアは0
+	ScoreManager::GetInstance().DeadScore();
 
 	// サウンドの停止
 	SoundManager::GetInstance().StopAllSe();

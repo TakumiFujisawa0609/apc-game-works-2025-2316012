@@ -47,6 +47,11 @@ public:
 	/// <param name="score">スコア</param>
 	void AddScore(const int score);
 
+	/// <summary>
+	/// スコアを0にする
+	/// </summary>
+	void DeadScore() { score_ = 0; }
+
 private:
 
 	// 通常スコア

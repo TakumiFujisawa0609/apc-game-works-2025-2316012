@@ -188,17 +188,21 @@ void SceneResult::UpdateDrumRoll()
 
 void SceneResult::UpdateEnd()
 {
+	// テキストの更新
 	if (!textAnimation_->IsEnd())
 	{
 		textAnimation_->Update();
 	}
+
 	// シーン遷移
 	if (inputMng_.IsTrgDown(InputManager::TYPE::SELECT_DECISION))
 	{
 		SceneManager::GetInstance().ChangeScene(SceneManager::SCENE_ID::TITLE, Fader::STATE::FINISH);
 		sndMng_.StopBgm(SoundType::BGM::RESULT);
 	}
-	if (!isBgm_ && sndMng_.IsCheckPlaySe(SoundType::SE::DRUM_ROLL_END))
+
+	// 効果音の再生を終えた場合
+	if (!isBgm_ && !sndMng_.IsCheckPlaySe(SoundType::SE::DRUM_ROLL_END))
 	{
 		sndMng_.PlayBgm(SoundType::BGM::RESULT);
 		isBgm_ = true;
