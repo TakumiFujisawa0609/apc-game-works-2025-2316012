@@ -3,7 +3,7 @@
 #include <cmath>
 #include <map>
 #include <queue>
-#include "../../Manager/Generic/StageManager.h"
+#include "../../Manager/Game/StageManager.h"
 #include "../../Utility/UtilityCommon.h"
 #include "../../Utility/Utility3D.h"
 #include "../../Object/Actor/Stage/StageObjectBase.h"

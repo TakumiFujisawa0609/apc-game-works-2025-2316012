@@ -1,8 +1,8 @@
 #include <DxLib.h>
-#include "../../../Manager/Generic/SceneManager.h"
-#include "../../../Manager/Generic/CollisionManager.h"
-#include "../../../Manager/Generic/CollisionTags.h"
-#include "../../../Manager/Generic/Camera.h"
+#include "../../../Manager/Common/SceneManager.h"
+#include "../../../Manager/Game/CollisionManager.h"
+#include "../../../Manager/Game/CollisionTags.h"
+#include "../../../Manager/Common/Camera.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Render/ModelMaterial.h"

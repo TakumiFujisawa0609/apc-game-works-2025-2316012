@@ -1,6 +1,6 @@
-#include "../../Manager/Generic/GameStateManager.h"
-#include "../../Manager/Resource/SoundManager.h"
-#include "../../Manager/System/GameSystemManager.h"
+#include "../../Manager/Game/GameStateManager.h"
+#include "../../Manager/Common/SoundManager.h"
+#include "../../Manager/Game/GameSystemManager.h"
 #include "CoreGameBase.h"
 
 CoreGameBase::CoreGameBase() :

@@ -3,7 +3,7 @@
 #include <string>
 #include "../ActorBase.h"
 #include "../../../Common/Quaternion.h"
-#include "../../../Manager/Generic/CollisionTags.h"
+#include "../../../Manager/Game/CollisionTags.h"
 
 class ColliderLine;
 class ControllerAnimation;

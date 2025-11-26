@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "ResourceBase.h"
-#include "../Manager/Resource/SoundType.h"
+#include "../Manager/Common/SoundType.h"
 
 class ResourceSound : public ResourceBase
 {

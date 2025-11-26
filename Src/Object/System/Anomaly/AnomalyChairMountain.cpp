@@ -1,6 +1,6 @@
 #include <nlohmann/json.hpp>
-#include "../../../Manager/Generic/StageManager.h"
-#include "../../../Manager/Resource/SoundManager.h"
+#include "../../../Manager/Game/StageManager.h"
+#include "../../../Manager/Common/SoundManager.h"
 #include "../../Actor/Stage/ChairMountain.h"
 #include "AnomalyChairMountain.h"
 

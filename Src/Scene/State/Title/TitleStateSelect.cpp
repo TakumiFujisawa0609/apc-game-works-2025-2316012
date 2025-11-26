@@ -2,11 +2,11 @@
 #include <random>
 #include <chrono>
 #include "../../../Application.h"
-#include "../../../Manager/Generic/SceneManager.h"
-#include "../../../Manager/Generic/InputManager.h"
-#include "../../../Manager/Resource/ResourceManager.h"
-#include "../../../Manager/Resource/SoundManager.h"
-#include "../../../Manager/Resource/FontManager.h"
+#include "../../../Manager/Common/SceneManager.h"
+#include "../../../Manager/Common/InputManager.h"
+#include "../../../Manager/Common/ResourceManager.h"
+#include "../../../Manager/Common/SoundManager.h"
+#include "../../../Manager/Common/FontManager.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../../Core/PostEffect/PostEffectTitleSelect.h"
 #include "TitleStateSelect.h"

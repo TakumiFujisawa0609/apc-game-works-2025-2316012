@@ -1,6 +1,6 @@
 #include "../../Application.h"
-#include "../../Manager/Generic/SceneManager.h"
-#include "../../Manager/Resource/ResourceManager.h"
+#include "../../Manager/Common/SceneManager.h"
+#include "../../Manager/Common/ResourceManager.h"
 #include "../../Render/PixelMaterial.h"
 #include "../../Render/PixelRenderer.h"
 #include "../../Utility/UtilityCommon.h"

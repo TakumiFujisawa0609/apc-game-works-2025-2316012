@@ -5,7 +5,7 @@
 #include <string>
 #include <map>
 #include "../../Template/Singleton.h"
-#include "../../Manager/Generic/CollisionTags.h"
+#include "../../Manager/Game/CollisionTags.h"
 
 class ActorBase;
 class ColliderBase;

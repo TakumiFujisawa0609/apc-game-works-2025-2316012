@@ -1,4 +1,4 @@
-#include "../../../../Manager/Resource/ResourceManager.h"
+#include "../../../../Manager/Common/ResourceManager.h"
 #include "../../../../Render/ModelMaterial.h"
 #include "../../../../Render/BillboardRenderer.h"
 #include "../../../../Utility/Utility3D.h"

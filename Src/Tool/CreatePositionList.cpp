@@ -1,6 +1,6 @@
 #include <nlohmann/json.hpp>
 #include <unordered_map>
-#include "../Manager/Generic/InputManager.h"
+#include "../Manager/Common/InputManager.h"
 #include "../Utility/UtilityCommon.h"
 #include "../Utility/Utility3D.h"
 #include "../Utility/UtilityLoad.h"

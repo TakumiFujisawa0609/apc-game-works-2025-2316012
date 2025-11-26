@@ -1,5 +1,5 @@
 #include <DxLib.h>
-#include "../../Manager/Generic/SceneManager.h"
+#include "../../Manager/Common/SceneManager.h"
 #include "../../Utility/UtilityCommon.h"
 #include "ControllerAnimation.h"
 

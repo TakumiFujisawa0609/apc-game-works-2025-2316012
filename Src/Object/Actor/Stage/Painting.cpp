@@ -1,5 +1,5 @@
-#include "../../../Manager/Resource/ResourceManager.h"
-#include "../../../Manager/Generic/CharacterManager.h"
+#include "../../../Manager/Common/ResourceManager.h"
+#include "../../../Manager/Game/CharacterManager.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Common/Quaternion.h"

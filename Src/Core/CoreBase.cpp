@@ -1,7 +1,7 @@
 #include "CoreBase.h"
-#include "../Manager/Generic/SceneManager.h"
-#include "../Manager/Resource/ResourceManager.h"
-#include "../Manager/Resource/FontManager.h"
+#include "../Manager/Common/SceneManager.h"
+#include "../Manager/Common/ResourceManager.h"
+#include "../Manager/Common/FontManager.h"
 
 CoreBase::CoreBase() :
 	resMng_(ResourceManager::GetInstance()),

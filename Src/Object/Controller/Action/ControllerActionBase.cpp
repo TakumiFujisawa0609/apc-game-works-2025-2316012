@@ -1,7 +1,7 @@
-#include "../../../Manager/Generic/SceneManager.h"
-#include "../../../Manager/Generic/Camera.h"
-#include "../../../Manager/Generic/CollisionManager.h"
-#include "../../../Manager/Resource/SoundManager.h"
+#include "../../../Manager/Common/SceneManager.h"
+#include "../../../Manager/Common/Camera.h"
+#include "../../../Manager/Game/CollisionManager.h"
+#include "../../../Manager/Common/SoundManager.h"
 #include "../../Actor/Character/CharacterBase.h"
 #include "ControllerActionBase.h"
 
