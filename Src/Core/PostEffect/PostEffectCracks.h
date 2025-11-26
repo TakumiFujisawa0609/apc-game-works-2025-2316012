@@ -27,5 +27,11 @@ public:
 
 private:
 
+	// ステップ
+	float step_;
+
+	// バッファーサイズ
+	static constexpr int CONST_BUFFER_SIZE = 1;
+
 };
 

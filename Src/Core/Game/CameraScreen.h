@@ -8,7 +8,6 @@
 
 class PostEffectBase;
 class InputManager;
-class GameEffectManager;
 
 class CameraScreen : public CoreGameBase
 {
@@ -73,9 +72,6 @@ private:
 	// キャラクターの管理クラスの参照
 	CharacterManager& charaMng_;
 
-	// エフェクト管理クラスの参照
-	GameEffectManager& effectMng_;
-
 	// 状態
 	SCREEN_MODE mode_;
 
@@ -88,4 +84,3 @@ private:
 	// 活動状態の切り替え
 	void SetActiveActors();
 };
-

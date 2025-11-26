@@ -336,6 +336,12 @@
       "path": "Data/Shader/NormalEffect.cso"
     },
     {
+      "key": "gameScreenEffect",
+      "sceneId": 3,
+      "type": "pixelShader",
+      "path": "Data/Shader/GameScreenEffect.cso"
+    },
+    {
       "key": "nightViewEffect",
       "sceneId": 3,
       "type": "pixelShader",
@@ -725,6 +731,25 @@
       "divY": 1,
       "sizeX": 256,
       "sizeY": 256
+    },
+    {
+      "key": "cracksEffect",
+      "sceneId": 3,
+      "type": "pixelShader",
+      "path": "Data/Shader/Cracks.cso"
+    },
+    {
+      "key": "cracksNormalMap",
+      "sceneId": 3,
+      "type": "texture",
+      "path": "Data/Image/Game/CracksNormalMap.png"
+    },
+    {
+      "key": "seGlassBreak",
+      "sceneId": 3,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeGlassBreak.mp3",
+      "soundType": "se"
     }
   ]
 }

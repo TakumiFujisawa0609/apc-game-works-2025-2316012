@@ -15,8 +15,7 @@ public:
 	enum class TYPE
 	{
 		NONE,		// 使用しない
-		NORMAL,		// 通常視点
-		NIGHT_VIEW,	// 暗視視点
+		GAME_SCREEN,// 通常描画のゲームスクリーン
 		CRACKS,		// ひび割れ
 	};
 

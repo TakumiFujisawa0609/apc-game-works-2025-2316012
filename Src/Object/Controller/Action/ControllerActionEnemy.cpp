@@ -1,9 +1,10 @@
 #include <algorithm>
 #include "../../../Manager/Game/CharacterManager.h"
 #include "../../../Manager/Game/CollisionManager.h"
-#include "../../../Manager/Common/SceneManager.h"
 #include "../../../Manager/Game/GameStateManager.h"
+#include "../../../Manager/Game/GameEffectManager.h"
 #include "../../../Manager/Game/StageManager.h"
+#include "../../../Manager/Common/SceneManager.h"
 #include "../../../Manager/Common/Camera.h"
 #include "../../../Manager/Common/SoundManager.h"
 #include "../../../Manager/Common/ScoreManager.h"
@@ -299,6 +300,10 @@ void ControllerActionEnemy::ChangeStateAction()
 
 	// 画面シェイク設定
 	shake_->Set(SHAKE_TIME, SHAKE_POWER);
+
+	// タイマー設定
+	timer_->SetGoalTime(GLASS_BREAK_TIME);
+	timer_->InitCountUp();
 }
 
 void ControllerActionEnemy::UpdateSearch()
@@ -488,6 +493,16 @@ void ControllerActionEnemy::UpdateAction()
 			GameStateManager::GetInstance().SetGameOver();
 			return;
 		}
+	}
+
+	// 一定時間が経過したとき
+	if (timer_->CountUp())
+	{
+		// エフェクトを変更
+		GameEffectManager::GetInstance().ChangeEffect(GameEffectManager::TYPE::CRACKS);
+
+		// 効果音の再生
+		sndMng_.PlaySe(SoundType::SE::GLASS_BREAK);
 	}
 
 	// ターゲット位置を取得

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Core\PostEffect\PostEffectGameScreen.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectCracks.cpp" />
     <ClCompile Include="Src\Manager\Game\GameEffectManager.cpp" />
     <ClCompile Include="Src\Core\Common\GlitchScreen.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Core\PostEffect\PostEffectGameScreen.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectCracks.h" />
     <ClInclude Include="Src\Manager\Game\GameEffectManager.h" />
     <ClInclude Include="Src\Core\Common\GlitchScreen.h" />
@@ -441,6 +443,18 @@
     <FxCompile Include="Src\Shader\Model\StandardModelVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\PostEffect\Cracks.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\PostEffect\GameScreenEffect.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Src\Shader\PostEffect\LensDistortion.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

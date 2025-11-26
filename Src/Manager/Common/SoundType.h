@@ -55,6 +55,7 @@ public:
 		DRUM_ROLL,
 		DRUM_ROLL_END,
 		RESULT_START,
+		GLASS_BREAK,
 		MAX
 	};
 

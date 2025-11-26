@@ -97,5 +97,4 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
     
     // F‚ğ•Ô‚·
     return float4(finalColor, color.a);
-
 }

@@ -122,6 +122,9 @@ private:
 	// 心拍音の最小音量
 	static constexpr int HEART_BEAT_MIN_VOLUME = 50;
 
+	// ガラスが破壊されるまでの時間
+	static constexpr float GLASS_BREAK_TIME = 2.2f;
+
 	// 所有者の参照インスタンス
 	Enemy& owner_;
 

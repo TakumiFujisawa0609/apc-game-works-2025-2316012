@@ -1,4 +1,5 @@
 #include "../../../Manager/Game/CharacterManager.h"
+#include "../../../Manager/Game/GameEffectManager.h"
 #include "../../../Manager/Game/StageManager.h"
 #include "../../../Object/Actor/Stage/StageObjectBase.h"
 #include "../../../Object/Actor/Character/CharacterBase.h"
@@ -33,4 +34,7 @@ void GameStateJumpScare::Draw()
 
 	// キャラクター描画
 	charaMng_.Draw();
+
+	// エフェクトの描画
+	effectMng_.Draw();
 }

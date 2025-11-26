@@ -16,8 +16,7 @@ using G_TYPE = GameEffectManager::TYPE;
 
 CameraScreen::CameraScreen() :
 	input_(InputManager::GetInstance()),
-	charaMng_(CharacterManager::GetInstance()),
-	effectMng_(GameEffectManager::GetInstance())
+	charaMng_(CharacterManager::GetInstance())
 {
 	mode_ = SCREEN_MODE::NORMAL;
 }
@@ -95,10 +94,6 @@ void CameraScreen::ChangeScreenMode(const SCREEN_MODE mode)
 
 	// 役者の活動状態の切り替え
 	SetActiveActors();
-
-	// エフェクトの切り替え
-	G_TYPE type = mode_ == SCREEN_MODE::NORMAL ? G_TYPE::NORMAL : G_TYPE::NIGHT_VIEW;
-	effectMng_.ChangeEffect(type);
 }
 
 void CameraScreen::SetActiveActors()
