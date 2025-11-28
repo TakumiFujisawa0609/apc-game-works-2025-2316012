@@ -16,11 +16,6 @@ public:
 	~PostEffectSnowNoise() override;
 
 	/// <summary>
-	/// 読み込み処理
-	/// </summary>
-	void Load() override;
-
-	/// <summary>
 	/// 初期化処理
 	/// </summary>
 	void Init() override;
@@ -38,7 +33,6 @@ private:
 	//ブラーを掛ける距離
 	static constexpr float BLUR_DISTANCE = 3.0f;
 
-	// 時間
-	float time_;
+	// ノイズ用ステップ
+	float noiseStep_;
 };
-

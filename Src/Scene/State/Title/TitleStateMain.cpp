@@ -29,7 +29,6 @@ void TitleStateMain::Init()
 {
 	// ƒƒS‚Ì¶¬
 	logo_ = std::make_unique<TitleLogo>();
-	logo_->Load();
 	logo_->Init();
 
 	// ƒ{ƒ^ƒ“

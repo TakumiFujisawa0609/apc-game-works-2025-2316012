@@ -35,18 +35,36 @@ public:
 
 private:
 
+	// 線が消える時間
+	static constexpr float LINE_INACTIVE = 3.0f;
+
+	// 線を表示する時間
+	static constexpr float LINE_ACTIVE = 1.0f;
+
+	// グリッチの強さ
+	static constexpr float GLITCH_STRENGTH = 10.0f;
+
 	// 入力管理クラス
 	InputManager& input_;
 
 	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 2;
+	static constexpr int CONST_BUFFER_SIZE = 3;
 
-	// 時間
-	float time_;
+	// リップル用ステップ
+	float ripplesStep_;
 
 	// フィルムグレイン用のステップ
 	float filmGrainStep_;
 
+	// ライン用ステップ
+	float lineStep_;
+
+	// ラインの到達時間
+	float lineGoalTime_;	
+	
 	// 波紋の開始判定
 	bool isRepples_;
+
+	// 線の活動状態
+	bool isLineActive_;
 };

@@ -20,39 +20,41 @@ public:
 	{
 		NONE,
 
-		PLAYER_MOVE_RIGHT,	// 移動右
-		PLAYER_MOVE_LEFT,	// 移動左
-		PLAYER_MOVE_UP,		// 移動上
-		PLAYER_MOVE_DOWN,	// 移動下
-		PLAYER_JUMP,		// ジャンプ
-		PLAYER_DASH,		// ダッシュ
+		PLAYER_MOVE_RIGHT,		// 移動右
+		PLAYER_MOVE_LEFT,		// 移動左
+		PLAYER_MOVE_UP,			// 移動上
+		PLAYER_MOVE_DOWN,		// 移動下
+		PLAYER_JUMP,			// ジャンプ
+		PLAYER_DASH,			// ダッシュ
 
-		CAMERA_MOVE_RIGHT,	// カメラ右移動
-		CAMERA_MOVE_LEFT,	// カメラ左移動
-		CAMERA_MOVE_UP,		// カメラ上移動
-		CAMERA_MOVE_DOWN,	// カメラ下移動
+		CAMERA_MOVE_RIGHT,		// カメラ右移動
+		CAMERA_MOVE_LEFT,		// カメラ左移動
+		CAMERA_MOVE_UP,			// カメラ上移動
+		CAMERA_MOVE_DOWN,		// カメラ下移動
 
-		SELECT_RIGHT,		// 選択右
-		SELECT_LEFT,		// 選択左
-		SELECT_DOWN,		// 選択下
-		SELECT_UP,			// 選択上
-		SELECT_DECISION,	// 選択決定
-		SELECT_CANCEL,		// 選択キャンセル
+		SELECT_RIGHT,			// 選択右
+		SELECT_LEFT,			// 選択左
+		SELECT_DOWN,			// 選択下
+		SELECT_UP,				// 選択上
+		SELECT_DECISION,		// 選択決定
+		SELECT_CANCEL,			// 選択キャンセル
 
-		PAUSE,				// ポーズ(開閉)
+		PAUSE,					// ポーズ(開閉)
 
-		ANOMARY_REPORT,		// 異変の報告
+		INPUT_EXPLANTION_OPEN,	// 操作説明を開く
 
-		CAMERA_MODE_CHANGE,	// カメラモード切替
+		ANOMARY_REPORT,			// 異変の報告
 
-		LIGHT_SWITCH,		// ライトのON/OFF
+		CAMERA_MODE_CHANGE,		// カメラモード切替
 
-		EXPLANTION_SKIP,	// 説明のスキップ
+		LIGHT_SWITCH,			// ライトのON/OFF
 
-		DEBUG_SCENE_CHANGE, // デバッグシーン遷移
-		DEBUG_CAMERA_CHANGE,// デバッグカメラビュー変更
-		CREATE_POSITION,	// 位置リストの生成
-		OPEN_FILE,			// ファイルを開く
+		EXPLANTION_SKIP,		// 説明のスキップ
+
+		DEBUG_SCENE_CHANGE,		// デバッグシーン遷移
+		DEBUG_CAMERA_CHANGE,	// デバッグカメラビュー変更
+		CREATE_POSITION,		// 位置リストの生成
+		OPEN_FILE,				// ファイルを開く
 	};
 
 	/// <summary>

@@ -4,6 +4,7 @@
 class SoundManager;
 class GameStateManager;
 class GameSystemManager;
+class InputManager;
 
 class CoreGameBase : public CoreBase
 {
@@ -29,4 +30,7 @@ protected:
 
 	// システム管理クラスの参照
 	GameSystemManager& systemMng_;
+
+	// 入力管理クラスの参照
+	InputManager& inputMng_;
 };

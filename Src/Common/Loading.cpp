@@ -12,7 +12,7 @@ void Loading::Init()
 {
 	// ポストエフェクトの生成
 	snowNoiseEffect_ = std::make_unique<PostEffectSnowNoise>();
-	snowNoiseEffect_->Load();
+	snowNoiseEffect_->Init();
 
 	// ポストエフェクトスクリーン
 	loadingScreen_ = MakeScreen(Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, true);

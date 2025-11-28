@@ -355,17 +355,17 @@ Input::JOYPAD_IN_STATE Input::GetJPadInputState(JOYPAD_NO no)
 		idx = static_cast<int>(JOYPAD_BTN::L_TRIGGER);
 		ret.ButtonsNew[idx] = x.LeftTrigger; // L_TRIGGER	
 
-		idx = static_cast<int>(JOYPAD_BTN::LB_TOP);
-		ret.ButtonsNew[idx] = x.Buttons[3];// ↑
+		idx = static_cast<int>(JOYPAD_BTN::LB_RIGHT);
+		ret.ButtonsNew[idx] = x.Buttons[3];// →
 
 		idx = static_cast<int>(JOYPAD_BTN::LB_LEFT);
 		ret.ButtonsNew[idx] = x.Buttons[2];// ←
 
-		idx = static_cast<int>(JOYPAD_BTN::LB_RIGHT);
-		ret.ButtonsNew[idx] = x.Buttons[1];// →
+		idx = static_cast<int>(JOYPAD_BTN::LB_DOWN);
+		ret.ButtonsNew[idx] = x.Buttons[1];// ↓
 
 		idx = static_cast<int>(JOYPAD_BTN::LB_TOP);
-		ret.ButtonsNew[idx] = x.Buttons[0];// ↓
+		ret.ButtonsNew[idx] = x.Buttons[0];// ↑
 
 		// 左スティック
 		ret.AKeyLX = d.X;
