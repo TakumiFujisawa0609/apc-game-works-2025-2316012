@@ -12,4 +12,5 @@ StageMesh::~StageMesh()
 void StageMesh::Draw()
 {
 	// ƒƒbƒVƒ…‚Í•`‰æ‚µ‚È‚¢
+	return;
 }

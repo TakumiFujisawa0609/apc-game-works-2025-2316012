@@ -41,8 +41,8 @@ void CollisionManager::Update()
 			const auto& tag1 = colliders_[i]->GetTag();
 			const auto& tag2 = colliders_[j]->GetTag();
 
-			if (tag1 == CollisionTags::TAG::REPORT && tag2 == CollisionTags::TAG::STAGE_GIMMICK ||
-				tag1 == CollisionTags::TAG::STAGE_GIMMICK && tag2 == CollisionTags::TAG::REPORT)
+			if (tag1 == CollisionTags::TAG::REPORT && tag2 == CollisionTags::TAG::ANOMALY ||
+				tag1 == CollisionTags::TAG::ANOMALY && tag2 == CollisionTags::TAG::REPORT)
 			{
 				// YEAR
 				int a = 0;

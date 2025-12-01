@@ -55,6 +55,7 @@ void CharacterManager::Draw()
 	}
 }
 
+
 void CharacterManager::Sweep()
 {
 	// マップ全体をイテレート

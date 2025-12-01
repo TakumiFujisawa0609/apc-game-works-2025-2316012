@@ -4,7 +4,7 @@
     "colliderType": "model"
   },
   "RoomA": {
-    "collisionTag": "stageGimmick",
+    "collisionTag": "none",
     "colliderType": "box",
     "colliderTopPos": {
       "x": 1372,
@@ -18,7 +18,7 @@
     }
   },
   "RoomB": {
-    "collisionTag": "stageGimmick",
+    "collisionTag": "none",
     "colliderType": "box",
     "colliderTopPos": {
       "x": 612,
@@ -32,7 +32,7 @@
     }
   },
   "RoomC": {
-    "collisionTag": "stageGimmick",
+    "collisionTag": "none",
     "colliderType": "box",
     "colliderTopPos": {
       "x": -162,
@@ -46,7 +46,7 @@
     }
   },
   "RoomD": {
-    "collisionTag": "stageGimmick",
+    "collisionTag": "none",
     "colliderType": "box",
     "colliderTopPos": {
       "x": -150,
@@ -60,7 +60,7 @@
     }
   },
   "RoomE": {
-    "collisionTag": "stageGimmick",
+    "collisionTag": "none",
     "colliderType": "box",
     "colliderTopPos": {
       "x": -1630,
@@ -74,7 +74,7 @@
     }
   },
   "CorriderA": {
-    "collisionTag": "stageGimmick",
+    "collisionTag": "none",
     "colliderType": "box",
     "colliderTopPos": {
       "x": -160,
@@ -88,7 +88,7 @@
     }
   },
   "CorriderB": {
-    "collisionTag": "stageGimmick",
+    "collisionTag": "none",
     "colliderType": "box",
     "colliderTopPos": {
       "x": -400,
@@ -102,7 +102,7 @@
     }
   },
   "CorriderC": {
-    "collisionTag": "stageGimmick",
+    "collisionTag": "none",
     "colliderType": "box",
     "colliderTopPos": {
       "x": -1630,
@@ -116,7 +116,7 @@
     }
   },
   "Roof": {
-    "collisionTag": "stageGimmick",
+    "collisionTag": "none",
     "colliderType": "box",
     "colliderTopPos": {
       "x": -1750,

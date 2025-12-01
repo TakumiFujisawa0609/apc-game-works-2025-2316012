@@ -54,7 +54,7 @@ void AnomalyManager::Init()
 		anomaly.second->Init();
 	}
 
-	OccurAnomaly(TYPE::GHOST);
+	OccurAnomaly(TYPE::BLOODY_ROOM);
 }
 
 void AnomalyManager::Update()
@@ -70,7 +70,7 @@ void AnomalyManager::Update()
 		}
 
 		// ˆÙ•Ï”­¶
-		OccurAnomaly(TYPE::BLOODY_ROOM);
+		//OccurAnomaly(TYPE::BLOODY_ROOM);
 		//OccurAnomaly(GetRandType());
 
 		// Ÿ‰ñ‚Ü‚Å‚ÌŠÔ‚ğƒ‰ƒ“ƒ_ƒ€İ’è
