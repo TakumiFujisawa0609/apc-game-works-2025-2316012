@@ -79,6 +79,11 @@ public:
 	/// <param name="partnerTag"></param>
 	void SetPertnerTag(const CollisionTags::TAG partnerTag) { partnerTag_ = partnerTag; }
 
+	/// <summary>
+	/// 衝突タグの変更
+	/// </summary>
+	void ChangeTag(const CollisionTags::TAG changeTag) { tag_ = changeTag; }
+
 protected:
 
 	// 所有者
@@ -88,7 +93,7 @@ protected:
 	const Transform& transformOwner_;	
 	
 	// 衝突物の種類
-	const CollisionTags::TAG tag_;	
+	CollisionTags::TAG tag_;	
 
 	// 相手の衝突物種類
 	CollisionTags::TAG partnerTag_;	

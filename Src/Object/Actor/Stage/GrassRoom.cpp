@@ -75,15 +75,10 @@ void GrassRoom::Update()
 
 void GrassRoom::SetAnomaly()
 {
+	StageGimmickObjectBase::SetAnomaly();
+
 	// テクスチャを追加
 	draw_->SetTexture(resMng_.GetHandle("grassLand"));
-
-	// 報告用にコライダーを設定
-	colliderModel_ = std::make_shared<ColliderModel>(*this, CollisionTags::TAG::DECO_GIMMICK);
-	collMng_.Add(colliderModel_);
-
-	// 活動状態の変更
-	isActive_ = true;
 
 	// 草の生成
 	StageManager& stageMng = StageManager::GetInstance();
@@ -95,15 +90,12 @@ void GrassRoom::SetAnomaly()
 
 void GrassRoom::Refresh()
 {
+	StageGimmickObjectBase::Refresh();
+
 	// テクスチャを解除
 	draw_->SetTexture(-1);
 
-	// コライダー削除
-	colliderModel_->SetDelete();
-
 	// 初期化
-	isActive_ = false;
-	colliderModel_ = nullptr;
 	distance_ = 0.0f;
 
 	// 草の削除

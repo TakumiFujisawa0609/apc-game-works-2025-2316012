@@ -38,7 +38,7 @@ void StageManager::Load()
 			}
 
 			// オブジェクト生成
-			auto object = factory->Create(params.first, param, collInfo->second[0]);
+			std::unique_ptr<StageObjectBase> object = factory->Create(params.first, param, collInfo->second[0]);
 
 			// オブジェクト読み込み
 			object->Load();

@@ -66,7 +66,7 @@ void Enemy::Load()
 	// ”»’èŒãˆ—‚Ì¶¬
 	onHitMap_[CollisionTags::TAG::ENEMY] = std::make_unique<ControllerOnHitEnemy>(*this);
 	onHitMap_[CollisionTags::TAG::ENEMY_VIEW] = std::make_unique<ControllerOnHitEnemyView>(*this);
-	onHitMap_[CollisionTags::TAG::CHARACTER_GRAVITY_LINE] = std::make_unique<ControllerOnHitGravity>(*this);
+	onHitMap_[CollisionTags::TAG::CHARACTER_GRAVITY] = std::make_unique<ControllerOnHitGravity>(*this);
 
 	// ‹–ì—p‚ÌÕ“ËŒãˆ—‚Ì¶¬
 	onHitView_ = std::make_unique<ControllerOnHitEnemyView>(*this);

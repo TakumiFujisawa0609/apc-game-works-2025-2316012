@@ -49,13 +49,11 @@ public:
 	/// </summary>
 	/// <returns>trueの場合順番を後半に回す</returns>
 	const bool IsTranslucent() const { return isTrans_; }	
+
+protected:	
 	
 	// ステージキー
 	const std::string STAGE_KEY;
-
-protected:
-
-
 
 	// 処理用部屋識別タグ
 	const std::string ROOM_TAG;

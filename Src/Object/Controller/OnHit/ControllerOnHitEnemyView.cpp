@@ -7,7 +7,7 @@ ControllerOnHitEnemyView::ControllerOnHitEnemyView(Enemy& owner) :
 	actionCtrl_(*owner.GetActionEnemy())
 {
 	// è’ìÀï®ï èàóùÇÃìoò^
-	RegisterOnHit(CollisionTags::TAG::MAIN_STAGE, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStageObject(opponentCollider); });
+	RegisterOnHit(CollisionTags::TAG::STAGE_MAIN, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStageObject(opponentCollider); });
 	RegisterOnHit(CollisionTags::TAG::STAGE_GIMMICK, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStageObject(opponentCollider); });
 }
 

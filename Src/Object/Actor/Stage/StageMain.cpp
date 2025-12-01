@@ -10,7 +10,6 @@
 StageMain::StageMain(const std::string& key, const Json& mapParam, const Json& colliderParam):
 	StageGimmickObjectBase(key, mapParam, colliderParam)
 {
-	isActive_ = false;
 }
 
 StageMain::~StageMain()
@@ -25,28 +24,18 @@ void StageMain::Draw()
 
 void StageMain::SetAnomaly()
 {
+	StageGimmickObjectBase::SetAnomaly();
+
 	// テクスチャを追加
 	draw_->SetTexture(resMng_.GetHandle("bloodyHands"));
-
-	// 報告用にコライダーを設定
-	colliderModel_ = std::make_shared<ColliderModel>(*this, CollisionTags::TAG::DECO_GIMMICK);
-	collMng_.Add(colliderModel_);
-
-	// 活動状態の変更
-	isActive_ = true;
 }
 
 void StageMain::Refresh()
 {
+	StageGimmickObjectBase::Refresh();
+
 	// テクスチャを解除
 	draw_->SetTexture(-1);
-
-	// コライダー削除
-	colliderModel_->SetDelete();
-	colliderModel_ = nullptr;
-
-	// 活動状態の変更
-	isActive_ = false;
 }
 
 bool StageMain::CheckCameraViewClip()

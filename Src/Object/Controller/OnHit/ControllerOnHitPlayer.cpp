@@ -11,10 +11,9 @@ ControllerOnHitPlayer::ControllerOnHitPlayer(Player& owner) :
 	owner_(owner)
 {
 	// 衝突物別関数の登録
-	RegisterOnHit(CollisionTags::TAG::MAIN_STAGE , [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitMainStage(opponentCollider); });
+	RegisterOnHit(CollisionTags::TAG::STAGE_MAIN , [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitMainStage(opponentCollider); });
 	RegisterOnHit(CollisionTags::TAG::STAGE_GIMMICK, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitStageObject(opponentCollider); });
 	RegisterOnHit(CollisionTags::TAG::ENEMY, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitEnemy(opponentCollider); });
-	RegisterOnHit(CollisionTags::TAG::ROOM, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitRoom(opponentCollider); });
 }
 
 ControllerOnHitPlayer::~ControllerOnHitPlayer()
@@ -98,20 +97,4 @@ void ControllerOnHitPlayer::OnHitEnemy(const std::weak_ptr<ColliderBase>& oppone
 
 	// BGMの停止
 	sndMng_.StopBgm(SoundType::BGM::GAME);
-}
-
-void ControllerOnHitPlayer::OnHitRoom(const std::weak_ptr<ColliderBase>& opponentCollider)
-{
-	// NULLチェック
-	if (const auto partner = opponentCollider.lock())
-	{
-		// パートナーの所有者参照アドレスを取得
-		const ActorBase& partnerOwner = partner->GetOwner();
-
-		// ダイナミックキャストで型変換
-		const auto stageObj = dynamic_cast<const StageObjectBase*>(&partnerOwner);
-
-		// 失敗した場合アサート
-		assert(stageObj != nullptr && "dynamic_castに失敗しました");
-	}
 }

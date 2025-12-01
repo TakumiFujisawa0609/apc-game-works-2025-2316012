@@ -13,6 +13,8 @@ ChairMountain::~ChairMountain()
 
 void ChairMountain::Refresh()
 {
+	StageGimmickObjectBase::Refresh();
+
 	// íœ“o˜^
 	isDelete_ = true;
 }

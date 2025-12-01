@@ -10,18 +10,16 @@ public:
 	enum class TAG
 	{
 		NONE,
-		PLAYER,
-		MAIN_STAGE,				// メインステージ
-		ROOM,					// 部屋
-		DECO_STAGE,				// 装飾(ステージ)
+		PLAYER,					// プレイヤー
+		STAGE_MAIN,				// ステージメイン
 		STAGE_GIMMICK,			// ステージギミック
-		DECO_GIMMICK,			// 装飾(ギミック)
 		REPORT,					// 報告用
 		GHOST,					// ゴースト
 		ENEMY,					// 敵
 		ENEMY_VIEW,				// 敵の視線
-		CHARACTER_GRAVITY_LINE, // 重力判定用線 
+		CHARACTER_GRAVITY, // 重力判定用線 
 		PLAYER_LIGHT,			// ライト
+		ANOMALY,				// 異変
 		MAX
 	};
 

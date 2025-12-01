@@ -64,7 +64,8 @@ void Ghost::Create(const Json& param)
 
 void Ghost::DrawMain()
 {
-	draw_->Draw();
+	//draw_->Draw();
+	MV1DrawModel(transform_.modelId);
 
 	DrawSphere3D(transform_.pos, 1000.0f, 30, 0xff0000, 0xff0000, true);
 }

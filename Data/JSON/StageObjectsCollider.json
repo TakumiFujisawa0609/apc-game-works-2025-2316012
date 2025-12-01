@@ -1,10 +1,10 @@
 {
   "StageMesh": {
-    "collisionTag": "mainStage",
+    "collisionTag": "stageMain",
     "colliderType": "model"
   },
   "RoomA": {
-    "collisionTag": "room",
+    "collisionTag": "stageGimmick",
     "colliderType": "box",
     "colliderTopPos": {
       "x": 1372,
@@ -18,7 +18,7 @@
     }
   },
   "RoomB": {
-    "collisionTag": "room",
+    "collisionTag": "stageGimmick",
     "colliderType": "box",
     "colliderTopPos": {
       "x": 612,
@@ -32,7 +32,7 @@
     }
   },
   "RoomC": {
-    "collisionTag": "room",
+    "collisionTag": "stageGimmick",
     "colliderType": "box",
     "colliderTopPos": {
       "x": -162,
@@ -46,7 +46,7 @@
     }
   },
   "RoomD": {
-    "collisionTag": "room",
+    "collisionTag": "stageGimmick",
     "colliderType": "box",
     "colliderTopPos": {
       "x": -150,
@@ -60,7 +60,7 @@
     }
   },
   "RoomE": {
-    "collisionTag": "room",
+    "collisionTag": "stageGimmick",
     "colliderType": "box",
     "colliderTopPos": {
       "x": -1630,
@@ -74,7 +74,7 @@
     }
   },
   "CorriderA": {
-    "collisionTag": "room",
+    "collisionTag": "stageGimmick",
     "colliderType": "box",
     "colliderTopPos": {
       "x": -160,
@@ -88,7 +88,7 @@
     }
   },
   "CorriderB": {
-    "collisionTag": "room",
+    "collisionTag": "stageGimmick",
     "colliderType": "box",
     "colliderTopPos": {
       "x": -400,
@@ -102,7 +102,7 @@
     }
   },
   "CorriderC": {
-    "collisionTag": "room",
+    "collisionTag": "stageGimmick",
     "colliderType": "box",
     "colliderTopPos": {
       "x": -1630,
@@ -116,7 +116,7 @@
     }
   },
   "Roof": {
-    "collisionTag": "room",
+    "collisionTag": "stageGimmick",
     "colliderType": "box",
     "colliderTopPos": {
       "x": -1750,
@@ -144,55 +144,55 @@
     }
   },
   "Axe01": {
-    "collisionTag": "decoGimmick",
+    "collisionTag": "none",
     "colliderType": "model"
   },
   "Board": {
-    "collisionTag": "decoGimmick",
+    "collisionTag": "none",
     "colliderType": "model"
   },
   "Books3": {
-    "collisionTag": "decoGimmick",
+    "collisionTag": "none",
     "colliderType": "model"
   },
   "Bottle02b": {
-    "collisionTag": "decoGimmick",
+    "collisionTag": "none",
     "colliderType": "model"
   },
   "Chandle01b": {
-    "collisionTag": "decoGimmick",
+    "collisionTag": "none",
     "colliderType": "model"
   },
   "Candle01bOn": {
-    "collisionTag": "decoGimmick",
+    "collisionTag": "none",
     "colliderType": "model"
   },
   "ClutterPichet03": {
-    "collisionTag": "decoGimmick",
+    "collisionTag": "none",
     "colliderType": "model"
   },
   "Carpet01": {
-    "collisionTag": "decoStage",
+    "collisionTag": "none",
     "colliderType": "none"
   },
   "Carpet03": {
-    "collisionTag": "decoStage",
+    "collisionTag": "none",
     "colliderType": "none"
   },
   "Oillamp01": {
-    "collisionTag": "decoGimmick",
+    "collisionTag": "none",
     "colliderType": "model"
   },
   "Oillamp01On": {
-    "collisionTag": "decoGimmick",
+    "collisionTag": "none",
     "colliderType": "model"
   },
   "Painting01": {
-    "collisionTag": "stageGimmick",
+    "collisionTag": "none",
     "colliderType": "model"
   },
   "Painting02": {
-    "collisionTag": "stageGimmick",
+    "collisionTag": "none",
     "colliderType": "model"
   },
   "StoveLit": {
@@ -210,15 +210,15 @@
     }
   },
   "Sword01": {
-    "collisionTag": "decoGimmick",
+    "collisionTag": "none",
     "colliderType": "model"
   },
   "BooksD": {
-    "collisionTag": "decoStage",
+    "collisionTag": "none",
     "colliderType": "none"
   },
   "BooksE": {
-    "collisionTag": "decoStage",
+    "collisionTag": "none",
     "colliderType": "none"
   },
   "ChairMountain": {

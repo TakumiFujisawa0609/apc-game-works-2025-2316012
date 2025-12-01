@@ -8,7 +8,7 @@ ControllerOnHitPlayerLight::ControllerOnHitPlayerLight(Player& owner):
 	light_(owner.GetControllerLight())
 {
 	// è’ìÀï®ï ä÷êîÇÃìoò^
-	RegisterOnHit(CollisionTags::TAG::MAIN_STAGE, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitMainStage(opponentCollider); });
+	RegisterOnHit(CollisionTags::TAG::STAGE_MAIN, [this](const std::weak_ptr<ColliderBase>& opponentCollider) { OnHitMainStage(opponentCollider); });
 }
 
 ControllerOnHitPlayerLight::~ControllerOnHitPlayerLight()

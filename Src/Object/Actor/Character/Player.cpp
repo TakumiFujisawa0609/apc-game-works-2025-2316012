@@ -68,7 +68,7 @@ void Player::Load()
 	// 衝突後の処理クラス
 	onHitMap_[CollisionTags::TAG::PLAYER] = std::make_unique<ControllerOnHitPlayer>(*this);
 	onHitMap_[CollisionTags::TAG::REPORT] = std::make_unique<ControllerOnHitReport>(*this);
-	onHitMap_[CollisionTags::TAG::CHARACTER_GRAVITY_LINE] = std::make_unique<ControllerOnHitGravity>(*this);
+	onHitMap_[CollisionTags::TAG::CHARACTER_GRAVITY] = std::make_unique<ControllerOnHitGravity>(*this);
 	onHitMap_[CollisionTags::TAG::PLAYER_LIGHT] = std::make_unique<ControllerOnHitPlayerLight>(*this);
 
 	// 基底クラスの読み込み処理

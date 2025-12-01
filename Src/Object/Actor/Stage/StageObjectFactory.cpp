@@ -23,6 +23,10 @@ StageObjectFactory::StageObjectFactory()
 	RegisterCreate("Roof", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageMain(key, mapParam, colliderParam); });
 	RegisterCreate("Carpet01", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateCarpet(key, mapParam, colliderParam); });
 	RegisterCreate("Carpet03", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateCarpet(key, mapParam, colliderParam); });
+	RegisterCreate("Chair", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateCarpet(key, mapParam, colliderParam); });
+	RegisterCreate("Carpet03", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateCarpet(key, mapParam, colliderParam); });
+	RegisterCreate("StoveLit", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageObjectGimmick(key, mapParam, colliderParam); });
+	RegisterCreate("Chair01", [this](const std::string& key, const Json& mapParam, const Json& colliderParam) -> std::unique_ptr<StageObjectBase> { return CreateStageObjectGimmick(key, mapParam, colliderParam); });
 }
 
 StageObjectFactory::~StageObjectFactory()

@@ -36,8 +36,8 @@ private:
 	ReportSystem* report_;
 
 	// 衝突物別処理
-	void OnHitStageObject(const std::weak_ptr<ColliderBase>& opponentCollider);			// ステージオブジェクト
-	void OnHitGhost(const std::weak_ptr<ColliderBase>& opponentCollider);				// ステージオブジェクト
+	void OnHitAnomaly(const std::weak_ptr<ColliderBase>& opponentCollider);				// 異変
+	void OnHitGhost(const std::weak_ptr<ColliderBase>& opponentCollider);				// ゴースト
 
 	// 共通処理
 	void OnHitCommon();

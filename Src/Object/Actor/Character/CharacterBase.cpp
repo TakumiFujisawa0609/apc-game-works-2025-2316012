@@ -65,7 +65,7 @@ void CharacterBase::Load()
 	gravity_ = std::make_unique<ControllerGravity>(*this);
 
 	// 重力用ラインコライダー
-	colliderLine_ = std::make_shared<ColliderLine>(*this, CollisionTags::TAG::CHARACTER_GRAVITY_LINE);
+	colliderLine_ = std::make_shared<ColliderLine>(*this, CollisionTags::TAG::CHARACTER_GRAVITY);
 	collMng_.Add(colliderLine_);
 
 	// アニメーション初期化

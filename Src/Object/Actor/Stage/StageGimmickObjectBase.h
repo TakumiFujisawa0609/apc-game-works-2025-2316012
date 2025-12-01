@@ -26,6 +26,11 @@ public:
 	void Load() override;
 
 	/// <summary>
+	/// 描画処理
+	/// </summary>
+	void Draw() override;
+
+	/// <summary>
 	/// 衝突後の処理
 	/// </summary>
 	/// <param name="opponentCollider">衝突相手のコライダー</param>
@@ -62,6 +67,9 @@ protected:
 
 	// 変更前のテクスチャ
 	int preTexture_;
+
+	// 異変用の判定コライダー
+	std::shared_ptr<ColliderBase> anomalyCollider_;
 
 	// 衝突後処理
 	std::unique_ptr<ControllerOnHitStageObject> onHit_;
