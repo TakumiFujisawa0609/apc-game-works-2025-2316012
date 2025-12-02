@@ -9,7 +9,7 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	AnomalyBloodyRoom();
+	AnomalyBloodyRoom(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -17,20 +17,10 @@ public:
 	~AnomalyBloodyRoom();
 
 	/// <summary>
-	/// 読み込み処理
-	/// </summary>
-	void Load() override;
-
-	/// <summary>
-	/// 初期化処理
-	/// </summary>
-	void Init() override;
-
-	/// <summary>
 	/// 発生処理
 	/// </summary>
 	/// <param name="param">パラメータ</param>
-	void Occurrence(Json& param) override;
+	void Occurrence() override;
 
 private:
 
@@ -41,4 +31,3 @@ private:
 	const std::string KEYS[OBJS] = {"RoomB", "RoomC"};
 
 };
-

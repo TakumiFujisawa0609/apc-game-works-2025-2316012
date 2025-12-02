@@ -16,15 +16,13 @@ StageMain::~StageMain()
 {
 }
 
-void StageMain::Draw()
-{
-	// 活動状態に限らず描画を行う
-	DrawMain();	
-}
-
 void StageMain::SetAnomaly()
 {
-	StageGimmickObjectBase::SetAnomaly();
+	// モデルのコライダーを生成
+	anomalyCollider_ = std::make_shared<ColliderModel>(*this, CollisionTags::TAG::ANOMALY);
+
+	// コライダーの追加
+	collMng_.Add(anomalyCollider_);
 
 	// テクスチャを追加
 	draw_->SetTexture(resMng_.GetHandle("bloodyHands"));

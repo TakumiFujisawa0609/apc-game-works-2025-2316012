@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\System\Anomaly\AnomalyReverseFall.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectGameScreen.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectCracks.cpp" />
     <ClCompile Include="Src\Manager\Game\GameEffectManager.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\System\Anomaly\AnomalyReverseFall.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectGameScreen.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectCracks.h" />
     <ClInclude Include="Src\Manager\Game\GameEffectManager.h" />

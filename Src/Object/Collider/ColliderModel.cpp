@@ -27,3 +27,13 @@ void ColliderModel::CleaningPolyDim()
 		std::memset(&collResultPolyDim_, 0, sizeof(collResultPolyDim_));
 	}
 }
+
+std::shared_ptr<ColliderBase> ColliderModel::Clone() const
+{
+	return std::make_shared<ColliderModel>(*this);
+}
+
+void ColliderModel::DebugDraw()
+{
+	DrawSphere3D(transformOwner_.pos, 50, 10, 0xff0000, 0xff0000, false);
+}

@@ -1,0 +1,80 @@
+#pragma once
+#include "AnomalyBase.h"
+
+class ControllerCameraJumpScare;
+
+class AnomalyReverseFall : public AnomalyBase
+{
+public:
+
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	AnomalyReverseFall(const Json& param);
+
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~AnomalyReverseFall() override;
+
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	void Init() override;
+
+	/// <summary>
+	/// 発生処理
+	/// </summary>
+	/// <param name="param">パラメータ</param>
+	void Occurrence() override;
+
+	/// <summary>
+	/// 更新処理
+	/// </summary>
+	void Update() override;
+
+private:
+
+	// 状態
+	enum class STATE
+	{
+		NONE,
+		CAMERA_PULL,	// カメラを引く
+		EARTH_QUAKE,	// 地震
+		REVERSE_FALL,	// 反転落下
+		REVERSE_UP,		// 反転上昇
+	};
+
+	// カメラの引き時間
+	const float CAMERA_PULL_TIME;
+
+	// 後ろに下がる移動量
+	const float CAMERA_BACK_POW;
+
+	// 状態
+	STATE state_;
+
+	// カメラ制御
+	std::unique_ptr<ControllerCameraJumpScare> camera_;
+
+	// 状態変更関数管理
+	std::unordered_map<STATE, std::function<void()>> changeStateMap_;
+
+	// 更新処理
+	std::function<void()> update_;
+
+	// 各種状態別更新処理
+	void UpdateNone() {};
+	void UpdateCameraPull();
+	void UpdateEarthQuake();
+	void UpdateReverseFall();
+	void UpdateReverseUp();
+
+	// 各種状態別変更処理
+	void ChangeState(const STATE state);
+	void ChangeStateNone();
+	void ChangeStateCameraPull();
+	void ChangeStateEarthQuake();
+	void ChangeStateReverseFall();
+	void ChangeStateReverseUp();
+};

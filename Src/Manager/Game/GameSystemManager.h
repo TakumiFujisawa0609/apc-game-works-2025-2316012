@@ -50,15 +50,17 @@ public:
 	void Draw();
 
 	/// <summary>
-	/// レポートの準備
-	/// </summary>
-	void SetReporting();
-
-	/// <summary>
 	/// メッセージの変更
 	/// </summary>
 	/// <param name="type">メッセージの変更種類</param>
 	void ChangeMessage(const Message::TYPE type);
+
+	/// <summary>
+	/// 各システムの活動状態の変更
+	/// </summary>
+	/// <param name="type">種類</param>
+	/// <param name="isActive">活動判定</param>
+	void SetIsActiveSystem(const TYPE type, const bool isActive);
 
 	/// <summary>
 	/// 指定した参照インスタンスを返す

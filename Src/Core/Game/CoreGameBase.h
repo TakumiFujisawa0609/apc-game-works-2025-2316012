@@ -20,6 +20,18 @@ public:
 	/// </summary>
 	virtual ~CoreGameBase() override;
 
+	/// <summary>
+	/// 活動状態の判定
+	/// </summary>
+	/// <returns></returns>
+	const bool IsActive() const { return isActive_; }
+
+	/// <summary>
+	/// 活動状態の設定
+	/// </summary>
+	/// <param name="isActive"></param>
+	void SetIsActive(const bool isActive) { isActive_ = isActive; }
+
 protected:
 
 	// サウンド管理クラスの参照
@@ -33,4 +45,7 @@ protected:
 
 	// 入力管理クラスの参照
 	InputManager& inputMng_;
+
+	// 活動状態
+	bool isActive_;
 };

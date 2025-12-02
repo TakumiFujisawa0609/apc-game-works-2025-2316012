@@ -41,6 +41,11 @@ void ColliderBox::SetHalfSize(const VECTOR& halfSize)
 	obb_.vMax = halfSize;
 }
 
+std::shared_ptr<ColliderBase> ColliderBox::Clone() const
+{
+	return std::make_shared<ColliderBox>(*this);
+}
+
 void ColliderBox::UpdateObbAxis(void)
 {
 	MATRIX rotMat;

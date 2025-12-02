@@ -73,4 +73,9 @@ protected:
 
 	// 衝突後処理
 	std::unique_ptr<ControllerOnHitStageObject> onHit_;
+
+	/// <summary>
+	/// デバッグ描画
+	/// </summary>
+	void DebugDraw() override;
 };

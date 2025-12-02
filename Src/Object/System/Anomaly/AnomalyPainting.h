@@ -11,17 +11,12 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	AnomalyPainting();
+	AnomalyPainting(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
 	~AnomalyPainting();
-
-	/// <summary>
-	/// 読み込み処理
-	/// </summary>
-	void Load() override;
 
 	/// <summary>
 	/// 初期化処理
@@ -32,7 +27,7 @@ public:
 	/// 発生処理
 	/// </summary>
 	/// <param name="param">パラメータ</param>
-	void Occurrence(Json& param) override;
+	void Occurrence() override;
 
 private:
 

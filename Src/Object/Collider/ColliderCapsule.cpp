@@ -81,3 +81,8 @@ VECTOR ColliderCapsule::GetCenter(void) const
 	constexpr float SCALE = 0.5f;
 	return VAdd(down, VScale(diff, SCALE));
 }
+
+std::shared_ptr<ColliderBase> ColliderCapsule::Clone() const
+{
+	return std::make_shared<ColliderCapsule>(*this);
+}

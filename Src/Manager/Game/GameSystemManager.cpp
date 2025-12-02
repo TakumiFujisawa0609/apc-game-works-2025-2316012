@@ -32,10 +32,6 @@ void GameSystemManager::Load()
 	auto manual = std::make_unique<GameManual>();
 	systemsMap_.emplace(TYPE::MANUAL, std::move(manual));
 
-	// 狂気ゲージの生成
-	//auto mad = std::make_unique<MadnessGauge>(player);
-	//systemsMap_.emplace(TYPE::MADNESS, std::move(mad));
-
 	// 読み込み
 	for (auto& system : systemsMap_)
 	{
@@ -57,7 +53,10 @@ void GameSystemManager::Update()
 	// 更新処理
 	for (auto& system : systemsMap_)
 	{
-		system.second->Update();
+		if (system.second->IsActive())
+		{
+			system.second->Update();
+		}
 	}
 }
 
@@ -66,12 +65,11 @@ void GameSystemManager::Draw()
 	// 描画処理
 	for (auto& system : systemsMap_)
 	{
-		system.second->Draw();
+		if (system.second->IsActive())
+		{
+			system.second->Draw();
+		}
 	}
-}
-
-void GameSystemManager::SetReporting()
-{
 }
 
 void GameSystemManager::ChangeMessage(const Message::TYPE type)
@@ -84,6 +82,12 @@ void GameSystemManager::ChangeMessage(const Message::TYPE type)
 		message->ChangeMessage(type);
 	}
 	
+}
+
+void GameSystemManager::SetIsActiveSystem(const TYPE type, const bool isActive)
+{
+	// 状態変更
+	systemsMap_[type]->SetIsActive(isActive);
 }
 
 GameSystemManager::GameSystemManager()

@@ -21,11 +21,6 @@ public:
 	virtual ~StageMain() override;
 
 	/// <summary>
-	/// •`‰æ
-	/// </summary>
-	void Draw() override;
-
-	/// <summary>
 	/// ˆÙ•Ï‚Ìİ’è
 	/// </summary>
 	virtual void SetAnomaly() override;

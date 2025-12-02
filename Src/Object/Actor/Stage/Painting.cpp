@@ -33,12 +33,6 @@ void Painting::Load()
 	ActorBase::Load();
 }
 
-void Painting::Draw()
-{
-	// 本オブジェクトは活動状態に限らず描画を行う
-	DrawMain();
-}
-
 void Painting::Refresh()
 {
 	StageGimmickObjectBase::Refresh();

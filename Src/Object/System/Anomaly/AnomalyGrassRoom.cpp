@@ -4,7 +4,8 @@
 #include "../../Actor/Stage/GrassRoom.h"
 #include "AnomalyGrassRoom.h"
 
-AnomalyGrassRoom::AnomalyGrassRoom()
+AnomalyGrassRoom::AnomalyGrassRoom(const Json& param) :
+	AnomalyBase(param)
 {
 }
 
@@ -12,18 +13,10 @@ AnomalyGrassRoom::~AnomalyGrassRoom()
 {
 }
 
-void AnomalyGrassRoom::Load()
-{
-}
-
-void AnomalyGrassRoom::Init()
-{
-}
-
-void AnomalyGrassRoom::Occurrence(Json& param)
+void AnomalyGrassRoom::Occurrence()
 {
 	// 基底クラスの処理
-	AnomalyBase::Occurrence(param);
+	AnomalyBase::Occurrence();
 
 	// ステージのポインタ
 	GrassRoom* stage = dynamic_cast<GrassRoom*>(stageMng_.GetStageObjects(KEY)[0].get());

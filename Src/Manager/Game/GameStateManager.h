@@ -17,10 +17,11 @@ public:
 	enum class STATE
 	{
 		NONE,
-		PLAY,
-		REPORTING,
-		JUMP_SCARE,
-		MADNESS_END,
+		PLAY,				// 通常プレイ
+		REPORTING,			// 報告中
+		JUMP_SCARE,			// ジャンプスケア
+		MADNESS_END,		// 恐怖圧迫死
+		REVERES_FALL,		// 反転落下
 	};
 
 	/// <summary>

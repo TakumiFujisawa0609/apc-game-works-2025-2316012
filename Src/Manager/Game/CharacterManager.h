@@ -100,6 +100,13 @@ public:
 	/// <returns>ライトの電源判定</returns>
 	const bool IsPlayerLight() const;
 
+	/// <summary>
+	/// キャラクター別に活動状態の設定
+	/// </summary>
+	/// <param name="type">種類</param>
+	/// <param name="isActive">活動状態</param>
+	void SetIsActive(const TYPE type, const bool isActive);
+
 private:
 
 	// ファイル名

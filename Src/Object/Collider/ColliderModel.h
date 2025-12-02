@@ -53,6 +53,17 @@ public:
 	/// <returns>コリジョン結果代入用ポリゴン</returns>
 	const MV1_COLL_RESULT_POLY& GetCollResultPoly() const { return collResultPoly_; }
 
+	/// <summary>
+	/// 自身の複製を生成
+	/// </summary>
+	/// <returns>複製したインスタンス</returns>
+	std::shared_ptr<ColliderBase> Clone() const override;
+
+	/// <summary>
+	/// デバッグ描画
+	/// </summary>
+	void DebugDraw() override;
+
 private:
 
 	// コリジョン結果代入用ポリゴン配列

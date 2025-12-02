@@ -44,6 +44,7 @@ Player::Player(const Json& param) :
 	RegisterStateUpdateFunc(STATE::ALIVE, std::bind(&Player::UpdateAlive, this));
 	RegisterStateUpdateFunc(STATE::DEAD_ENEMY, std::bind(&Player::UpdateDeadEnemy, this));
 	RegisterStateUpdateFunc(STATE::DEAD_MADNESS, std::bind(&Player::UpdateDeadMadness, this));
+	RegisterStateUpdateFunc(STATE::HAPPENING, std::bind(&Player::UpdateHappening, this));
 }
 
 Player::~Player()
@@ -129,7 +130,7 @@ void Player::InitTransform()
 	transform_.rot = INITIAL_ROT;
 	transform_.quaRot = Quaternion();
 	transform_.quaRotLocal = Quaternion::Euler({ 0.0f,UtilityCommon::Deg2RadF(DEFAULT_LOCAL_QUAROT_Y_DEG), 0.0f });
-	transform_.localPos = { 0.0f,00.0f,0.0f };
+	transform_.localPos = { 0.0f,0.0f,0.0f };
 	transform_.Update();
 }
 
@@ -156,6 +157,11 @@ void Player::UpdateAlive()
 	light_->Update();
 
 	//onHitMap_[CollisionTags::TAG::PLAYER]->Test();
+}
+
+void Player::UpdateHappening()
+{
+
 }
 
 void Player::UpdateDeadEnemy()

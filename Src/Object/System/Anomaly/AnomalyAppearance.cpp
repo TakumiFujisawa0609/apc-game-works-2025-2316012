@@ -3,7 +3,8 @@
 #include "../../Actor/Character/CharacterBase.h"
 #include "AnomalyAppearance.h"
 
-AnomalyAppearance::AnomalyAppearance()
+AnomalyAppearance::AnomalyAppearance(const Json& param) :
+	AnomalyBase(param)
 {
 }
 
@@ -11,14 +12,10 @@ AnomalyAppearance::~AnomalyAppearance()
 {
 }
 
-void AnomalyAppearance::Init()
-{
-}
-
-void AnomalyAppearance::Occurrence(Json& param)
+void AnomalyAppearance::Occurrence()
 {
 	// Šî’êƒNƒ‰ƒX‚Ìˆ—
-	AnomalyBase::Occurrence(param);
+	AnomalyBase::Occurrence();
 
 	// Œø‰Ê‰¹‚Ì”z—ñ
 	std::vector<SoundType::SE> seTypes = { SoundType::SE::NOISE_GATAN, SoundType::SE::NOISE_PACHI,SoundType::SE::NOISE_SWITCH,SoundType::SE::NOISE_GON, SoundType::SE::NOISE_METAL };

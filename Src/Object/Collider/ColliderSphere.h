@@ -41,6 +41,12 @@ public:
 	/// <param name="radius">半径</param>
 	void SetRadius(float radius) { radius_ = radius; }
 
+	/// <summary>
+	/// 自身の複製を生成
+	/// </summary>
+	/// <returns>複製したインスタンス</returns>
+	std::shared_ptr<ColliderBase> Clone() const override;
+
 private:
 
 	// 半径

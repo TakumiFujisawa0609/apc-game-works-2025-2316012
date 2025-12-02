@@ -18,17 +18,13 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	AnomalyBase();
+	/// <param name="param">パラメータ</param>
+	AnomalyBase(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
 	virtual ~AnomalyBase();
-
-	/// <summary>
-	/// 読み込み処理
-	/// </summary>
-	virtual void Load();
 
 	/// <summary>
 	/// 初期化処理
@@ -38,10 +34,17 @@ public:
 	/// <summary>
 	/// 発生処理
 	/// </summary>
-	/// <param name="param">パラメータ</param>
-	virtual void Occurrence(Json& param);
+	virtual void Occurrence();
+
+	/// <summary>
+	/// 更新処理
+	/// </summary>
+	virtual void Update();
 
 protected:
+
+	// 狂気値
+	const int MADNESS_VALUE;
 
 	// キャラクター管理クラス
 	CharacterManager& charaMng_;

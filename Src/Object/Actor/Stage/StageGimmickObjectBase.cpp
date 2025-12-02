@@ -29,6 +29,8 @@ void StageGimmickObjectBase::Draw()
 {
 	// 活動状態に限らず描画を行う
 	DrawMain();
+
+	DebugDraw();
 }
 
 void StageGimmickObjectBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
@@ -39,8 +41,8 @@ void StageGimmickObjectBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCo
 
 void StageGimmickObjectBase::SetAnomaly()
 {
-	// 異変判定用のコライダーを自身のコライダーからコピー
-	anomalyCollider_ = collider_;
+	// 自身のコライダーを複製して異変用に保持
+	anomalyCollider_ = collider_->Clone();
 
 	// タグの変更
 	anomalyCollider_->ChangeTag(CollisionTags::TAG::ANOMALY);
@@ -53,6 +55,9 @@ void StageGimmickObjectBase::Refresh()
 {
 	// コライダーの削除
 	anomalyCollider_->SetDelete();
+
+	// 中身を空にする
+	anomalyCollider_ = nullptr;
 }
 
 void StageGimmickObjectBase::SetChangeColor(const int red, const int green, const int blue)
@@ -69,4 +74,14 @@ void StageGimmickObjectBase::ChangeTexture(const int textureHandle, const int te
 
 	// テクスチャの変更
 	MV1SetTextureGraphHandle(transform_.modelId, textureIndex_, textureHandle, true);
+}
+
+void StageGimmickObjectBase::DebugDraw()
+{
+	// 異変発生中異変コライダーの判定を可視化
+	if (anomalyCollider_)
+	{
+		anomalyCollider_->DebugDraw();
+	}
+
 }

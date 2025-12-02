@@ -84,6 +84,12 @@ public:
 	/// </summary>
 	void ChangeTag(const CollisionTags::TAG changeTag) { tag_ = changeTag; }
 
+	/// <summary>
+	/// 自身の複製を生成
+	/// </summary>
+	/// <returns>複製したインスタンス</returns>
+	virtual std::shared_ptr<ColliderBase> Clone() const = 0;
+
 protected:
 
 	// 所有者

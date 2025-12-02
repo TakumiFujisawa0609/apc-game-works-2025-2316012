@@ -12,8 +12,9 @@ namespace
 	std::mt19937 gen(rd());
 }
 
-AnomalyPainting::AnomalyPainting()
-{
+AnomalyPainting::AnomalyPainting(const Json& param) :
+	AnomalyBase(param)
+{	
 	anomalyPaintingTexture1_ = -1;
 	painting1Size_ = -1;
 	paintingList_.clear();
@@ -23,14 +24,11 @@ AnomalyPainting::~AnomalyPainting()
 {
 }
 
-void AnomalyPainting::Load()
+void AnomalyPainting::Init()
 {
 	// 異変用テクスチャの取得
 	anomalyPaintingTexture1_ = resMng_.GetHandle("anomalyPainting1");
-}
 
-void AnomalyPainting::Init()
-{
 	// 絵画の番号リストを格納
 	painting1Size_ = static_cast<int>(stageMng_.GetStageObjects("Painting01").size());
 	for (int i = 0; i < painting1Size_; i++)
@@ -44,10 +42,10 @@ void AnomalyPainting::Init()
 	}
 }
 
-void AnomalyPainting::Occurrence(Json& param)
+void AnomalyPainting::Occurrence()
 {
 	// 基底クラスの処理
-	AnomalyBase::Occurrence(param);
+	AnomalyBase::Occurrence();
 
 	// 配列の範囲から乱数を生成
 	std::uniform_int_distribution<std::size_t> dist(0, paintingList_.size() - 1);
@@ -79,7 +77,7 @@ void AnomalyPainting::Occurrence(Json& param)
 	painting->ChangeTexture(anomalyPaintingTexture1_, 0);
 
 	// 異変状態にする
-	painting->SetIsActive(true);
+	painting->SetAnomaly();
 
 	// 効果音の配列
 	std::vector<SoundType::SE> seTypes = { SoundType::SE::NOISE_GATAN, SoundType::SE::NOISE_PACHI,SoundType::SE::NOISE_SWITCH,SoundType::SE::NOISE_GON, SoundType::SE::NOISE_METAL, SoundType::SE::GIRLS_HELP, SoundType::SE::GIRLS_LAUGHTER };

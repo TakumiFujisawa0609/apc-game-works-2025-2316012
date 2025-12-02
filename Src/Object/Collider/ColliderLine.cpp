@@ -21,3 +21,8 @@ void ColliderLine::DebugDraw()
 
 	DrawLine3D(point1, point2, UtilityCommon::RED);
 }
+
+std::shared_ptr<ColliderBase> ColliderLine::Clone() const
+{
+	return std::make_shared<ColliderLine>(*this);
+}

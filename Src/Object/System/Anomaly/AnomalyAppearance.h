@@ -8,7 +8,7 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	AnomalyAppearance();
+	AnomalyAppearance(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -16,15 +16,9 @@ public:
 	~AnomalyAppearance() override;
 
 	/// <summary>
-	/// 初期化処理
-	/// </summary>
-	void Init() override;
-
-	/// <summary>
 	/// 発生処理
 	/// </summary>
-	/// <param name="param">パラメータ</param>
-	void Occurrence(Json& param) override;
+	void Occurrence() override;
 
 private:
 };

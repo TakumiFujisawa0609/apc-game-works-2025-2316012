@@ -61,5 +61,5 @@ void StageObjectBase::DebugDraw()
 		return;
 	}
 
-	collider_->DebugDraw();
+	//collider_->DebugDraw();
 }

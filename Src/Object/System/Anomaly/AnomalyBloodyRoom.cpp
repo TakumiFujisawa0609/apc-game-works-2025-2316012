@@ -4,7 +4,8 @@
 #include "../../Actor/Stage/StageMain.h"
 #include "AnomalyBloodyRoom.h"
 
-AnomalyBloodyRoom::AnomalyBloodyRoom()
+AnomalyBloodyRoom::AnomalyBloodyRoom(const Json& param) :
+	AnomalyBase(param)
 {
 }
 
@@ -12,21 +13,13 @@ AnomalyBloodyRoom::~AnomalyBloodyRoom()
 {
 }
 
-void AnomalyBloodyRoom::Load()
-{
-}
-
-void AnomalyBloodyRoom::Init()
-{
-}
-
-void AnomalyBloodyRoom::Occurrence(Json& param)
+void AnomalyBloodyRoom::Occurrence()
 {
 	// 基底クラスの処理
-	AnomalyBase::Occurrence(param);
+	AnomalyBase::Occurrence();
 
 	// ランダム
-	int index = GetRand(2);
+	int index = GetRand(OBJS);
 
 	// キーを値別に取得
 	std::string key = index == 0 ? "RoomB" : "RoomC";

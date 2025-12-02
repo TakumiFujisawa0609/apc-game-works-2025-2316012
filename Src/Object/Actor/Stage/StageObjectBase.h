@@ -71,5 +71,5 @@ protected:
 	void InitTransform() override;
 
 	// デバッグ時の描画
-	void DebugDraw() override;
+	virtual void DebugDraw() override;
 };

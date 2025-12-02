@@ -6,6 +6,7 @@
 #include "../../Object/System/Anomaly/AnomalyChairMountain.h"
 #include "../../Object/System/Anomaly/AnomalyBloodyRoom.h"
 #include "../../Object/System/Anomaly/AnomalyGrassRoom.h"
+#include "../../Object/System/Anomaly/AnomalyReverseFall.h"
 #include "../../Utility/UtilityLoad.h"
 #include "../../Core/Common/Timer.h"
 #include "AnomalyManager.h"
@@ -16,19 +17,17 @@ void AnomalyManager::Load()
 	anomalyFile_ = UtilityLoad::GetJsonMapArrayData(ANOMALY_FILE);
 
 	// 出現異変処理
-	anomalyMap_[TYPE::GHOST] = std::make_unique<AnomalyGhost>();
-	anomalyMap_[TYPE::PAINTING] = std::make_unique<AnomalyPainting>();
-	anomalyMap_[TYPE::CHAIR_MOUNTAIN] = std::make_unique<AnomalyChairMountain>();
-	anomalyMap_[TYPE::BLOODY_ROOM] = std::make_unique<AnomalyBloodyRoom>();
-	anomalyMap_[TYPE::GRASS_ROOM] = std::make_unique<AnomalyGrassRoom>();
+	anomalyMap_[TYPE::GHOST] = std::make_unique<AnomalyGhost>(anomalyFile_["Ghost"].front());
+	anomalyMap_[TYPE::PAINTING] = std::make_unique<AnomalyPainting>(anomalyFile_["Painting"].front());
+	anomalyMap_[TYPE::CHAIR_MOUNTAIN] = std::make_unique<AnomalyChairMountain>(anomalyFile_["ChairMountain"].front());
+	anomalyMap_[TYPE::BLOODY_ROOM] = std::make_unique<AnomalyBloodyRoom>(anomalyFile_["BloodyRoom"].front());
+	anomalyMap_[TYPE::GRASS_ROOM] = std::make_unique<AnomalyGrassRoom>(anomalyFile_["GrassRoom"].front());
+	anomalyMap_[TYPE::REVERSE_FALL] = std::make_unique<AnomalyReverseFall>(anomalyFile_["ReverseFall"].front());
 
 	// 各種異変の読み込み処理
-	auto& paramFile = anomalyFile_["Param"][0];
+	auto& paramFile = anomalyFile_["Param"].front();
 	for (auto& anomaly : anomalyMap_)
 	{
-		// リソース等の読み込み処理
-		anomaly.second->Load();
-
 		// 異変の重みの設定
 		const std::string& name = ANOMALY_LIST.at(anomaly.first);
 		anomalyWeightMap_.emplace(anomaly.first, paramFile.at("Weights").at(name).get<int>());
@@ -48,36 +47,47 @@ void AnomalyManager::Init()
 	// タイマー初期化
 	timer_->InitCountUp();
 
-	// 各種異変の読み込み処理
+	// 異変発生を許可
+	isOccurrence_ = true;
+
+	// 各種異変の初期化処理
 	for (auto& anomaly : anomalyMap_)
 	{
 		anomaly.second->Init();
 	}
-
-	OccurAnomaly(TYPE::BLOODY_ROOM);
 }
 
 void AnomalyManager::Update()
 {
-	// 制限時間に達したとき
-	if (timer_->CountUp())
+	// 異変の更新
+	for (auto& anomaly : anomalyMap_)
 	{
-		// 異変ファイルが空の場合
-		if (anomalyFile_.empty())
+		anomaly.second->Update();
+	}
+
+	// 異変発生が許可されている場合
+	if (isOccurrence_)
+	{
+		// 制限時間に達した場合
+		if (timer_->CountUp())
 		{
-			// 処理を飛ばす
-			return;
+			// 異変ファイルが空の場合
+			if (anomalyFile_.empty())
+			{
+				// 処理を飛ばす
+				return;
+			}
+
+			// 異変発生
+			OccurAnomaly(TYPE::REVERSE_FALL);
+			//OccurAnomaly(GetRandType());
+
+			// 次回までの時間をランダム設定
+			timer_->SetGoalTime(timeMin_ + GetRand(timeMax_ - timeMin_));
+
+			// タイマー初期化
+			timer_->InitCountUp();
 		}
-
-		// 異変発生
-		//OccurAnomaly(TYPE::BLOODY_ROOM);
-		//OccurAnomaly(GetRandType());
-
-		// 次回までの時間をランダム設定
-		timer_->SetGoalTime(timeMin_ + GetRand(timeMax_ - timeMin_));
-
-		// タイマー初期化
-		timer_->InitCountUp();
 	}
 }
 
@@ -88,23 +98,8 @@ void AnomalyManager::DebugDraw()
 
 void AnomalyManager::OccurAnomaly(const TYPE type)
 {
-	// 異変の種類のストリングを取得
-	const std::string typeString = ANOMALY_LIST.at(type);
-
-	// サイズ定義
-	const int size = static_cast<int>(anomalyFile_[typeString].size());
-	
-	// ランダムで配列番号を取得
-	int index = GetRand(size - 1);
-
 	// 異変発生
-	anomalyMap_[type]->Occurrence(anomalyFile_[typeString][index]);
-
-	// 異変のファイルからその要素を削除
-	if (anomalyFile_.is_array() && anomalyFile_.size() > index)
-	{
-		anomalyFile_.erase(anomalyFile_.begin() + index);
-	}
+	anomalyMap_[type]->Occurrence();
 }
 
 const AnomalyManager::TYPE AnomalyManager::GetRandType()
@@ -158,6 +153,7 @@ AnomalyManager::AnomalyManager()
 	firstTime_ = 0.0f;
 	timeMin_ = 0.0f;
 	timeMax_ = 0.0f;
+	isOccurrence_ = false;
 }
 
 AnomalyManager::~AnomalyManager()

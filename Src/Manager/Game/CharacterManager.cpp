@@ -126,6 +126,14 @@ const bool CharacterManager::IsPlayerLight() const
 	return player->GetControllerLight().IsLight();
 }
 
+void CharacterManager::SetIsActive(const TYPE type, const bool isActive)
+{
+	for (auto& character : characterMap_[type])
+	{
+		character->SetIsActive(isActive);
+	}
+}
+
 CharacterManager::CharacterManager()
 {
 }

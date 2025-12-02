@@ -79,6 +79,12 @@ public:
 	/// <param name="halfSize">サイズの半分</param>
 	void SetHalfSize(const VECTOR& halfSize);
 
+	/// <summary>
+	/// 自身の複製を生成
+	/// </summary>
+	/// <returns>複製したインスタンス</returns>
+	std::shared_ptr<ColliderBase> Clone() const override;
+
 private:
 	
 	// 回転バウンディングボックス

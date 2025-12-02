@@ -64,8 +64,8 @@ void GrassRoom::Init()
 
 void GrassRoom::Update()
 {
-	// 活動状態の場合
-	if (isActive_)
+	// コライダーが生成されている場合
+	if (anomalyCollider_)
 	{
 		// 距離の更新
 		constexpr float SPEED = 3.0f;
@@ -75,7 +75,11 @@ void GrassRoom::Update()
 
 void GrassRoom::SetAnomaly()
 {
-	StageGimmickObjectBase::SetAnomaly();
+	// モデルのコライダーを生成
+	anomalyCollider_ = std::make_shared<ColliderModel>(*this, CollisionTags::TAG::ANOMALY);
+
+	// コライダーの追加
+	collMng_.Add(anomalyCollider_);
 
 	// テクスチャを追加
 	draw_->SetTexture(resMng_.GetHandle("grassLand"));

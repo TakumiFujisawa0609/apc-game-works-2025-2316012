@@ -4,7 +4,9 @@
 #include "../../Actor/Stage/ChairMountain.h"
 #include "AnomalyChairMountain.h"
 
-AnomalyChairMountain::AnomalyChairMountain()
+AnomalyChairMountain::AnomalyChairMountain(const Json& param) :
+	INIT_PARAM(param),
+	AnomalyBase(param)
 {
 }
 
@@ -12,21 +14,13 @@ AnomalyChairMountain::~AnomalyChairMountain()
 {
 }
 
-void AnomalyChairMountain::Load()
-{
-}
-
-void AnomalyChairMountain::Init()
-{
-}
-
-void AnomalyChairMountain::Occurrence(Json& param)
+void AnomalyChairMountain::Occurrence()
 {
 	// Šî’êƒNƒ‰ƒX‚Ìˆ—
-	AnomalyBase::Occurrence(param);
+	AnomalyBase::Occurrence();
 
 	// ¶¬
-	auto object = std::make_unique<ChairMountain>(KEY, param, stageMng_.GetStageObjectColliderParam(KEY));
+	auto object = std::make_unique<ChairMountain>(KEY, INIT_PARAM, stageMng_.GetStageObjectColliderParam(KEY));
 
 	// ’Ç‰Á
 	stageMng_.Add(KEY, std::move(object));

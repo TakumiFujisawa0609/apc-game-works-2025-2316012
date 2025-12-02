@@ -18,6 +18,7 @@ public:
 	{
 		NONE,
 		ALIVE,
+		HAPPENING,
 		DEAD_ENEMY,
 		DEAD_MADNESS,
 	};
@@ -225,10 +226,11 @@ private:
 	void RegisterStateUpdateFunc(const STATE state, std::function<void()> update);
 
 	// 状態別更新処理	
-	void UpdateNone() {};	// 何もしない
-	void UpdateAlive();		// 生存状態の更新
-	void UpdateDeadEnemy();	// 敵による死亡状態の更新
-	void UpdateDeadMadness(); // 狂気による死亡状態の更新
+	void UpdateNone() {};		// 何もしない
+	void UpdateAlive();			// 生存状態の更新
+	void UpdateHappening();		// ハプニング状態の更新
+	void UpdateDeadEnemy();		// 敵による死亡状態の更新
+	void UpdateDeadMadness();	// 狂気による死亡状態の更新
 
 	// デバッグ描画
 	void DebugDraw() override;

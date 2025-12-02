@@ -10,6 +10,8 @@ CoreGameBase::CoreGameBase() :
 	stateMng_(GameStateManager::GetInstance()),
 	systemMng_(GameSystemManager::GetInstance())
 {
+	// 初期状態はアクティブに
+	isActive_ = true;
 }
 
 CoreGameBase::~CoreGameBase()

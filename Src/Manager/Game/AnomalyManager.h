@@ -29,7 +29,8 @@ public:
 		OCCUR,			// 何かが起こる
 		COLOR_CHANGE,	// 色変え
 		APPEARANCE,		// 出現
-		GRASS_ROOM,
+		GRASS_ROOM,		// 草の部屋
+		REVERSE_FALL,	// 反転落下
 		MAX
 	};
 
@@ -44,7 +45,8 @@ public:
 		{TYPE::OCCUR,"Occur"},
 		{TYPE::COLOR_CHANGE,"ColorChange"},
 		{TYPE::APPEARANCE,"Appearance"},
-		{TYPE::GRASS_ROOM,"GrassRoom"}
+		{TYPE::GRASS_ROOM,"GrassRoom"},
+		{TYPE::REVERSE_FALL,"ReverseFall"},
 	};
 	
 	/// <summary>
@@ -61,6 +63,12 @@ public:
 	/// 更新処理
 	/// </summary>
 	void Update();
+
+	/// <summary>
+	/// 発生判定の設定
+	/// </summary>
+	/// <param name="isOccurrence">発生判定</param>
+	void SetIsOccurrence(const bool isOccurrence) { isOccurrence_ = isOccurrence; }
 
 	/// <summary>
 	/// 描画処理
@@ -80,6 +88,9 @@ private:
 
 	// 異変発生最小時間
 	int timeMin_;
+
+	// 発生判定
+	bool isOccurrence_;
 
 	// 異変情報
 	Json anomalyFile_;

@@ -8,7 +8,8 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	AnomalyGhost();
+	/// <param name="param">パラメータ</param>
+	AnomalyGhost(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -16,18 +17,13 @@ public:
 	~AnomalyGhost();
 
 	/// <summary>
-	/// 初期化処理
-	/// </summary>
-	void Init() override;
-
-	/// <summary>
 	/// 発生処理
 	/// </summary>
 	/// <param name="param">パラメータ</param>
-	void Occurrence(Json& param) override;
+	void Occurrence() override;
 
 private:
 
-	
+	// パラメータファイル
+	Json paramFile_;
 };
-

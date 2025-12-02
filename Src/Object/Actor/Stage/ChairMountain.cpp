@@ -5,6 +5,7 @@ ChairMountain::ChairMountain(const std::string& key, const Json& mapParam, const
 {
 	Load();
 	Init();
+	SetAnomaly();
 }
 
 ChairMountain::~ChairMountain()

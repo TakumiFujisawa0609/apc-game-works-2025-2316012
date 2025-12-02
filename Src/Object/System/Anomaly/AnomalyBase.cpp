@@ -6,7 +6,8 @@
 #include "../../Actor/Character/Player.h"
 #include "AnomalyBase.h"
 
-AnomalyBase::AnomalyBase():
+AnomalyBase::AnomalyBase(const Json& param) :
+	MADNESS_VALUE(param["madnessValue"]),
 	charaMng_(CharacterManager::GetInstance()),
 	stageMng_(StageManager::GetInstance()),
 	resMng_(ResourceManager::GetInstance()),
@@ -19,17 +20,19 @@ AnomalyBase::~AnomalyBase()
 {
 }
 
-void AnomalyBase::Load()
-{
-}
-
 void AnomalyBase::Init()
 {
 }
 
-void AnomalyBase::Occurrence(Json& param)
-{
+void AnomalyBase::Occurrence()
+{	
 	// プレイヤーの狂気更新値を上昇させる
 	const auto & player = dynamic_cast<Player*>(&charaMng_.GetCharacter(CharacterManager::TYPE::PLAYER));
-	player->AddMadnessValue(10);
+	player->AddMadnessValue(MADNESS_VALUE);
+
+
+}
+
+void AnomalyBase::Update()
+{
 }

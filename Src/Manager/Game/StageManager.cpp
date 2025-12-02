@@ -205,6 +205,9 @@ void StageManager::DeleteGrass()
 
 void StageManager::Add(const std::string& type, std::unique_ptr<StageObjectBase> stageObject)
 {
+	// 描画リスト登録用にポインタを保持
+	StageObjectBase* obj = stageObject.get();
+
 	// 指定されたTYPEのキーがマップに存在するか検索
 	auto it = stageObjectsMap_.find(type);
 	if (it != stageObjectsMap_.end())
@@ -218,7 +221,18 @@ void StageManager::Add(const std::string& type, std::unique_ptr<StageObjectBase>
 		std::vector<std::unique_ptr<StageObjectBase>> objects;
 		objects.push_back(std::move(stageObject));
 		stageObjectsMap_.emplace(type, std::move(objects));
-		return;
+	}
+
+	// 描画リストに格納
+	// 透過がある場合
+	if (obj->IsTranslucent())
+	{
+		translucentList_.push_back(obj);
+	}
+	// ない場合
+	else
+	{
+		opaqueList_.push_back(obj);
 	}
 }
 
