@@ -2,6 +2,7 @@
 #include "AnomalyBase.h"
 
 class ControllerCameraJumpScare;
+class ScreenShake;
 
 class AnomalyReverseFall : public AnomalyBase
 {
@@ -51,11 +52,20 @@ private:
 	// 後ろに下がる移動量
 	const float CAMERA_BACK_POW;
 
+	// 画面揺れ時間
+	const float SCREEN_SHAKE_TIME;
+
+	// 画面揺れ強さ
+	const float SCREEN_SHAKE_POW;
+
 	// 状態
 	STATE state_;
 
 	// カメラ制御
 	std::unique_ptr<ControllerCameraJumpScare> camera_;
+
+	// 画面シェイク
+	std::unique_ptr<ScreenShake> screenShake_;
 
 	// 状態変更関数管理
 	std::unordered_map<STATE, std::function<void()>> changeStateMap_;

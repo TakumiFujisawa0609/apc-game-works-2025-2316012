@@ -30,7 +30,9 @@
   "ReverseFall": {
     "madnessValue": 10,
     "cameraPullTime": 0.3,
-    "cameraBackPow" : 200
+    "cameraBackPow": 200,
+    "screenShakeTime": 2.0,
+    "screenShakePow": 5.0
   },
   "Ghost": {
     "madnessValue": 10,

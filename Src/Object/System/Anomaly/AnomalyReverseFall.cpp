@@ -7,6 +7,7 @@
 #include "../../../Utility/UtilityCommon.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Common/Quaternion.h"
+#include "../../../Core/Common/ScreenShake.h"
 #include "../../Controller/Camera/ControllerCameraJumpScare.h"
 #include "../../Actor/Character/Player.h"
 #include "AnomalyReverseFall.h"
@@ -14,10 +15,13 @@
 AnomalyReverseFall::AnomalyReverseFall(const Json& param) :
 	AnomalyBase(param),
 	CAMERA_PULL_TIME(param["cameraPullTime"]),
-	CAMERA_BACK_POW(param["cameraBackPow"])
+	CAMERA_BACK_POW(param["cameraBackPow"]),
+	SCREEN_SHAKE_TIME(param["screenShakeTime"]),
+	SCREEN_SHAKE_POW(param["screenShakePow"])
 {
 	state_ = STATE::NONE;
 	camera_ = nullptr;
+	screenShake_ = nullptr;
 
 	// 状態変更処理の登録
 	changeStateMap_.emplace(STATE::NONE, std::bind(&AnomalyReverseFall::ChangeStateNone, this));
@@ -35,6 +39,10 @@ void AnomalyReverseFall::Init()
 {
 	// カメラ生成
 	camera_ = std::make_unique<ControllerCameraJumpScare>();
+
+	// 画面シェイク
+	screenShake_ = std::make_unique<ScreenShake>();
+	screenShake_->Init();
 
 	// 状態をNONEに変更
 	ChangeState(STATE::NONE);
@@ -103,10 +111,23 @@ void AnomalyReverseFall::UpdateCameraPull()
 
 void AnomalyReverseFall::UpdateEarthQuake()
 {
+	// 終了判定
+	if (screenShake_->IsEnd())
+	{
+		// 状態変更
+		ChangeState(STATE::REVERSE_FALL);
+	}
+	else
+	{
+		// 画面シェイク更新
+		screenShake_->Update();
+	}
 }
 
 void AnomalyReverseFall::UpdateReverseFall()
 {
+	// カメラをZ軸で半回転、Y軸落下と同時に暗転させていく
+
 }
 
 void AnomalyReverseFall::UpdateReverseUp()
@@ -141,6 +162,9 @@ void AnomalyReverseFall::ChangeStateEarthQuake()
 
 	// 効果音再生
 	sndMng_.PlaySe(SoundType::SE::DRUM_ROLL_END);
+
+	// 画面揺れ設定
+	screenShake_->Set(SCREEN_SHAKE_TIME, SCREEN_SHAKE_POW);
 }
 
 void AnomalyReverseFall::ChangeStateReverseFall()

@@ -246,6 +246,12 @@
       "path": "Data/Model/Player/Animation/Jump.mv1"
     },
     {
+      "key": "playerLookAround",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Player/Animation/LookAround.mv1"
+    },
+    {
       "key": "reportGauge",
       "sceneId": 3,
       "type": "texture",
