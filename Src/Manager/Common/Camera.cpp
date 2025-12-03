@@ -13,7 +13,7 @@ Camera::Camera(void) :
 	input_(InputManager::GetInstance())
 {
 	angles_ = VECTOR();
-	cameraUp_ = VECTOR();
+	cameraUpVector_ = VECTOR();
 	mode_ = MODE::NONE;
 	pos_ = Utility3D::VECTOR_ZERO;
 	cameraLightPos_ = Utility3D::VECTOR_ZERO;
@@ -59,7 +59,7 @@ void Camera::CameraSetting()
 	SetCameraPositionAndTargetAndUpVec(
 		pos_,
 		targetPos_,
-		cameraUp_
+		cameraUpVector_
 	);
 }
 
@@ -78,27 +78,37 @@ void Camera::SetAngles(const VECTOR& angles)
 	angles_ = angles;
 }
 
-VECTOR Camera::GetPos(void) const
+void Camera::SetCameraUpVector(const VECTOR& cameraUpVector)
+{
+	cameraUpVector_ = cameraUpVector;
+}
+
+const VECTOR& Camera::GetPos(void) const
 {
 	return pos_;
 }
 
-VECTOR Camera::GetAngles(void) const
+const VECTOR& Camera::GetAngles(void) const
 {
 	return angles_;
 }
 
-VECTOR Camera::GetTargetPos(void) const
+const VECTOR& Camera::GetTargetPos(void) const
 {
 	return targetPos_;
 }
 
-Quaternion Camera::GetQuaRot(void) const
+const VECTOR& Camera::GetCameraUpVector() const
+{
+	return cameraUpVector_;
+}
+
+const Quaternion& Camera::GetQuaRot(void) const
 {
 	return rot_;
 }
 
-Quaternion Camera::GetQuaRotOutX(void) const
+const Quaternion& Camera::GetQuaRotOutX(void) const
 {
 	return rotOutX_;
 }
@@ -108,7 +118,7 @@ VECTOR Camera::GetForward(void) const
 	return VNorm(VSub(targetPos_, pos_));
 }
 
-Camera::MODE Camera::GetMode() const
+const Camera::MODE Camera::GetMode() const
 {
 	return mode_;
 }
@@ -141,7 +151,7 @@ void Camera::SetDefault(void)
 	targetPos_ = Utility3D::VECTOR_ZERO;
 
 	// カメラの上方向
-	cameraUp_ = Utility3D::DIR_U;
+	cameraUpVector_ = Utility3D::DIR_U;
 
 	angles_.x = UtilityCommon::Deg2RadF(30.0f);
 	angles_.y = 0.0f;
@@ -176,7 +186,7 @@ void Camera::SyncFollow(void)
 	pos_ = VAdd(pos, localPos);
 
 	// カメラの上方向
-	cameraUp_ = Utility3D::DIR_U;
+	cameraUpVector_ = Utility3D::DIR_U;
 }
 
 void Camera::SyncFollowFps()
@@ -202,7 +212,7 @@ void Camera::SyncFollowFps()
 	pos_ = VAdd(pos, localPos);
 
 	// カメラの上方向
-	cameraUp_ = Utility3D::DIR_U;
+	cameraUpVector_ = Utility3D::DIR_U;
 }
 
 void Camera::ProcessRotFollow(void)
@@ -330,6 +340,11 @@ void Camera::ChangeModeFree()
 	beforeDrawFunc_ = std::bind(&Camera::SetBeforeDrawFree, this);
 }
 
+void Camera::ChangeTransition()
+{
+	beforeDrawFunc_ = std::bind(&Camera::SetBeforeDrawTransition, this);
+}
+
 void Camera::SetBeforeDrawFixedPoint()
 {
 	//角度を計算
@@ -358,4 +373,35 @@ void Camera::SetBeforeDrawFree()
 {
 	//カメラ操作
 	ProcessRotFree();
+}
+
+void Camera::SetBeforeDrawTransition()
+{
+	//// 終了済みの場合
+	//if (isEnd_)
+	//{
+	//	// 処理を飛ばす
+	//	return;
+	//}
+
+	//// ステップ更新
+	//step_ += scnMng_.GetDeltaTime();
+
+	//// 進行度の計算
+	//float t = step_ / transitionTime_;
+
+	//// 進行度が終了値を超えている場合
+	//if (t >= 1.0f)
+	//{
+	//	t = 1.0f;		// 値を固定
+	//	isEnd_ = true;	// 終了判定を立てる
+	//}
+
+	//// 線形補間
+	//VECTOR currentPos = UtilityCommon::Lerp(startCameraPos_, goalCameraPos_, t);
+	//VECTOR currentTarget = UtilityCommon::Lerp(startTargetPos_, goalTargetPos_, t);
+
+	//// カメラの設定
+	//camera_.SetPos(currentPos);
+	//camera_.SetTargetPos(currentTarget);
 }

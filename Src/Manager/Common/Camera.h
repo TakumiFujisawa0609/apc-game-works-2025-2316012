@@ -50,6 +50,7 @@ public:
 		FOLLOW,			// 追従
 		FPS,			// FPS視点
 		FREE,			// 自由
+		TRANSITION		// トランジション
 	};
 
 	/// <summary>
@@ -103,35 +104,41 @@ public:
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>カメラ位置</returns>
-	VECTOR GetPos() const;
+	const VECTOR& GetPos() const;
 	
 	/// <summary>
 	/// カメラアングルの取得
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>カメラアングル</returns>
-	VECTOR GetAngles() const;
+	const VECTOR& GetAngles() const;
 	
 	/// <summary>
 	/// カメラの注視点の取得
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>カメラ注視点</returns>
-	VECTOR GetTargetPos() const;
+	const VECTOR& GetTargetPos() const;
+
+	/// <summary>
+	/// カメラの上方向ベクトルの取得
+	/// </summary>
+	/// <returns>カメラの上方向を返す</returns>
+	const VECTOR& GetCameraUpVector() const;
 
 	/// <summary>
 	/// カメラ角度の取得
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns>カメラ角度</returns>
-	Quaternion GetQuaRot() const;
+	const Quaternion& GetQuaRot() const;
 	
 	/// <summary>
 	/// X回転を抜いたカメラ角度
 	/// </summary>
 	/// <param name=""></param>
 	/// <returns> X回転を抜いたカメラ角度</returns>
-	Quaternion GetQuaRotOutX() const;
+	const Quaternion& GetQuaRotOutX() const;
 	
 	/// <summary>
 	/// カメラの前方方向ベクトルの取得
@@ -144,7 +151,7 @@ public:
 	/// モードの取得
 	/// </summary>
 	/// <returns>モード</returns>
-	MODE GetMode() const;
+	const MODE GetMode() const;
 
 	/// <summary>
 	/// ライトカメラ座標を返す
@@ -176,6 +183,12 @@ public:
 	/// <param name="angles">角度</param>
 	void SetAngles(const VECTOR& angles);
 
+	/// <summary>
+	/// カメラ上方向ベクトルの設定
+	/// </summary>
+	/// <param name="cameraUpVector">カメラ方向</param>
+	void SetCameraUpVector(const VECTOR& cameraUpVector);
+
 private:
 
 	InputManager& input_;
@@ -202,7 +215,7 @@ private:
 	VECTOR targetPos_;
 
 	// カメラの上方向
-	VECTOR cameraUp_;
+	VECTOR cameraUpVector_;
 
 	// カメラライト座標
 	VECTOR cameraLightPos_;
@@ -231,6 +244,7 @@ private:
 	void ChangeModeFollow();
 	void ChangeModeFps();
 	void ChangeModeFree();
+	void ChangeTransition();
 
 	// モード別更新ステップ
 	void SetBeforeDrawNone() {};
@@ -238,5 +252,5 @@ private:
 	void SetBeforeDrawFollow();
 	void SetBeforeDrawFps();
 	void SetBeforeDrawFree();
+	void SetBeforeDrawTransition();
 };
-

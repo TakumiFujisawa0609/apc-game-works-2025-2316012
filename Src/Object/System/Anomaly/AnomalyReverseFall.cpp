@@ -127,7 +127,7 @@ void AnomalyReverseFall::UpdateEarthQuake()
 void AnomalyReverseFall::UpdateReverseFall()
 {
 	// ƒJƒƒ‰‚ğZ²‚Å”¼‰ñ“]AY²—‰º‚Æ“¯‚ÉˆÃ“]‚³‚¹‚Ä‚¢‚­
-
+	//mainCamera.SetAngles(VAdd(mainCamera.GetAngles(), { 0,0,10 }));
 }
 
 void AnomalyReverseFall::UpdateReverseUp()
