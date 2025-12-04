@@ -9,6 +9,7 @@
 #include "../../../Common/Quaternion.h"
 #include "../../../Core/Common/ScreenShake.h"
 #include "../../Controller/Camera/ControllerCameraJumpScare.h"
+#include "../../Controller/ControllerAnimation.h"
 #include "../../Actor/Character/Player.h"
 #include "AnomalyReverseFall.h"
 
@@ -17,11 +18,15 @@ AnomalyReverseFall::AnomalyReverseFall(const Json& param) :
 	CAMERA_PULL_TIME(param["cameraPullTime"]),
 	CAMERA_BACK_POW(param["cameraBackPow"]),
 	SCREEN_SHAKE_TIME(param["screenShakeTime"]),
-	SCREEN_SHAKE_POW(param["screenShakePow"])
+	SCREEN_SHAKE_POW(param["screenShakePow"]),
+	CAMERA_DOWN_POW(param["cameraDownPow"]),
+	CAMERA_DOWN_TIME(param["cameraDownTime"])
 {
 	state_ = STATE::NONE;
 	camera_ = nullptr;
 	screenShake_ = nullptr;
+	preCameraPos_ = Utility3D::VECTOR_ZERO;
+	preTargetPos_ = Utility3D::VECTOR_ZERO;
 
 	// 状態変更処理の登録
 	changeStateMap_.emplace(STATE::NONE, std::bind(&AnomalyReverseFall::ChangeStateNone, this));
@@ -29,6 +34,7 @@ AnomalyReverseFall::AnomalyReverseFall(const Json& param) :
 	changeStateMap_.emplace(STATE::EARTH_QUAKE, std::bind(&AnomalyReverseFall::ChangeStateEarthQuake, this));
 	changeStateMap_.emplace(STATE::REVERSE_FALL, std::bind(&AnomalyReverseFall::ChangeStateReverseFall, this));
 	changeStateMap_.emplace(STATE::REVERSE_UP, std::bind(&AnomalyReverseFall::ChangeStateReverseUp, this));
+	changeStateMap_.emplace(STATE::CAMRA_BACK, std::bind(&AnomalyReverseFall::ChangeStateCameraBack, this));
 }
 
 AnomalyReverseFall::~AnomalyReverseFall()
@@ -59,6 +65,7 @@ void AnomalyReverseFall::Occurrence()
 
 	// UIの非表示
 	systemMng_.SetIsActiveSystem(GameSystemManager::TYPE::SCREEN, false);
+	systemMng_.SetIsActiveSystem(GameSystemManager::TYPE::MANUAL, false);
 	
 	// 敵の更新停止
 	charaMng.SetIsActive(CharacterManager::TYPE::ENEMY, false);
@@ -69,6 +76,10 @@ void AnomalyReverseFall::Occurrence()
 	// この異変中新しい異変の追加を停止
 	anomalyMng.SetIsOccurrence(false);
 
+	// カメラや注視点位置のバックアップを保持
+	preCameraPos_ = mainCamera.GetPos();
+	preTargetPos_ = mainCamera.GetTargetPos();
+
 	// カメラの後ろ方向
 	VECTOR backDir = VScale(mainCamera.GetForward(), -1.0f);
 
@@ -76,14 +87,14 @@ void AnomalyReverseFall::Occurrence()
 	VECTOR cameraVec = VScale(backDir, CAMERA_BACK_POW);
 
 	// 目的地の取得
-	VECTOR goalPos = VAdd(mainCamera.GetPos(), cameraVec);
+	VECTOR goalPos = VAdd(preCameraPos_, cameraVec);
 
 	// 注視点の位置
-	VECTOR targetGoalPos = mainCamera.GetTargetPos();
+	VECTOR targetGoalPos = preTargetPos_;
 	targetGoalPos.y = 0;	// 正面を向くようにY値を初期化
 
 	// カメラ設定
-	camera_->Set(goalPos, targetGoalPos, CAMERA_PULL_TIME);
+	camera_->Set(goalPos, targetGoalPos, Utility3D::DIR_U, 0.0f, CAMERA_PULL_TIME);
 
 	// 状態変更
 	ChangeState(STATE::CAMERA_PULL);
@@ -126,12 +137,50 @@ void AnomalyReverseFall::UpdateEarthQuake()
 
 void AnomalyReverseFall::UpdateReverseFall()
 {
-	// カメラをZ軸で半回転、Y軸落下と同時に暗転させていく
-	//mainCamera.SetAngles(VAdd(mainCamera.GetAngles(), { 0,0,10 }));
+	// カメラの移動が完了している場合
+	if (camera_->IsEnd())
+	{
+		// 状態変更
+		ChangeState(STATE::REVERSE_UP);
+	}
+	else
+	{
+		// カメラの更新処理
+		camera_->Update();
+	}
 }
 
 void AnomalyReverseFall::UpdateReverseUp()
 {
+	// カメラの移動が完了している場合
+	if (camera_->IsEnd())
+	{
+		// 状態変更
+		ChangeState(STATE::CAMRA_BACK);
+	}
+	else
+	{
+		// カメラの更新処理
+		camera_->Update();
+	}
+}
+
+void AnomalyReverseFall::UpdateCameraBack()
+{
+	// カメラの移動が完了している場合
+	if (camera_->IsEnd())
+	{
+		// 演出終了後の処理
+		AfterDirection();
+
+		// 状態変更
+		ChangeState(STATE::NONE);
+	}
+	else
+	{
+		// カメラの更新処理
+		camera_->Update();
+	}
 }
 
 void AnomalyReverseFall::ChangeState(const STATE state)
@@ -157,6 +206,8 @@ void AnomalyReverseFall::ChangeStateCameraPull()
 
 void AnomalyReverseFall::ChangeStateEarthQuake()
 {
+	const auto& player = dynamic_cast<Player*>(&charaMng_.GetCharacter(CharacterManager::TYPE::PLAYER));
+
 	// 更新処理の変更
 	update_ = std::bind(&AnomalyReverseFall::UpdateEarthQuake, this);
 
@@ -165,16 +216,58 @@ void AnomalyReverseFall::ChangeStateEarthQuake()
 
 	// 画面揺れ設定
 	screenShake_->Set(SCREEN_SHAKE_TIME, SCREEN_SHAKE_POW);
+
+	// プレイヤーのアニメーションを行う
+	player->GetControllerAnimation().Play(Player::ANIM_LOOK_AROUND);
 }
 
 void AnomalyReverseFall::ChangeStateReverseFall()
 {
 	// 更新処理の変更
 	update_ = std::bind(&AnomalyReverseFall::UpdateReverseFall, this);
+
+	// 目的地を現在位置からかなり下まで下げる
+	VECTOR goalPos = VAdd(mainCamera.GetPos(), { 0 ,-CAMERA_DOWN_POW, 0 });
+
+	// カメラ設定
+	camera_->Set(goalPos, mainCamera.GetTargetPos() , mainCamera.GetForward(), CAMERA_ROTATION_DEG, CAMERA_DOWN_TIME);
 }
 
 void AnomalyReverseFall::ChangeStateReverseUp()
 {
 	// 更新処理の変更
 	update_ = std::bind(&AnomalyReverseFall::UpdateReverseUp, this);
+
+	// 最初の位置まで戻す
+	VECTOR goalPos = VAdd(mainCamera.GetPos(), { 0 ,CAMERA_DOWN_POW, 0 });
+
+	// カメラ設定
+	camera_->Set(goalPos, mainCamera.GetTargetPos(), mainCamera.GetForward(), CAMERA_ROTATION_DEG, CAMERA_DOWN_TIME);
+}
+
+void AnomalyReverseFall::ChangeStateCameraBack()
+{
+	// 更新処理の変更
+	update_ = std::bind(&AnomalyReverseFall::UpdateCameraBack, this);
+
+	// カメラ設定
+	camera_->Set(preCameraPos_, preTargetPos_, Utility3D::DIR_U, 0.0f, CAMERA_PULL_TIME);
+}
+
+void AnomalyReverseFall::AfterDirection()
+{
+	const auto& player = dynamic_cast<Player*>(&charaMng_.GetCharacter(CharacterManager::TYPE::PLAYER));
+
+	// プレイヤーの状態を戻す
+	player->ChangeState(Player::STATE::ALIVE);
+
+	// アニメーションを待機に戻す
+	player->GetControllerAnimation().Play(Player::ANIM_IDLE);
+
+	// UIの表示
+	systemMng_.SetIsActiveSystem(GameSystemManager::TYPE::SCREEN, true);
+	systemMng_.SetIsActiveSystem(GameSystemManager::TYPE::MANUAL, true);
+
+	// カメラをFPS視点操作に戻す
+	mainCamera.ChangeMode(Camera::MODE::FPS);
 }

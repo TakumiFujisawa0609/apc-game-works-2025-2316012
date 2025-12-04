@@ -44,6 +44,7 @@ private:
 		EARTH_QUAKE,	// 地震
 		REVERSE_FALL,	// 反転落下
 		REVERSE_UP,		// 反転上昇
+		CAMRA_BACK		// 演出前に戻す
 	};
 
 	// カメラの引き時間
@@ -58,8 +59,23 @@ private:
 	// 画面揺れ強さ
 	const float SCREEN_SHAKE_POW;
 
+	// 下げる移動量
+	const float CAMERA_DOWN_POW;
+
+	// カメラを下げる時間
+	const float CAMERA_DOWN_TIME;
+
+	// カメラの回転角度
+	static constexpr float CAMERA_ROTATION_DEG = 180.0f;
+
 	// 状態
 	STATE state_;
+
+	// カメラ位置のバックアップ
+	VECTOR preCameraPos_;
+
+	// 注視点のバックアップ
+	VECTOR preTargetPos_;
 
 	// カメラ制御
 	std::unique_ptr<ControllerCameraJumpScare> camera_;
@@ -79,6 +95,7 @@ private:
 	void UpdateEarthQuake();
 	void UpdateReverseFall();
 	void UpdateReverseUp();
+	void UpdateCameraBack();
 
 	// 各種状態別変更処理
 	void ChangeState(const STATE state);
@@ -87,4 +104,8 @@ private:
 	void ChangeStateEarthQuake();
 	void ChangeStateReverseFall();
 	void ChangeStateReverseUp();
+	void ChangeStateCameraBack();
+
+	// 演出終了後の処理
+	void AfterDirection();
 };

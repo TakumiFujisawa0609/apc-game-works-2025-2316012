@@ -34,7 +34,7 @@ public:
 	/// <param name="goalCameraPos">カメラの目標位置</param>
 	/// <param name="goalTargetPos">注視点の目標位置</param>
 	/// <param name="transitionTime">トランジション時間</param>
-	virtual void Set(const VECTOR& goalCameraPos, const VECTOR& goalTargetPos, const VECTOR& targetAngles, const float transitionTime);
+	virtual void Set(const VECTOR& goalCameraPos, const VECTOR& goalTargetPos, const VECTOR& rotAxis, const float goalDeg, const float transitionTime);
 
 	/// <summary>
 	/// 処理の終了判定
@@ -57,15 +57,19 @@ protected:
 	VECTOR startCameraPos_;		// 位置
 	VECTOR startTargetPos_;		// 注視点
 	VECTOR startCameraUpVec_;	// 上方向ベクトル
+	float startDeg_;
 
 	// 終了位置
 	VECTOR goalCameraPos_;		// 位置
 	VECTOR goalTargetPos_;		// 注視点
-	VECTOR goalCameraUpVec_;	// 上方向ベクトル
+	float goalDeg_;
+
+	// 回転軸
+	VECTOR rotAxis_;
 
 	// 終了判定
 	bool isEnd_;
 
 	//　開始角度の取得
-	VECTOR GetStartAngles();
+	float GetStartRotDeg() const;
 };

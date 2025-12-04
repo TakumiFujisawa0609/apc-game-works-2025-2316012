@@ -14,10 +14,5 @@ public:
 	/// デストラクタ
 	/// </summary>
 	~ControllerCameraPlayerDead() override;
-
-	/// <summary>
-	/// 更新処理
-	/// </summary>
-	void Update() override;
 };
 

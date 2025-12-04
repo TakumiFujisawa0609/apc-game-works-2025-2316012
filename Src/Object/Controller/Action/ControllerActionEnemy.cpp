@@ -296,7 +296,7 @@ void ControllerActionEnemy::ChangeStateAction()
 	VECTOR cameraTVec = VTransform(JUMP_SCARE_CAMERA_TARGET_POS, enemyRot);
 
 	// トランジション設定
-	transition_->Set(VAdd(cameraVec, pos), VAdd(cameraTVec, pos), TRANSITION_TIME);
+	transition_->Set(VAdd(cameraVec, pos), VAdd(cameraTVec, pos), Utility3D::DIR_U, 0.0f, TRANSITION_TIME);
 
 	// 画面シェイク設定
 	shake_->Set(SHAKE_TIME, SHAKE_POWER);

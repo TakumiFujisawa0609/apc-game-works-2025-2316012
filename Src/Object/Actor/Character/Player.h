@@ -24,9 +24,10 @@ public:
 	};
 
 	//アニメ種別キー
-	static const std::string ANIM_JUMP;		//ジャンプ
-	static const std::string ANIM_DIE;		//死ぬ
-	static const std::string ANIM_SLEEP;	//眠る
+	static const std::string ANIM_JUMP;			//ジャンプ
+	static const std::string ANIM_DIE;			//死ぬ
+	static const std::string ANIM_SLEEP;		//眠る
+	static const std::string ANIM_LOOK_AROUND;	//周りを見る
 
 	// 最大狂気値
 	static constexpr int MADNESS_MAX = 100;	

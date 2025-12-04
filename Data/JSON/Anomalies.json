@@ -29,10 +29,12 @@
   },
   "ReverseFall": {
     "madnessValue": 10,
-    "cameraPullTime": 0.3,
+    "cameraPullTime": 0.6,
     "cameraBackPow": 200,
     "screenShakeTime": 2.0,
-    "screenShakePow": 5.0
+    "screenShakePow": 5.0,
+    "cameraDownPow": 300.0,
+    "cameraDownTime": 2.2
   },
   "Ghost": {
     "madnessValue": 10,

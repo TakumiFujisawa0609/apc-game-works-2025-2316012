@@ -26,4 +26,3 @@ protected:
 	//シーン管理クラス
 	SceneManager& scnMng_;
 };
-

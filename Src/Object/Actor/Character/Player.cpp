@@ -22,6 +22,7 @@
 const std::string Player::ANIM_JUMP = "jump";	//ジャンプ
 const std::string Player::ANIM_DIE = "die";		//死ぬ
 const std::string Player::ANIM_SLEEP = "sleep";	//眠る
+const std::string Player::ANIM_LOOK_AROUND = "lookAround";	// 周りを見る
 
 Player::Player(const Json& param) :
 	CharacterBase(param),
@@ -103,10 +104,10 @@ void Player::UpdateBody()
 void Player::DrawMain()
 {
 	//MV1DrawModel(transform_.modelId);
-	//if (state_ == STATE::DEAD_MADNESS)
-	//{
-	//	MV1DrawModel(transform_.modelId);
-	//}
+	if (state_ == STATE::HAPPENING)
+	{
+		MV1DrawModel(transform_.modelId);
+	}
 }
 
 void Player::InitAnimation()
@@ -118,6 +119,7 @@ void Player::InitAnimation()
 	animation_->Add(ANIM_DIE, resMng_.GetHandle("playerAnimationDie"), ANIM_DEFAULT_SPEED);
 	animation_->Add(ANIM_SLEEP, resMng_.GetHandle("playerAnimationSleepingIdle"), ANIM_DEFAULT_SPEED);
 	animation_->Add(ANIM_JUMP, resMng_.GetHandle("playerAnimationJump"), ANIM_JUMP_SPEED);
+	animation_->Add(ANIM_LOOK_AROUND, resMng_.GetHandle("playerLookAround"), ANIM_DEFAULT_SPEED);
 
 	// 初期アニメーション設定
 	animation_->Play(ANIM_IDLE);
@@ -155,13 +157,10 @@ void Player::UpdateAlive()
 
 	// ライト
 	light_->Update();
-
-	//onHitMap_[CollisionTags::TAG::PLAYER]->Test();
 }
 
 void Player::UpdateHappening()
 {
-
 }
 
 void Player::UpdateDeadEnemy()
@@ -174,6 +173,7 @@ void Player::UpdateDeadMadness()
 	{
 		animation_->Play(ANIM_DIE, true);
 	}
+
 	// 終了処理
 	if (cameraDead_->IsEnd())
 	{
@@ -229,6 +229,7 @@ void Player::AddMadnessValue(const int madnessValue)
 		cameraDead_->Set(
 			VAdd(mainCamera.GetPos(), VECTOR{ 0.0f, 10.0f - mainCamera.GetPos().y, 0.0f }),
 			VAdd(mainCamera.GetTargetPos(), VECTOR{ 0.0f, -3000.0f - mainCamera.GetTargetPos().y, 0.0f }),
+			Utility3D::DIR_U, 0.0f,
 			1.8f);
 
 		// ゲームステートの変更

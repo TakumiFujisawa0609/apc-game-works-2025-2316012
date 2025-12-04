@@ -8,12 +8,16 @@ ControllerCameraBase::ControllerCameraBase() :
 	camera_(mainCamera)
 {
 	step_ = 0.0f;
+	startDeg_ = 0.0f;
+	goalDeg_ = 0.0f;
 	transitionTime_ = 0.0f;
 	isEnd_ = false;
 	startCameraPos_ = Utility3D::VECTOR_ZERO;
 	startTargetPos_ = Utility3D::VECTOR_ZERO;
+	startCameraUpVec_ = Utility3D::VECTOR_ZERO;
 	goalCameraPos_ = Utility3D::VECTOR_ZERO;
 	goalTargetPos_ = Utility3D::VECTOR_ZERO;
+	rotAxis_ = Utility3D::VECTOR_ZERO;
 }
 
 ControllerCameraBase::~ControllerCameraBase()
@@ -23,12 +27,16 @@ ControllerCameraBase::~ControllerCameraBase()
 void ControllerCameraBase::Init()
 {
 	step_ = 0.0f;
+	startDeg_ = 0.0f;
+	goalDeg_ = 0.0f;
 	transitionTime_ = 0.0f;
 	isEnd_ = false;
 	startCameraPos_ = Utility3D::VECTOR_ZERO;
 	startTargetPos_ = Utility3D::VECTOR_ZERO;
+	startCameraUpVec_ = Utility3D::VECTOR_ZERO;
 	goalCameraPos_ = Utility3D::VECTOR_ZERO;
 	goalTargetPos_ = Utility3D::VECTOR_ZERO;
+	rotAxis_ = Utility3D::VECTOR_ZERO;
 }
 
 void ControllerCameraBase::Update()
@@ -53,65 +61,72 @@ void ControllerCameraBase::Update()
 		isEnd_ = true;	// 終了判定を立てる
 	}
 
-	// 線形補間
-	VECTOR currentPos = UtilityCommon::Lerp(startCameraPos_, goalCameraPos_, t);
-	VECTOR currentTarget = UtilityCommon::Lerp(startTargetPos_, goalTargetPos_, t);
+	// イーズアウトでスピードを決定
+	float speed = 1.0f - t;
 
-	GetCameraAngleTRotate();
+	// 3次間数で計算
+	float easeOutSpeed = 1.0f - speed * speed * speed;
+
+	// 位置・ターゲット位置の線形補間
+	VECTOR currentPos = UtilityCommon::Lerp(startCameraPos_, goalCameraPos_, easeOutSpeed);
+	VECTOR currentTarget = UtilityCommon::Lerp(startTargetPos_, goalTargetPos_, easeOutSpeed);
+
+	// 角度の線形補間の計算
+	float currentAngle = UtilityCommon::Lerp(startDeg_, goalDeg_, easeOutSpeed);
+
+	// RADに変換
+	float rad = UtilityCommon::Deg2RadF(currentAngle);
+
+	// マトリックス変換
+	// ... (以下、変更なし) ...
+	MATRIX rotMat = MGetRotAxis(rotAxis_, rad);
 
 	// カメラ回転処理
-	//VECTOR currentUpVec = Quaternion::AngleAxis();
+	VECTOR currentUpVec = VTransform(startCameraUpVec_, rotMat);
 
 	// カメラの設定
 	camera_.SetPos(currentPos);
 	camera_.SetTargetPos(currentTarget);
-	//camera_.SetCameraUpVector(currentUpVec);
+	camera_.SetCameraUpVector(currentUpVec);
 }
 
-void ControllerCameraBase::Set(const VECTOR& goalCameraPos, const VECTOR& goalTargetPos, const VECTOR& goalAngles, const float transitionTime)
-{	
+void ControllerCameraBase::Set(const VECTOR& goalCameraPos, const VECTOR& goalTargetPos, const VECTOR& rotAxis, const float goalDeg, const float transitionTime)
+{
 	// カメラを固定する
 	camera_.ChangeMode(Camera::MODE::FIXED_POINT);
 
 	// 時間の設定
 	transitionTime_ = transitionTime;
 
+	// 回転軸の設定
+	rotAxis_ = rotAxis;	
+	
+	// 開始角度の取得
+	startDeg_ = GetStartRotDeg();
+
 	// 終了位置の設定
 	goalCameraPos_ = goalCameraPos;
 	goalTargetPos_ = goalTargetPos;
-	goalAngles_ = goalAngles;
+	goalDeg_ = startDeg_ + goalDeg;
 
 	// 開始位置の設定
 	startCameraPos_ = camera_.GetPos();
 	startTargetPos_ = camera_.GetTargetPos();
-
-	// 開始角度の計算
-
+	startCameraUpVec_ = camera_.GetCameraUpVector();
 
 	// 初期化
 	isEnd_ = false;
 	step_ = 0.0f;
 }
 
-VECTOR ControllerCameraBase::GetStartAngles()
+float ControllerCameraBase::GetStartRotDeg() const
 {
-	// 1. **現在のカメラの向きから回転クォータニオンを逆算**
+	// カメラ上方向を取得
+	VECTOR upVec = GetCameraUpVector();
 
-	// (A) ローカル座標系の3軸を取得 (View/Right/Up)
-	VECTOR view = VNorm(VSub(startTargetPos_, startCameraPos_));
-	VECTOR right = VNorm(VCross(view, mainCamera.GetCameraUpVector()));
-	VECTOR up = VNorm(VCross(right, view));
+	// ラジアンの取得
+	const float rad = atan2f(-upVec.x, upVec.y);
 
-	// (B) 回転行列の構築 (V_right, V_up, V_view から構成)
-	// ここでは、行列の要素を手動で設定するか、ライブラリ関数を使用します。
-	MATRIX rotaMat = MV1GetRotationMatrix(right, up, view); // 概念的な関数
-
-	// (C) クォータニオンへ変換
-	// ユーティリティクラスの Quaternions::FromRotationMatrix(RotationMatrix) を想定
-	Quaternion Q_current = Quaternion::GetRotation(rotaMat);
-}
-
-void ControllerCameraBase::Set(const VECTOR& goalCameraPos, const VECTOR& goalTargetPos, const float transitionTime)
-{
-
+	// ラジアンを度に変換して返す
+	return UtilityCommon::Deg2RadF(rad);
 }

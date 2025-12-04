@@ -244,7 +244,6 @@ private:
 	void ChangeModeFollow();
 	void ChangeModeFps();
 	void ChangeModeFree();
-	void ChangeTransition();
 
 	// モード別更新ステップ
 	void SetBeforeDrawNone() {};
@@ -252,5 +251,4 @@ private:
 	void SetBeforeDrawFollow();
 	void SetBeforeDrawFps();
 	void SetBeforeDrawFree();
-	void SetBeforeDrawTransition();
 };
