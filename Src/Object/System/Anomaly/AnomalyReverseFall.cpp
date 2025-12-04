@@ -1,6 +1,7 @@
 #include "../../../Manager/Game/AnomalyManager.h"
 #include "../../../Manager/Game/GameSystemManager.h"
 #include "../../../Manager/Game/CharacterManager.h"
+#include "../../../Manager/Game/StageManager.h"
 #include "../../../Manager/Common/SceneManager.h"
 #include "../../../Manager/Common/Camera.h"
 #include "../../../Manager/Common/SoundManager.h"
@@ -11,6 +12,8 @@
 #include "../../Controller/Camera/ControllerCameraJumpScare.h"
 #include "../../Controller/ControllerAnimation.h"
 #include "../../Actor/Character/Player.h"
+#include "../../Actor/Stage/StageMesh.h"
+#include "../../Actor/Stage/StageMain.h"
 #include "AnomalyReverseFall.h"
 
 AnomalyReverseFall::AnomalyReverseFall(const Json& param) :
@@ -20,7 +23,8 @@ AnomalyReverseFall::AnomalyReverseFall(const Json& param) :
 	SCREEN_SHAKE_TIME(param["screenShakeTime"]),
 	SCREEN_SHAKE_POW(param["screenShakePow"]),
 	CAMERA_DOWN_POW(param["cameraDownPow"]),
-	CAMERA_DOWN_TIME(param["cameraDownTime"])
+	CAMERA_DOWN_TIME(param["cameraDownTime"]),
+	OBJ_TRANSFORM(param["transform"])
 {
 	state_ = STATE::NONE;
 	camera_ = nullptr;
@@ -243,6 +247,9 @@ void AnomalyReverseFall::ChangeStateReverseUp()
 
 	// カメラ設定
 	camera_->Set(goalPos, mainCamera.GetTargetPos(), mainCamera.GetForward(), CAMERA_ROTATION_DEG, CAMERA_DOWN_TIME);
+
+	// ステージの生成
+	CreateStage();
 }
 
 void AnomalyReverseFall::ChangeStateCameraBack()
@@ -252,6 +259,26 @@ void AnomalyReverseFall::ChangeStateCameraBack()
 
 	// カメラ設定
 	camera_->Set(preCameraPos_, preTargetPos_, Utility3D::DIR_U, 0.0f, CAMERA_PULL_TIME);
+}
+
+void AnomalyReverseFall::CreateStage()
+{
+	// 全てのステージオブジェクトの活動を停止
+	stageMng_.SetIsActiveByAllObjects(false);
+
+	// 判定用のメッシュと描画用のステージの2種を生成
+	auto mesh = std::make_unique<StageMesh>(KEY_MESH, OBJ_TRANSFORM, stageMng_.GetStageObjectColliderParam(KEY_MESH));
+	auto main = std::make_unique<StageMain>(KEY_MAIN, OBJ_TRANSFORM, stageMng_.GetStageObjectColliderParam(KEY_MAIN));
+
+	mesh->Load();
+	mesh->Init();
+
+	main->Load();
+	main->Init();
+
+	// 追加
+	stageMng_.Add(KEY_MESH, std::move(mesh));
+	stageMng_.Add(KEY_MAIN, std::move(main));
 }
 
 void AnomalyReverseFall::AfterDirection()

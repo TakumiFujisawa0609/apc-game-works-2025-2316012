@@ -25,14 +25,6 @@ void StageGimmickObjectBase::Load()
 	onHit_ = std::make_unique<ControllerOnHitStageObject>(*this);
 }
 
-void StageGimmickObjectBase::Draw()
-{
-	// Šˆ“®ó‘Ô‚ÉŒÀ‚ç‚¸•`‰æ‚ğs‚¤
-	DrawMain();
-
-	DebugDraw();
-}
-
 void StageGimmickObjectBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
 	// Õ“ËŒãˆ—

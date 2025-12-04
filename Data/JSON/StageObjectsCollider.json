@@ -225,5 +225,13 @@
     "collisionTag": "stageGimmick",
     "colliderType": "sphere",
     "colliderRadius": 150
+  },
+  "CherryBlossomsWorld": {
+    "collisionTag": "none",
+    "colliderType": "none"
+  },
+  "CherryBlossomsWorldMesh": {
+    "collisionTag": "stageMain",
+    "colliderType": "model"
   }
 }

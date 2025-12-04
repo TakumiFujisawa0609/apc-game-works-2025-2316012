@@ -756,6 +756,18 @@
       "type": "sound",
       "path": "Data/Sound/SE/SeGlassBreak.mp3",
       "soundType": "se"
+    },
+    {
+      "key": "CherryBlossomsWorld",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/CherryBlossomsWorld.mv1"
+    },
+    {
+      "key": "CherryBlossomsWorldMesh",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Stage/Gimmick/CherryBlossomsWorldMesh.mv1"
     }
   ]
 }

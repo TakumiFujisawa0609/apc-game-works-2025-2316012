@@ -52,6 +52,12 @@ public:
 	void DeleteGrass();
 
 	/// <summary>
+	/// 全てのオブジェクトの活動状態を設定
+	/// </summary>
+	/// <param name="isActive"></param>
+	void SetIsActiveByAllObjects(const bool isActive);
+
+	/// <summary>
 	/// ステージオブジェクトの追加
 	/// </summary>
 	/// <param name="type">種類</param>

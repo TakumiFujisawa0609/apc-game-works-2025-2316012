@@ -26,11 +26,6 @@ public:
 	void Load() override;
 
 	/// <summary>
-	/// 描画処理
-	/// </summary>
-	void Draw() override;
-
-	/// <summary>
 	/// 衝突後の処理
 	/// </summary>
 	/// <param name="opponentCollider">衝突相手のコライダー</param>

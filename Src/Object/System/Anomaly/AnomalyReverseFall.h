@@ -65,6 +65,13 @@ private:
 	// カメラを下げる時間
 	const float CAMERA_DOWN_TIME;
 
+	// オブジェクトのトランスフォーム情報
+	const Json OBJ_TRANSFORM;
+
+	// 異変を起こすオブジェクトのキー
+	const std::string KEY_MESH = "CherryBlossomsWorldMesh";
+	const std::string KEY_MAIN = "CherryBlossomsWorld";
+
 	// カメラの回転角度
 	static constexpr float CAMERA_ROTATION_DEG = 180.0f;
 
@@ -105,6 +112,9 @@ private:
 	void ChangeStateReverseFall();
 	void ChangeStateReverseUp();
 	void ChangeStateCameraBack();
+
+	// ステージの生成
+	void CreateStage();
 
 	// 演出終了後の処理
 	void AfterDirection();

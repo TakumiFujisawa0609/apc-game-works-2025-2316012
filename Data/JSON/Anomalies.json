@@ -34,7 +34,25 @@
     "screenShakeTime": 2.0,
     "screenShakePow": 5.0,
     "cameraDownPow": 300.0,
-    "cameraDownTime": 2.2
+    "cameraDownTime": 2.2,
+    "transform": {
+      "initPos": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "initRot": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "initScl": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "tag": "none"
+    }
   },
   "Ghost": {
     "madnessValue": 10,

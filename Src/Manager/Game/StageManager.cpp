@@ -203,6 +203,17 @@ void StageManager::DeleteGrass()
 	grassList_.clear();
 }
 
+void StageManager::SetIsActiveByAllObjects(const bool isActive)
+{
+	for (auto& objects : stageObjectsMap_)
+	{
+		for (auto& object : objects.second)
+		{
+			object->SetIsActive(isActive);
+		}
+	}
+}
+
 void StageManager::Add(const std::string& type, std::unique_ptr<StageObjectBase> stageObject)
 {
 	// 描画リスト登録用にポインタを保持
