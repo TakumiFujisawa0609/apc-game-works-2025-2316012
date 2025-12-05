@@ -5,19 +5,22 @@
 #include "../../../Manager/Common/SceneManager.h"
 #include "../../../Manager/Common/Camera.h"
 #include "../../../Manager/Common/SoundManager.h"
+#include "../../../Manager/Common/SceneManager.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Common/Quaternion.h"
 #include "../../../Core/Common/ScreenShake.h"
+#include "../../../Core/Common/Timer.h"
 #include "../../Controller/Camera/ControllerCameraJumpScare.h"
 #include "../../Controller/ControllerAnimation.h"
 #include "../../Actor/Character/Player.h"
 #include "../../Actor/Stage/StageMesh.h"
-#include "../../Actor/Stage/StageMain.h"
+#include "../../Actor/Stage/CherryBlossomsWorld.h"
 #include "AnomalyReverseFall.h"
 
 AnomalyReverseFall::AnomalyReverseFall(const Json& param) :
 	AnomalyBase(param),
+	MADNESS_UP_TIME(param["madnessUpTime"]),
 	CAMERA_PULL_TIME(param["cameraPullTime"]),
 	CAMERA_BACK_POW(param["cameraBackPow"]),
 	SCREEN_SHAKE_TIME(param["screenShakeTime"]),
@@ -39,6 +42,7 @@ AnomalyReverseFall::AnomalyReverseFall(const Json& param) :
 	changeStateMap_.emplace(STATE::REVERSE_FALL, std::bind(&AnomalyReverseFall::ChangeStateReverseFall, this));
 	changeStateMap_.emplace(STATE::REVERSE_UP, std::bind(&AnomalyReverseFall::ChangeStateReverseUp, this));
 	changeStateMap_.emplace(STATE::CAMRA_BACK, std::bind(&AnomalyReverseFall::ChangeStateCameraBack, this));
+	changeStateMap_.emplace(STATE::MADNESS_TIME, std::bind(&AnomalyReverseFall::ChangeStaetMadnessTime, this));
 }
 
 AnomalyReverseFall::~AnomalyReverseFall()
@@ -54,6 +58,10 @@ void AnomalyReverseFall::Init()
 	screenShake_ = std::make_unique<ScreenShake>();
 	screenShake_->Init();
 
+	// タイマー
+	timer_ = std::make_unique<Timer>(MADNESS_UP_TIME);
+	timer_->InitCountUp();
+
 	// 状態をNONEに変更
 	ChangeState(STATE::NONE);
 }
@@ -63,6 +71,9 @@ void AnomalyReverseFall::Occurrence()
 	CharacterManager& charaMng = CharacterManager::GetInstance();
 	AnomalyManager& anomalyMng = AnomalyManager::GetInstance();
 	const auto& player = dynamic_cast<Player*>(&charaMng_.GetCharacter(CharacterManager::TYPE::PLAYER));
+
+	// プレイヤー位置のバックアップを保持
+	prePlayerPos_ = player->GetTransform().pos;
 
 	// システムのタイマー停止
 	systemMng_.SetIsActiveSystem(GameSystemManager::TYPE::GAME_TIMER, false);
@@ -178,12 +189,23 @@ void AnomalyReverseFall::UpdateCameraBack()
 		AfterDirection();
 
 		// 状態変更
-		ChangeState(STATE::NONE);
+		ChangeState(STATE::MADNESS_TIME);
 	}
 	else
 	{
 		// カメラの更新処理
 		camera_->Update();
+	}
+}
+
+void AnomalyReverseFall::UpdateMadnessTime()
+{
+	// 更新時間になった場合
+	if (timer_->CountUp())
+	{
+		// プレイヤーの狂気値を上昇させる
+		const auto& player = dynamic_cast<Player*>(&charaMng_.GetCharacter(CharacterManager::TYPE::PLAYER));
+		player->AddMadnessValue(1);
 	}
 }
 
@@ -250,6 +272,9 @@ void AnomalyReverseFall::ChangeStateReverseUp()
 
 	// ステージの生成
 	CreateStage();
+
+	// フォグの距離を変更
+	SetFogStartEnd(FOG_START, FOG_END);
 }
 
 void AnomalyReverseFall::ChangeStateCameraBack()
@@ -261,6 +286,15 @@ void AnomalyReverseFall::ChangeStateCameraBack()
 	camera_->Set(preCameraPos_, preTargetPos_, Utility3D::DIR_U, 0.0f, CAMERA_PULL_TIME);
 }
 
+void AnomalyReverseFall::ChangeStaetMadnessTime()
+{
+	// 更新処理の変更
+	update_ = std::bind(&AnomalyReverseFall::UpdateMadnessTime, this);
+
+	// タイマー初期化
+	timer_->InitCountUp();
+}
+
 void AnomalyReverseFall::CreateStage()
 {
 	// 全てのステージオブジェクトの活動を停止
@@ -268,7 +302,7 @@ void AnomalyReverseFall::CreateStage()
 
 	// 判定用のメッシュと描画用のステージの2種を生成
 	auto mesh = std::make_unique<StageMesh>(KEY_MESH, OBJ_TRANSFORM, stageMng_.GetStageObjectColliderParam(KEY_MESH));
-	auto main = std::make_unique<StageMain>(KEY_MAIN, OBJ_TRANSFORM, stageMng_.GetStageObjectColliderParam(KEY_MAIN));
+	auto main = std::make_unique<CherryBlossomsWorld>(KEY_MAIN, OBJ_TRANSFORM, stageMng_.GetStageObjectColliderParam(KEY_MAIN), prePlayerPos_);
 
 	mesh->Load();
 	mesh->Init();

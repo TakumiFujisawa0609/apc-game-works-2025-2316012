@@ -1,6 +1,7 @@
 #pragma once
 #include <nlohmann/json.hpp>
 
+class SceneManager;
 class CharacterManager;
 class StageManager;
 class ResourceManager;
@@ -45,6 +46,9 @@ protected:
 
 	// 狂気値
 	const int MADNESS_VALUE;
+
+	// シーン管理クラス
+	SceneManager& scnMng_;
 
 	// キャラクター管理クラス
 	CharacterManager& charaMng_;

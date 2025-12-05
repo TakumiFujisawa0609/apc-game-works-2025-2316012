@@ -28,6 +28,7 @@
     "madnessValue": 10
   },
   "ReverseFall": {
+    "madnessUpTime": 0.5,
     "madnessValue": 10,
     "cameraPullTime": 0.6,
     "cameraBackPow": 200,
@@ -51,7 +52,7 @@
         "y": 1.0,
         "z": 1.0
       },
-      "tag": "none"
+      "tag": "absolute"
     }
   },
   "Ghost": {

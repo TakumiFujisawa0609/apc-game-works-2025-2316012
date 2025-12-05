@@ -768,6 +768,12 @@
       "sceneId": 3,
       "type": "model",
       "path": "Data/Model/Stage/Gimmick/CherryBlossomsWorldMesh.mv1"
+    },
+    {
+      "key": "cherryBlossomsWorldPs",
+      "sceneId": 3,
+      "type": "pixelShader",
+      "path": "Data/Shader/CherryBlossomsWorldPS.cso"
     }
   ]
 }

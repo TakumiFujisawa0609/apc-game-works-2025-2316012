@@ -56,22 +56,21 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     float3 diffuse = material * NdotL;
  
     // 最終カラー 
-    float3 litColor = saturate(ambientAttenuated + diffuse) * 0.8f;
+    float3 litColor = saturate(ambientAttenuated + diffuse);
     
     // サブテクスチャ色の取得
     float4 subTexColor = subTexture.Sample(subSampler, uv);
     litColor += subTexColor.rgb;
    
-    // フォグ適用
-    float3 foggedColor = ApplyFog(litColor, PSInput.fogFactor);
+    float4 test = { 1.0f, 1.0f, 1.0f, 1.0f };
     
-    //// ポイントライト
-    //foggedColor += (POINT_LIGHT_COLOR * PSInput.lightPower);
+    // フォグ適用
+    float3 foggedColor = ApplyFog(test.rgb, PSInput.fogFactor);
     
     // 電源がオンの場合
     // スポットライトの色計算
-    float3 spotLight = CalculateSpotLite(PSInput.world, g_spot_light_pos, g_spot_light_dir, normal);
-
+    float3 spotLight = CalculateSpotLite(PSInput.world, g_spot_light_pos, g_spot_light_dir, PSInput.normal);
+    
     // 色の加算(電源がオフの場合0乗算で追加値なし)
     foggedColor += spotLight * g_is_light;
     

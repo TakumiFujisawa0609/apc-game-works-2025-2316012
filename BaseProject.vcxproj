@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawCherryBlossomsWorld.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\CherryBlossomsWorld.cpp" />
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyReverseFall.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectGameScreen.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectCracks.cpp" />
@@ -174,6 +176,8 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawCherryBlossomsWorld.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\CherryBlossomsWorld.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyReverseFall.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectGameScreen.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectCracks.h" />
@@ -376,6 +380,12 @@
     <ClInclude Include="Src\Scene\State\Title\TitleStateSelect.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Src\Shader\Model\CherryBlossomsWorldPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="Src\Shader\Model\EnemyPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>

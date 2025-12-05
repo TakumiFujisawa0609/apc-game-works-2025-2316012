@@ -106,6 +106,9 @@ private:
 		"CorriderC",
 	};
 
+	// 必ず描画を行うタグ
+	const std::string TAG_ABSOLUTE = "absolute";
+
 	std::unordered_map<std::string, std::vector<Json>> paramStageMap_;
 
 	// 描画するタグリスト

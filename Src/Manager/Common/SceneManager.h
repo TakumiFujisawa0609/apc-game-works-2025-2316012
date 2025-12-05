@@ -20,6 +20,10 @@ class SceneManager : public Singleton<SceneManager>
 
 public:
 
+	// フォグの開始位置と終了位置
+	static constexpr float FOG_START = 100.0f;
+	static constexpr float FOG_END = 500.0f;
+
 	// シーン管理用
 	enum class SCENE_ID
 	{

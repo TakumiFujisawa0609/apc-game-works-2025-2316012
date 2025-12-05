@@ -279,6 +279,7 @@ void StageManager::CheckMainRoomInClipCameraView()
 			drawTagList_.push_back(stage->GetRoomTag());
 		}
 	}
+	drawTagList_.push_back(TAG_ABSOLUTE);
 }
 
 StageManager::StageManager()

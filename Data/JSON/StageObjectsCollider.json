@@ -228,7 +228,17 @@
   },
   "CherryBlossomsWorld": {
     "collisionTag": "none",
-    "colliderType": "none"
+    "colliderType": "box",
+    "colliderTopPos": {
+      "x": -2500,
+      "y": 1000,
+      "z": 2500
+    },
+    "colliderEndPos": {
+      "x": 2500,
+      "y": 0,
+      "z": -2500
+    }
   },
   "CherryBlossomsWorldMesh": {
     "collisionTag": "stageMain",

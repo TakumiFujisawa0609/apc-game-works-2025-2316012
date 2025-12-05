@@ -1,9 +1,6 @@
 #pragma once
 #include "ControllerDrawBase.h"
-
-class GrassRoom;
-
-class ControllerDrawGrassRoom : public ControllerDrawBase
+class ControllerDrawCherryBlossomsWorld : public ControllerDrawBase
 {
 public:
 
@@ -11,12 +8,12 @@ public:
 	/// コンストラクタ
 	/// </summary>
 	/// <param name="model">モデルID</param>
-	ControllerDrawGrassRoom(const int model, GrassRoom& owner);
+	ControllerDrawCherryBlossomsWorld(const int model);
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~ControllerDrawGrassRoom();
+	~ControllerDrawCherryBlossomsWorld();
 
 	/// <summary>
 	/// 読み込み処理
@@ -25,12 +22,9 @@ public:
 
 private:
 
-	// 親クラスの参照
-	GrassRoom& owner_;
-
-	// 異変開始位置
-	VECTOR startPos_;
-
+	// 環境光
+	const VECTOR CHERRY_AMBIENT = { 1.0f, 1.0f, 1.0f };
+	
 	// バッファーの更新
 	void UpdateBuffer() override;
 };

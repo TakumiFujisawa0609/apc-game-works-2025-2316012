@@ -3,6 +3,7 @@
 
 class ControllerCameraJumpScare;
 class ScreenShake;
+class Timer;
 
 class AnomalyReverseFall : public AnomalyBase
 {
@@ -44,8 +45,16 @@ private:
 		EARTH_QUAKE,	// 地震
 		REVERSE_FALL,	// 反転落下
 		REVERSE_UP,		// 反転上昇
-		CAMRA_BACK		// 演出前に戻す
+		CAMRA_BACK,		// 演出前に戻す
+		MADNESS_TIME,	// 狂気値を増加
 	};
+
+	// フォグの開始位置と終了位置
+	static constexpr float FOG_START = 1000.0f;
+	static constexpr float FOG_END = 2000.0f;
+
+	// 狂気値を更新する時間
+	const float MADNESS_UP_TIME;
 
 	// カメラの引き時間
 	const float CAMERA_PULL_TIME;
@@ -84,6 +93,12 @@ private:
 	// 注視点のバックアップ
 	VECTOR preTargetPos_;
 
+	// プレイヤー位置のバックアップ
+	VECTOR prePlayerPos_;
+
+	// タイマー
+	std::unique_ptr<Timer> timer_;
+
 	// カメラ制御
 	std::unique_ptr<ControllerCameraJumpScare> camera_;
 
@@ -103,6 +118,7 @@ private:
 	void UpdateReverseFall();
 	void UpdateReverseUp();
 	void UpdateCameraBack();
+	void UpdateMadnessTime();
 
 	// 各種状態別変更処理
 	void ChangeState(const STATE state);
@@ -112,6 +128,7 @@ private:
 	void ChangeStateReverseFall();
 	void ChangeStateReverseUp();
 	void ChangeStateCameraBack();
+	void ChangeStaetMadnessTime();
 
 	// ステージの生成
 	void CreateStage();
