@@ -1,6 +1,7 @@
 #pragma once
 #include "AnomalyBase.h"
 
+class EffectManager;
 class ControllerCameraJumpScare;
 class ScreenShake;
 class Timer;
@@ -77,12 +78,19 @@ private:
 	// オブジェクトのトランスフォーム情報
 	const Json OBJ_TRANSFORM;
 
+	// エフェクトの大きさ
+	const VECTOR EFFECT_SCALE = { 50.0f, 50.0f, 50.0f };
+	const float EFFECT_DISTANCE = 100.0f;
+
 	// 異変を起こすオブジェクトのキー
 	const std::string KEY_MESH = "CherryBlossomsWorldMesh";
 	const std::string KEY_MAIN = "CherryBlossomsWorld";
 
 	// カメラの回転角度
 	static constexpr float CAMERA_ROTATION_DEG = 180.0f;
+
+	// エフェクトの管理クラス
+	EffectManager& effectMng_;
 
 	// 状態
 	STATE state_;

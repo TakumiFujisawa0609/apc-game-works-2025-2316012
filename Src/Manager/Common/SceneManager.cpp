@@ -11,6 +11,7 @@
 #include "../Common/SoundManager.h"
 #include "../Common/FontManager.h"
 #include "../Common/ScoreManager.h"
+#include "../Common/EffectManager.h"
 #include "Camera.h"
 #include "SceneManager.h"
 
@@ -30,6 +31,9 @@ void SceneManager::Init()
 
 	// サウンド管理生成
 	SoundManager::CreateInstance();
+
+	// エフェクト管理生成
+	EffectManager::CreateInstance();
 
 	// フォント管理クラス生成
 	FontManager::CreateInstance();
@@ -195,6 +199,7 @@ void SceneManager::Release()
 	//全てのシーンで使うシングルトンクラスやリソースはここで解放する
 	FontManager::GetInstance().Destroy();
 	SoundManager::GetInstance().Destroy();
+	EffectManager::GetInstance().Destroy();
 	ScoreManager::GetInstance().Destroy();
 	Loading::GetInstance().Destroy();
 }

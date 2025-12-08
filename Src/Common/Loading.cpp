@@ -4,6 +4,7 @@
 #include "../Manager/Common/ResourceManager.h"
 #include "../Manager/Common/SoundManager.h"
 #include "../Manager/Common/FontManager.h"
+#include "../Manager/Common/EffectManager.h"
 #include "../Utility/UtilityCommon.h"
 #include "../Core/PostEffect/PostEffectSnowNoise.h"
 #include "Loading.h"
@@ -22,6 +23,9 @@ void Loading::Init()
 
 	// サウンドのリソースの切り替え
 	SoundManager::GetInstance().SceneChangeResources();
+
+	// エフェクトのリソースの切り替え
+	EffectManager::GetInstance().SceneChangeResources();
 
 	// 効果音の再生
 	SoundManager::GetInstance().PlaySe(SoundType::SE::TV_NOISE_SNOW, true, 50);

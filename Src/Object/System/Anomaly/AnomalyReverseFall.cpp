@@ -4,8 +4,10 @@
 #include "../../../Manager/Game/StageManager.h"
 #include "../../../Manager/Common/SceneManager.h"
 #include "../../../Manager/Common/Camera.h"
+#include "../../../Manager/Common/ResourceManager.h"
 #include "../../../Manager/Common/SoundManager.h"
 #include "../../../Manager/Common/SceneManager.h"
+#include "../../../Manager/Common/EffectManager.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Common/Quaternion.h"
@@ -19,6 +21,7 @@
 #include "AnomalyReverseFall.h"
 
 AnomalyReverseFall::AnomalyReverseFall(const Json& param) :
+	effectMng_(EffectManager::GetInstance()),
 	AnomalyBase(param),
 	MADNESS_UP_TIME(param["madnessUpTime"]),
 	CAMERA_PULL_TIME(param["cameraPullTime"]),
@@ -200,6 +203,12 @@ void AnomalyReverseFall::UpdateCameraBack()
 
 void AnomalyReverseFall::UpdateMadnessTime()
 {
+	// エフェクトの再生位置
+	VECTOR pos = VAdd(GetCameraPosition(), VScale(mainCamera.GetForward(), EFFECT_DISTANCE));
+
+	// エフェクトの更新
+	effectMng_.Sync(EffectType::TYPE::PETAL_FALL, pos, EFFECT_SCALE, Quaternion(), 1.0f);
+
 	// 更新時間になった場合
 	if (timer_->CountUp())
 	{
@@ -293,6 +302,12 @@ void AnomalyReverseFall::ChangeStaetMadnessTime()
 
 	// タイマー初期化
 	timer_->InitCountUp();
+
+	// エフェクトの再生位置
+	VECTOR pos = VAdd(GetCameraPosition(), VScale(mainCamera.GetForward(), EFFECT_DISTANCE));
+
+	// エフェクトの再生開始
+	effectMng_.Play(EffectType::TYPE::PETAL_FALL, pos, EFFECT_SCALE, Quaternion(), 1.0f);
 }
 
 void AnomalyReverseFall::CreateStage()

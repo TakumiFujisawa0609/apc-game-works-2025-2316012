@@ -152,8 +152,6 @@ private:
 	int defaultVolumeBgm_;	// BGM
 	int defaultVolumeSe_;	// SE
 
-	
-
 	//Ä¶í—Ş‚ğ•Ô‚·
 	int GetPlayType(const SoundType::TYPE soundType);
 

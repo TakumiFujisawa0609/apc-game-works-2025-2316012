@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Manager\Common\EffectType.cpp" />
+    <ClCompile Include="Src\Manager\Common\EffectManager.cpp" />
+    <ClCompile Include="Src\Object\Controller\ControllerEffect.cpp" />
     <ClCompile Include="Src\Object\Controller\Draw\ControllerDrawCherryBlossomsWorld.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\CherryBlossomsWorld.cpp" />
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyReverseFall.cpp" />
@@ -176,6 +179,9 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Manager\Common\EffectType.h" />
+    <ClInclude Include="Src\Manager\Common\EffectManager.h" />
+    <ClInclude Include="Src\Object\Controller\ControllerEffect.h" />
     <ClInclude Include="Src\Object\Controller\Draw\ControllerDrawCherryBlossomsWorld.h" />
     <ClInclude Include="Src\Object\Actor\Stage\CherryBlossomsWorld.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyReverseFall.h" />

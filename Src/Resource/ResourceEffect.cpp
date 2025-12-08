@@ -1,4 +1,5 @@
 #include <EffekseerForDXLib.h>
+#include <Effekseer.h>
 #include "ResourceEffect.h"
 
 ResourceEffect::ResourceEffect(const RESOURCE_TYPE type, const std::wstring& path, const int sceneId)	:
@@ -12,7 +13,7 @@ ResourceEffect::~ResourceEffect()
 
 void ResourceEffect::Load()
 {
-	LoadEffekseerEffect(path_.c_str());
+	handleId_ = LoadEffekseerEffect(path_.c_str());
 }
 
 void ResourceEffect::Release()

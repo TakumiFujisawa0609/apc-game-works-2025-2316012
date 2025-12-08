@@ -6,6 +6,7 @@
 
 class ResourceBase;
 class ResourceSound;
+class ResourceEffect;
 
 class ResourceManager : public Singleton<ResourceManager>
 {
@@ -37,6 +38,12 @@ public:
 	/// </summary>
 	/// <returns>シーンで用いるサウンド</returns>
 	std::unordered_map<std::string, ResourceSound*>& GetSceneSounds() const;
+
+	/// <summary>
+	/// シーンで用いるエフェクトを返す
+	/// </summary>
+	/// <returns>シーンで用いるエフェクト</returns>
+	std::unordered_map<std::string, ResourceEffect*>& GetSceneEffects() const;
 
 	/// <summary>
 	/// 指定したキーのリソースを返す

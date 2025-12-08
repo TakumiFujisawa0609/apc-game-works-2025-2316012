@@ -220,6 +220,50 @@ std::unordered_map<std::string, ResourceSound*>& ResourceManager::GetSceneSounds
 	return sceneSounds;
 }
 
+std::unordered_map<std::string, ResourceEffect*>& ResourceManager::GetSceneEffects() const
+{
+	// シーンリソースを格納するマップ
+	static std::unordered_map<std::string, ResourceEffect*> sceneEffects;
+
+	// 空じゃないか確認
+	if (loadedMap_.empty())
+	{
+		assert(false && "読み込んだリソースがありません");
+		return sceneEffects;
+	}
+
+	// 指定した種類のリソースを探す
+	for (auto& p : resourcesMap_)
+	{
+		// 指定した種類のリソースだけを抽出
+		if (p.second->GetType() == ResourceBase::RESOURCE_TYPE::EFFECT)
+		{
+			// 読み込んだリソースか確認
+			auto it = loadedMap_.find(p.first);
+			if (it != loadedMap_.end())
+			{
+				// 実行時型チェック
+				ResourceEffect* sound = dynamic_cast<ResourceEffect*>(p.second.get());
+
+				// 型が正しい場合
+				if (sound != nullptr)
+				{
+					// 格納	
+					sceneEffects.emplace(p.first, sound);
+				}
+				// 型が不正な場合
+				else
+				{
+					assert(false && "型情報がEFFECTなのにキャストに失敗しました");
+				}
+			}
+		}
+	}
+
+	// シーンリソースを返す
+	return sceneEffects;
+}
+
 const int ResourceManager::GetHandle(const std::string& key) const
 {
 	//リソースを探す

@@ -5,6 +5,7 @@
 #include "../../../Manager/Game/CollisionTags.h"
 #include "../../../Manager/Common/SceneManager.h"
 #include "../../../Manager/Common/ResourceManager.h"
+#include "../../../Manager/Common/EffectManager.h"
 #include "../../Collider/ColliderModel.h"
 #include "../../Controller/Draw/ControllerDrawCherryBlossomsWorld.h"
 #include "../../Controller/OnHit/ControllerOnHitStageObject.h"
@@ -90,6 +91,9 @@ void CherryBlossomsWorld::Refresh()
 
 	// フォグの距離を修正
 	SetFogStartEnd(SceneManager::FOG_START, SceneManager::FOG_END);
+
+	// エフェクトの停止
+	EffectManager::GetInstance().Stop(EffectType::TYPE::PETAL_FALL);
 }
 
 void CherryBlossomsWorld::DrawMain()
