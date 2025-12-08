@@ -23,7 +23,10 @@ public:
 private:
 
 	// 環境光
-	const VECTOR CHERRY_AMBIENT = { 1.0f, 1.0f, 1.0f };
+	const VECTOR CHERRY_AMBIENT = { 0.5f, 0.5f, 0.5f };
+
+	// エミシッブ強度
+	static constexpr float EMMISIVE_INTENSITY = 1.0f;
 	
 	// バッファーの更新
 	void UpdateBuffer() override;
