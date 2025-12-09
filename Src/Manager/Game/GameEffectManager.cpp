@@ -3,6 +3,8 @@
 #include "../../Manager/Common/SceneManager.h"
 #include "../../Core/PostEffect/PostEffectCracks.h"
 #include "../../Core/PostEffect/PostEffectGameScreen.h"
+#include "../../Core/PostEffect/PostEffectFilmBurn.h"
+#include "../../Core/PostEffect/PostEffectChromaticAberration.h"
 #include "GameEffectManager.h"
 
 void GameEffectManager::Init()
@@ -14,6 +16,14 @@ void GameEffectManager::Init()
 	// Ç–Ç—äÑÇÍ
 	auto cracks = std::make_unique<PostEffectCracks>();
 	effectMap_.emplace(TYPE::CRACKS, std::move(cracks));
+
+	// é ê^èƒÇ´
+	auto filmBurn = std::make_unique<PostEffectFilmBurn>();
+	effectMap_.emplace(TYPE::FILM_BURN, std::move(filmBurn));
+
+	// êFé˚ç∑
+	auto color = std::make_unique<PostEffectChromaticAberration>();
+	effectMap_.emplace(TYPE::CHROMATIC_ABERRATION, std::move(color));
 
 	// ì«Ç›çûÇ›èàóù
 	for (auto& effect : effectMap_)
@@ -48,6 +58,13 @@ void GameEffectManager::Draw()
 
 	// ï`âÊ
 	DrawGraph(0, 0, effectScreen_, false);
+}
+
+void GameEffectManager::SetStep(const float step)
+{
+	PostEffectBase* base = effectMap_[TYPE::FILM_BURN].get();
+	PostEffectFilmBurn* effect = dynamic_cast<PostEffectFilmBurn*>(base);
+	effect->SetStep(step);
 }
 
 GameEffectManager::GameEffectManager()

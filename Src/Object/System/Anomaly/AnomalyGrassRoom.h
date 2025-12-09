@@ -22,6 +22,9 @@ public:
 
 private:
 
+	// 音量
+	static constexpr int VOLUME = 50;
+
 	// 異変を起こすオブジェクトのキー
 	const std::string KEY = "RoomD";
 };

@@ -75,6 +75,12 @@ public:
 	/// </summary>
 	void DebugDraw();
 
+	/// <summary>
+	/// 更新処理の種類を設定
+	/// </summary>
+	/// <param name="type">種類</param>
+	void SetUpdateType(const TYPE type) { updateType_ = type; }
+
 private:
 
 	// 異変情報ファイル名
@@ -91,6 +97,8 @@ private:
 
 	// 発生判定
 	bool isOccurrence_;
+
+	TYPE updateType_;
 
 	// 異変情報
 	Json anomalyFile_;

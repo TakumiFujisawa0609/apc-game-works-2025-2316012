@@ -60,9 +60,9 @@ void AnomalyManager::Init()
 void AnomalyManager::Update()
 {
 	// ˆÙ•Ï‚ÌXV
-	for (auto& anomaly : anomalyMap_)
+	if (updateType_ != TYPE::MAX)
 	{
-		anomaly.second->Update();
+		anomalyMap_[updateType_]->Update();
 	}
 
 	// ˆÙ•Ï”­¶‚ª‹–‰Â‚³‚ê‚Ä‚¢‚éê‡
@@ -79,7 +79,7 @@ void AnomalyManager::Update()
 			}
 
 			// ˆÙ•Ï”­¶
-			OccurAnomaly(TYPE::REVERSE_FALL);
+			OccurAnomaly(TYPE::GRASS_ROOM);
 			//OccurAnomaly(GetRandType());
 
 			// Ÿ‰ñ‚Ü‚Å‚ÌŠÔ‚ğƒ‰ƒ“ƒ_ƒ€İ’è
@@ -154,6 +154,7 @@ AnomalyManager::AnomalyManager()
 	timeMin_ = 0.0f;
 	timeMax_ = 0.0f;
 	isOccurrence_ = false;
+	updateType_ = TYPE::MAX;
 }
 
 AnomalyManager::~AnomalyManager()

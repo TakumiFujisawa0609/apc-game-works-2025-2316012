@@ -2,6 +2,7 @@
 #include "AnomalyBase.h"
 
 class EffectManager;
+class GameEffectManager;
 class ControllerCameraJumpScare;
 class ScreenShake;
 class Timer;
@@ -91,6 +92,12 @@ private:
 
 	// エフェクトの管理クラス
 	EffectManager& effectMng_;
+
+	// ゲームエフェクト管理クラス
+	GameEffectManager& gameEffMng_;
+
+	// フィルム焼き用ステップ
+	float filmStep_;
 
 	// 状態
 	STATE state_;

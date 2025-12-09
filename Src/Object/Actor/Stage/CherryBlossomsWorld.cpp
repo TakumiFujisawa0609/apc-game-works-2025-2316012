@@ -3,6 +3,7 @@
 #include "../../../Manager/Game/GameSystemManager.h"
 #include "../../../Manager/Game/CollisionManager.h"
 #include "../../../Manager/Game/CollisionTags.h"
+#include "../../../Manager/Game/AnomalyManager.h"
 #include "../../../Manager/Common/SceneManager.h"
 #include "../../../Manager/Common/ResourceManager.h"
 #include "../../../Manager/Common/EffectManager.h"
@@ -69,8 +70,11 @@ void CherryBlossomsWorld::Refresh()
 	SetDelete();
 
 	// 衝突判定用のメッシュも削除
-	StageMesh * mesh = dynamic_cast<StageMesh*>(stageMng.GetStageObjects(DELETE_MESH_KEY)[0].get());
-	mesh->SetDelete();
+	auto& objects = stageMng.GetStageObjects(DELETE_MESH_KEY);
+	if (!objects.empty() && objects[0]) 
+	{
+		objects[0]->SetDelete();
+	}
 
 	// メインステージの復元
 	stageMng.SetIsActiveByAllObjects(true);
@@ -94,10 +98,12 @@ void CherryBlossomsWorld::Refresh()
 
 	// エフェクトの停止
 	EffectManager::GetInstance().Stop(EffectType::TYPE::PETAL_FALL);
+
+	// 異変の更新状態をもとに戻す
+	AnomalyManager::GetInstance().SetUpdateType(AnomalyManager::TYPE::MAX);
 }
 
 void CherryBlossomsWorld::DrawMain()
 {
 	draw_->Draw();
-	//MV1DrawModel(transform_.modelId);
 }

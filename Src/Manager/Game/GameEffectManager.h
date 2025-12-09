@@ -17,6 +17,8 @@ public:
 		NONE,		// 使用しない
 		GAME_SCREEN,// 通常描画のゲームスクリーン
 		CRACKS,		// ひび割れ
+		FILM_BURN,	// 写真焼き
+		CHROMATIC_ABERRATION, // 色収差
 	};
 
 	/// <summary>
@@ -34,6 +36,14 @@ public:
 	/// </summary>
 	/// <param name="type">エフェクトの種類</param>
 	void ChangeEffect(const TYPE type) { type_ = type; }
+
+	/// <summary>
+	/// エフェクトの種類を返す
+	/// </summary>
+	/// <returns>エフェクトの種類</returns>
+	const TYPE GetType() const { return type_; }
+
+	void SetStep(const float step);
 
 private:	
 

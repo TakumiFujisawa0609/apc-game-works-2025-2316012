@@ -780,7 +780,45 @@
       "sceneId": 0,
       "type": "effect",
       "path": "Data/Effect/PetalFall.efkefc"
+    },
+    {
+      "key": "filmBurnTexture",
+      "sceneId": 3,
+      "type": "texture",
+      "path": "Data/Image/Anomaly/FilmBurnTexture.jpg"
+    },
+    {
+      "key": "filmBurnEffect",
+      "sceneId": 3,
+      "type": "pixelShader",
+      "path": "Data/Shader/FilmBurnEffect.cso"
+    },
+    {
+      "key": "chromaticAberrationEffect",
+      "sceneId": 3,
+      "type": "pixelShader",
+      "path": "Data/Shader/ChromaticAberrationEffect.cso"
+    },
+    {
+      "key": "seGrassLand",
+      "sceneId": 3,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeGrassLand.mp3",
+      "soundType": "se"
+    },
+    {
+      "key": "seEarthquake",
+      "sceneId": 3,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeEarthquake.mp3",
+      "soundType": "se"
+    },
+    {
+      "key": "seAnomalyCameraRoll",
+      "sceneId": 3,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeAnomalyCameraRoll.mp3",
+      "soundType": "se"
     }
-
   ]
 }

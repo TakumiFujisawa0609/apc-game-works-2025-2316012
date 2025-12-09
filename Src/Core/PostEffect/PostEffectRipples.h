@@ -2,8 +2,6 @@
 #include "PostEffectBase.h"
 #include "../Common/Vector2F.h"
 
-class InputManager;
-
 class PostEffectRipples : public PostEffectBase
 {
 public:
@@ -43,9 +41,6 @@ private:
 
 	// グリッチの強さ
 	static constexpr float GLITCH_STRENGTH = 10.0f;
-
-	// 入力管理クラス
-	InputManager& input_;
 
 	// バッファーサイズ
 	static constexpr int CONST_BUFFER_SIZE = 3;

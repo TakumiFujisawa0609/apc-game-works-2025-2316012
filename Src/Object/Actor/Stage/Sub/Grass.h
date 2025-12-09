@@ -3,6 +3,7 @@
 #include <memory>
 #include "../Common/Vector2.h"
 
+class SceneManager;
 class ModelMaterial;
 class BillboardRenderer;
 class GrassRoom;
@@ -38,8 +39,20 @@ public:
 
 private:
 
+	// 揺れの強さ
+	static constexpr float WIND_STRENGTH = 0.05f;
+
+	// 揺れの周期
+	static constexpr float WIND_FREQUENCY = 10.0f;
+
+	// シーン管理クラス
+	SceneManager& scnMng_;
+
 	// 親インスタンス
 	GrassRoom& parent_;
+
+	// ステップ
+	float step_;
 
 	// 活動状態
 	bool isActive_;

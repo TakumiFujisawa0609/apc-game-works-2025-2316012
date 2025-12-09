@@ -1,5 +1,6 @@
 #include "../../../Manager/Game/AnomalyManager.h"
 #include "../../../Manager/Game/GameSystemManager.h"
+#include "../../../Manager/Game/GameEffectManager.h"
 #include "../../../Manager/Game/CharacterManager.h"
 #include "../../../Manager/Game/StageManager.h"
 #include "../../../Manager/Common/SceneManager.h"
@@ -22,6 +23,7 @@
 
 AnomalyReverseFall::AnomalyReverseFall(const Json& param) :
 	effectMng_(EffectManager::GetInstance()),
+	gameEffMng_(GameEffectManager::GetInstance()),
 	AnomalyBase(param),
 	MADNESS_UP_TIME(param["madnessUpTime"]),
 	CAMERA_PULL_TIME(param["cameraPullTime"]),
@@ -32,6 +34,7 @@ AnomalyReverseFall::AnomalyReverseFall(const Json& param) :
 	CAMERA_DOWN_TIME(param["cameraDownTime"]),
 	OBJ_TRANSFORM(param["transform"])
 {
+	filmStep_ = 0.0f;
 	state_ = STATE::NONE;
 	camera_ = nullptr;
 	screenShake_ = nullptr;
@@ -67,6 +70,8 @@ void AnomalyReverseFall::Init()
 
 	// 状態をNONEに変更
 	ChangeState(STATE::NONE);
+
+	filmStep_ = 0.0f;
 }
 
 void AnomalyReverseFall::Occurrence()
@@ -90,6 +95,9 @@ void AnomalyReverseFall::Occurrence()
 
 	// プレイヤーの状態変更
 	player->ChangeState(Player::STATE::HAPPENING);
+
+	// 更新の種類を変更
+	anomalyMng.SetUpdateType(AnomalyManager::TYPE::REVERSE_FALL);
 
 	// この異変中新しい異変の追加を停止
 	anomalyMng.SetIsOccurrence(false);
@@ -166,6 +174,10 @@ void AnomalyReverseFall::UpdateReverseFall()
 		// カメラの更新処理
 		camera_->Update();
 	}
+
+	// ポストエフェクトの値を更新
+	filmStep_ = filmStep_ >= CAMERA_DOWN_TIME ? CAMERA_DOWN_TIME : filmStep_ + scnMng_.GetDeltaTime();
+	gameEffMng_.SetStep(filmStep_);
 }
 
 void AnomalyReverseFall::UpdateReverseUp()
@@ -181,6 +193,10 @@ void AnomalyReverseFall::UpdateReverseUp()
 		// カメラの更新処理
 		camera_->Update();
 	}
+
+	// ポストエフェクトの値を更新
+	filmStep_ = filmStep_ < 0.0f ? 0.0f : filmStep_ - scnMng_.GetDeltaTime();
+	gameEffMng_.SetStep(filmStep_);
 }
 
 void AnomalyReverseFall::UpdateCameraBack()
@@ -254,6 +270,12 @@ void AnomalyReverseFall::ChangeStateEarthQuake()
 
 	// プレイヤーのアニメーションを行う
 	player->GetControllerAnimation().Play(Player::ANIM_LOOK_AROUND);
+
+	// エフェクト設定
+	gameEffMng_.ChangeEffect(GameEffectManager::TYPE::CHROMATIC_ABERRATION);
+
+	// 地震の効果音再生
+	sndMng_.PlaySe(SoundType::SE::EARTHQUAKE);
 }
 
 void AnomalyReverseFall::ChangeStateReverseFall()
@@ -266,6 +288,12 @@ void AnomalyReverseFall::ChangeStateReverseFall()
 
 	// カメラ設定
 	camera_->Set(goalPos, mainCamera.GetTargetPos() , mainCamera.GetForward(), CAMERA_ROTATION_DEG, CAMERA_DOWN_TIME);
+
+	// エフェクト設定
+	gameEffMng_.ChangeEffect(GameEffectManager::TYPE::FILM_BURN);
+
+	// 効果音再生
+	sndMng_.PlaySe(SoundType::SE::ANOMALY_CAMERA_ROLL);
 }
 
 void AnomalyReverseFall::ChangeStateReverseUp()
@@ -293,6 +321,12 @@ void AnomalyReverseFall::ChangeStateCameraBack()
 
 	// カメラ設定
 	camera_->Set(preCameraPos_, preTargetPos_, Utility3D::DIR_U, 0.0f, CAMERA_PULL_TIME);
+
+	// スクリーンを戻す
+	gameEffMng_.ChangeEffect(GameEffectManager::TYPE::GAME_SCREEN);
+
+	// 地震の効果音停止
+	sndMng_.FadeOutSe(SoundType::SE::EARTHQUAKE);
 }
 
 void AnomalyReverseFall::ChangeStaetMadnessTime()

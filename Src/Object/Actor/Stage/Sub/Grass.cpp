@@ -1,4 +1,5 @@
 #include "../../../../Manager/Common/ResourceManager.h"
+#include "../../../../Manager/Common/SceneManager.h"
 #include "../../../../Render/ModelMaterial.h"
 #include "../../../../Render/BillboardRenderer.h"
 #include "../../../../Utility/Utility3D.h"
@@ -8,12 +9,13 @@
 
 Grass::Grass(const VECTOR& pos, GrassRoom& parent) :
 	pos_(pos),
-	parent_(parent)
+	parent_(parent),
+	scnMng_(SceneManager::GetInstance())
 {
 	alpha_ = 0.0f;
 	isActive_ = false;
 	startPos_ = Utility3D::VECTOR_ZERO;
-
+	step_ = 0.0f;
 	Init();
 }
 
@@ -53,6 +55,8 @@ void Grass::Init()
 
 void Grass::Update()
 {
+	step_ += scnMng_.GetDeltaTime();
+
 	// ‹——£‚ðŒvŽZ
 	float distance = Utility3D::Distance(pos_, parent_.GetStartPos());
 
@@ -74,15 +78,13 @@ void Grass::Update()
 		isActive_ = false;
 		alpha_ = 0.0f;
 	}
-
-
 }
 
 void Grass::Draw()
 {
 	if (isActive_)
 	{
-		material_->SetConstBufPS(0, FLOAT4(alpha_, 0.0f, 0.0f, 0.0f));
+		material_->SetConstBufPS(0, FLOAT4(step_, WIND_STRENGTH, WIND_FREQUENCY, alpha_));
 
 		renderer_->Draw();
 	}

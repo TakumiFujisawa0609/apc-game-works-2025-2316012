@@ -1,5 +1,6 @@
 #include "../../../Manager/Common/SceneManager.h"
 #include "../../../Manager/Common/ResourceManager.h"
+#include "../../../Manager/Common/SoundManager.h"
 #include "../../../Manager/Game/StageManager.h"
 #include "../../../Manager/Game/CollisionManager.h"
 #include "../../../Manager/Game/CollisionTags.h"
@@ -104,6 +105,9 @@ void GrassRoom::Refresh()
 
 	// ‘‚Ìíœ
 	StageManager::GetInstance().DeleteGrass();
+
+	// Œø‰Ê‰¹‚Ì’â~
+	SoundManager::GetInstance().StopSe(SoundType::SE::GRASS_LAND);
 }
 
 VECTOR GrassRoom::GetRespownGrassPos()
