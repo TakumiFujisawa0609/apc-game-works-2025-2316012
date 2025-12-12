@@ -6,7 +6,6 @@
 #include "../../../Manager/Common/SoundManager.h"
 #include "../../../Manager/Common/FontManager.h"
 #include "../../../Utility/UtilityCommon.h"
-#include "../../../Core/PostEffect/PostEffectTitleSelect.h"
 #include "../../../Core/Common/GlitchScreen.h"
 #include "TitleStateSelect.h"
 
@@ -29,7 +28,6 @@ TitleStateSelect::TitleStateSelect(SceneTitle& parent) :
 
 TitleStateSelect::~TitleStateSelect()
 {
-	DeleteGraph(effectScreen_);
 }
 
 void TitleStateSelect::Init()
@@ -62,13 +60,6 @@ void TitleStateSelect::Init()
 	glitch_ = std::make_unique<GlitchScreen>();
 	glitch_->Init();
 
-	// エフェクトの作成
-	effect_ = std::make_unique<PostEffectTitleSelect>();
-	effect_->Init();
-
-	// スクリーンの生成
-	effectScreen_ = MakeScreen(Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, true);
-
 	// 初期選択項目
 	type_ = 0;
 }
@@ -96,23 +87,6 @@ void TitleStateSelect::Draw()
 
 	// グリッチの描画
 	glitch_->Draw();
-
-	////スクリーンの設定
-	//SetDrawScreen(effectScreen_);
-
-	//// 画面を初期化
-	//ClearDrawScreen();
-
-	//// ポストエフェクト描画
-	//effect_->Draw();
-
-	//// メインに戻す
-	//SetDrawScreen(scnMng_.GetMainScreen());
-
-	//// 描画
-	//DrawGraph(0, 0, effectScreen_, false);
-
-	//SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
 void TitleStateSelect::ChangeStart()

@@ -58,5 +58,9 @@ struct CharacterString
 	/// ”’l‚ğŠÜ‚Ş•¶š—ñ‚Ì’†S•`‰æ
 	/// </summary>
 	void DrawFormatCenter() const;
+
+private:
+
+	static constexpr int BUFFER_SIZE = 256;
 	
 };

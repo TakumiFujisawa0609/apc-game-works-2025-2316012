@@ -25,7 +25,7 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	CameraScreen();
+	CameraScreen(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -65,6 +65,21 @@ public:
 	void ChangeScreenMode(const SCREEN_MODE mode);
 
 private:
+
+	// フレーム位置
+	const Vector2 FRAME_POS;
+
+	// フレームサイズ
+	const Vector2 FRAME_SIZE;
+
+	// 切り替えアイコン位置
+	const Vector2 SWITCH_ICON_POS;
+
+	// 切り替えアイコンサイズ
+	const Vector2 SWITCH_ICON_SIZE;
+
+	// 切り替えアイコン大きさ
+	const float SWITCH_ICON_SCALE;
 
 	// 入力管理クラスの参照
 	InputManager& input_;

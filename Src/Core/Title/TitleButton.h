@@ -20,7 +20,16 @@ public:
 	/// </summary>
 	void Init() override;
 
-private:
+private:	
 
+	// バッファーサイズ
+	static constexpr int BUFFER_SIZE = 1;
+	
+	// ボタン位置
+	static constexpr int SIZE_X = 164;
+	static constexpr int SIZE_Y = 500;
+
+	// ボタン座標
+	static constexpr int POS_X = 512;
+	static constexpr int POS_Y = 384;
 };
-

@@ -4,7 +4,6 @@
 #include "../../../Common/CharacterString.h"
 #include "../../../Common/Image.h"
 
-class PostEffectTitleSelect;
 class GlitchScreen;
 
 class TitleStateSelect : public TitleStateBase
@@ -64,9 +63,6 @@ private:
 	// 選択後用のステップ
 	float afterStep_;
 
-	// エフェクトスクリーン
-	int effectScreen_;
-
 	// 選択背景
 	Image selectBack_;
 
@@ -78,9 +74,6 @@ private:
 
 	// グリッチ
 	std::unique_ptr<GlitchScreen> glitch_;
-
-	// エフェクト
-	std::unique_ptr<PostEffectTitleSelect> effect_;
 
 	// 項目別処理の管理
 	std::unordered_map<TYPE, std::function<void()>> changeMap_;

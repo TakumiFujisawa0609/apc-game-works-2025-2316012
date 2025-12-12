@@ -31,7 +31,6 @@
     <ClCompile Include="Src\Core\PostEffect\PostEffectCracks.cpp" />
     <ClCompile Include="Src\Manager\Game\GameEffectManager.cpp" />
     <ClCompile Include="Src\Core\Common\GlitchScreen.cpp" />
-    <ClCompile Include="Src\Core\PostEffect\PostEffectTitleSelect.cpp" />
     <ClCompile Include="Src\Render\BillboardRenderer.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Sub\Grass.cpp" />
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyGrassRoom.cpp" />
@@ -57,7 +56,6 @@
     <ClCompile Include="Src\Resource\ResourceAnimation.cpp" />
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyBloodyRoom.cpp" />
     <ClCompile Include="Src\Core\Title\CoreTitleBase.cpp" />
-    <ClCompile Include="Src\Core\Game\MadnessGauge.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\ChairMountain.cpp" />
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyChairMountain.cpp" />
     <ClCompile Include="Src\Object\System\Anomaly\AnomalyPainting.cpp" />
@@ -193,7 +191,6 @@
     <ClInclude Include="Src\Core\PostEffect\PostEffectCracks.h" />
     <ClInclude Include="Src\Manager\Game\GameEffectManager.h" />
     <ClInclude Include="Src\Core\Common\GlitchScreen.h" />
-    <ClInclude Include="Src\Core\PostEffect\PostEffectTitleSelect.h" />
     <ClInclude Include="Src\Render\BillboardRenderer.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Sub\Grass.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyGrassRoom.h" />
@@ -219,7 +216,6 @@
     <ClInclude Include="Src\Resource\ResourceAnimation.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyBloodyRoom.h" />
     <ClInclude Include="Src\Core\Title\CoreTitleBase.h" />
-    <ClInclude Include="Src\Core\Game\MadnessGauge.h" />
     <ClInclude Include="Src\Object\Actor\Stage\ChairMountain.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyChairMountain.h" />
     <ClInclude Include="Src\Object\System\Anomaly\AnomalyPainting.h" />

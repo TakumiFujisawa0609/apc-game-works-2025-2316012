@@ -18,55 +18,55 @@ IntVector3::~IntVector3(void)
 {
 }
 
-const IntVector3 IntVector3::operator+(const IntVector3 _value)const
+const IntVector3 IntVector3::operator+(const IntVector3 value)const
 {
-	return { x + _value.x , y + _value.y, z + _value.z};
+	return { x + value.x , y + value.y, z + value.z};
 }
 
-const IntVector3 IntVector3::operator+(const int _value) const
+const IntVector3 IntVector3::operator+(const int value) const
 {
-	return{ x + _value,y + _value ,z + _value };
+	return{ x + value,y + value ,z + value };
 }
 
-void IntVector3::operator+=(const IntVector3 _value)
+void IntVector3::operator+=(const IntVector3 value)
 {
-	x += _value.x;
-	y += _value.y;
-	z += _value.z;
+	x += value.x;
+	y += value.y;
+	z += value.z;
 }
 
-const IntVector3 IntVector3::operator-(const IntVector3 _value)const
+const IntVector3 IntVector3::operator-(const IntVector3 value)const
 {
-	return { x - _value.x , y - _value.y, z - _value.z };
+	return { x - value.x , y - value.y, z - value.z };
 }
 
-void IntVector3::operator-=(const IntVector3 _value)
+void IntVector3::operator-=(const IntVector3 value)
 {
-	x -= _value.x;
-	y -= _value.y;
-	z -= _value.z;
+	x -= value.x;
+	y -= value.y;
+	z -= value.z;
 }
 
-const IntVector3 IntVector3::operator*(const int _value)const
+const IntVector3 IntVector3::operator*(const int value)const
 {
-	return { x * _value , y * _value, z * _value };
+	return { x * value , y * value, z * value };
 }
 
-void IntVector3::operator*=(const int _value)
+void IntVector3::operator*=(const int value)
 {
-	x *= _value;
-	y *= _value;
-	z *= _value;
+	x *= value;
+	y *= value;
+	z *= value;
 }
 
-const IntVector3 IntVector3::operator/(const int _value)const
+const IntVector3 IntVector3::operator/(const int value)const
 {
-	return { x / _value , y / _value, z / _value };
+	return { x / value , y / value, z / value };
 }
 
-void IntVector3::operator/=(const int _value)
+void IntVector3::operator/=(const int value)
 {
-	x /= _value;
-	y /= _value;
-	z /= _value;
+	x /= value;
+	y /= value;
+	z /= value;
 }

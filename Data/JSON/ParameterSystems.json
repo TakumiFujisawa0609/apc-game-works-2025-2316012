@@ -1,0 +1,101 @@
+{
+  "screen": {
+    "framePos": {
+      "x": 640,
+      "y": 360
+    },
+    "frameSize": {
+      "x": 1280,
+      "y": 720
+    },
+    "switchIconPos": {
+      "x": 1200,
+      "y": 656
+    },
+    "switchIconSize": {
+      "x": 128,
+      "y": 128
+    },
+    "switchIconScale": 0.7
+  },
+  "gameTimer": {
+    "gameTime": 300,
+    "fontSize": 24,
+    "fontThick": 0,
+    "fontName": "fontKazuki",
+    "datePos": {
+      "x": 0,
+      "y": 0
+    },
+    "timePos": {
+      "x": 200,
+      "y": 0
+    }
+  },
+  "report": {
+    "fontSize": 36,
+    "fontThick": 1,
+    "fontName": "fontKazuki",
+    "reportingTime": 3.0,
+    "textDisplayTime": 2.0,
+    "scoreMiss": -500,
+    "scoreSuccess": 1000,
+    "commaTime": 0.75,
+    "commaMaxNum": 4,
+    "reportingText": "報告中",
+    "reportingTextPos": {
+      "x": 640,
+      "y": 360
+    },
+    "gaugePos": {
+      "x": 640,
+      "y": 360
+    }
+  },
+  "message": {
+    "fontSize": 24,
+    "fontThick": 0,
+    "fontName": "fontKazuki",
+    "displayTime": 2.0,
+    "backAlpha": 128,
+    "textAnimationSpeed": 0.08,
+    "backPos": {
+      "x": 0,
+      "y": 330
+    },
+    "backSize": {
+      "x": 1280,
+      "y": 60
+    },
+    "textNone": [ "" ],
+    "textStart": [ "始業の時間になりました", "午前5時まで調査を開始してください" ],
+    "textOneMinnutesLater": [ "異変が起きやすい時刻になりました", "十分に警戒して調査を行ってください" ],
+    "textRespown": [ "危険な生命体の反応を感知しました", "見つけ次第直ちに逃げてください" ],
+    "textMadness": [ "精神状態が不安定になっています", "異変を報告して回復してください" ],
+    "textMadnessPinch": [ "もうすぐで倒れてしまいます", "早急に異変を報告して回復してください" ],
+    "textReportComplite": [ "異変が報告されました" ],
+    "textMiss": [ "誤った報告がされました" ]
+  },
+  "manual": {
+    "fontSize": 24,
+    "fontThick": 0,
+    "fontName": "fontKazuki",
+    "explanTextPos": {
+      "x": 0,
+      "y": 504
+    },
+    "inputTextPos": {
+      "x": 175,
+      "y": 504
+    },
+    "onOffTextPos": {
+      "x": 0,
+      "y": 696
+    },
+    "explanText": "操作方法\n移動\nダッシュ\n報告\nカメラ切り替え\nカメラ\nポーズ\n非表示\n",
+    "keyText": "\n:WASD\n:LShift\n:LClick\n:E\n:Mouse\n:BackSpace\nTab\n",
+    "padText": "\n:LStick\n:A\n:ZR\n:Y\n:RStick\n:Select\n:+↓\n",
+    "onKeyText": "操作説明の表示 :Tab",
+    "onPadText": "操作説明の表示 :+↓"
+  }
+}

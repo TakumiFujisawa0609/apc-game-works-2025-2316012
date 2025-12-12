@@ -19,14 +19,21 @@ public:
 	enum class TYPE
 	{
 		REPORT,			// 報告処理
-		REPORTING,		// 報告中の処理
 		MESSAGE,		// メッセージ
 		GAME_TIMER,		// タイマー
 		MANUAL,			// 操作説明
-		MADNESS,		// 狂気
-		CAMERA_CHANGE,	// カメラ切り替え
 		SCREEN,			// スクリーン
 		MAX,
+	};
+
+	// システムの名前リスト
+	const std::vector<std::string> NAME_LIST =
+	{
+		"report",
+		"message",
+		"gameTimer",
+		"manual",
+		"screen",
 	};
 
 	/// <summary>
@@ -70,6 +77,9 @@ public:
 	CoreGameBase& GetGamsSystem(const TYPE type) { return *systemsMap_[type]; }
 
 private:
+
+	// ファイル名
+	const std::string FILE_NAME = "ParameterSystems";
 
 	// システムごとにインスタンスを管理するマップ
 	std::unordered_map<TYPE, std::unique_ptr<CoreGameBase>> systemsMap_;

@@ -33,6 +33,7 @@ private:
 	int logo_;
 
 	// •`‰æˆÊ’u
-	Vector2 pos_;
+	static constexpr int POS_X = 320;
+	static constexpr int POS_Y = 260;
 
 };

@@ -79,7 +79,6 @@ void AnomalyManager::Update()
 			}
 
 			// ˆÙ•Ï”­¶
-			//OccurAnomaly(TYPE::GRASS_ROOM);
 			OccurAnomaly(GetRandType());
 
 			// ŽŸ‰ñ‚Ü‚Å‚ÌŽžŠÔ‚ðƒ‰ƒ“ƒ_ƒ€Ý’è
@@ -93,7 +92,8 @@ void AnomalyManager::Update()
 
 void AnomalyManager::DebugDraw()
 {
-	DrawFormatString(0, 400, 0xff0000, L"”­¶‚Ü‚Å‚ÌŽžŠÔF%d", timer_->GetCount());
+	constexpr int POS_Y = 400;
+	DrawFormatString(0, POS_Y, 0xff0000, L"”­¶‚Ü‚Å‚ÌŽžŠÔF%d", timer_->GetCount());
 }
 
 void AnomalyManager::OccurAnomaly(const TYPE type)

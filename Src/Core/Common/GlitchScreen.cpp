@@ -2,6 +2,7 @@
 #include <random>
 #include <chrono>
 #include "../../Manager/Common/SceneManager.h"
+#include "../../Utility/UtilityCommon.h"
 #include "../../Application.h"
 #include "GlitchScreen.h"
 
@@ -38,33 +39,33 @@ void GlitchScreen::Draw()
 	// 描画先を元の画面に戻す
 	SetDrawScreen(mainScreen);
 
-	// 描画モードを通常に戻す（グリッチ描画前に設定が必要な場合がある）
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
+	// 描画モードを通常に戻す
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, (int)UtilityCommon::ALPHA_MAX);
 
-	// 画面全体を一旦、元の赤色で塗りつぶす (ズレた部分の背景として)
-	// これにより、ズレた部分が真っ黒にならず、元の赤色が背景になる
-	DrawBox(0, 0, Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, GetColor(255, 0, 0), TRUE);
+	// 画面を真っ赤に描画(グリッチでずれた箇所が黒くならないよう、ベースカラーを指定)
+	DrawBox(0, 0, Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, UtilityCommon::RED, TRUE);
 
-	// 水平方向へのブロック状のズレ
 	int y = 0;
 	while (y < Application::SCREEN_SIZE_Y)
 	{
 		int lineHeight = GLITCH_LINE_HEIGHT_MIN + (mt() % (GLITCH_LINE_HEIGHT_MAX - GLITCH_LINE_HEIGHT_MIN + 1));
-		if (y + lineHeight > Application::SCREEN_SIZE_Y) {
+		if (y + lineHeight > Application::SCREEN_SIZE_Y)
+		{
 			lineHeight = Application::SCREEN_SIZE_Y - y;
 		}
-
-		if (mt() % GLITCH_DENSITY == 0) // 一定の確率でグリッチを発生させる
+		
+		// 一定の確率でグリッチを発生
+		if (mt() % GLITCH_DENSITY == 0) 
 		{
-			int offsetX = (mt() % (GLITCH_OFFSET_MAX * 2 + 1)) - GLITCH_OFFSET_MAX; // -GLITCH_OFFSET_MAX から +GLITCH_OFFSET_MAX
+			int offsetX = (mt() % (GLITCH_OFFSET_MAX * 2 + 1)) - GLITCH_OFFSET_MAX;
 
-			// 描画元の矩形 (コピーした画面のy座標と高さ)
+			// 描画元の矩形
 			int srcX = 0;
 			int srcY = y;
 			int srcW = Application::SCREEN_SIZE_X;
 			int srcH = lineHeight;
 
-			// 描画先の矩形 (offsetXだけずらす)
+			// 描画先の矩形
 			int destX = offsetX;
 			int destY = y;
 
@@ -73,13 +74,14 @@ void GlitchScreen::Draw()
 
 			// ズレた部分に、わずかに異なる色やノイズを重ねる (オプション)
 			// 例: 青みがかったノイズを重ねて色の分離感を出す
-			if (mt() % 2 == 0) { // 50%の確率でノイズを重ねる
-				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 64); // 半透明で重ねる
-				int noiseColorR = 255 - (mt() % GLITCH_COLOR_MAGNITUDE);
-				int noiseColorG = mt() % GLITCH_COLOR_MAGNITUDE;
-				int noiseColorB = mt() % GLITCH_COLOR_MAGNITUDE;
+			if (mt() % 2 == 0) 
+			{ 
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, GLITCH_COLOR_NOISE_ALPHA);
+				const int noiseColorR = (int)UtilityCommon::ALPHA_MAX - (mt() % GLITCH_COLOR_MAGNITUDE);
+				const int noiseColorG = mt() % GLITCH_COLOR_MAGNITUDE;
+				const int noiseColorB = mt() % GLITCH_COLOR_MAGNITUDE;
 				DrawBox(destX, destY, destX + srcW, destY + srcH, GetColor(noiseColorR, noiseColorG, noiseColorB), TRUE);
-				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255); // 元に戻す
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, (int)UtilityCommon::ALPHA_MAX); // 元に戻す
 			}
 		}
 		else
@@ -92,21 +94,21 @@ void GlitchScreen::Draw()
 	}
 
 	// ランダムなピクセルノイズや小さなブロックノイズを重ねる
-	SetDrawBlendMode(DX_BLENDMODE_ADD, 128); // 加算ブレンドでノイズを強調
+	SetDrawBlendMode(DX_BLENDMODE_ADD, NOISE_BLEND_ALPHA); // 加算ブレンドでノイズを強調
 	for (int i = 0; i < NOISE_PIXEL_COUNT; ++i)
 	{
-		int px = mt() % Application::SCREEN_SIZE_X;
-		int py = mt() % Application::SCREEN_SIZE_Y;
-		int noiseSize = 1 + (mt() % 5); // ノイズのサイズをランダムに
-		int noiseColorR = 100 + (mt() % 155);
-		int noiseColorG = mt() % 200;
-		int noiseColorB = mt() % 200;
+		const int px = mt() % Application::SCREEN_SIZE_X;
+		const int py = mt() % Application::SCREEN_SIZE_Y;
+		const int noiseSize = 1 + (mt() % NOISE_SIZE_MAX); // ノイズのサイズをランダムに
+		const int noiseColorR = NOISE_COLOR_BASE + (mt() % NOISE_COLOR_RANGE);
+		const int noiseColorG = mt() % NOISE_COLOR_MAGNITUDE;
+		const int noiseColorB = mt() % NOISE_COLOR_MAGNITUDE;
 		DrawBox(px, py, px + noiseSize, py + noiseSize, GetColor(noiseColorR, noiseColorG, noiseColorB), TRUE);
 	}
 	
 	// 元に戻す
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255); 
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, (int)UtilityCommon::ALPHA_MAX);
 
-	// 描画先を元の画面に戻す (万が一関数呼び出し側で変更されていることを考慮)
+	// 描画先を元の画面に戻す
 	SetDrawScreen(originalTargetScreen);
 }

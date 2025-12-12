@@ -28,7 +28,7 @@ void PostEffectRipples::Init()
 	renderer_ = std::make_unique<PixelRenderer>(*material_);
 
 	// マテリアル設定
-	material_->AddConstBuf(FLOAT4{ ripplesStep_,0.0f, 0.0f,0.0f });
+	material_->AddConstBuf(FLOAT4{ ripplesStep_,0.0f, 0.0f,FILM_GRAIN_STRENGTH });
 	material_->AddConstBuf(FLOAT4{ 0.0f,Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y,1.0f });
 	material_->AddConstBuf(FLOAT4{ 0.0f,GLITCH_STRENGTH,0.0f,0.0f });
 
@@ -79,14 +79,14 @@ void PostEffectRipples::Draw()
 		ripplesStep_ += scnMng_.GetDeltaTime();
 
 		// 波紋距離の更新
-		wave = fmod(ripplesStep_ * 0.2f, 1.5f);
+		wave = fmod(ripplesStep_ * RIPPLES_WAVE_SPEED, RIPPLES_WAVE_MAX);
 
 		// アスペクト比率
 		ratio = ASPECT_RATIO;
 	}
 
 	// マテリアル設定
-	material_->SetConstBuf(0, FLOAT4{ ripplesStep_,wave, ratio, 0.1f });
+	material_->SetConstBuf(0, FLOAT4{ ripplesStep_,wave, ratio, FILM_GRAIN_STRENGTH });
 	material_->SetConstBuf(1, FLOAT4{ filmGrainStep_,Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, lineActive });
 	material_->SetConstBuf(2, FLOAT4{ 1.0f - lineActive,GLITCH_STRENGTH, 0.0f,0.0f });
 

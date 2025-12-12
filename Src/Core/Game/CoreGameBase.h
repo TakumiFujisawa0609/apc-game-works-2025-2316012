@@ -1,10 +1,14 @@
 #pragma once
+#include <nlohmann/json.hpp>
 #include "../CoreBase.h"
 
 class SoundManager;
 class GameStateManager;
 class GameSystemManager;
 class InputManager;
+
+// JSON–¼‘O‹óŠÔ
+using Json = nlohmann::json;
 
 class CoreGameBase : public CoreBase
 {

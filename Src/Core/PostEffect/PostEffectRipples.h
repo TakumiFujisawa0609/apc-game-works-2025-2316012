@@ -41,6 +41,15 @@ private:
 
 	// グリッチの強さ
 	static constexpr float GLITCH_STRENGTH = 10.0f;
+	
+	// 波紋タイマーに乗じる速度係数
+	static constexpr float RIPPLES_WAVE_SPEED = 0.2f;    
+	
+	// 波紋が消えるまでの最大距離
+	static constexpr float RIPPLES_WAVE_MAX = 1.5f;      
+
+	// フィルムグレインの強さ
+	static constexpr float FILM_GRAIN_STRENGTH = 0.1f;
 
 	// バッファーサイズ
 	static constexpr int CONST_BUFFER_SIZE = 3;

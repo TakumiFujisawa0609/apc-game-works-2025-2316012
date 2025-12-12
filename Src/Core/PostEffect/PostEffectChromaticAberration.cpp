@@ -22,7 +22,7 @@ void PostEffectChromaticAberration::Init()
 	renderer_ = std::make_unique<PixelRenderer>(*material_);
 
 	// マテリアル設定
-	material_->AddConstBuf(FLOAT4{ 0.008f,0.002f, 0.0f,0.0f });
+	material_->AddConstBuf(COLOR_OFFSET);
 
 	// テクスチャ設定
 	material_->AddTextureBuf(scnMng_.GetMainScreen());

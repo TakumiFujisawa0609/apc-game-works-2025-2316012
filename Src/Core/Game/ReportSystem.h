@@ -32,7 +32,7 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	ReportSystem(Player& player);
+	ReportSystem(const Json& param, Player& player);
 
 	/// <summary>
 	/// デストラクタ
@@ -72,20 +72,41 @@ public:
 
 private:
 
+	// コンマ追加までの時間
+	const float COMMA_TIME;
+
+	// コンマの最大数
+	const int COMMA_MAX_NUM;
+
+	// フォント名
+	const std::string FONT_NAME;
+
+	// フォントサイズ
+	const int FONT_SIZE;
+
+	// フォント太さ
+	const int FONT_THICK;
+
 	// 報告中の時間
-	static constexpr float REPORTING_TIME = 3.0f;
+	const float REPORTING_TIME;
 
 	// 完了時のテキスト表示時間
-	static constexpr float TEXT_DISPLAY_TIME = 2.0f;
+	const float TEXT_DISPLAY_TIME;
 
 	// ミス時のスコア
-	static constexpr int SCORE_MISS = -500;
+	const int SCORE_MISS;
 
 	// 成功時のスコア
-	static constexpr int SCORE_SUCCESS = 1000;
+	const int SCORE_SUCCESS;
 
 	// 報告中のテキスト
-	const std::wstring REPORTING_TEXT = L"報告中";
+	const std::wstring REPORTING_TEXT;
+
+	// テキストの位置
+	const Vector2 REPORTING_TEXT_POS;
+
+	// ゲージ位置
+	const Vector2 GAUGE_POS;
 
 	// プレイヤークラスの参照
 	Player& player_;
@@ -127,4 +148,7 @@ private:
 	// 状態別描画処理
 	void DrawWait();
 	void DrawReporting();
+
+	// コンマの更新
+	void UpdateComma();
 };

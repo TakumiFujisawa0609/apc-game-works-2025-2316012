@@ -12,7 +12,7 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	GameTime();
+	GameTime(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -41,6 +41,25 @@ public:
 
 private:
 
+	// フォント名
+	const std::string FONT_NAME;
+
+	// フォントサイズ
+	const int FONT_SIZE;
+
+	// フォント太さ
+	const int FONT_THICK;
+
+	// ゲーム時間
+	const float GAME_TIME;
+
+	// 日付の表示位置
+	const Vector2 DATE_POS;
+
+	// 時間の表示位置
+	const Vector2 TIME_POS;
+
+	// 一分の長さ
 	static constexpr int ONE_MINUTES = 60;
 
 	// イベントフラグ
