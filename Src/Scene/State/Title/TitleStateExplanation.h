@@ -67,6 +67,55 @@ private:
 		L"皆さんのご健闘を心よりお祈り申し上げます",
 	};
 
+	// フォントサイズ
+	static constexpr int MAIN_FONT_SIZE = 24;
+	static constexpr int SKIP_FONT_SIZE = 48;
+
+	// テキストアニメーション速度
+	static constexpr float TEXT_ANIMATION_SPEED = 0.12f;
+
+	// 説明スキップテキスト位置
+	static constexpr int SKIP_TEXT_POS_X = 900;
+	static constexpr int SKIP_TEXT_POS_Y = 670;
+
+	// 背景のサイズ
+	static constexpr int BACK_BOX_SIZE_X = 1280;
+	static constexpr int BACK_BOX_SIZE_Y = 60;
+
+	// 背景の位置
+	static constexpr int BACK_BOX_POS_X = 0;
+	static constexpr int BACK_BOX_POS_Y = 330;
+
+	// 背景のアルファ値
+	static constexpr int BACK_BOX_ALPHA = 128;
+
+	// 待機時間
+	static constexpr float WAIT_TIME = 1.5f;
+
+	// テキスト表示時間
+	static constexpr float TEXT_DISPLAY_TIME = 2.0f;
+
+	//アニメーション時間
+	static constexpr float ANIM_TIME = 1.5f;
+
+	// 移動速度
+	static constexpr float MOVE_SPEED = 5.0f;
+
+	// メインの終了位置
+	static constexpr float END_POS_X = -128;
+
+	// 画像生成クールタイム
+	static constexpr float WINDOW_CREATE_COOL_TIME = 0.08f;
+
+	// 画像を見送るスプライト番号
+	const std::vector<int> SKIP_INDEXS = { 0, 1, 3, 5, 13 };
+
+	// 画像生成拡大サイズ
+	const std::vector<float> IMG_SCALES = { 0.7f, 0.9f, 1.0f, 1.2f, 1.3f };
+
+	// スキップ用テキスト
+	const std::wstring SKIP_TEXT = L"Enterでスキップ";
+
 	// スキップテキスト
 	CharacterString skipText_;
 

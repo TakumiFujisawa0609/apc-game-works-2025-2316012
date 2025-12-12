@@ -62,7 +62,7 @@ void SceneGame::Load()
 	SceneBase::Load();	
 }
 
-void SceneGame::Init(void)
+void SceneGame::Init()
 {
 	// 基底クラスの初期化
 	SceneBase::Init();
@@ -130,7 +130,7 @@ void SceneGame::Init(void)
 	sndMng_.PlayBgm(SoundType::BGM::GAME);
 }
 
-void SceneGame::NormalUpdate(void)
+void SceneGame::NormalUpdate()
 {
 	// ポーズ画面
 	if (inputMng_.IsTrgDown(InputManager::TYPE::PAUSE))
@@ -139,6 +139,7 @@ void SceneGame::NormalUpdate(void)
 		return;
 	}
 
+	// 状態別更新
 	GameStateManager::GetInstance().Update();
 
 #ifdef _DEBUG	
@@ -148,19 +149,9 @@ void SceneGame::NormalUpdate(void)
 #endif 
 }
 
-void SceneGame::NormalDraw(void)
+void SceneGame::NormalDraw()
 {	
-#ifdef _DEBUG
-	DrawBox(
-		0,
-		0,
-		Application::SCREEN_SIZE_X,
-		Application::SCREEN_SIZE_Y,
-		UtilityCommon::CYAN,
-		true
-	);
-#endif
-	
+	// 状態別描画
 	GameStateManager::GetInstance().Draw();
 
 #ifdef _DEBUG
@@ -170,7 +161,7 @@ void SceneGame::NormalDraw(void)
 #endif
 }
 
-void SceneGame::ChangeNormal(void)
+void SceneGame::ChangeNormal()
 {
 	// 処理変更
 	updataFunc_ = std::bind(&SceneGame::NormalUpdate, this);
@@ -180,7 +171,7 @@ void SceneGame::ChangeNormal(void)
 	scnMng_.StartFadeIn();
 }
 
-void SceneGame::DebugUpdate(void)
+void SceneGame::DebugUpdate()
 {
 	// シーン遷移
 	if (inputMng_.IsTrgDown(InputManager::TYPE::DEBUG_SCENE_CHANGE))
@@ -207,15 +198,14 @@ void SceneGame::DebugUpdate(void)
 			break;
 		};
 	}
-
-	/*test_->Update();
-
-	createPositionList_->Update();*/
 }
 
-void SceneGame::DebugDraw(void)
+void SceneGame::DebugDraw()
 {
-	//test_->Draw();
+	constexpr int INIT_POS_Y = 60;
+	constexpr int OFFSET_Y = 20;
+	int posY = INIT_POS_Y;
+
 	createPositionList_->Draw();
 
 	CollisionManager::GetInstance().DebugDraw();
@@ -225,18 +215,22 @@ void SceneGame::DebugDraw(void)
 	VECTOR cTarget = mainCamera.GetTargetPos();
 	VECTOR cAngles = mainCamera.GetAngles();
 
-	// プレイヤー取得
+	// プレイヤー情報の取得
 	auto& player = CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER);
-
 	VECTOR playerPos = player.GetTransform().pos;
 	float movePow = player.GetMoveSpeed();
 
 	// 描画
-	DrawFormatString(0, 60, UtilityCommon::RED, L"カメラ位置：%2f,%2f,%2f", cPos.x, cPos.y, cPos.z);
-	DrawFormatString(0, 80, UtilityCommon::RED, L"注視点位置：%2f,%2f,%2f", cTarget.x, cTarget.y, cTarget.z);
-	DrawFormatString(0, 100, UtilityCommon::RED, L"カメラ角度：%2f,%2f,%2f", cAngles.x, cAngles.y, cAngles.z);
-	DrawFormatString(0, 120, UtilityCommon::RED, L"プレイヤー位置：%2f,%2f,%2f", playerPos.x, playerPos.y, playerPos.z);
-	DrawFormatString(0, 140, UtilityCommon::RED, L"移動量：%2f", movePow);
+	DrawFormatString(0, posY, UtilityCommon::RED, L"カメラ位置：%2f,%2f,%2f", cPos.x, cPos.y, cPos.z);
+	posY += OFFSET_Y;
+	DrawFormatString(0, posY, UtilityCommon::RED, L"注視点位置：%2f,%2f,%2f", cTarget.x, cTarget.y, cTarget.z);
+	posY += OFFSET_Y;
+	DrawFormatString(0, posY, UtilityCommon::RED, L"カメラ角度：%2f,%2f,%2f", cAngles.x, cAngles.y, cAngles.z);
+	posY += OFFSET_Y;
+	DrawFormatString(0, posY, UtilityCommon::RED, L"プレイヤー位置：%2f,%2f,%2f", playerPos.x, playerPos.y, playerPos.z);
+	posY += OFFSET_Y;
+	DrawFormatString(0, posY, UtilityCommon::RED, L"移動量：%2f", movePow);
+	posY += OFFSET_Y;
 
 	AnomalyManager::GetInstance().DebugDraw();
 }

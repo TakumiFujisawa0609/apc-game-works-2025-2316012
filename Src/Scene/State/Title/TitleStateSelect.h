@@ -57,6 +57,12 @@ private:
 	// 選択項目総数
 	static constexpr int TYPE_MAX = static_cast<int>(TYPE::MAX);
 
+	// フォントサイズ
+	static constexpr int FONT_SIZE = 52;
+
+	// 背景画像の縦サイズ(フォントサイズより大きくする)
+	static constexpr int SELECT_BACK_SIZE_Y = 60;
+
 	// 選択項目
 	int type_;
 

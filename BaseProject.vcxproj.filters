@@ -462,9 +462,6 @@
     <ClCompile Include="Src\Manager\Common\SoundType.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Manager\Common\ResultManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Manager\Game\GameStateManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -1077,9 +1074,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Manager\Common\SoundType.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Manager\Common\ResultManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Manager\Game\GameStateManager.h">

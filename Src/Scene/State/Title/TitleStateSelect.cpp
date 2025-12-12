@@ -19,10 +19,8 @@ TitleStateSelect::TitleStateSelect(SceneTitle& parent) :
 	// 状態遷移の登録
 	changeMap_.emplace(TYPE::START, std::bind(&TitleStateSelect::ChangeStart, this));
 	changeMap_.emplace(TYPE::END, std::bind(&TitleStateSelect::ChangeEnd, this));
-	effectScreen_ = -1;
 	afterStep_ = 0.0f;
 	type_ = -1;
-	effect_ = nullptr;
 	glitch_ = nullptr;
 }
 
@@ -33,23 +31,26 @@ TitleStateSelect::~TitleStateSelect()
 void TitleStateSelect::Init()
 {
 	// フォント
-	int font = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), 52, 0);
+	int font = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), FONT_SIZE, 0);
 
 	// テキストの設定
-	selectTexts_[0].pos = { Application::SCREEN_HALF_X, Application::SCREEN_SIZE_Y / 3 * 1 };
-	selectTexts_[0].color = UtilityCommon::WHITE;
-	selectTexts_[0].fontHandle = font;
-	selectTexts_[0].string = L"開始する";
+	CharacterString& selectTextStart = selectTexts_[static_cast<int>(TYPE::START)];
+	selectTextStart.pos = { Application::SCREEN_HALF_X, Application::SCREEN_SIZE_Y / (static_cast<int>(TYPE::MAX) + 1) * (static_cast<int>(TYPE::START) + 1) };
+	selectTextStart.color = UtilityCommon::WHITE;
+	selectTextStart.fontHandle = font;
+	selectTextStart.string = L"開始する";
 
-	selectTexts_[1].pos = { Application::SCREEN_HALF_X, Application::SCREEN_SIZE_Y / 3 * 2 };
-	selectTexts_[1].color = UtilityCommon::WHITE;
-	selectTexts_[1].fontHandle = font;
-	selectTexts_[1].string = L"終了する";
+	CharacterString& selectTextEnd = selectTexts_[static_cast<int>(TYPE::END)];
+	selectTextEnd.pos = { Application::SCREEN_HALF_X, Application::SCREEN_SIZE_Y / (static_cast<int>(TYPE::MAX) + 1) * (static_cast<int>(TYPE::END) + 1) };
+	selectTextEnd.color = UtilityCommon::WHITE;
+	selectTextEnd.fontHandle = font;
+	selectTextEnd.string = L"終了する";
 
+	// 画像の設定
 	selectBack_.handleId = resMng_.GetHandle("selectBack");
 	selectBack_.pos = selectTexts_[0].pos;
-	selectBack_.size.x = selectTexts_[0].string.length() * 52;
-	selectBack_.size.y = 60;
+	selectBack_.size.x = selectTexts_[0].string.length() * FONT_SIZE;
+	selectBack_.size.y = SELECT_BACK_SIZE_Y;
 
 	// 選択後のテキスト設定
 	afterText_.pos = { Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y };
@@ -130,10 +131,11 @@ void TitleStateSelect::UpdateSelect()
 		sndMng_.PlaySe(SoundType::SE::DECISION);
 	}
 
+	constexpr int OFFSET_POS_Y = 25;
 	selectBack_.pos = selectTexts_[type_].pos;
-	selectBack_.pos.y += 25;
-	selectBack_.size.x = selectTexts_[type_].string.length() * 52;
-	selectBack_.size.y = 50;
+	selectBack_.pos.y += OFFSET_POS_Y;
+	selectBack_.size.x = selectTexts_[type_].string.length() * FONT_SIZE;
+	selectBack_.size.y = FONT_SIZE;
 }
 
 void TitleStateSelect::UpdateStart()

@@ -71,7 +71,6 @@
     <ClCompile Include="Src\Core\Game\GameManual.cpp" />
     <ClCompile Include="Src\Core\Game\GameTime.cpp" />
     <ClCompile Include="Src\Core\Game\ReportSystem.cpp" />
-    <ClCompile Include="Src\Manager\Common\ResultManager.cpp" />
     <ClCompile Include="Src\Core\Common\ScreenShake.cpp" />
     <ClCompile Include="Src\Object\Controller\Camera\ControllerCameraJumpScare.cpp" />
     <ClCompile Include="Src\Manager\Game\GameStateManager.cpp" />
@@ -231,7 +230,6 @@
     <ClInclude Include="Src\Core\Game\GameManual.h" />
     <ClInclude Include="Src\Core\Game\GameTime.h" />
     <ClInclude Include="Src\Core\Game\ReportSystem.h" />
-    <ClInclude Include="Src\Manager\Common\ResultManager.h" />
     <ClInclude Include="Src\Core\Common\ScreenShake.h" />
     <ClInclude Include="Src\Object\Controller\Camera\ControllerCameraJumpScare.h" />
     <ClInclude Include="Src\Manager\Game\GameStateManager.h" />
