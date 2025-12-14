@@ -86,10 +86,6 @@ void SceneGame::Init()
 	ScenePause_->Load();
 
 #ifdef _DEBUG	
-	// テスト用モデル
-	test_ = std::make_unique<TestModel>();
-	test_->Load();
-
 	// テスト用の座標リスト作成クラス
 	createPositionList_ = std::make_unique<CreatePositionList>("EnemyPosList", CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform());
 #endif 
@@ -117,13 +113,7 @@ void SceneGame::Init()
 
 	// カメラ設定
 	mainCamera.SetFollow(&CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform());
-	mainCamera.ChangeMode(Camera::MODE::FPS);
-
-#ifdef _DEBUG	
-
-	test_->Init();
-
-#endif 
+	mainCamera.ChangeMode(Camera::MODE::FPS); 
 
 	// BGMの再生
 	sndMng_.PlayBgm(SoundType::BGM::GAME);
