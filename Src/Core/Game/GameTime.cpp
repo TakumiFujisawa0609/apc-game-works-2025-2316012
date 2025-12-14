@@ -11,8 +11,14 @@
 #include "Message.h"
 #include "GameTime.h"
 
-GameTime::GameTime() :
-	 stateMng_(GameStateManager::GetInstance())
+GameTime::GameTime(const Json& param) :
+	FONT_NAME(param["fontName"]),
+	FONT_SIZE(param["fontSize"]),
+	FONT_THICK(param["fontThick"]),
+	GAME_TIME(param["gameTime"]),
+	DATE_POS{ param["datePos"]["x"], param["datePos"]["y"] },
+	TIME_POS{ param["timePos"]["x"], param["timePos"]["y"] },
+	stateMng_(GameStateManager::GetInstance())
 {
 	isEvent_ = false;
 	todayText_ = CharacterString();
@@ -26,18 +32,18 @@ GameTime::~GameTime()
 void GameTime::Load()
 {
 	// 時間
-	timer_ = std::make_unique<Timer>(300.0f);
+	timer_ = std::make_unique<Timer>(GAME_TIME);
 
 	// フォント
-	int font = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), FONT_SIZE, FONT_THICK);
+	int font = fontMng_.CreateMyFont(resMng_.GetFontName(FONT_NAME), FONT_SIZE, FONT_THICK);
 
 	// 日付文字列の設定
-	todayText_.pos = Vector2{ 0,0 };
+	todayText_.pos = DATE_POS;
 	todayText_.color = UtilityCommon::WHITE;
 	todayText_.string = GetYmdWstring();
 
 	// 時間文字列の設定
-	text_.pos = Vector2{ 200, 0 };
+	text_.pos = TIME_POS;
 	text_.color = UtilityCommon::WHITE;
 	text_.string = L"%d時%d分";
 
@@ -80,8 +86,8 @@ void GameTime::Draw()
 
 	// 時間の計算
 	int count = timer_->GetCount();
-	int hour = count / 60;
-	int minute = count % 60;
+	int hour = count / ONE_MINUTES;
+	int minute = count % ONE_MINUTES;
 
 	// テキストの情報反映
 	text_.data1 = hour;

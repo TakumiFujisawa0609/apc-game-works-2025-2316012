@@ -46,6 +46,11 @@ private:
 	static constexpr int RANK_B = 12000;
 	static constexpr int RANK_C = 10000;
 
+	// フォントサイズ
+	static constexpr int TITLE_FONT_SIZE = 48;
+	static constexpr int SCORE_FONT_SIZE = 80;
+	static constexpr int COMMENT_FONT_SIZE = 32;
+
 	// スコア
 	int score_;
 

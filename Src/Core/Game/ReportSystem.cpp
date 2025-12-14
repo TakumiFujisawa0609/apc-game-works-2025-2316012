@@ -15,7 +15,19 @@
 #include "Message.h"
 #include "ReportSystem.h"
 
-ReportSystem::ReportSystem(Player& player) :
+ReportSystem::ReportSystem(const Json& param, Player& player) :
+	FONT_NAME(param["fontName"]),
+	FONT_SIZE(param["fontSize"]),
+	FONT_THICK(param["fontThick"]),
+	REPORTING_TEXT(UtilityCommon::GetWStringFromString(UtilityCommon::ConvertUtf8ToSjis(param["reportingText"]))),
+	REPORTING_TEXT_POS{ param["reportingTextPos"]["x"], param["reportingTextPos"]["y"] },
+	GAUGE_POS{ param["gaugePos"]["x"], param["gaugePos"]["y"] },
+	REPORTING_TIME(param["reportingTime"]),
+	TEXT_DISPLAY_TIME(param["textDisplayTime"]),
+	SCORE_MISS(param["scoreMiss"]),
+	SCORE_SUCCESS(param["scoreSuccess"]),
+	COMMA_TIME(param["commaTime"]),
+	COMMA_MAX_NUM(param["commaMaxNum"]),
 	player_(player),
 	scoreMng_(ScoreManager::GetInstance())
 {	
@@ -35,12 +47,11 @@ ReportSystem::~ReportSystem()
 
 void ReportSystem::Load()
 {
-	int font = FontManager::GetInstance().CreateMyFont(resMng_.GetFontName("fontKazuki"), FONT_SIZE, FONT_THICK);
-	const Vector2 POS = { Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y };
+	int font = FontManager::GetInstance().CreateMyFont(resMng_.GetFontName(FONT_NAME), FONT_SIZE, FONT_THICK);
 
 	// テキストの設定
 	reportingText_.fontHandle = font;
-	reportingText_.pos = POS;
+	reportingText_.pos = REPORTING_TEXT_POS;
 	reportingText_.color = UtilityCommon::WHITE;
 	reportingText_.string = REPORTING_TEXT;
 
@@ -60,7 +71,7 @@ void ReportSystem::Init()
 	timer_->InitCountUp();
 
 	// ゲージの初期設定
-	gauge_.pos = { Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y }; //中心に描画
+	gauge_.pos = GAUGE_POS;
 }
 
 void ReportSystem::Update()
@@ -139,20 +150,8 @@ void ReportSystem::UpdateReporting()
 		return;
 	}
 
-	// コンマの追加
-	constexpr float COMMA_TIME = 0.75f;
-	constexpr int COMMA_MAX_NUM = 4;
-
-	commaStep_ += scnMng_.GetDeltaTime();
-	int count = static_cast<int>(commaStep_ / COMMA_TIME);
-	count %= COMMA_MAX_NUM;
-	reportingText_.string = REPORTING_TEXT;
-	std::wstring dotStr = L".";
-
-	for (int i = 0; i < count; i++)
-	{
-		reportingText_.string += dotStr;
-	}
+	// コンマの更新
+	UpdateComma();
 }
 
 void ReportSystem::DrawWait()
@@ -172,4 +171,18 @@ void ReportSystem::DrawReporting()
 
 	// 文字列の描画
 	reportingText_.DrawCenter();
+}
+
+void ReportSystem::UpdateComma()
+{
+	commaStep_ += scnMng_.GetDeltaTime();
+	int count = static_cast<int>(commaStep_ / COMMA_TIME);
+	count %= COMMA_MAX_NUM;
+	reportingText_.string = REPORTING_TEXT;
+	std::wstring dotStr = L".";
+
+	for (int i = 0; i < count; i++)
+	{
+		reportingText_.string += dotStr;
+	}
 }

@@ -14,9 +14,14 @@
 
 using G_TYPE = GameEffectManager::TYPE;
 
-CameraScreen::CameraScreen() :
+CameraScreen::CameraScreen(const Json& param) :
 	input_(InputManager::GetInstance()),
-	charaMng_(CharacterManager::GetInstance())
+	charaMng_(CharacterManager::GetInstance()),
+	FRAME_POS{ param["framePos"]["x"], param["framePos"]["y"]},
+	FRAME_SIZE{ param["frameSize"]["x"], param["frameSize"]["y"]},
+	SWITCH_ICON_POS{ param["switchIconPos"]["x"], param["switchIconPos"]["y"]},
+	SWITCH_ICON_SIZE{ param["switchIconSize"]["x"], param["switchIconSize"]["y"]},
+	SWITCH_ICON_SCALE{ param["switchIconScale"]}
 {
 	mode_ = SCREEN_MODE::NORMAL;
 }
@@ -37,13 +42,13 @@ void CameraScreen::Load()
 void CameraScreen::Init()
 {
 	// カメラフレームの初期化
-	cameraFrame_.pos = { Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y };
-	cameraFrame_.size = { Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y };
+	cameraFrame_.pos = FRAME_POS;
+	cameraFrame_.size = FRAME_SIZE;
 
 	// スイッチアイコンの初期化
-	switchIcon_.pos = { Application::SCREEN_SIZE_X - 80, Application::SCREEN_SIZE_Y - 64 };
-	switchIcon_.size = { 128, 128 };
-	switchIcon_.scale = 0.7f;
+	switchIcon_.pos = SWITCH_ICON_POS;
+	switchIcon_.size = SWITCH_ICON_SIZE;
+	switchIcon_.scale = SWITCH_ICON_SCALE;
 
 	// モード初期化
 	ChangeScreenMode(SCREEN_MODE::NORMAL);

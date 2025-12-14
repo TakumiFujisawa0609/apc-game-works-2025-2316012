@@ -37,9 +37,11 @@ void SceneResult::Init()
 {	
 	SceneBase::Init();
 
-	int titleFont = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), 48, 0);
-	int scoreFont = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), 80, 0);
-	int commentFont = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), 32, 0);
+	// フォントの作成
+	const std::wstring FONT_NAME = resMng_.GetFontName("fontKazuki");
+	const int titleFont = fontMng_.CreateMyFont(FONT_NAME, TITLE_FONT_SIZE, 0);
+	const int scoreFont = fontMng_.CreateMyFont(FONT_NAME, SCORE_FONT_SIZE, 0);
+	const int commentFont = fontMng_.CreateMyFont(FONT_NAME, COMMENT_FONT_SIZE, 0);
 
 	// タイトルテキスト
 	titleText_.fontHandle = titleFont;

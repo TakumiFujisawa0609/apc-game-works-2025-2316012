@@ -6,7 +6,18 @@
 #include "../../Utility/UtilityCommon.h"
 #include "GameManual.h"
 
-GameManual::GameManual()
+GameManual::GameManual(const Json& param) :
+	FONT_SIZE(param["fontSize"]),
+	FONT_THICK(param["fontThick"]),
+	FONT_NAME(param["fontName"]),
+	EXPLAN(UtilityCommon::GetWStringFromString(UtilityCommon::ConvertUtf8ToSjis(param["explanText"]))),
+	KEY(UtilityCommon::GetWStringFromString(UtilityCommon::ConvertUtf8ToSjis(param["keyText"]))),
+	PAD(UtilityCommon::GetWStringFromString(UtilityCommon::ConvertUtf8ToSjis(param["padText"]))),
+	TEXT_ON_KEY(UtilityCommon::GetWStringFromString(UtilityCommon::ConvertUtf8ToSjis(param["onKeyText"]))),
+	TEXT_ON_PAD(UtilityCommon::GetWStringFromString(UtilityCommon::ConvertUtf8ToSjis(param["onPadText"]))),
+	EXPLAN_TEXT_POS{ param["explanTextPos"]["x"], param["explanTextPos"]["y"] },
+	INPUT_TEXT_POS{ param["inputTextPos"]["x"], param["inputTextPos"]["y"] },
+	ONOFF_TEXT_POS{ param["onOffTextPos"]["x"], param["onOffTextPos"]["y"] }
 {
 	isText_ = false;
 }
@@ -18,21 +29,21 @@ GameManual::~GameManual()
 void GameManual::Init()
 {	
 	// フォントの生成
-	int font = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), FONT_SIZE, FONT_THICK);
+	int font = fontMng_.CreateMyFont(resMng_.GetFontName(FONT_NAME), FONT_SIZE, FONT_THICK);
 
 	// テキスト設定
 	textExplan_.string = EXPLAN;
-	textExplan_.pos = { 0, Application::SCREEN_SIZE_Y - FONT_SIZE * 9 };
+	textExplan_.pos = EXPLAN_TEXT_POS;
 	textExplan_.fontHandle = font;
 	textExplan_.color = UtilityCommon::WHITE;
 
 	textInput_.string = KEY;
-	textInput_.pos = { 175, Application::SCREEN_SIZE_Y - FONT_SIZE * 9 };
+	textInput_.pos = INPUT_TEXT_POS;
 	textInput_.fontHandle = font;
 	textInput_.color = UtilityCommon::WHITE;
 
 	textOnOff_.string = TEXT_ON_KEY;
-	textOnOff_.pos = { 0, Application::SCREEN_SIZE_Y - FONT_SIZE };
+	textOnOff_.pos = ONOFF_TEXT_POS;
 	textOnOff_.fontHandle = font;
 	textOnOff_.color = UtilityCommon::WHITE;
 

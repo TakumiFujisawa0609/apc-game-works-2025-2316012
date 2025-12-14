@@ -18,12 +18,10 @@ TitleLogo::~TitleLogo()
 void TitleLogo::Init()
 {
 	logo_ = resMng_.GetHandle("titleLogo");
-	pos_ = { 320, 260 };
 }
 
 void TitleLogo::Draw()
 {
 	// í èÌï`âÊ
-	DrawGraph(pos_.x, pos_.y, logo_, true);
-
+	DrawGraph(POS_X, POS_Y, logo_, true);
 }

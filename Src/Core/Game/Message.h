@@ -27,7 +27,7 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	Message();
+	Message(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -62,24 +62,42 @@ public:
 
 private:
 
-	// キャラクターの名前リスト
-	const std::unordered_map<TYPE, std::vector<std::wstring>> MESSAGE_LIST =
+	// テキスト名リスト
+	const std::vector<std::string> TEXT_NAME_LIST =
 	{
-		{TYPE::NONE,{L""}},
-		{TYPE::START,{L"始業の時間になりました",L"午前5時まで調査を開始してください"} },
-		{TYPE::ONE_MINNUTES_LATER,{ L"異変が起きやすい時刻になりました", L"十分に警戒して調査を行ってください"}},
-		{TYPE::ENEMY_RESPOWN,{ L"危険な生命体の反応を感知しました", L"見つけ次第直ちに逃げてください"}},
-		{TYPE::MADNESS,{ L"精神状態が不安定になっています", L"異変を報告して回復してください"}},
-		{TYPE::MADNESS_PINCH,{ L"もうすぐで倒れてしまいます", L"早急に異変を報告して回復してください"}},
-		{TYPE::REPORT_COMPLITE,{L"異変が報告されました"}},
-		{TYPE::REPORT_MISS,{L"誤った報告がされました"}},
+		"textNone",
+		"textStart",		
+		"textRespown",
+		"textMadness",
+		"textMadnessPinch",		
+		"textOneMinnutesLater",
+		"textReportComplite",
+		"textMiss"
 	};
 
+	// フォントサイズ
+	const int FONT_SIZE;
+
+	// フォント太さ
+	const int FONT_THICK;
+
 	// メッセージの表示時間(全ての文字を表示後の時間)
-	static constexpr float DISPLAY_TIME = 3.0f;
+	const float DISPLAY_TIME;
+
+	// テキストアニメーション速度
+	const float TEXT_ANIMATION_SPEED;
 
 	// 背景透過値
-	static constexpr int BACK_ALPHA = 128;
+	const int BACK_ALPHA;
+
+	// フォント名
+	const std::string FONT_NAME;
+
+	// 背景位置
+	const Vector2 BACK_POS;
+
+	// 背景サイズ
+	const Vector2 BACK_SIZE;
 
 	// メッセージ数
 	int messageCnt_;
@@ -98,6 +116,9 @@ private:
 
 	// テキストアニメーションコントローラー
 	std::unique_ptr<ControllerTextAnimation> textAnimation_;
+
+	// メッセージリスト管理マップ
+	std::unordered_map<TYPE, std::vector<std::wstring>> messageListMap_;
 
 	// タイマー
 	std::unique_ptr<Timer> timer_;

@@ -12,6 +12,7 @@
 
 namespace
 {
+	// 開始位置
 	constexpr int START_POS_X = Application::SCREEN_SIZE_X + 128;
 	constexpr int START_POS_Y = Application::SCREEN_SIZE_Y - 150;
 }
@@ -33,12 +34,22 @@ TitleStateExplanation::~TitleStateExplanation()
 
 void TitleStateExplanation::Init()
 {
-	int font = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), 16, 0);
+	// フォント生成
+	const std::wstring fontName = resMng_.GetFontName("fontKazuki");
+	const int skipFont = fontMng_.CreateMyFont(fontName, SKIP_FONT_SIZE, 0);
+	const int mainFont = FontManager::GetInstance().CreateMyFont(fontName, MAIN_FONT_SIZE, 0);
 
-	int mainFont = FontManager::GetInstance().CreateMyFont(resMng_.GetFontName("fontKazuki"), 24, 0);
-	const Vector2 POS = { Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y - 24 / 2 };
+	// テキスト位置
+	const Vector2 POS = { Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y - MAIN_FONT_SIZE / 2 };
 
-	imgWindow_ = resMng_.GetHandle("window");
+	// 表示画像の設定
+	imgWindow_ = resMng_.GetHandle("window");	
+	
+	subSprite_.handleIds = resMng_.GetHandles("titleExplanation");
+	subSprite_.pos = { START_POS_X, START_POS_Y };
+	subSprite_.index = 0;
+	
+	mainSprite_.pos = { Application::SCREEN_HALF_X, subSprite_.pos.y };
 
 	// テキストの設定
 	text_.string = texts_.front();
@@ -47,19 +58,15 @@ void TitleStateExplanation::Init()
 	text_.color = UtilityCommon::WHITE;
 
 	skipText_.color = UtilityCommon::BLACK;
-	skipText_.pos = { Application::SCREEN_SIZE_X - 120, Application::SCREEN_SIZE_Y - 20 };
-	skipText_.fontHandle = font;
-	skipText_.string = L"Enterでスキップ";
+	skipText_.pos = { SKIP_TEXT_POS_X, SKIP_TEXT_POS_Y };
+	skipText_.fontHandle = skipFont;
+	skipText_.string = SKIP_TEXT;
 
-	subSprite_.handleIds = resMng_.GetHandles("titleExplanation");
-	subSprite_.pos = { START_POS_X, START_POS_Y };
-	subSprite_.index = 0;
+	// タイマー設定
+	timer_ = std::make_unique<Timer>(WAIT_TIME);
 
-	mainSprite_.pos = { Application::SCREEN_HALF_X, subSprite_.pos.y };
-
-	timer_ = std::make_unique<Timer>(1.5f);
-
-	textAnimationController_ = std::make_unique<ControllerTextAnimation>(text_, 0.12f);
+	// テキストアニメーションコントローラー生成
+	textAnimationController_ = std::make_unique<ControllerTextAnimation>(text_, TEXT_ANIMATION_SPEED);
 
 	// テキストのアニメーション初期化
 	textAnimationController_->Init();
@@ -68,8 +75,8 @@ void TitleStateExplanation::Init()
 	timer_->InitCountUp();
 
 	// 背景の設定
-	backBoxPos_ = { 0, Application::SCREEN_HALF_Y - 30 };
-	backBoxSize_ = { Application::SCREEN_SIZE_X, 60 };
+	backBoxPos_ = { BACK_BOX_POS_X,BACK_BOX_POS_Y };
+	backBoxSize_ = { BACK_BOX_SIZE_X, BACK_BOX_SIZE_Y };
 
 	// 状態設定
 	state_ = STATE::WAIT;
@@ -122,7 +129,7 @@ void TitleStateExplanation::UpdateWait()
 	if (timer_->CountUp())
 	{
 		state_ = STATE::TEXT_DISPLAY;
-		timer_->SetGoalTime(2.0f);
+		timer_->SetGoalTime(TEXT_DISPLAY_TIME);
 		timer_->InitCountUp();
 		sndMng_.PlayBgm(SoundType::BGM::TITLE_EXPLANATION);
 		return;
@@ -168,7 +175,7 @@ void TitleStateExplanation::UpdateTextDisplay()
 				sndMng_.PlaySe(SoundType::SE::BUG_2);
 
 				// 画像生成クールタイム設定
-				timer_->SetGoalTime(0.08f);
+				timer_->SetGoalTime(WINDOW_CREATE_COOL_TIME);
 			}
 		}
 
@@ -188,14 +195,6 @@ void TitleStateExplanation::UpdateSprite()
 	{
 		return;
 	}
-	//アニメーション時間
-	constexpr float ANIM_TIME = 1.5f;
-
-	// 移動速度
-	constexpr float MOVE_SPEED = 5.0f;
-
-	// メインの終了位置
-	constexpr float END_POS_X = -128;
 
 	//時間更新
 	moveStep_ += scnMng_.GetDeltaTime();
@@ -222,20 +221,21 @@ void TitleStateExplanation::UpdateSprite()
 
 void TitleStateExplanation::UpdateBug()
 {
+	constexpr int CREATE_COUNT = 50;
+	constexpr int OFFSET_POS = 128;
+
 	if (timer_->CountUp())
 	{
 		// 座標ランダム生成
 		Vector2 pos = {};
-		pos.x = 128 + GetRand(Application::SCREEN_SIZE_X - 128);
-		pos.y = 128 + GetRand(Application::SCREEN_SIZE_Y - 128);
-
-		float scales[5] = { 0.7f, 0.9f, 1.0f, 1.2f, 1.3f };
+		pos.x = OFFSET_POS + GetRand(Application::SCREEN_SIZE_X - OFFSET_POS);
+		pos.y = OFFSET_POS + GetRand(Application::SCREEN_SIZE_Y - OFFSET_POS);
 
 		// 画像生成
 		Image img = {};
 		img.handleId = imgWindow_;
 		img.pos = pos;
-		img.scale = scales[GetRand(4)];
+		img.scale = IMG_SCALES[GetRand(static_cast<int>(IMG_SCALES.size()) - 1)];
 		windows_.push_back(img);
 
 		// クールタイム設定
@@ -245,7 +245,7 @@ void TitleStateExplanation::UpdateBug()
 		sndMng_.PlaySe(SoundType::SE::CAVEAT);
 	}
 
-	if (windows_.size() > 50)
+	if (windows_.size() > CREATE_COUNT)
 	{
 		parent_.ChangeState(SceneTitle::STATE::SELECT);
 		sndMng_.StopAllSe();
@@ -257,23 +257,16 @@ void TitleStateExplanation::UpdateBug()
 void TitleStateExplanation::DrawTextDisplay()
 {
 	// 背景の描画
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, BACK_BOX_ALPHA);
 	DrawBox(backBoxPos_.x, backBoxPos_.y, backBoxPos_.x + backBoxSize_.x, backBoxPos_.y + backBoxSize_.y, UtilityCommon::BLACK, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
+	// テキストの描画
 	textAnimationController_->Draw();
 
+	// スプライトの描画
 	if (mainSprite_.handleIds != nullptr) { mainSprite_.DrawRota(); }
-
 	if (subSprite_.handleIds != nullptr) { subSprite_.DrawRota(); }
-
-	//DrawCircle(mainSprite_.pos.x, mainSprite_.pos.y, 30.0f, UtilityCommon::RED, true);
-	//DrawCircle(subSprite_.pos.x, subSprite_.pos.y, 30.0f, UtilityCommon::YELLOW, true);
-
-	//DrawFormatString(0, 0, 0xff0000, L"メインの座標%d,%d", mainSprite_.pos.x, mainSprite_.pos.y);
-	//DrawFormatString(0, 20, 0xff0000, L"サブの座標%d,%d", subSprite_.pos.x, subSprite_.pos.y);
-	//DrawFormatString(0, 40, 0xff0000, L"移動ステップ%2f", moveStep_);
-	//DrawFormatString(0, 60, 0xff0000, isUpdateSprite_ ? L"true" : L"false");
 }
 
 void TitleStateExplanation::DrawBug()
@@ -288,15 +281,12 @@ void TitleStateExplanation::DrawBug()
 
 bool TitleStateExplanation::IsSkipSpriteChange()
 {
-	std::vector<int> skipIndexs = { 0, 1, 3, 5, 13 };
-
-	for (int index : skipIndexs)
+	for (int index : SKIP_INDEXS)
 	{
 		if (textIndex_ == index)
 		{
 			return true;
 		}
 	}
-
 	return false;
 }

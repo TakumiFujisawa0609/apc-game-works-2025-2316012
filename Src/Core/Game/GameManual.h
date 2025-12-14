@@ -9,7 +9,7 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	GameManual();
+	GameManual(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -33,51 +33,38 @@ public:
 
 private:
 
-	// 操作説明の表示を促すテキスト
-	const std::wstring TEXT_ON_KEY =
-		L"操作説明の表示 :Tab"
-		;
+	// フォント名
+	const std::string FONT_NAME;
+
+	// フォントサイズ
+	const int FONT_SIZE;
+
+	// フォント太さ
+	const int FONT_THICK;
+
+	// 説明テキスト位置
+	const Vector2 EXPLAN_TEXT_POS;
+	
+	// 入力テキスト位置
+	const Vector2 INPUT_TEXT_POS;
+
+	// 表示確認テキスト位置
+	const Vector2 ONOFF_TEXT_POS;
 
 	// 操作説明の表示を促すテキスト
-	const std::wstring TEXT_ON_PAD =
-		L"操作説明の表示 :+↓"
-		;
+	const std::wstring TEXT_ON_KEY;
+
+	// 操作説明の表示を促すテキスト
+	const std::wstring TEXT_ON_PAD;
 
 	// 操作説明文
-	const std::wstring EXPLAN = 
-		L"操作方法\n"
-		"移動			\n"
-		"ダッシュ		\n"
-		"報告			\n"
-		"カメラ切り替え	\n"
-		"カメラ			\n"
-		"ポーズ			\n"
-		"非表示			\n"		
-		;
+	const std::wstring EXPLAN;
 
 	// キーボード
-	const std::wstring KEY =
-		L"\n"
-		":WASD\n"
-		":LShift\n"
-		":LClick\n"
-		":E\n"
-		":Mouse\n"
-		":BackSpace\n"
-		":Tab\n"
-		;
+	const std::wstring KEY;
 
 	// ゲームパッド
-	const std::wstring PAD =
-		L"\n"
-		":LStick\n"
-		":A\n"
-		":ZR\n"
-		":Y\n"
-		":RStick\n"
-		":Select\n"
-		":+↓\n"
-		;
+	const std::wstring PAD;
 
 	// テキストの表示判定
 	bool isText_;

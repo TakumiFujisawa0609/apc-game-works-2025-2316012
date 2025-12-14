@@ -24,9 +24,9 @@ void CharacterString::Draw(void) const
 void CharacterString::DrawCenter(void) const
 {
 	// フォーマット済みの文字列を作成
-	wchar_t buffer[256];
+	wchar_t buffer[BUFFER_SIZE];
 
-	swprintf(buffer, 256, string.c_str());
+	swprintf(buffer, BUFFER_SIZE, string.c_str());
 
 	// フォーマット済み文字列の幅を取得
 	int strWidth = GetDrawStringWidthToHandle(buffer, wcslen(buffer), fontHandle);
@@ -38,9 +38,9 @@ void CharacterString::DrawCenter(void) const
 void CharacterString::DrawFormatCenter(void) const
 {
 	// フォーマット済み文字列用バッファ
-	wchar_t buffer[256];
+	wchar_t buffer[BUFFER_SIZE];
 
-	swprintf_s(buffer, 256, string.c_str(), data1, data2);
+	swprintf_s(buffer, BUFFER_SIZE, string.c_str(), data1, data2);
 
 	// フォーマット済み文字列の幅を取得
 	int strWidth = GetDrawStringWidthToHandle(buffer, wcslen(buffer), fontHandle);

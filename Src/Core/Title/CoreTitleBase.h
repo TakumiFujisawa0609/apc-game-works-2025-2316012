@@ -33,6 +33,12 @@ public:
 
 protected:
 
+	// 通常フォントサイズ
+	static constexpr int FONT_SIZE = 24;
+
+	// 通常フォント太さ
+	static constexpr int FONT_THICK = 0;
+
 	bool isEffect_;
 	Image img_;
 	std::unique_ptr<PixelMaterial> material_;

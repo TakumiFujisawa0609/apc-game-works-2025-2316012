@@ -4,7 +4,6 @@
 #include "../../../Common/CharacterString.h"
 #include "../../../Common/Image.h"
 
-class PostEffectTitleSelect;
 class GlitchScreen;
 
 class TitleStateSelect : public TitleStateBase
@@ -58,14 +57,17 @@ private:
 	// 選択項目総数
 	static constexpr int TYPE_MAX = static_cast<int>(TYPE::MAX);
 
+	// フォントサイズ
+	static constexpr int FONT_SIZE = 52;
+
+	// 背景画像の縦サイズ(フォントサイズより大きくする)
+	static constexpr int SELECT_BACK_SIZE_Y = 60;
+
 	// 選択項目
 	int type_;
 
 	// 選択後用のステップ
 	float afterStep_;
-
-	// エフェクトスクリーン
-	int effectScreen_;
 
 	// 選択背景
 	Image selectBack_;
@@ -78,9 +80,6 @@ private:
 
 	// グリッチ
 	std::unique_ptr<GlitchScreen> glitch_;
-
-	// エフェクト
-	std::unique_ptr<PostEffectTitleSelect> effect_;
 
 	// 項目別処理の管理
 	std::unordered_map<TYPE, std::function<void()>> changeMap_;

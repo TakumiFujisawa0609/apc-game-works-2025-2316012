@@ -16,15 +16,15 @@ public:
 	~IntVector3(void);
 
 	//‰‰ŽZ
-	const IntVector3 operator+(const IntVector3 _value)const;
-	const IntVector3 operator+(const int _value)const;
-	void operator+=(const IntVector3 _value);
-	const IntVector3 operator-(const IntVector3 _value)const;
-	void operator-=(const IntVector3 _value);
-	const IntVector3 operator*(const int _value)const;
-	void operator*=(const int _value);
-	const IntVector3 operator/(const int _value)const;
-	void operator/=(const int _value);
+	const IntVector3 operator+(const IntVector3 value)const;
+	const IntVector3 operator+(const int value)const;
+	void operator+=(const IntVector3 value);
+	const IntVector3 operator-(const IntVector3 value)const;
+	void operator-=(const IntVector3 value);
+	const IntVector3 operator*(const int value)const;
+	void operator*=(const int value);
+	const IntVector3 operator/(const int value)const;
+	void operator/=(const int value);
 
 private:
 };

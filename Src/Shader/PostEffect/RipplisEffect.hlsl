@@ -30,7 +30,7 @@ static const float MAX_BLOCK_OFFSET = 0.05f;
 // スロット4番目(b4)に登録
 cbuffer cbParam : register(b4)
 {
-    float g_ripplis_step;           // リップル更新用
+    float g_ripplis_step;   // リップル更新用
     float g_wave_distance;  // 波紋が発生している中心からの距離
     float g_aspect_ratio;   // 画面アスペクト比
     float g_grain_power;    // フィルムグレインの影響力

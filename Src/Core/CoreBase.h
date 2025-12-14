@@ -49,12 +49,6 @@ protected:
 	// テキスト
 	CharacterString text_;
 
-	// 通常フォントサイズ
-	static constexpr int FONT_SIZE = 24;
-
-	// 通常フォント太さ
-	static constexpr int FONT_THICK = 0;
-
 	//メインの更新処理
 	virtual void UpdateMain();
 

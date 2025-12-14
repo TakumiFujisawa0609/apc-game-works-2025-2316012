@@ -28,11 +28,13 @@ void Loading::Init()
 	EffectManager::GetInstance().SceneChangeResources();
 
 	// 効果音の再生
-	SoundManager::GetInstance().PlaySe(SoundType::SE::TV_NOISE_SNOW, true, 50);
+	constexpr int VOLUME = 50;
+	SoundManager::GetInstance().PlaySe(SoundType::SE::TV_NOISE_SNOW, true, VOLUME);
 
 	//ローディング用文字列設定
+	constexpr int FONT_SIZE = 32;
 	const std::wstring& fontName = ResourceManager::GetInstance().GetFontName("fontKazuki");
-	loadingString_.fontHandle = FontManager::GetInstance().CreateMyFont(fontName, 32, 0);
+	loadingString_.fontHandle = FontManager::GetInstance().CreateMyFont(fontName, FONT_SIZE, 0);
 	loadingString_.color = UtilityCommon::RED;
 	loadingString_.pos = { LOADING_STRING_POS_X, LOADING_STRING_POS_Y };
 	loadingString_.string = L"Now loading";

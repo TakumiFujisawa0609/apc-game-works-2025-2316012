@@ -41,13 +41,6 @@ void CollisionManager::Update()
 			const auto& tag1 = colliders_[i]->GetTag();
 			const auto& tag2 = colliders_[j]->GetTag();
 
-			if (tag1 == CollisionTags::TAG::REPORT && tag2 == CollisionTags::TAG::ANOMALY ||
-				tag1 == CollisionTags::TAG::ANOMALY && tag2 == CollisionTags::TAG::REPORT)
-			{
-				// YEAR
-				int a = 0;
-			}
-
 			// 衝突判定が不要な組み合わせの場合
 			if (!collTagMatrix_[static_cast<int>(tag1)][static_cast<int>(tag2)])
 			{
@@ -118,7 +111,10 @@ void CollisionManager::Sweep()
 
 void CollisionManager::DebugDraw()
 {
-	DrawFormatString(500, 0, UtilityCommon::RED, L"コライダーの数 : %d", colliders_.size());
+	// コライダーの数を表示
+	constexpr int POS_X = 500;
+	constexpr int POS_Y = 0;
+	DrawFormatString(POS_X, POS_Y, UtilityCommon::RED, L"コライダーの数 : %d", colliders_.size());
 }
 
 void CollisionManager::InitTagMatrix()

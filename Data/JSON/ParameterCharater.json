@@ -15,9 +15,9 @@
     "collisionTag": "player",
     "colliderType": "capsule",
     "initPos": {
-      "x": 978,
-      "y": 100,
-      "z": 128
+      "x": 200,
+      "y": 0,
+      "z": -1200
     },
     "initRot": {
       "x": 0,
@@ -53,9 +53,9 @@
     "collisionTag": "enemy",
     "colliderType": "capsule",
     "initPos": {
-      "x": 0,
+      "x": -1377,
       "y": 0,
-      "z": 0
+      "z": -700
     },
     "initRot": {
       "x": 0,
