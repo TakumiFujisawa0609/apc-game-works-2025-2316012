@@ -240,9 +240,6 @@
     <ClCompile Include="Src\Utility\UtilityLoad.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Actor\Stage\TestModel.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Core\Common\CircleGauge.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -852,9 +849,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Utility\UtilityLoad.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Object\Actor\Stage\TestModel.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\Common\CircleGauge.h">
