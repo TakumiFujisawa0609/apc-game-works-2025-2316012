@@ -27,10 +27,13 @@ GrassRoom::~GrassRoom()
 
 void GrassRoom::Load()
 {
+	constexpr int MODEL_FRAME_INDEX = 2;
+
 	// モデルの設定
 	transform_.SetModel(resMng_.GetHandle(STAGE_KEY));	
 	
-	startPos_ = MV1GetFramePosition(transform_.modelId, 2);
+	// 開始位置の取得
+	startPos_ = MV1GetFramePosition(transform_.modelId, MODEL_FRAME_INDEX);
 	startPos_ = VScale(startPos_, -1);
 
 	// 描画の設定
@@ -112,9 +115,12 @@ void GrassRoom::Refresh()
 
 VECTOR GrassRoom::GetRespownGrassPos()
 {
+	constexpr int OFFSET_X = 50;
+	constexpr int OFFSET_Z = 100;
+
 	VECTOR ret = Utility3D::VECTOR_ZERO;
-	ret.x = rectMin_.x + 50 + GetRand(rectMax_.x - rectMin_.x - 1);
+	ret.x = rectMin_.x + OFFSET_X + GetRand(rectMax_.x - rectMin_.x - 1);
 	ret.y = rectMin_.y;
-	ret.z = rectMin_.z + 100 + GetRand(rectMax_.z - rectMin_.z - 1 - 100);
+	ret.z = rectMin_.z + OFFSET_Z + GetRand(rectMax_.z - rectMin_.z - 1 - OFFSET_Z);
 	return ret;
 }

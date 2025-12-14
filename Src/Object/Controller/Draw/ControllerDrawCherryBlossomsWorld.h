@@ -22,6 +22,16 @@ public:
 
 private:
 
+	// バッファーサイズ
+	static constexpr int BUFFER_PS_SIZE = 5;
+	static constexpr int BUFFER_VS_SIZE = 2;
+
+	// 桜の強調量
+	static constexpr float BOOST_AMOUNT = 1.0f;
+
+	// 桜の目標色相
+	static constexpr float TARGET_HUE = 3.0f;
+
 	// 環境光
 	const VECTOR CHERRY_AMBIENT = { 0.5f, 0.5f, 0.5f };
 

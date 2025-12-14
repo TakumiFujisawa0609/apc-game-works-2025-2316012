@@ -18,7 +18,7 @@ ControllerDrawEnemy::~ControllerDrawEnemy()
 void ControllerDrawEnemy::Load()
 {
 	// マテリアル生成
-	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("enemyVs"), 2, resMng_.GetHandle("enemyPs"), 4);
+	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("enemyVs"), BUFFER_VS_SIZE, resMng_.GetHandle("enemyPs"), BUFFER_PS_SIZE);
 
 	// レンダラー生成
 	renderer_ = std::make_unique<ModelRenderer>(model_, *material_);

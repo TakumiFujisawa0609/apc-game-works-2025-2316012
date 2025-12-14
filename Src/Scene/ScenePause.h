@@ -7,6 +7,7 @@ class ScenePause : public SceneBase
 {
 public:
 
+	//ポーズリスト
 	enum class LIST
 	{
 		RESUME,		// 続ける

@@ -18,6 +18,10 @@ using END = ScoreManager::END_STATE;
 
 SceneResult::SceneResult()
 {
+	isBgm_ = false;
+	score_ = 0;
+	state_ = STATE::START;
+
 	// 更新関数のセット
 	updataFunc_ = std::bind(&SceneResult::LoadingUpdate, this);
 	// 描画関数のセット
@@ -45,36 +49,36 @@ void SceneResult::Init()
 
 	// タイトルテキスト
 	titleText_.fontHandle = titleFont;
-	titleText_.pos = Vector2{ Application::SCREEN_SIZE_X / 2, 60 };
+	titleText_.pos = Vector2{ TITLE_POS_X, TITLE_POS_Y };
 	titleText_.color = UtilityCommon::BLACK;
 	titleText_.string = L"結果発表";
 
 	// スコアテキスト
 	scoreText_.fontHandle = scoreFont;
-	scoreText_.pos = Vector2{ Application::SCREEN_HALF_X,300 };
+	scoreText_.pos = Vector2{ SCORE_POS_X, SCORE_POS_Y };
 	scoreText_.color = UtilityCommon::BLACK;
 	scoreText_.string = L"%d";
 
 	// ひとことテキスト
 	commentText_.fontHandle = commentFont;
-	commentText_.pos = Vector2{ Application::SCREEN_HALF_X, 500 };
+	commentText_.pos = Vector2{ COMMENT_POS_X, COMMENT_POS_Y };
 	commentText_.color = UtilityCommon::BLACK;
 
 	// ランク
 	rank_.handleIds = resMng_.GetHandles("ranks");
 	rank_.index = 0;
-	rank_.pos = { 1000, 500 };
+	rank_.pos = { RANK_POS_X, RANK_POS_Y };
 
 	// スコアの格納
 	ScoreManager& score = ScoreManager::GetInstance();
 	score_ = score.GetScore();
 
 	// タイマー
-	timer_ = std::make_unique<Timer>(1.0f);
+	timer_ = std::make_unique<Timer>(START_TIME);
 	timer_->InitCountUp();
 
 	// アニメーション
-	textAnimation_ = std::make_unique<ControllerTextAnimation>(commentText_, 0.08f);
+	textAnimation_ = std::make_unique<ControllerTextAnimation>(commentText_, TEXT_ANIMATION_TIME);
 	textAnimation_->Init();
 
 	isBgm_ = false;
@@ -158,30 +162,30 @@ void SceneResult::UpdateDrumRoll()
 		update_ = std::bind(&SceneResult::UpdateEnd, this);
 
 		// ランク別にテキスト設定
-		if (score_ >= RANK_S)
+		if (score_ >= RANK_SCORES[static_cast<int>(RANK::S)])
 		{
-			commentText_.string = L"大変よくできました";
-			rank_.index = 0;
+			commentText_.string = RANK_COMMENTS[static_cast<int>(RANK::S)];
+			rank_.index = static_cast<int>(RANK::S);
 		}
-		else if (score_ >= RANK_A)
+		else if (score_ >= RANK_SCORES[static_cast<int>(RANK::A)])
 		{
-			commentText_.string = L"素晴らしい結果です";
-			rank_.index = 1;
+			commentText_.string = RANK_COMMENTS[static_cast<int>(RANK::A)];
+			rank_.index = static_cast<int>(RANK::A);
 		}
-		else if (score_ >= RANK_B)
+		else if (score_ >= RANK_SCORES[static_cast<int>(RANK::B)])
 		{
-			commentText_.string = L"良い結果です";
-			rank_.index = 2;
+			commentText_.string = RANK_COMMENTS[static_cast<int>(RANK::B)];
+			rank_.index = static_cast<int>(RANK::B);
 		}
-		else if (score_ >= RANK_C)
+		else if (score_ >= RANK_SCORES[static_cast<int>(RANK::C)])
 		{
-			commentText_.string = L"もっと頑張りましょう";
-			rank_.index = 3;
+			commentText_.string = RANK_COMMENTS[static_cast<int>(RANK::C)];
+			rank_.index = static_cast<int>(RANK::C);
 		}
 		else
 		{
-			commentText_.string = L"死んでしまうとは情けないですね";
-			rank_.index = 4;
+			commentText_.string = GAME_OVER_COMMENT;
+			rank_.index = static_cast<int>(RANK::MAX);
 		}
 
 		textAnimation_->SetCharacterString(commentText_);

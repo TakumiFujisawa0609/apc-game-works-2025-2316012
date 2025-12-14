@@ -1,4 +1,6 @@
 #include "../Actor/ActorBase.h"
+#include "../../Utility/Utility3D.h"
+#include "../../Utility/UtilityCommon.h"
 #include "ColliderModel.h"
 
 ColliderModel::ColliderModel(ActorBase& owner, const CollisionTags::TAG tag) :
@@ -35,5 +37,8 @@ std::shared_ptr<ColliderBase> ColliderModel::Clone() const
 
 void ColliderModel::DebugDraw()
 {
-	DrawSphere3D(transformOwner_.pos, 50, 10, 0xff0000, 0xff0000, false);
+	constexpr float SPHERE_RADIUS = 50.0f;
+	constexpr int DIV_NUM = 10;
+
+	DrawSphere3D(transformOwner_.pos, SPHERE_RADIUS, DIV_NUM, UtilityCommon::RED, UtilityCommon::RED, false);
 }

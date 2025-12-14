@@ -38,6 +38,7 @@ AnomalyReverseFall::AnomalyReverseFall(const Json& param) :
 	state_ = STATE::NONE;
 	camera_ = nullptr;
 	screenShake_ = nullptr;
+	prePlayerPos_ = Utility3D::VECTOR_ZERO;
 	preCameraPos_ = Utility3D::VECTOR_ZERO;
 	preTargetPos_ = Utility3D::VECTOR_ZERO;
 

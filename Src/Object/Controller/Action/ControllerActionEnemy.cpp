@@ -145,10 +145,13 @@ void ControllerActionEnemy::DebugDraw()
 
 	DrawFormatString(0, 240, UtilityCommon::WHITE, L"自身の状態 : %d", static_cast<int>(state_));
 
+	constexpr int OFFSET = 50;
+	constexpr float RADIUS = 10.0f;
+	constexpr int DIV_NUM = 16;
 
 	for (auto& pos : movePosList_)
 	{
-		DrawSphere3D(pos, 10.0f, 16, UtilityCommon::ORANGE, UtilityCommon::ORANGE, false);
+		DrawSphere3D(pos, RADIUS, DIV_NUM, UtilityCommon::ORANGE, UtilityCommon::ORANGE, false);
 	}
 
 	if (points_.empty())
@@ -156,14 +159,12 @@ void ControllerActionEnemy::DebugDraw()
 		return;
 	}
 
-	constexpr int OFFSET = 50;
-
 	//目的地の描画
 	for (auto point : points_)
 	{
 		VECTOR pos = movePosList_[point];
 		pos.y += OFFSET;
-		DrawSphere3D(pos, 10.0f, 16, UtilityCommon::CYAN, UtilityCommon::CYAN, false);
+		DrawSphere3D(pos, RADIUS, DIV_NUM, UtilityCommon::CYAN, UtilityCommon::CYAN, false);
 	}
 
 	for (int i = 0; i < points_.size() - 1; i++)
@@ -286,7 +287,7 @@ void ControllerActionEnemy::ChangeStateAction()
 	VECTOR TargetDir = VSub(targetTransform_.pos, pos);
 
 	// 目標の回転クォータニオンを生成
-	Quaternion goalQua = Quaternion::LookRotation(TargetDir, VGet(0.0f, 1.0f, 0.0f));
+	Quaternion goalQua = Quaternion::LookRotation(TargetDir, Utility3D::DIR_U);
 
 	// マトリックスの回転情報を習得
 	MATRIX enemyRot = Quaternion::ToMatrix(goalQua);
@@ -593,18 +594,21 @@ bool ControllerActionEnemy::IsSearchTarget()
 	// 視野内に入っている場合
 	if (distanceSq <= VIEW_RANGE * VIEW_RANGE)
 	{
+		constexpr float ANGLE_MAX = 360.0f;
+		constexpr float OFFSET_Y = 50.0f;
+
 		//自分から見たプレイヤーの角度を求める
 		float rad = atan2(targetPos.x - myPos.x, targetPos.z - myPos.z);
 		float viewRad = rad - owner_.GetTransform().rot.y;
 		float viewDeg = static_cast<float>(UtilityCommon::DegIn360(UtilityCommon::Rad2DegF(viewRad)));
 
 		//視野内に入ってるか判断
-		if (viewDeg <= VIEW_ANGLE || viewDeg >= (360.0f - VIEW_ANGLE))
+		if (viewDeg <= VIEW_ANGLE || viewDeg >= (ANGLE_MAX - VIEW_ANGLE))
 		{
 			// 障害物との判定用のコライダーを生成
 			// 位置調整
-			myPos.y += 50;
-			targetPos.y += 50;
+			myPos.y += OFFSET_Y;
+			targetPos.y += OFFSET_Y;
 			CreateLineCollider(myPos, targetPos);
 
 			// 現時点では範囲内と設定

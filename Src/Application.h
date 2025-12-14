@@ -62,6 +62,12 @@ public:
 
 private:
 
+	// カラービット数
+	static constexpr int COLOR_DEPTH = 32;
+
+	// パーティクル最大数
+	static constexpr int EFFECT_MAX_NUM = 8000;
+
 	// ゲームの終了判定
 	bool isGameEnd_;
 

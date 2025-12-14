@@ -32,7 +32,7 @@ void AnomalyChairMountain::Occurrence()
 	int seIndex = GetRand(static_cast<int>(seTypes.size() - 1));
 	
 	// ƒ‰ƒ“ƒ_ƒ€‚Å‰¹—Ê‚ğİ’è
-	int volume = 30 + GetRand(20);
+	int volume = MIN_VOLUME + GetRand(MAX_VOLUME - MIN_VOLUME);
 
 	// Œø‰Ê‰¹Ä¶
 	sndMng_.PlaySe(seTypes[seIndex], volume);

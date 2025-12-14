@@ -41,7 +41,7 @@ void ControllerDrawBase::Draw()
 void ControllerDrawBase::SetTexture(const int texture)
 {
 	// テクスチャを追加
-	material_->SetTextureBuf(7, texture);
+	material_->SetTextureBuf(TEX_ANIM_INDEX, texture);
 }
 
 void ControllerDrawBase::UpdateBuffer()

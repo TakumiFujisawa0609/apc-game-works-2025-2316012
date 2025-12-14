@@ -45,8 +45,10 @@ protected:
 	CharacterManager& charaMng_;
 
 	// 環境光
-	//const VECTOR AMBIENT = { 0.02, 0.02, 0.05 };
-	const VECTOR AMBIENT = { 0.5, 0.5, 0.5 };
+	static constexpr VECTOR AMBIENT = { 0.5, 0.5, 0.5 };
+
+	// テクスチャアニメインデックス
+	static constexpr int TEX_ANIM_INDEX = 7;
 
 	// モデル
 	const int model_;

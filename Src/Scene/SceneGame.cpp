@@ -17,7 +17,6 @@
 #include "../Utility/UtilityCommon.h"
 #include "../Object/Actor/Character/CharacterBase.h"
 #include "../Object/Actor/Stage/StageObjectBase.h"
-#include "../Object/Actor/Stage/TestModel.h"
 #include "../Object/Collider/ColliderFactory.h"
 #include "../Core/Game/ReportSystem.h"
 #include "../Tool/CreatePositionList.h"

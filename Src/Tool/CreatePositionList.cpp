@@ -15,7 +15,7 @@ CreatePositionList::CreatePositionList(const std::string& fileName, const Transf
 	player_(player),
 	inputMng_(InputManager::GetInstance())
 {
-	lastPos_ = VGet(0, 0, 0);
+	lastPos_ = Utility3D::VECTOR_ZERO;
 	posList_.clear();
 }
 
@@ -94,11 +94,16 @@ void CreatePositionList::Update()
 
 void CreatePositionList::Draw()
 {
+	constexpr float SPHERE_RADIUS = 10;
+	constexpr int SPHERE_DIV_NUM = 16;
+	constexpr int LAST_POS_X = 0;
+	constexpr int LAST_POS_Y = 200;
+
 	for (const auto& pos : posList_)
 	{
-		DrawSphere3D(pos, 10, 16, UtilityCommon::LIME, UtilityCommon::LIME, TRUE);
+		DrawSphere3D(pos, SPHERE_RADIUS, SPHERE_DIV_NUM, UtilityCommon::LIME, UtilityCommon::LIME, TRUE);
 	}
-	DrawFormatString(0, 200, UtilityCommon::RED, L"ç≈å„Ç…äiî[ÇµÇΩç¿ïW:%2f,%2f,%2f", lastPos_.x, lastPos_.y, lastPos_.z);
+	DrawFormatString(LAST_POS_X, LAST_POS_Y, UtilityCommon::RED, L"ç≈å„Ç…äiî[ÇµÇΩç¿ïW:%2f,%2f,%2f", lastPos_.x, lastPos_.y, lastPos_.z);
 }
 
 void CreatePositionList::Create()

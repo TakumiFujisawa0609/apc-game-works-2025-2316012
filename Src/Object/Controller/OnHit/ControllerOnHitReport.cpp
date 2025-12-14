@@ -51,7 +51,7 @@ void ControllerOnHitReport::OnHitCommon()
 	stateMng_.ChangeState(GameStateManager::STATE::REPORTING);
 
 	// ‹¶‹C’l‚ðŒ¸‚ç‚·
-	owner_.AddMadnessValue(-100);
+	owner_.AddMadnessValue(MADNESS_DECREASE_VALUE);
 
 	// ‘S‚Ä‚ÌŒø‰Ê‰¹’âŽ~
 	sndMng_.StopAllSe();

@@ -8,7 +8,6 @@ class StageManager;
 class GameSystemManager;
 class AnomalyManager;
 class ScenePause;
-class TestModel;
 class CreatePositionList;
 
 class SceneGame : public SceneBase
@@ -39,9 +38,6 @@ private:
 
 	//ポーズ画面
 	std::shared_ptr<ScenePause> ScenePause_;
-
-	// テスト
-	std::unique_ptr<TestModel> test_;
 
 	// ポジションリスト作成
 	std::unique_ptr<CreatePositionList> createPositionList_;

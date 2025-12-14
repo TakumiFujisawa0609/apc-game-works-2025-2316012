@@ -53,6 +53,12 @@ private:
 	static constexpr int MADNSEE_CONDITION = 50;
 	static constexpr int MADNSEE_CONDITION_PINCH = 90;
 
+	// アニメーションステップ
+	static constexpr float ANIM_SPEED = 5.0f;
+	static constexpr float ANIM_START_STEP = 13.0f;
+	static constexpr float ANIM_END_STEP = 23.0f;
+	static constexpr float ANIM_LOOP_END_STEP = 25.0f;
+
 	// レポート入力時間
 	const float REPORT_INPUT_TIME;
 

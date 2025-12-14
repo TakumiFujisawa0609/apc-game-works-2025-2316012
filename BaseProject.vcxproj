@@ -164,7 +164,6 @@
     <ClCompile Include="Src\Manager\Game\StageManager.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\StageGimmickObjectBase.cpp" />
     <ClCompile Include="Src\Utility\UtilityLoad.cpp" />
-    <ClCompile Include="Src\Object\Actor\Stage\TestModel.cpp" />
     <ClCompile Include="Src\Core\Common\Timer.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\StageObjectFactory.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\StageMain.cpp" />
@@ -370,7 +369,6 @@
     <ClInclude Include="Src\Manager\Game\StageManager.h" />
     <ClInclude Include="Src\Object\Actor\Stage\StageGimmickObjectBase.h" />
     <ClInclude Include="Src\Utility\UtilityLoad.h" />
-    <ClInclude Include="Src\Object\Actor\Stage\TestModel.h" />
     <ClInclude Include="Src\Core\Common\Timer.h" />
     <ClInclude Include="Src\Object\Actor\Stage\StageObjectFactory.h" />
     <ClInclude Include="Src\Object\Actor\Stage\StageMain.h" />

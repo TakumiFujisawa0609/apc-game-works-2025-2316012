@@ -9,6 +9,8 @@
 
 AnomalyBase::AnomalyBase(const Json& param) :
 	MADNESS_VALUE(param["madnessValue"]),
+	MAX_VOLUME(param["maxVolume"]),
+	MIN_VOLUME(param["minVolume"]),
 	scnMng_(SceneManager::GetInstance()),
 	charaMng_(CharacterManager::GetInstance()),
 	stageMng_(StageManager::GetInstance()),
@@ -31,8 +33,6 @@ void AnomalyBase::Occurrence()
 	// プレイヤーの狂気更新値を上昇させる
 	const auto & player = dynamic_cast<Player*>(&charaMng_.GetCharacter(CharacterManager::TYPE::PLAYER));
 	player->AddMadnessValue(MADNESS_VALUE);
-
-
 }
 
 void AnomalyBase::Update()

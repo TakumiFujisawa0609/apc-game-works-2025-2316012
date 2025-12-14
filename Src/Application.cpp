@@ -22,10 +22,10 @@ bool Application::Init()
 {
 
 	// アプリケーションの初期設定
-	SetWindowText(L"BaseProject.ver1.2");
+	SetWindowText(L"ERROR");
 
 	// ウィンドウサイズ
-	SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, 32);
+	SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, COLOR_DEPTH);
 	ChangeWindowMode(true);
 
 	// FPS初期化
@@ -127,7 +127,7 @@ Application::Application()
 
 void Application::InitEffekseer()
 {
-	if (Effekseer_Init(8000) == -1)
+	if (Effekseer_Init(EFFECT_MAX_NUM) == -1)
 	{
 		DxLib_End();
 	}

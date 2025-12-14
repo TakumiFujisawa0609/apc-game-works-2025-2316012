@@ -13,23 +13,35 @@
     }
   },
   "Painting": {
-    "madnessValue": 10
+    "madnessValue": 10,
+    "maxVolume": 20,
+    "minVolume": 50
   },
   "BloodyRoom": {
-    "madnessValue": 10
+    "madnessValue": 10,
+    "maxVolume": 20,
+    "minVolume": 50
   },
   "Replace": {
-    "madnessValue": 10
+    "madnessValue": 10,
+    "maxVolume": 20,
+    "minVolume": 50
   },
   "Occur": {
-    "madnessValue": 10
+    "madnessValue": 10,
+    "maxVolume": 20,
+    "minVolume": 50
   },
   "GrassRoom": {
-    "madnessValue": 10
+    "madnessValue": 10,
+    "maxVolume": 20,
+    "minVolume": 50
   },
   "ReverseFall": {
     "madnessUpTime": 0.5,
     "madnessValue": 10,
+    "maxVolume": 20,
+    "minVolume": 50,
     "cameraPullTime": 0.6,
     "cameraBackPow": 200,
     "screenShakeTime": 2.0,
@@ -57,6 +69,8 @@
   },
   "Ghost": {
     "madnessValue": 10,
+    "maxVolume": 20,
+    "minVolume": 50,
     "transforms": [
       {
         "initPos": {
@@ -209,6 +223,8 @@
       "z": 1.0
     },
     "tag": "B",
-    "madnessValue": 10
+    "madnessValue": 10,
+    "maxVolume": 20,
+    "minVolume": 50
   }
 }

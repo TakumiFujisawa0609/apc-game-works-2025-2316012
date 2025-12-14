@@ -87,6 +87,20 @@ public:
 
 private:
 	
+	// OBBの頂点数
+	static constexpr int VERTEX_COUNT = 8;
+
+	// OBBのエッジの数
+	static constexpr int EDGE_COUNT = 12;
+
+	// 12本のエッジのインデックス定義
+	static constexpr int EDGES[EDGE_COUNT][2] =
+	{
+		{0,1}, {0,2}, {0,4}, {1,3},
+		{1,5}, {2,3}, {2,6}, {3,7},
+		{4,5}, {4,6}, {5,7}, {6,7}
+	};
+
 	// 回転バウンディングボックス
 	OBB obb_;
 
@@ -97,5 +111,5 @@ private:
 	void UpdateObbAxis(void);
 
 	// 各頂点の計算（ワールド座標）
-	void CalculateVertices(VECTOR outVertices[8]) const;
+	void CalculateVertices(VECTOR outVertices[VERTEX_COUNT]) const;
 };

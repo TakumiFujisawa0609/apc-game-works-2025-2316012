@@ -156,14 +156,8 @@ void Enemy::DebugDraw()
 	CharacterBase::DebugDraw();
 
 	// ©g‚Ì“®”ÍˆÍ‚ğ•`‰æ
-	DrawSphere3D(transform_.pos, ControllerActionEnemy::ADJACENT_NODE_DIST, 8, UtilityCommon::YELLOW, UtilityCommon::YELLOW, false);
-
-	// ˆÊ’uî•ñ‚Ì•\¦
-	VECTOR pos = transform_.pos;
-	int posX = static_cast<int>(pos.x);
-	int posY = static_cast<int>(pos.y);
-	int posZ = static_cast<int>(pos.z);
-	DrawFormatString(0, 220, UtilityCommon::WHITE, L"“G‚ÌˆÊ’u :%d,%d, %d", posX, posY, posZ);
+	constexpr int DIV_NUM = 8;
+	DrawSphere3D(transform_.pos, ControllerActionEnemy::ADJACENT_NODE_DIST, DIV_NUM, UtilityCommon::YELLOW, UtilityCommon::YELLOW, false);
 
 	// ‹–ìŠp‚Ì•`‰æ
 	action_->DebugDraw();

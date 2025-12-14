@@ -18,7 +18,7 @@ ControllerDrawCherryBlossomsWorld::~ControllerDrawCherryBlossomsWorld()
 void ControllerDrawCherryBlossomsWorld::Load()
 {
 	// マテリアル生成
-	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("standardVs"), 2, resMng_.GetHandle("cherryBlossomsWorldPs"), 5);
+	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("standardVs"), BUFFER_VS_SIZE, resMng_.GetHandle("cherryBlossomsWorldPs"), BUFFER_PS_SIZE);
 
 	// レンダラー生成
 	renderer_ = std::make_unique<ModelRenderer>(model_, *material_);	
@@ -51,8 +51,8 @@ void ControllerDrawCherryBlossomsWorld::Load()
 	material_->AddConstBufPS(FLOAT4{ GetLightDirection().x,GetLightDirection().y, GetLightDirection().z, fogStart });
 	material_->AddConstBufPS(FLOAT4{ CHERRY_AMBIENT.x, CHERRY_AMBIENT.y, CHERRY_AMBIENT.z, fogEnd });
 	material_->AddConstBufPS(FLOAT4{ cameraPos.x, cameraPos.y,cameraPos.z, isSwitch });
-	material_->AddConstBufPS(FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,1.0f });
-	material_->AddConstBufPS(FLOAT4{ cameraPos.x,cameraPos.y, cameraPos.z,3.0f });
+	material_->AddConstBufPS(FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,BOOST_AMOUNT });
+	material_->AddConstBufPS(FLOAT4{ cameraPos.x,cameraPos.y, cameraPos.z,TARGET_HUE });
 }
 
 void ControllerDrawCherryBlossomsWorld::UpdateBuffer()
@@ -85,6 +85,6 @@ void ControllerDrawCherryBlossomsWorld::UpdateBuffer()
 	material_->SetConstBufPS(0, FLOAT4{ lightDir.x, lightDir.y, lightDir.z, fogStart });
 	material_->SetConstBufPS(1, FLOAT4{ CHERRY_AMBIENT.x, CHERRY_AMBIENT.y, CHERRY_AMBIENT.z, fogEnd });
 	material_->SetConstBufPS(2, FLOAT4{ cameraPos.x, cameraPos.y,cameraPos.z, isSwitch });
-	material_->SetConstBufPS(3, FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,1.0f });
-	material_->SetConstBufPS(4, FLOAT4{ cameraPos.x,cameraPos.y, cameraPos.z,3.0f });
+	material_->SetConstBufPS(3, FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,BOOST_AMOUNT });
+	material_->SetConstBufPS(4, FLOAT4{ cameraPos.x,cameraPos.y, cameraPos.z,TARGET_HUE });
 }

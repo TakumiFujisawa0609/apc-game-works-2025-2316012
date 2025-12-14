@@ -46,12 +46,10 @@ ScenePause::~ScenePause()
 
 void ScenePause::Load()
 {
-	//pauseFont_ = fontMng_.CreateMyFont(resMng_.GetFontName("fontHanazome"), FONT_SIZE, FONT_THICK);
 }
 
 void ScenePause::Init()
 {	
-	
 }
 
 void ScenePause::NormalUpdate()
@@ -84,6 +82,7 @@ void ScenePause::NormalDraw()
 {
 	static constexpr int MARGINT = 50;
 	static constexpr int OFFSET_Y = 200;
+	static constexpr int TEXT_MARGINT = 150;
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, PAUSE_ALPHA);
 	DrawBox(
@@ -106,7 +105,7 @@ void ScenePause::NormalDraw()
 
 		//ç¿ïWà íuÇê›íË
 		int posX = static_cast<int>(Application::SCREEN_HALF_X - pasueList_[i].length() * FONT_SIZE / 2);
-		int posY = Application::SCREEN_HALF_Y - OFFSET_Y + 150.0f * i;
+		int posY = Application::SCREEN_HALF_Y - OFFSET_Y + TEXT_MARGINT * i;
 
 		//ï∂éöóÒÇï`âÊ
 		DrawFormatStringToHandle(

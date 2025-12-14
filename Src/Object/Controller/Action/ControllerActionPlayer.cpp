@@ -206,8 +206,8 @@ void ControllerActionPlayer::ProcessJump()
 		// ジャンプ中ではない場合
 		if (!isJump)
 		{
-			animation.Play(Player::ANIM_JUMP, true, 13.0f, 25.0f);
-			animation.SetEndLoop(23.0f, 25.0f, 5.0f);
+			animation.Play(Player::ANIM_JUMP, true, ANIM_START_STEP, ANIM_END_STEP);
+			animation.SetEndLoop(ANIM_END_STEP, ANIM_LOOP_END_STEP, ANIM_SPEED);
 		}
 
 		// ジャンプ中に設定

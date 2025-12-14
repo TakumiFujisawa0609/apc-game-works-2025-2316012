@@ -25,6 +25,10 @@ public:
 
 private:
 
+	// バッファーサイズ
+	static constexpr int BUFFER_PS_SIZE = 5;
+	static constexpr int BUFFER_VS_SIZE = 2;
+
 	// 親クラスの参照
 	GrassRoom& owner_;
 

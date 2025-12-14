@@ -40,16 +40,63 @@ public:
 
 private:
 
+	// ランク
+	enum class RANK
+	{
+		S,
+		A,
+		B,
+		C,
+		MAX
+	};
+
 	// ランク別スコア
-	static constexpr int RANK_S = 15000;
-	static constexpr int RANK_A = 13000;
-	static constexpr int RANK_B = 12000;
-	static constexpr int RANK_C = 10000;
+	static constexpr int RANK_SCORES[static_cast<int>(RANK::MAX)] = 
+	{
+		15000, // Sランク
+		13000, // Aランク
+		12000, // Bランク
+		10000  // Cランク
+	};
+
+	// ランク別評価コメント
+	const std::wstring RANK_COMMENTS[static_cast<int>(RANK::MAX)] =
+	{
+		L"大変よくできました",				// Sランク
+		L"素晴らしい結果です",				// Aランク
+		L"良い結果です",					// Bランク
+		L"もっと頑張りましょう",			// Cランク
+	};
+
+	// ゲームオーバー時のコメント
+	const std::wstring GAME_OVER_COMMENT = L"死んでしまうとは情けないですね";
 
 	// フォントサイズ
 	static constexpr int TITLE_FONT_SIZE = 48;
 	static constexpr int SCORE_FONT_SIZE = 80;
 	static constexpr int COMMENT_FONT_SIZE = 32;
+
+	// タイトルテキスト位置
+	static constexpr int TITLE_POS_X = 640;
+	static constexpr int TITLE_POS_Y = 60;
+
+	// スコアテキスト位置
+	static constexpr int SCORE_POS_X = 640;
+	static constexpr int SCORE_POS_Y = 300;
+
+	// コメントテキスト位置
+	static constexpr int COMMENT_POS_X = 640;
+	static constexpr int COMMENT_POS_Y = 500;
+
+	// ランク位置
+	static constexpr int RANK_POS_X = 1000;
+	static constexpr int RANK_POS_Y = 500;
+
+	// 開始時間
+	static constexpr float START_TIME = 1.0f;
+
+	// テキストアニメーション時間
+	static constexpr float TEXT_ANIMATION_TIME = 0.08f;
 
 	// スコア
 	int score_;

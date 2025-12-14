@@ -14,7 +14,8 @@ ColliderSphere::~ColliderSphere()
 
 void ColliderSphere::DebugDraw()
 {
-	DrawSphere3D(transformOwner_.pos, radius_, 16.0f, UtilityCommon::RED, UtilityCommon::RED, false);
+	constexpr int DIV_NUM = 16;
+	DrawSphere3D(transformOwner_.pos, radius_, DIV_NUM, UtilityCommon::RED, UtilityCommon::RED, false);
 }
 
 std::shared_ptr<ColliderBase> ColliderSphere::Clone() const

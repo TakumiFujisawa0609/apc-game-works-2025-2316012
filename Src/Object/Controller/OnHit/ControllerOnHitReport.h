@@ -12,6 +12,7 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
+	/// <param name="owner">所有者</param>
 	ControllerOnHitReport(Player& owner);
 
 	/// <summary>
@@ -25,6 +26,9 @@ public:
 	void Init() override;
 
 private:
+
+	// 狂気値減少量
+	static constexpr int MADNESS_DECREASE_VALUE = -100;
 
 	// 所有者のインスタンス
 	Player& owner_;

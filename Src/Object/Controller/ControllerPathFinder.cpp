@@ -113,13 +113,6 @@ bool ControllerPathFinder::FindPath(const int startIndex, const int goalIndex, f
 			// 隣接ノードの判定
 			if (distance <= maxMoveDistance)
 			{
-				// 衝突した場合
-				//if (CheckCollisionModelToLine(currentPos, neighborPos))
-				//{
-				//	// スキップ
-				//	continue;
-				//}
-
 				float tentativeGoalCost = currentNode.goalCost + distance;
 
 				// 既にクローズドリストに存在する場合

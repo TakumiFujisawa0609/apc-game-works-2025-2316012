@@ -47,6 +47,12 @@ protected:
 	// 狂気値
 	const int MADNESS_VALUE;
 
+	// 最小音量
+	const int MIN_VOLUME;
+
+	// 最大音量
+	const int MAX_VOLUME;
+
 	// シーン管理クラス
 	SceneManager& scnMng_;
 

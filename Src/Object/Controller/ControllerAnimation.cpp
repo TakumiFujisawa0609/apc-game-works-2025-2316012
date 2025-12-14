@@ -181,23 +181,27 @@ bool ControllerAnimation::IsEnd()
 
 void ControllerAnimation::DebugDraw()
 {
-	int marginY = 20;
-	int index = 0;
+	constexpr int TYPE_POS_X = 0;
+	constexpr int NO_POS_X = 150;
+	constexpr int RATE_POS_X = 250;
+	constexpr int POS_Y = 30;	
+	constexpr int TOTAL_POS_Y = 100;
+	constexpr int MARGIN_Y = 20;
+	int marginY = MARGIN_Y;
 	float rate = 0.0f;
-
 	for (auto it = playAnimations_.begin(); it != playAnimations_.end(); )
 	{
 		std::wstring type = UtilityCommon::GetWStringFromString(it->first);
-		DrawFormatString(0, 30 +marginY, 0xff0000,  L"animType:%s", type.c_str());
-		DrawFormatString(150, 30 +marginY, 0xff0000,  L"attachNo:%d", it->second.attachNo);
-		DrawFormatString(250, 30 + marginY, 0xff0000, L"blendRate:%2f", it->second.blendRate);
-		marginY += 20;	
+		DrawFormatString(TYPE_POS_X, POS_Y + marginY, UtilityCommon::RED,  L"animType:%s", type.c_str());
+		DrawFormatString(NO_POS_X, POS_Y + marginY, UtilityCommon::RED,  L"attachNo:%d", it->second.attachNo);
+		DrawFormatString(RATE_POS_X, POS_Y + marginY, UtilityCommon::RED, L"blendRate:%2f", it->second.blendRate);
+		marginY += MARGIN_Y;
 		rate += it->second.blendRate;
 		it++;
 	}
 	//合計
-	DrawFormatString(0, 0, 0xff0000, L"合計:%2f", rate);
-	DrawFormatString(0, 100, 0xff0000, L"再生中のアタッチNo:%d", playAnimations_[playType_].attachNo);
+	DrawFormatString(0, 0, UtilityCommon::RED, L"合計:%2f", rate);
+	DrawFormatString(0, TOTAL_POS_Y, UtilityCommon::RED, L"再生中のアタッチNo:%d", playAnimations_[playType_].attachNo);
 }
 
 void ControllerAnimation::UpdateMainAnimation()

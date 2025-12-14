@@ -18,20 +18,12 @@ ColliderBox::~ColliderBox()
 
 void ColliderBox::DebugDraw()
 {
-	VECTOR vertices[8];
+	VECTOR vertices[VERTEX_COUNT];
 	CalculateVertices(vertices);
 
-	// 12本のエッジのインデックス
-	constexpr int EDGS[12][2] = 
+	for (int i = 0; i < EDGE_COUNT; ++i)
 	{
-		{0,1}, {0,2}, {0,4}, {1,3},
-		{1,5}, {2,3}, {2,6}, {3,7},
-		{4,5}, {4,6}, {5,7}, {6,7}
-	};
-
-	for (int i = 0; i < 12; ++i)
-	{
-		DrawLine3D(vertices[EDGS[i][0]], vertices[EDGS[i][1]], UtilityCommon::RED);
+		DrawLine3D(vertices[EDGES[i][0]], vertices[EDGES[i][1]], UtilityCommon::RED);
 	}
 }
 
@@ -51,12 +43,12 @@ void ColliderBox::UpdateObbAxis(void)
 	MATRIX rotMat;
 	rotMat = transformOwner_.quaRot.ToMatrix();
 
-	obb_.axis[0] = VTransform(VGet(1, 0, 0), rotMat); // Right
-	obb_.axis[1] = VTransform(VGet(0, 1, 0), rotMat); // Up
-	obb_.axis[2] = VTransform(VGet(0, 0, 1), rotMat); // Forward
+	obb_.axis[0] = VTransform(Utility3D::DIR_R, rotMat); // Right
+	obb_.axis[1] = VTransform(Utility3D::DIR_U, rotMat); // Up
+	obb_.axis[2] = VTransform(Utility3D::DIR_F, rotMat); // Forward
 }
 
-void ColliderBox::CalculateVertices(VECTOR outVertices[8]) const
+void ColliderBox::CalculateVertices(VECTOR outVertices[VERTEX_COUNT]) const
 {
 	MATRIX rotMat;
 	rotMat = transformOwner_.quaRot.ToMatrix();

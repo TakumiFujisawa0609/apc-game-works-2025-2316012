@@ -103,7 +103,6 @@ void Player::UpdateBody()
 
 void Player::DrawMain()
 {
-	//MV1DrawModel(transform_.modelId);
 	if (state_ == STATE::HAPPENING)
 	{
 		MV1DrawModel(transform_.modelId);
@@ -219,6 +218,11 @@ void Player::AddMadnessValue(const int madnessValue)
 	// 最大値を超える場合
 	if (madnessValue_ >= MADNESS_MAX)
 	{
+		constexpr float CAMERA_PFFSET_Y = 10.0f;
+		constexpr float CAMERA_TARGET_PFFSET_Y = -3000.0f;
+		constexpr float CAMERA_DEAD_TRANSITION_TIME = 1.8f;
+		constexpr float PLAYER_POS_OFFSET = 150;
+
 		// 最大値を代入
 		madnessValue_ = MADNESS_MAX;
 
@@ -227,16 +231,17 @@ void Player::AddMadnessValue(const int madnessValue)
 
 		// カメラ制御の設定
 		cameraDead_->Set(
-			VAdd(mainCamera.GetPos(), VECTOR{ 0.0f, 10.0f - mainCamera.GetPos().y, 0.0f }),
-			VAdd(mainCamera.GetTargetPos(), VECTOR{ 0.0f, -3000.0f - mainCamera.GetTargetPos().y, 0.0f }),
-			Utility3D::DIR_U, 0.0f,
-			1.8f);
+			VAdd(mainCamera.GetPos(), VECTOR{ 0.0f, CAMERA_PFFSET_Y - mainCamera.GetPos().y, 0.0f }),
+			VAdd(mainCamera.GetTargetPos(), VECTOR{ 0.0f, CAMERA_TARGET_PFFSET_Y - mainCamera.GetTargetPos().y, 0.0f }),
+			Utility3D::DIR_U,
+			0.0f,
+			CAMERA_DEAD_TRANSITION_TIME);
 
 		// ゲームステートの変更
 		GameStateManager::GetInstance().ChangeState(GameStateManager::STATE::MADNESS_END);
 
 		// 応急処置
-		transform_.pos = VAdd(transform_.pos, VScale(mainCamera.GetForward(),150.0f));
+		transform_.pos = VAdd(transform_.pos, VScale(mainCamera.GetForward(), PLAYER_POS_OFFSET));
 
 		// 効果音の再生
 		SoundManager::GetInstance().PlaySe(SoundType::SE::PLAYER_DIE);

@@ -51,7 +51,6 @@ void ControllerLight::Update()
 
 	// 先端位置を取得
 	VECTOR startPos = owner_.GetTransform().pos;
-	//startPos.y += 120.0f;
 
 	// 先端位置設定
 	collider_->SetLocalPosPointHead(screenCenter);
