@@ -79,7 +79,7 @@ void AnomalyManager::Update()
 			}
 
 			// ˆÙ•Ï”­¶
-			OccurAnomaly(TYPE::GRASS_ROOM);
+			OccurAnomaly(TYPE::REVERSE_FALL);
 			//OccurAnomaly(GetRandType());
 
 			// Ÿ‰ñ‚Ü‚Å‚ÌŠÔ‚ğƒ‰ƒ“ƒ_ƒ€İ’è
