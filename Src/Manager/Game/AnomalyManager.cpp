@@ -79,7 +79,8 @@ void AnomalyManager::Update()
 			}
 
 			// ˆÙ•Ï”­¶
-			OccurAnomaly(GetRandType());
+			OccurAnomaly(TYPE::REVERSE_FALL);
+			//OccurAnomaly(GetRandType());
 
 			// ŽŸ‰ñ‚Ü‚Å‚ÌŽžŠÔ‚ðƒ‰ƒ“ƒ_ƒ€Ý’è
 			timer_->SetGoalTime(timeMin_ + GetRand(timeMax_ - timeMin_));
