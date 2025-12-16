@@ -52,6 +52,9 @@ protected:
 	// テクスチャアニメインデックス
 	static constexpr int TEX_ANIM_INDEX = 7;
 
+	// テクスチャシャドウインデックス
+	static constexpr int TEX_SHADOW_INDEX = 8;
+
 	// 影用のマトリックスバッファーサイズ
 	static constexpr int BUFFER_MATRIX_SIZE = 2;
 

@@ -90,4 +90,11 @@ void ControllerDrawEnemy::UpdateBuffer()
 	material_->SetConstBufPS(1, FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
 	material_->SetConstBufPS(2, FLOAT4{ cameraPos.x, cameraPos.y,cameraPos.z, isSwitch });
 	material_->SetConstBufPS(3, FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,0.0f });
+
+	// マトリックスバッファーの設定
+	material_->SetConstBufVSMatrix(0, shadowMng_.GetLightViewMatrix());
+	material_->SetConstBufVSMatrix(1, shadowMng_.GetLightProjectionMatrix());
+
+	// シャドウマップの設定
+	material_->SetTextureBuf(TEX_SHADOW_INDEX, shadowMng_.GetShadowMapTexture());
 }

@@ -11,6 +11,9 @@
 // サブテクスチャの有効フラグ
 #define SUBTEXTUREMODE 7
 
+// シャドウマップの有効フラグ
+#define SHADOWMAP 1
+
 //PS
 #include "../Common/Pixel/PixelShader3DHeader.hlsli"
 
@@ -131,6 +134,12 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     
     // 色の加算(電源がオフの場合0乗算で追加値なし)
     foggedColor += spotLight * g_is_light;
+    
+    // 影の影響力を取得
+    float shadowFactor = ShadowCalculation(PSInput.lightAtPos, shadowMap0Texture, shadowMap0Sampler);
+    
+    // 最終色に影の係数を乗算
+    foggedColor.rgb *= shadowFactor;
     
     // 色の出力
     return float4(foggedColor, texColor.a);

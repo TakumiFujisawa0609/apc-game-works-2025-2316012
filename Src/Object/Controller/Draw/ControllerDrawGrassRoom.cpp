@@ -67,6 +67,8 @@ void ControllerDrawGrassRoom::Load()
 	material_->AddConstBufVSMatrix(shadowMng_.GetLightViewMatrix());
 	material_->AddConstBufVSMatrix(shadowMng_.GetLightProjectionMatrix());
 
+	// シャドウマップの設定
+	material_->SetTextureBuf(TEX_SHADOW_INDEX, shadowMng_.GetShadowMapTexture());
 }
 
 void ControllerDrawGrassRoom::UpdateBuffer()
@@ -101,4 +103,11 @@ void ControllerDrawGrassRoom::UpdateBuffer()
 	material_->SetConstBufPS(2, FLOAT4{ cameraPos.x, cameraPos.y,cameraPos.z, isSwitch });
 	material_->SetConstBufPS(3, FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,0.0f });
 	material_->SetConstBufPS(4, FLOAT4{ startPos_.x, startPos_.y, startPos_.z,owner_.GetDistance() });
+
+	// マトリックスバッファーの設定
+	material_->SetConstBufVSMatrix(0, shadowMng_.GetLightViewMatrix());
+	material_->SetConstBufVSMatrix(1, shadowMng_.GetLightProjectionMatrix());
+
+	// シャドウマップの設定
+	material_->SetTextureBuf(TEX_SHADOW_INDEX, shadowMng_.GetShadowMapTexture());
 }

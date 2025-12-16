@@ -228,4 +228,14 @@ void SceneGame::DebugDraw()
 	posY += OFFSET_Y;
 
 	AnomalyManager::GetInstance().DebugDraw();
+
+	// シャドウマップを描画
+	constexpr int MAPSIZE = 256;
+	DrawExtendGraph(
+		Application::SCREEN_SIZE_X - MAPSIZE,
+		Application::SCREEN_SIZE_Y - MAPSIZE,
+		Application::SCREEN_SIZE_X,
+		Application::SCREEN_SIZE_Y,
+		ShadowManager::GetInstance().GetShadowMapTexture(),
+		false);
 }

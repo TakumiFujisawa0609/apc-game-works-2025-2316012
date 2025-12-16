@@ -41,8 +41,8 @@ public:
 	static constexpr float LIMIT_X_DW_RAD_FPS = 50.0f * (DX_PI_F / 180.0f);
 
 	// 影用ライトの初期位置と注視点
-	static constexpr VECTOR LIGHT_POS = { 2976, 2281, 1985 };
-	static constexpr VECTOR LIGHT_TARGET = { 2889, 2127, 2079 };
+	static constexpr VECTOR LIGHT_POS = { 0, 3000, 0 };
+	static constexpr VECTOR LIGHT_TARGET = { 6000, 0, 6000 };
 	
 	/// <summary>
 	/// カメラのモード
@@ -169,6 +169,18 @@ public:
 	const VECTOR& GetCameraLightPos() const;
 
 	/// <summary>
+	/// 影のライト位置を返す
+	/// </summary>
+	/// <returns>影のライト位置</returns>
+	const VECTOR GetShadowLightPos() const { return shadowLightPos_; }
+
+	/// <summary>
+	/// 影のライト注視点位置を返す
+	/// </summary>
+	/// <returns>影のライト注視点位置</returns>
+	const VECTOR GetShadowLightTarget() const { return shadowLighTarget_; }
+
+	/// <summary>
 	/// カメラ位置の設定
 	/// </summary>
 	/// <param name="pos">座標</param>
@@ -196,7 +208,19 @@ public:
 	/// カメラ上方向ベクトルの設定
 	/// </summary>
 	/// <param name="cameraUpVector">カメラ方向</param>
-	void SetCameraUpVector(const VECTOR& cameraUpVector);
+	void SetCameraUpVector(const VECTOR& cameraUpVector);	
+	
+	/// <summary>
+	/// 影のライト位置を設定
+	/// </summary>
+	/// <param name="pos">影のライト位置</param>
+	void SetShadowLightPos(const VECTOR& pos) { shadowLightPos_ = pos; }
+
+	/// <summary>
+	/// 影のライト注視点位置を設定
+	/// </summary>
+	/// <param name="pos">影のライト注視点位置</param>
+	void SetShadowLightTarget(const VECTOR& pos) { shadowLighTarget_ = pos; }
 
 private:
 

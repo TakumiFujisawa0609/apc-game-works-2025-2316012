@@ -136,7 +136,7 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     
     // 電源がオンの場合
     // スポットライトの色計算
-    float3 spotLight = CalculateSpotLite(PSInput.world, g_spot_light_pos, g_spot_light_dir, normal);
+    float3 spotLight = CalculateSpotLite(PSInput.world, g_spot_light_pos, g_spot_light_dir, PSInput.normal);
     
     // ハイライトの加算
     foggedColor += HIGHLIGHT_COLOR * highlightIntensity;

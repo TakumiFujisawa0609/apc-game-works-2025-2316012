@@ -41,6 +41,9 @@ void ControllerDrawPainting::Load()
 	// マトリックスバッファーの追加
 	material_->AddConstBufVSMatrix(shadowMng_.GetLightViewMatrix());
 	material_->AddConstBufVSMatrix(shadowMng_.GetLightProjectionMatrix());
+
+	// シャドウマップの設定
+	material_->SetTextureBuf(TEX_SHADOW_INDEX, shadowMng_.GetShadowMapTexture());
 }
 
 void ControllerDrawPainting::UpdateBuffer()
@@ -52,4 +55,11 @@ void ControllerDrawPainting::UpdateBuffer()
 	float fogEnd;
 	GetFogStartEnd(&fogStart, &fogEnd);
 	material_->SetConstBufVS(0, FLOAT4{ cameraPos.x,cameraPos.y,cameraPos.z, fogStart });
+
+	// マトリックスバッファーの設定
+	material_->SetConstBufVSMatrix(0, shadowMng_.GetLightViewMatrix());
+	material_->SetConstBufVSMatrix(1, shadowMng_.GetLightProjectionMatrix());
+
+	// シャドウマップの設定
+	material_->SetTextureBuf(TEX_SHADOW_INDEX, shadowMng_.GetShadowMapTexture());
 }

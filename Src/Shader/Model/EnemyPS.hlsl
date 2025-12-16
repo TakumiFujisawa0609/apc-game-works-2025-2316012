@@ -33,25 +33,6 @@ cbuffer cbParam : register(b4)
 
 float4 main(PS_INPUT PSInput) : SV_TARGET0
 {
-
-    //// スペキュラーマップの計算
-    //// 視線ベクトル
-    //float viewVec = normalize(g_camera_pos - PSInput.vwPos); 
-    
-    //// ハーフベクトル
-    //float3 vecHalf = normalize(lightDir + viewVec);
-    
-    //// スペキュラマップから強度を取得 (1.で計算)
-    //float specularIntensity = specularMapTexture.Sample(specularMapSampler, uv).r;
-
-    //// スペキュラ項の計算
-    //float specPower = pow(max(0, dot(normal, vecHalf)), g_shininess);
-
-    //// 最終カラー 
-    //float3 litColor = saturate(ambientAttenuated + diffuse + specular);
- 
-
-    
     float2 uv = PSInput.uv;
  
     // ベースカラー
@@ -75,16 +56,11 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     // 最終的なカラー
     float3 finalColor = saturate(diffuse + ambientBase);
     
-    //return float4(diffuse, texColor.a);
-    
     // フォグ適用
     float3 foggedColor = ApplyFog(finalColor, PSInput.fogFactor);
     
-    //// ポイントライト
-    //foggedColor += (POINT_LIGHT_COLOR * PSInput.lightPower);
-        
     // スポットライトの色計算
-    float3 spotLight = CalculateSpotLite(PSInput.world, g_spot_light_pos, g_spot_light_dir, normal);
+    float3 spotLight = CalculateSpotLite(PSInput.world, g_spot_light_pos, g_spot_light_dir, PSInput.normal);
 
     // 色の加算
     foggedColor += spotLight * g_is_light;

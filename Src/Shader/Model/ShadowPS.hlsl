@@ -19,7 +19,6 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
     float4 color = g_SrcTexture.Sample(g_SrcSampler, PSInput.uv);
     if (color.a < 0.0001f)
     {
-		//shadowDepth.rgb = 1.0f;
         discard;
     }
  

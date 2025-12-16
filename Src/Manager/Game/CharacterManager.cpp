@@ -57,8 +57,8 @@ void CharacterManager::Draw()
 
 void CharacterManager::DrawShadow()
 {
-	// ƒvƒŒƒCƒ„[‚Æ“G‚Ì‚İ•`‰æ‚·‚é
-	for (auto type : { TYPE::PLAYER, TYPE::ENEMY })
+	// “G‚Ì‚İ•`‰æ‚·‚é
+	for (auto type : {TYPE::ENEMY })
 	{
 		auto& characters = characterMap_[type];
 		for (auto& character : characters)
