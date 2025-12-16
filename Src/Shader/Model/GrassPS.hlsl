@@ -47,11 +47,11 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     // “§‰ß’l‚Ì“K—p
     color.a = g_alpha;
     
-    // ‰e‚Ì‰e‹¿—Í‚ğæ“¾
-    float shadowFactor = ShadowCalculation(PSInput.lightAtPos, shadowMap0Texture, shadowMap0Sampler);
+    //// ‰e‚Ì‰e‹¿—Í‚ğæ“¾
+    //float shadowFactor = ShadowCalculation(PSInput.lightAtPos, shadowMap0Texture, shadowMap0Sampler, PSInput.normal, g_spot_light_dir);
 
-    // ÅIF‚É‰e‚ÌŒW”‚ğæZ
-    color.rgb *= shadowFactor;
+    //// ÅIF‚É‰e‚ÌŒW”‚ğæZ
+    //color.rgb *= shadowFactor;
 
     return color;
 }

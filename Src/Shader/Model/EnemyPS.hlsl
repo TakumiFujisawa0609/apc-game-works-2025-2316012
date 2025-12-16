@@ -66,10 +66,10 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     foggedColor += spotLight * g_is_light;
     
     // ‰e‚Ì‰e‹¿—Í‚ğæ“¾
-    //float shadowFactor = ShadowCalculation(PSInput.lightAtPos, shadowMap0Texture, shadowMap0Sampler);
+    float shadowFactor = ShadowCalculation(PSInput.lightAtPos, shadowMap0Texture, shadowMap0Sampler, PSInput.normal, g_spot_light_dir);
 
     //// ÅIF‚É‰e‚ÌŒW”‚ğæZ
-    //foggedColor.rgb *= shadowFactor;
+    foggedColor.rgb *= shadowFactor;
     
     // F‚Ìo—Í
     return float4(foggedColor, texColor.a);

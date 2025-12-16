@@ -54,11 +54,11 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     float fogFactor = saturate(1.0f - PSInput.fogFactor); // 0=ƒJƒƒ‰‹ß, 1=‰“
     float3 foggedColor = lerp(litColor, FOG_COLOR, fogFactor);
     
-    // ‰e‚Ì‰e‹¿—Í‚ğæ“¾
-    float shadowFactor = ShadowCalculation(PSInput.lightAtPos, shadowMap0Texture, shadowMap0Sampler);
+    //// ‰e‚Ì‰e‹¿—Í‚ğæ“¾
+    //float shadowFactor = ShadowCalculation(PSInput.lightAtPos, shadowMap0Texture, shadowMap0Sampler, PSInput.normal, g_spot_light_dir);
 
-    // ÅIF‚É‰e‚ÌŒW”‚ğæZ
-    foggedColor.rgb *= shadowFactor;
+    //// ÅIF‚É‰e‚ÌŒW”‚ğæZ
+    //foggedColor.rgb *= shadowFactor;
 
     return float4(foggedColor, texColor.a);
 }

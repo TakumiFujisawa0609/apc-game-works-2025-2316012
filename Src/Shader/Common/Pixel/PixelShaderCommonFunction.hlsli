@@ -95,9 +95,9 @@ float Rand(float2 co)
     return frac(sin(dot(co.xy, float2(12.9898, 78.233))) * 43758.5453) * 0.5 + 0.5;
 }
 
-float ShadowCalculation(float3 lightAtPos, Texture2D tex, SamplerState texSampler)
+float ShadowCalculation(float3 lightAtPos, Texture2D tex, SamplerState texSampler, float3 normal, float3 lightDir)
 {
-    float shadow = 1.0f;    // 初期値は影なし
+    float shadow = 1.0f; // 初期値は影なし
     float2 depthUV;
     depthUV.x = (lightAtPos.x + 1.0f) / 2.0f;
  
@@ -106,9 +106,10 @@ float ShadowCalculation(float3 lightAtPos, Texture2D tex, SamplerState texSample
  
 	// 深度バッファテクスチャから深度を取得
     float depth = tex.Sample(texSampler, depthUV).r;
+    float bias = 0.001f; // ストライプ（アクネ）を防ぐためのオフセット
  
 	// テクスチャに記録されている深度よりＺ値が大きかったら奥にあるということで輝度を半分にする
-    if (lightAtPos.z > depth + 0.001f)
+    if (lightAtPos.z > depth + bias)
     {
         shadow = 0.5f;
     }

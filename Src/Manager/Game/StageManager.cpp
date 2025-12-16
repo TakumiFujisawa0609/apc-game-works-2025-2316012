@@ -168,7 +168,7 @@ void StageManager::DrawShadow()
 		for (const auto& tag : drawTagList_)
 		{
 			// プレイヤーのタグがオブジェクトと一致する場合
-			if (tag == obj->GetRoomTag())
+			if (tag == obj->GetRoomTag() && "Roof" != obj->GetStageKey())
 			{
 				// オブジェクトの描画
 				obj->Mv1Draw();
@@ -184,7 +184,7 @@ void StageManager::DrawShadow()
 		for (const auto& tag : drawTagList_)
 		{
 			// プレイヤーのタグがオブジェクトと一致する場合
-			if (tag == obj->GetRoomTag())
+			if (tag == obj->GetRoomTag() && "Carpet01" != obj->GetStageKey() && "Carpet03" != obj->GetStageKey())
 			{
 				// オブジェクトの描画
 				obj->Mv1Draw();

@@ -74,8 +74,9 @@ void Camera::CameraSettingShadow()
 
 	// 描画する奥行き範囲をセット
 	SetCameraNearFar(S_NEAR, S_FAR);
-	SetCameraPositionAndTarget_UpVecY(pos_, targetPos_);
+
 	//SetCameraPositionAndTarget_UpVecY(LIGHT_POS, LIGHT_TARGET);
+	SetCameraPositionAndTarget_UpVecY(pos_, targetPos_);
 }
 
 void Camera::SetFollow(const Transform* follow)
