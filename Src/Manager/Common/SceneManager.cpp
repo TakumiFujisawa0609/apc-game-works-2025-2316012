@@ -8,6 +8,7 @@
 #include "../../Scene/SceneResult.h"
 #include "../../Common/Loading.h"
 #include "../Common/ResourceManager.h"
+#include "../Common/RendererManager.h"
 #include "../Common/SoundManager.h"
 #include "../Common/FontManager.h"
 #include "../Common/ScoreManager.h"
@@ -40,6 +41,10 @@ void SceneManager::Init()
 
 	// スコア管理生成
 	ScoreManager::CreateInstance();
+
+	// 描画管理クラス生成
+	RendererManager::CreateInstance();
+	RendererManager::GetInstance().Init();
 
 	// 読み込み中処理管理クラス生成
 	Loading::CreateInstance();
@@ -196,12 +201,16 @@ void SceneManager::Release()
 {
 	DeleteGraph(mainScreen_);
 
-	//全てのシーンで使うシングルトンクラスやリソースはここで解放する
+	// 各種管理クラスの解放処理
+	RendererManager::GetInstance().Release();
+
+	// 各種管理クラスの破棄処理
 	FontManager::GetInstance().Destroy();
 	SoundManager::GetInstance().Destroy();
 	EffectManager::GetInstance().Destroy();
 	ScoreManager::GetInstance().Destroy();
 	Loading::GetInstance().Destroy();
+	RendererManager::GetInstance().Destroy();
 }
 
 void SceneManager::ChangeScene(const SCENE_ID nextId, const Fader::STATE fadeState)

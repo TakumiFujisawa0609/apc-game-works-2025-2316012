@@ -48,8 +48,6 @@ public:
 	/// <param name="size"></param>
 	void SetSize(const Vector2& size) { size_ = size; }
 
-	
-
 private:
 
 	// 頂点シェーダ用オリジナル定数バッファの使用開始スロット

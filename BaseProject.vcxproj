@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Manager\Common\RendererManager.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectChromaticAberration.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectFilmBurn.cpp" />
     <ClCompile Include="Src\Manager\Common\EffectType.cpp" />
@@ -177,6 +178,7 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Manager\Common\RendererManager.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectChromaticAberration.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectFilmBurn.h" />
     <ClInclude Include="Src\Manager\Common\EffectType.h" />
