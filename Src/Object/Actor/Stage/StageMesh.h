@@ -21,7 +21,12 @@ public:
 	/// <summary>
 	/// •`‰æˆ—
 	/// </summary>
-	void Draw() override;
+	void Draw() override {};
+
+	/// <summary>
+	/// MV1DrawModel‚ğg—p‚µ‚½•`‰æˆ—
+	/// </summary>
+	void Mv1Draw() override {};
 
 private:
 

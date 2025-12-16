@@ -112,6 +112,6 @@ float ShadowCalculation(float3 lightAtPos, Texture2D tex, SamplerState texSample
     {
         shadow = 0.5f;
     }
-    return 1.0f;
+    
     return shadow;
 }

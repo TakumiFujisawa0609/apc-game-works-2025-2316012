@@ -67,6 +67,8 @@ void ActorBase::Draw()
 
 void ActorBase::Mv1Draw()
 {
+	if (!isActive_) { return; }
+
 	MV1DrawModel(transform_.modelId);
 }
 

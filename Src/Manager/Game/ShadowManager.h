@@ -47,7 +47,7 @@ private:
 	static constexpr int COLOR_BIT_DEPTH = 24;
 
 	// シャドウマップサイズ
-	static constexpr int SHADOW_MAP_SIZE = 8192;
+	static constexpr int SHADOW_MAP_SIZE = 12000;
 
 	// 通常のチャンネル数
 	static constexpr int DEFAULT_CHANNEL_NUM = 4;

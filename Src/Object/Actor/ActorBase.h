@@ -49,7 +49,7 @@ public:
 	/// <summary>
 	/// Mv1DrawModel‚ğg—p‚µ‚½•`‰æˆ—
 	/// </summary>
-	void Mv1Draw();
+	virtual void Mv1Draw();
 
 	/// <summary>
 	/// Õ“ËŒã‚Ìˆ—
