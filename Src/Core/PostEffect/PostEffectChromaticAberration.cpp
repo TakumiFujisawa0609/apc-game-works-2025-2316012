@@ -2,6 +2,7 @@
 #include "../Manager/Common/SceneManager.h"
 #include "../Manager/Common/InputManager.h"
 #include "../Manager/Common/ResourceManager.h"
+#include "../Manager/Common/RendererManager.h"
 #include "../Render/PixelMaterial.h"
 #include "../Render/PixelRenderer.h"
 #include "../Utility/UtilityCommon.h"
@@ -25,7 +26,7 @@ void PostEffectChromaticAberration::Init()
 	material_->AddConstBuf(COLOR_OFFSET);
 
 	// テクスチャ設定
-	material_->AddTextureBuf(scnMng_.GetMainScreen());
+	material_->AddTextureBuf(renMng_.GetTexture(RendererManager::TEXTURE_TYPE::MAIN));
 
 	PostEffectBase::Init();
 }

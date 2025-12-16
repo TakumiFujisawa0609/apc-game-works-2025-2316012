@@ -3,6 +3,7 @@
 #include "../Manager/Common/SceneManager.h"
 #include "../Manager/Common/InputManager.h"
 #include "../Manager/Common/ResourceManager.h"
+#include "../Manager/Common/RendererManager.h"
 #include "../Render/PixelMaterial.h"
 #include "../Render/PixelRenderer.h"
 #include "../Utility/UtilityCommon.h"
@@ -27,7 +28,7 @@ void PostEffectFilmBurn::Init()
 	material_->AddConstBuf(FLOAT4{ 0.0f,TIME, 0.0f,0.0f });
 
 	// テクスチャ設定
-	material_->AddTextureBuf(scnMng_.GetMainScreen());
+	material_->AddTextureBuf(renMng_.GetTexture(RendererManager::TEXTURE_TYPE::MAIN));
 	material_->AddTextureBuf(resMng_.GetHandle("filmBurnTexture"));
 
 	// 基底クラスの初期化

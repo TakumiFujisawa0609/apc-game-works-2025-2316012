@@ -1,6 +1,7 @@
 #include <DxLib.h>
 #include "../../Application.h"
 #include "../../Manager/Common/SceneManager.h"
+#include "../../Manager/Common/RendererManager.h"
 #include "../../Core/PostEffect/PostEffectCracks.h"
 #include "../../Core/PostEffect/PostEffectGameScreen.h"
 #include "../../Core/PostEffect/PostEffectFilmBurn.h"
@@ -54,7 +55,7 @@ void GameEffectManager::Draw()
 	effectMap_[type_]->Draw();
 
 	// ƒƒCƒ“‚É–ß‚·
-	SetDrawScreen(SceneManager::GetInstance().GetMainScreen());
+	SetDrawScreen(RendererManager::GetInstance().GetTexture(RendererManager::TEXTURE_TYPE::MAIN));
 
 	// •`‰æ
 	DrawGraph(0, 0, effectScreen_, false);

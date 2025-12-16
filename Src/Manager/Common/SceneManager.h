@@ -96,12 +96,6 @@ public:
 	void SetScreenPos(const Vector2& pos) { screenPos_ = pos; }
 
 	/// <summary>
-	/// メインスクリーンを返す
-	/// </summary>
-	/// <returns>メインスクリーン</returns>
-	const int GetMainScreen() const { return mainScreen_; }
-
-	/// <summary>
 	/// 現在のシーンIDを返す
 	/// </summary>
 	/// <returns>現在のシーンID</returns>
@@ -141,9 +135,6 @@ private:
 
 	// スクリーン座標
 	Vector2 screenPos_;
-
-	// メインスクリーン
-	int mainScreen_;
 
 	// シーン遷移中判定
 	bool isSceneChanging_;

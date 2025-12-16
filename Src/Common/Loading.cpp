@@ -1,6 +1,7 @@
 #include <DxLib.h>
 #include "../Application.h"
 #include "../Manager/Common/SceneManager.h"
+#include "../Manager/Common/RendererManager.h"
 #include "../Manager/Common/ResourceManager.h"
 #include "../Manager/Common/SoundManager.h"
 #include "../Manager/Common/FontManager.h"
@@ -71,7 +72,7 @@ void Loading::Draw()
 	snowNoiseEffect_->Draw();
 
 	// ƒƒCƒ“‚É–ß‚·
-	SetDrawScreen(SceneManager::GetInstance().GetMainScreen());
+	SetDrawScreen(RendererManager::GetInstance().GetTexture(RendererManager::TEXTURE_TYPE::MAIN));
 
 	// •`‰æ
 	DrawGraph(0, 0, loadingScreen_, false);

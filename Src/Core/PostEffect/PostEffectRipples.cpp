@@ -2,6 +2,7 @@
 #include "../Application.h"
 #include "../Manager/Common/SceneManager.h"
 #include "../Manager/Common/ResourceManager.h"
+#include "../Manager/Common/RendererManager.h"
 #include "../Render/PixelMaterial.h"
 #include "../Render/PixelRenderer.h"
 #include "../Utility/UtilityCommon.h"
@@ -33,7 +34,7 @@ void PostEffectRipples::Init()
 	material_->AddConstBuf(FLOAT4{ 0.0f,GLITCH_STRENGTH,0.0f,0.0f });
 
 	// テクスチャ設定
-	material_->AddTextureBuf(scnMng_.GetMainScreen());
+	material_->AddTextureBuf(renMng_.GetTexture(RendererManager::TEXTURE_TYPE::MAIN));
 
 	// 初期化
 	lineStep_ = 0.0f;

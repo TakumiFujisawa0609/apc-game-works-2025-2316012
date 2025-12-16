@@ -7,6 +7,7 @@ class ResourceManager;
 class SoundManager;
 class InputManager;
 class FontManager;
+class RendererManager;
 class Loading;
 
 class SceneBase
@@ -40,6 +41,7 @@ protected:
 	SoundManager& sndMng_;
 	SceneManager& scnMng_;
 	FontManager& fontMng_;
+	RendererManager& renMng_;
 	Loading& loading_;
 
 	//XVˆ—ŠÇ—

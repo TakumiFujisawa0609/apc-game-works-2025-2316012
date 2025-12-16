@@ -2,6 +2,7 @@
 #include "../Manager/Common/SceneManager.h"
 #include "../Manager/Game/CharacterManager.h"
 #include "../Manager/Common/ResourceManager.h"
+#include "../Manager/Common/RendererManager.h"
 #include "../Render/PixelMaterial.h"
 #include "../Render/PixelRenderer.h"
 #include "../Object/Actor/Character/Player.h"
@@ -33,7 +34,7 @@ void PostEffectGameNormal::Init()
 	material_->AddConstBuf(FLOAT4{ 0.0f,0.0f,0.0f,0.0f });
 
 	// テクスチャ設定
-	material_->AddTextureBuf(scnMng_.GetMainScreen());
+	material_->AddTextureBuf(renMng_.GetTexture(RendererManager::TEXTURE_TYPE::MAIN));
 
 	// 親クラスの初期化処理
 	PostEffectBase::Init();

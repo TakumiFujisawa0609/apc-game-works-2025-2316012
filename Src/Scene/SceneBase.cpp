@@ -5,6 +5,7 @@
 #include "../Manager/Common/ResourceManager.h"
 #include "../Manager/Common/FontManager.h"
 #include "../Manager/Common/SoundManager.h"
+#include "../Manager/Common/RendererManager.h"
 #include "../Common/Loading.h"
 #include "../Core/PostEffect/PostEffectSnowNoise.h"
 #include "../Utility/UtilityCommon.h"
@@ -16,7 +17,8 @@ SceneBase::SceneBase() :
 	inputMng_(InputManager::GetInstance()),
 	fontMng_(FontManager::GetInstance()),
 	sndMng_(SoundManager::GetInstance()),
-	loading_(Loading::GetInstance())
+	loading_(Loading::GetInstance()),
+	renMng_(RendererManager::GetInstance())
 {
 }
 

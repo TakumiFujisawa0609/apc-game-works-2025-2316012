@@ -2,6 +2,7 @@
 #include "../../../Manager/Common/SceneManager.h"
 #include "../../../Manager/Common/InputManager.h"
 #include "../../../Manager/Common/SoundManager.h"
+#include "../../../Manager/Common/RendererManager.h"
 #include "../../../Core/Title/TitleButton.h"
 #include "../../../Core/Title/TitleLogo.h"
 #include "../../../Core/PostEffect/PostEffectRipples.h"
@@ -89,7 +90,7 @@ void TitleStateMain::Draw()
 	ripples_->Draw();
 
 	// ƒƒCƒ“‚É–ß‚·
-	SetDrawScreen(scnMng_.GetMainScreen());
+	SetDrawScreen(renMng_.GetTexture(RendererManager::TEXTURE_TYPE::MAIN));
 
 	// •`‰æ
 	DrawGraph(0, 0, effectScreen_, false);

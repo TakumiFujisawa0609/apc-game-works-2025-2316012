@@ -56,9 +56,6 @@ void SceneManager::Init()
 	// デルタタイム
 	preTime_ = std::chrono::system_clock::now();
 
-	// スクリーン
-	mainScreen_ = MakeScreen(Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y);
-
 	// ウィンドウがアクティブ状態でなくとも処理を行う
 	SetAlwaysRunFlag(true);
 
@@ -131,8 +128,11 @@ void SceneManager::Update()
 
 void SceneManager::Draw()
 {
+	// メインスクリーンの取得
+	int mainScreen = RendererManager::GetInstance().GetTexture(RendererManager::TEXTURE_TYPE::MAIN);
+
 	// メインスクリーンを指定
-	SetDrawScreen(mainScreen_);
+	SetDrawScreen(mainScreen);
 
 	// 画面を初期化
 	ClearDrawScreen();
@@ -165,7 +165,7 @@ void SceneManager::Draw()
 	camera_->CameraSetting();
 
 	// メインスクリーンを描画
-	DrawGraph(screenPos_.x, screenPos_.y, mainScreen_, true);
+	DrawGraph(screenPos_.x, screenPos_.y, mainScreen, true);
 }
 
 void SceneManager::CreateScene(const std::shared_ptr<SceneBase>& scene)
@@ -199,8 +199,6 @@ void SceneManager::PopScene()
 
 void SceneManager::Release()
 {
-	DeleteGraph(mainScreen_);
-
 	// 各種管理クラスの解放処理
 	RendererManager::GetInstance().Release();
 
@@ -237,7 +235,6 @@ void SceneManager::StartFadeIn(const Fader::STATE fadeState)
 
 SceneManager::SceneManager()
 {
-	mainScreen_ = -1;
 	sceneId_ = SCENE_ID::NONE;
 	waitSceneId_ = SCENE_ID::NONE;
 	scenes_.clear();

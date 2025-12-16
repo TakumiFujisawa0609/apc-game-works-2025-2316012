@@ -1,6 +1,6 @@
 #pragma once
 
-class SceneManager;
+class RendererManager;
 
 class GlitchScreen
 {
@@ -46,8 +46,8 @@ private:
 	// カラーノイズの透明度
 	static constexpr int GLITCH_COLOR_NOISE_ALPHA = 64;
 
-	// シーン管理クラスの参照
-	SceneManager& scnMng_;
+	// 描画管理クラスの参照
+	RendererManager& renMng_;
 
 	// エフェクトスクリーン
 	int effectScreen_;

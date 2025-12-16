@@ -1,7 +1,7 @@
 #include <DxLib.h>
 #include <random>
 #include <chrono>
-#include "../../Manager/Common/SceneManager.h"
+#include "../../Manager/Common/RendererManager.h"
 #include "../../Utility/UtilityCommon.h"
 #include "../../Application.h"
 #include "GlitchScreen.h"
@@ -10,7 +10,7 @@
 std::mt19937 mt(static_cast<unsigned int>(std::chrono::high_resolution_clock::now().time_since_epoch().count()));
 
 GlitchScreen::GlitchScreen() :
-	scnMng_(SceneManager::GetInstance())
+	renMng_(RendererManager::GetInstance())
 {
 	effectScreen_ = -1;
 }
@@ -28,7 +28,7 @@ void GlitchScreen::Init()
 void GlitchScreen::Draw()
 {
 	// メインスクリーンの取得
-	int mainScreen = scnMng_.GetMainScreen();
+	int mainScreen = renMng_.GetTexture(RendererManager::TEXTURE_TYPE::MAIN);
 
 	// 現在の描画先を保存
 	int originalTargetScreen = GetDrawScreen();

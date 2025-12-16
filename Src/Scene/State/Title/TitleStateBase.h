@@ -6,6 +6,7 @@ class SceneManager;
 class InputManager;
 class SoundManager;
 class FontManager;
+class RendererManager;
 
 class TitleStateBase
 {
@@ -47,5 +48,6 @@ protected:
 	SoundManager& sndMng_;
 	FontManager& fontMng_;
 	ResourceManager& resMng_;
+	RendererManager& renMng_;
 };
 

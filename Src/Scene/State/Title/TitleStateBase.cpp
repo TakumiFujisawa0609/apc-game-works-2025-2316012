@@ -3,6 +3,7 @@
 #include "../../../Manager/Common/SoundManager.h"
 #include "../../../Manager/Common/FontManager.h"
 #include "../../../Manager/Common/ResourceManager.h"
+#include "../../../Manager/Common/RendererManager.h"
 #include "../../SceneTitle.h"
 #include "TitleStateBase.h"
 
@@ -12,7 +13,8 @@ TitleStateBase::TitleStateBase(SceneTitle& parent) :
 	inputMng_(InputManager::GetInstance()),
 	sndMng_(SoundManager::GetInstance()),
 	fontMng_(FontManager::GetInstance()),
-	resMng_(ResourceManager::GetInstance())
+	resMng_(ResourceManager::GetInstance()),
+	renMng_(RendererManager::GetInstance())	
 {
 }
 
