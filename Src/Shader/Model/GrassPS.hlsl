@@ -1,8 +1,11 @@
 // VS/PS共通
 #include "../Common/VertexToPixelHeader.hlsli"
-
+#include "../Common/Pixel/PixelShaderCommonFunction.hlsli"
 // IN
 #define PS_INPUT VertexToPixelLit
+
+// シャドウマップの有効フラグ
+#define SHADOWMAP 1
 
 // PS
 #include "../Common/Pixel/PixelShader3DHeader.hlsli"
@@ -43,6 +46,12 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     
     // 透過値の適用
     color.a = g_alpha;
+    
+    // 影の影響力を取得
+    float shadowFactor = ShadowCalculation(PSInput.lightAtPos, shadowMap0Texture, shadowMap0Sampler);
+
+    // 最終色に影の係数を乗算
+    color.rgb *= shadowFactor;
 
     return color;
 }

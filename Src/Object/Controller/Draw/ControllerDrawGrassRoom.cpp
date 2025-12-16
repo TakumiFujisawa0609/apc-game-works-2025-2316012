@@ -1,7 +1,8 @@
 #include "../../../Manager/Common/SceneManager.h"
 #include "../../../Manager/Common/Camera.h"
-#include "../../../Manager/Game/CharacterManager.h"
 #include "../../../Manager/Common/ResourceManager.h"
+#include "../../../Manager/Game/CharacterManager.h"
+#include "../../../Manager/Game/ShadowManager.h"
 #include "../../../Render/ModelMaterial.h"
 #include "../../../Render/ModelRenderer.h"
 #include "../../../Utility/Utility3D.h"
@@ -23,7 +24,7 @@ ControllerDrawGrassRoom::~ControllerDrawGrassRoom()
 void ControllerDrawGrassRoom::Load()
 {
 	// マテリアル生成
-	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("standardVs"), BUFFER_VS_SIZE, resMng_.GetHandle("grassRoomPs"), BUFFER_PS_SIZE);
+	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("standardVs"), BUFFER_VS_SIZE, resMng_.GetHandle("grassRoomPs"), BUFFER_PS_SIZE, BUFFER_MATRIX_SIZE);
 
 	// レンダラー生成
 	renderer_ = std::make_unique<ModelRenderer>(model_, *material_);
@@ -61,6 +62,11 @@ void ControllerDrawGrassRoom::Load()
 	material_->AddConstBufPS(FLOAT4{ cameraPos.x, cameraPos.y,cameraPos.z, isSwitch });
 	material_->AddConstBufPS(FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,0.0f });
 	material_->AddConstBufPS(FLOAT4{ startPos_.x, startPos_.y, startPos_.z,0.0f });
+
+	// マトリックスバッファーの追加
+	material_->AddConstBufVSMatrix(shadowMng_.GetLightViewMatrix());
+	material_->AddConstBufVSMatrix(shadowMng_.GetLightProjectionMatrix());
+
 }
 
 void ControllerDrawGrassRoom::UpdateBuffer()

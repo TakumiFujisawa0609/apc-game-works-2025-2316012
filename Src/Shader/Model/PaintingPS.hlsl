@@ -1,5 +1,6 @@
 //VS・PS共通
 #include "../Common/VertexToPixelHeader.hlsli"
+#include "../Common/Pixel/PixelShaderCommonFunction.hlsli"
 
 //IN
 #define PS_INPUT VertexToPixelLit
@@ -7,10 +8,11 @@
 // 法線マップ有効フラグ
 #define BUMPMAP 1
 
+// シャドウマップの有効フラグ
+#define SHADOWMAP 1
+
 //PS
 #include "../Common/Pixel/PixelShader3DHeader.hlsli"
-
-static float3 FOG_COLOR = { 0.0f, 0.0f, 0.0f };
 
 // 定数バッファ：スロット4番目(b4と書く)
 cbuffer cbParam : register(b4)
@@ -51,6 +53,12 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     // フォグ適用
     float fogFactor = saturate(1.0f - PSInput.fogFactor); // 0=カメラ近, 1=遠
     float3 foggedColor = lerp(litColor, FOG_COLOR, fogFactor);
+    
+    // 影の影響力を取得
+    float shadowFactor = ShadowCalculation(PSInput.lightAtPos, shadowMap0Texture, shadowMap0Sampler);
+
+    // 最終色に影の係数を乗算
+    foggedColor.rgb *= shadowFactor;
 
     return float4(foggedColor, texColor.a);
 }

@@ -5,6 +5,7 @@
 
 class ResourceManager;
 class CharacterManager;
+class ShadowManager;
 class ModelMaterial;
 class ModelRenderer;
 
@@ -43,12 +44,16 @@ protected:
 	// インスタンスの参照
 	ResourceManager& resMng_;
 	CharacterManager& charaMng_;
+	ShadowManager& shadowMng_;
 
 	// 環境光
 	static constexpr VECTOR AMBIENT = { 0.5, 0.5, 0.5 };
 
 	// テクスチャアニメインデックス
 	static constexpr int TEX_ANIM_INDEX = 7;
+
+	// 影用のマトリックスバッファーサイズ
+	static constexpr int BUFFER_MATRIX_SIZE = 2;
 
 	// モデル
 	const int model_;

@@ -9,7 +9,7 @@
 // OUT
 #define VS_OUTPUT VertexToPixelShadow
 #include "../Common/Vertex/VertexShader3DHeader.hlsli"
- 
+
 VS_OUTPUT main(VS_INPUT VSInput)
 {
  

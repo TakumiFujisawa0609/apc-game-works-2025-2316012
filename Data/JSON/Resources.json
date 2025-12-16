@@ -833,8 +833,8 @@
       "path": "Data/Shader/ShadowMeshVS.cso"
     },
     {
-      "key": "shadowSkinnedMeshVS",
-      "path": "Data/Shader/ShadowSkinnedMeshVS.cso",
+      "key": "shadowSkinnedMeshVs",
+      "path": "Data/Shader/ShadowSkinnedMeshVs.cso",
       "sceneId": 3,
       "type": "vertexShader"
     }

@@ -525,6 +525,9 @@
     <ClCompile Include="Src\Core\PostEffect\PostEffectChromaticAberration.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Manager\Game\ShadowManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Fader.h">
@@ -1136,6 +1139,9 @@
     <ClInclude Include="Src\Core\PostEffect\PostEffectChromaticAberration.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Manager\Game\ShadowManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\PostEffect\Vignette.hlsl" />
@@ -1167,6 +1173,9 @@
     <FxCompile Include="Src\Shader\Model\CherryBlossomsWorldPS.hlsl" />
     <FxCompile Include="Src\Shader\PostEffect\FilmBurnEffect.hlsl" />
     <FxCompile Include="Src\Shader\PostEffect\ChromaticAberrationEffect.hlsl" />
+    <FxCompile Include="Src\Shader\Model\ShadowMeshVS.hlsl" />
+    <FxCompile Include="Src\Shader\Model\ShadowPS.hlsl" />
+    <FxCompile Include="Src\Shader\Model\ShadowSkinnedMeshVs.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\Shader\Common\Pixel\PixelShader2DHeader.hlsli" />

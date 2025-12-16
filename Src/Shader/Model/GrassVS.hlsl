@@ -9,6 +9,13 @@
 #define VS_OUTPUT VertexToPixelLit
 #include "../Common/Vertex/VertexShader3DHeader.hlsli"
 
+// 定数バッファ：スロット8番目
+cbuffer cbParamShadow : register(b8)
+{
+    float4x4 g_light_viewmatrix;
+    float4x4 g_light_projectionMatrix;
+};
+
 VS_OUTPUT main(VS_INPUT VSInput)
 {
 
@@ -30,11 +37,16 @@ VS_OUTPUT main(VS_INPUT VSInput)
     // ワールド座標をビュー座標に変換
     lViewPosition.w = 1.0f;
     lViewPosition.xyz = mul(lWorldPosition, g_base.viewMatrix);
-    ret.vwPos.xyz = lViewPosition.xyz;
 
     // ビュー座標を射影座標に変換
     ret.svPos = mul(lViewPosition, g_base.projectionMatrix);
 
+    // ライトのビュー座標をライトの射影座標に変換
+    float4 lLViewPosition = mul(g_light_viewmatrix, lWorldPosition);
+ 
+	// ライトのビュー座標をライトの射影座標に変換
+    ret.lightAtPos = mul(g_light_projectionMatrix, lLViewPosition).xyz;
+    
     // 頂点座標変換 +++++++++++++++++++++++++++++++++++++( 終了 )
 
     // その他、ピクセルシェーダへ引継&初期化 ++++++++++++( 開始 )

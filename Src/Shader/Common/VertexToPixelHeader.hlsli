@@ -11,7 +11,6 @@ struct VertexToPixelLit
 {
 	float4 svPos		: SV_POSITION;	// 座標( プロジェクション空間 )
 	float2 uv			: TEXCOORD0;	// テクスチャ座標
-	float3 vwPos		: TEXCOORD1;	// 座標( ビュー座標 )
     float3 world        : WORLD_POSITION;
 	float3 normal       : TEXCOORD2;	// 法線( ビュー座標 )
 	float4 diffuse      : COLOR0;		// ディフューズカラー
@@ -24,16 +23,16 @@ struct VertexToPixelLit
 
 struct VertexToPixelSpecular
 {
-    float4 svPos : SV_POSITION; // 座標( プロジェクション空間 )
-    float2 uv : TEXCOORD0; // テクスチャ座標
-    float3 vwPos : TEXCOORD1; // 座標( ビュー座標 )
-    float3 normal : TEXCOORD2; // 法線( ビュー座標 )
-    float4 diffuse : COLOR0; // ディフューズカラー
+    float4 svPos        : SV_POSITION;  // 座標( プロジェクション空間 )
+    float2 uv           : TEXCOORD0;    // テクスチャ座標
+    float3 vwPos        : TEXCOORD1;    // 座標( ビュー座標 )
+    float3 normal       : TEXCOORD2;    // 法線( ビュー座標 )
+    float4 diffuse      : COLOR0;       // ディフューズカラー
     float3 specular     : COLOR1;       // スペキュラカラー
-    float3 tan : TANGENT;
-    float3 bin : BINORMAL;
-    float fogFactor : FOG;
-    float lightPower : LIGHT_POW;
+    float3 tan          : TANGENT;
+    float3 bin          : BINORMAL;
+    float fogFactor     : FOG;
+    float lightPower    : LIGHT_POW;
 };
 
 struct VertexToPixelShadow

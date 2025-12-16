@@ -1,5 +1,6 @@
 #include "../../../Manager/Game/CharacterManager.h"
 #include "../../../Manager/Common/ResourceManager.h"
+#include "../../../Manager/Game/ShadowManager.h"
 #include "../../../Render/ModelMaterial.h"
 #include "../../../Render/ModelRenderer.h"
 #include "ControllerDrawBase.h"
@@ -7,6 +8,7 @@
 ControllerDrawBase::ControllerDrawBase(const int model) :
 	charaMng_(CharacterManager::GetInstance()),
 	resMng_(ResourceManager::GetInstance()),
+	shadowMng_(ShadowManager::GetInstance()),
 	model_(model)
 {
 	material_ = nullptr;
