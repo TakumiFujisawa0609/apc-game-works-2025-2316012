@@ -1,6 +1,7 @@
 #include "../../../Manager/Game/CharacterManager.h"
 #include "../../../Manager/Game/GameEffectManager.h"
 #include "../../../Manager/Game/StageManager.h"
+#include "../../../Manager/Game/ShadowManager.h"
 #include "../../../Object/Actor/Stage/StageObjectBase.h"
 #include "../../../Object/Actor/Character/CharacterBase.h"
 #include "GameStateJumpScare.h"
@@ -29,6 +30,9 @@ void GameStateJumpScare::Update()
 
 void GameStateJumpScare::Draw()
 {
+	// âeï`âÊ
+	shadowMng_.Draw();
+
 	// ÉXÉeÅ[ÉWï`âÊ
 	stageMng_.Draw();
 

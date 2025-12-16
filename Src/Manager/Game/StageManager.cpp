@@ -161,6 +161,46 @@ void StageManager::Draw()
 	}
 }
 
+void StageManager::DrawShadow()
+{
+	for (const auto& obj : opaqueList_)
+	{
+		for (const auto& tag : drawTagList_)
+		{
+			// プレイヤーのタグがオブジェクトと一致する場合
+			if (tag == obj->GetRoomTag())
+			{
+				// オブジェクトの描画
+				obj->Mv1Draw();
+
+				// 次へ
+				continue;
+			}
+		}
+	}
+
+	for (const auto& obj : translucentList_)
+	{
+		for (const auto& tag : drawTagList_)
+		{
+			// プレイヤーのタグがオブジェクトと一致する場合
+			if (tag == obj->GetRoomTag())
+			{
+				// オブジェクトの描画
+				obj->Mv1Draw();
+
+				// 次へ
+				continue;
+			}
+		}
+	}
+
+	for (auto& grass : grassList_)
+	{
+		grass->Draw();
+	}
+}
+
 void StageManager::Sweep()
 {	
 	// マップ全体をイテレート

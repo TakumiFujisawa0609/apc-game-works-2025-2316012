@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Manager\Game\ShadowManager.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectChromaticAberration.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectFilmBurn.cpp" />
     <ClCompile Include="Src\Manager\Common\EffectType.cpp" />
@@ -177,6 +178,7 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Manager\Game\ShadowManager.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectChromaticAberration.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectFilmBurn.h" />
     <ClInclude Include="Src\Manager\Common\EffectType.h" />
@@ -436,6 +438,24 @@
     </FxCompile>
     <FxCompile Include="Src\Shader\Model\PaintingVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\Model\ShadowMeshVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\Model\ShadowPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\Model\ShadowSkinnedMeshVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="Src\Shader\Model\StageMainPS.hlsl">

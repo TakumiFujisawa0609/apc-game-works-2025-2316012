@@ -39,6 +39,10 @@ public:
 	//FPS視点のカメラのX回転上限度角
 	static constexpr float LIMIT_X_UP_RAD_FPS = -20.0f * (DX_PI_F / 180.0f);
 	static constexpr float LIMIT_X_DW_RAD_FPS = 50.0f * (DX_PI_F / 180.0f);
+
+	// 影用ライトの初期位置と注視点
+	static constexpr VECTOR LIGHT_POS = { 2976, 2281, 1985 };
+	static constexpr VECTOR LIGHT_TARGET = { 2889, 2127, 2079 };
 	
 	/// <summary>
 	/// カメラのモード
@@ -86,6 +90,11 @@ public:
 	/// カメラの設定
 	/// </summary>
 	void CameraSetting();
+
+	/// <summary>
+	/// 影用のカメラの設定
+	/// </summary>
+	void CameraSettingShadow();
 		
 	/// <summary>
 	/// 描画処理
@@ -191,6 +200,7 @@ public:
 
 private:
 
+	// 入力管理クラスの参照
 	InputManager& input_;
 
 	// カメラが追従対象とするTransform
@@ -225,6 +235,12 @@ private:
 
 	// モード遷移処理
 	std::unordered_map<MODE, std::function<void()>> changeModeMap_;
+
+	// 影用ライト位置と注視点
+	VECTOR shadowLightPos_;
+
+	// 影用ライト注視点
+	VECTOR shadowLighTarget_;
 
 	// カメラを初期位置に戻す
 	void SetDefault();

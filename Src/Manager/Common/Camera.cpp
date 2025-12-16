@@ -63,6 +63,20 @@ void Camera::CameraSetting()
 	);
 }
 
+void Camera::CameraSettingShadow()
+{
+	constexpr float SIZE = 13250.0f;
+	constexpr float S_NEAR = 10.0f;
+	constexpr float S_FAR = 13050.0f;
+
+	// カメラのタイプを正射影タイプにセット、描画範囲も指定
+	SetupCamera_Ortho(SIZE);
+
+	// 描画する奥行き範囲をセット
+	SetCameraNearFar(S_NEAR, S_FAR);
+	SetCameraPositionAndTarget_UpVecY(shadowLightPos_, shadowLighTarget_);
+}
+
 void Camera::SetFollow(const Transform* follow)
 {
 	followTransform_ = follow;

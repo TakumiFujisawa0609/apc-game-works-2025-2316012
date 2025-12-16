@@ -819,6 +819,24 @@
       "type": "sound",
       "path": "Data/Sound/SE/SeAnomalyCameraRoll.mp3",
       "soundType": "se"
+    },
+    {
+      "key": "shadowPs",
+      "sceneId": 3,
+      "type": "pixelShader",
+      "path": "Data/Shader/ShadowPS.cso"
+    },
+    {
+      "key": "shadowMeshVs",
+      "sceneId": 3,
+      "type": "vertexShader",
+      "path": "Data/Shader/ShadowMeshVS.cso"
+    },
+    {
+      "key": "shadowSkinnedMeshVS",
+      "path": "Data/Shader/ShadowSkinnedMeshVS.cso",
+      "sceneId": 3,
+      "type": "vertexShader"
     }
   ]
 }

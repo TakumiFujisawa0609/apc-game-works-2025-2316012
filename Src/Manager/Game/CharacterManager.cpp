@@ -55,6 +55,19 @@ void CharacterManager::Draw()
 	}
 }
 
+void CharacterManager::DrawShadow()
+{
+	// ƒvƒŒƒCƒ„[‚Æ“G‚Ì‚Ý•`‰æ‚·‚é
+	for (auto type : { TYPE::PLAYER, TYPE::ENEMY })
+	{
+		auto& characters = characterMap_[type];
+		for (auto& character : characters)
+		{
+			character->Mv1Draw();
+		}
+	}
+}
+
 
 void CharacterManager::Sweep()
 {

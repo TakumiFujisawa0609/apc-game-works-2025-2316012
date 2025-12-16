@@ -14,6 +14,7 @@
 #include "../Manager/Game/GameSystemManager.h"
 #include "../Manager/Game/AnomalyManager.h"
 #include "../Manager/Game/GameEffectManager.h"
+#include "../Manager/Game/ShadowManager.h"
 #include "../Utility/UtilityCommon.h"
 #include "../Object/Actor/Character/CharacterBase.h"
 #include "../Object/Actor/Stage/StageObjectBase.h"
@@ -40,6 +41,7 @@ SceneGame::SceneGame()
 	AnomalyManager::CreateInstance();
 	GameStateManager::CreateInstance();
 	GameEffectManager::CreateInstance();
+	ShadowManager::CreateInstance();
 }
 
 SceneGame::~SceneGame()
@@ -53,6 +55,7 @@ SceneGame::~SceneGame()
 	AnomalyManager::GetInstance().Destroy();
 	GameStateManager::GetInstance().Destroy();
 	GameEffectManager::GetInstance().Destroy();
+	ShadowManager::GetInstance().Destroy();
 }
 
 void SceneGame::Load()
@@ -110,6 +113,9 @@ void SceneGame::Init()
 
 	// エフェクト管理クラスの初期化
 	GameEffectManager::GetInstance().Init();
+
+	// 影管理クラスの初期化
+	ShadowManager::GetInstance().Init();
 
 	// カメラ設定
 	mainCamera.SetFollow(&CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform());

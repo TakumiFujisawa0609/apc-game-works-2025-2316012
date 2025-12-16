@@ -1,3 +1,4 @@
+#include <DxLib.h>
 #include "ActorBase.h"
 #include "../Manager/Common/ResourceManager.h"
 #include "../Manager/Common/SceneManager.h"
@@ -62,6 +63,11 @@ void ActorBase::Draw()
 #ifdef _DEBUG
 	DebugDraw();
 #endif 
+}
+
+void ActorBase::Mv1Draw()
+{
+	MV1DrawModel(transform_.modelId);
 }
 
 void ActorBase::InitTransform()

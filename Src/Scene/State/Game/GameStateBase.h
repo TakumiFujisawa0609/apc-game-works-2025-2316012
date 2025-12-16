@@ -4,6 +4,7 @@ class StageManager;
 class CharacterManager;
 class GameSystemManager;
 class GameEffectManager;
+class ShadowManager;
 
 class GameStateBase
 {
@@ -41,5 +42,6 @@ protected:
 	CharacterManager& charaMng_;
 	GameSystemManager& systemMng_;
 	GameEffectManager& effectMng_;
+	ShadowManager& shadowMng_;
 };
 
