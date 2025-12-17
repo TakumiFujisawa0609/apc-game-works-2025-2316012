@@ -112,9 +112,12 @@ void StageManager::Update()
 		}
 	}
 
-	for (auto& grass : grassList_)
+	for (const auto obj : billboardObjectsMap_)
 	{
-		grass->Update();
+		for (const auto& billboard : obj.second)
+		{
+			billboard->Update();
+		}
 	}
 
 	// ƒJƒƒ‰”ÍˆÍ‚©’²‚×‚é
@@ -155,9 +158,12 @@ void StageManager::Draw()
 		}
 	}
 
-	for (auto& grass : grassList_)
+	for (const auto obj : billboardObjectsMap_)
 	{
-		grass->Draw();
+		for (const auto& billboard : obj.second)
+		{
+			billboard->Draw();
+		}
 	}
 }
 
@@ -199,11 +205,6 @@ void StageManager::DrawShadow()
 			}
 		}
 	}
-
-	for (auto& grass : grassList_)
-	{
-		grass->Draw();
-	}
 }
 
 void StageManager::Sweep()
@@ -243,9 +244,9 @@ void StageManager::Sweep()
 	}
 }
 
-void StageManager::DeleteGrass()
+void StageManager::DeleteBillboardObjects(const BILLBOARD_OBJ_TYPE type)
 {
-	grassList_.clear();
+	billboardObjectsMap_.at(type).clear();
 }
 
 void StageManager::SetIsActiveByAllObjects(const bool isActive)
@@ -292,20 +293,14 @@ void StageManager::Add(const std::string& type, std::unique_ptr<StageObjectBase>
 	}
 }
 
-void StageManager::AddGrass(std::unique_ptr<Grass> grass)
+void StageManager::AddBillboardObject(const BILLBOARD_OBJ_TYPE type, std::unique_ptr<BillboardObjectBase> billboardObject)
 {
-	grassList_.push_back(std::move(grass));
+	billboardObjectsMap_.at(type).push_back(std::move(billboardObject));
 }
 
 std::vector<std::unique_ptr<StageObjectBase>>& StageManager::GetStageObjects(const std::string& key)
 {
 	return stageObjectsMap_[key];
-	//auto it = stageObjectsMap_.find(key);
-	//if (it != stageObjectsMap_.end())
-	//{
-	//	return &(it->second);
-	//}
-	//return nullptr;
 }
 
 const Json& StageManager::GetStageObjectColliderParam(const std::string& key) const

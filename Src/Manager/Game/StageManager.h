@@ -9,6 +9,7 @@
 class GrassRoom;
 class StageObjectBase;
 class StageMain;
+class BillboardObjectBase;
 class Grass;
 
 // JSON名前空間
@@ -20,6 +21,16 @@ class StageManager : public Singleton<StageManager>
 	friend class Singleton<StageManager>;
 
 public:
+
+	/// <summary>
+	/// ビルボード種類
+	/// </summary>
+	enum class BILLBOARD_OBJ_TYPE
+	{
+		GRASS,
+		HUMAN,
+		MAX
+	};
 
 	/// <summary>
 	/// 読み込み処理
@@ -52,9 +63,9 @@ public:
 	void Sweep();
 
 	/// <summary>
-	/// 草の削除
+	/// ビルボードオブジェクトの削除
 	/// </summary>
-	void DeleteGrass();
+	void DeleteBillboardObjects(const BILLBOARD_OBJ_TYPE type);
 
 	/// <summary>
 	/// 全てのオブジェクトの活動状態を設定
@@ -70,10 +81,10 @@ public:
 	void Add(const std::string& type, std::unique_ptr<StageObjectBase> stageObject);
 
 	/// <summary>
-	/// 草の追加
+	/// ビルポートオブジェクトの追加
 	/// </summary>
-	/// <param name="grass"></param>
-	void AddGrass(std::unique_ptr<Grass> grass);
+	/// <param name="billboardObject">ビルポートオブジェクト</param>
+	void AddBillboardObject(const BILLBOARD_OBJ_TYPE type, std::unique_ptr<BillboardObjectBase> billboardObject);
 
 	/// <summary>
 	/// 指定したステージオブジェクトの配列を返す
@@ -128,8 +139,8 @@ private:
 	// 透過描画リスト
 	std::vector<StageObjectBase*> translucentList_;
 
-	// 草の部屋
-	std::vector<std::unique_ptr<Grass>> grassList_;
+	// ビルボードオブジェク管理マップ
+	std::unordered_map<BILLBOARD_OBJ_TYPE, std::vector<std::unique_ptr<BillboardObjectBase>>> billboardObjectsMap_;
 
 	// ステージオブジェクトの管理マップ
 	std::unordered_map<std::string, std::vector<std::unique_ptr<StageObjectBase>>> stageObjectsMap_;

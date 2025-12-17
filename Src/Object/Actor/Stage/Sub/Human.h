@@ -1,25 +1,24 @@
 #pragma once
 #include "BillboardObjectBase.h"
-#include "../Common/Vector2.h"
 
 class SceneManager;
 class ModelMaterial;
 class BillboardRenderer;
-class GrassRoom;
 
-class Grass : public BillboardObjectBase
+class Human : public BillboardObjectBase
 {
 public:
 
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	Grass(const VECTOR& pos, GrassRoom& parent);
+	/// <param name="pos">座標</param>
+	Human(const VECTOR& pos);
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~Grass() override;
+	~Human() override;
 
 	/// <summary>
 	/// 初期化
@@ -38,18 +37,5 @@ public:
 
 private:
 
-	// 揺れの強さ
-	static constexpr float WIND_STRENGTH = 0.05f;
-
-	// 揺れの周期
-	static constexpr float WIND_FREQUENCY = 10.0f;
-
-	// 親インスタンス
-	GrassRoom& parent_;
-
-	// アルファ値
-	float alpha_;
-
-	// 開始位置
-	VECTOR startPos_;
 };
+

@@ -837,6 +837,12 @@
       "path": "Data/Shader/ShadowSkinnedMeshVs.cso",
       "sceneId": 3,
       "type": "vertexShader"
+    },
+    {
+      "key": "human",
+      "path": "Data/Image/Anomaly/Human.png",
+      "sceneId": 3,
+      "type": "texture"
     }
   ]
 }

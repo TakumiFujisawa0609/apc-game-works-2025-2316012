@@ -107,7 +107,7 @@ void GrassRoom::Refresh()
 	distance_ = 0.0f;
 
 	// ‘‚Ìíœ
-	StageManager::GetInstance().DeleteGrass();
+	StageManager::GetInstance().DeleteBillboardObjects();
 
 	// Œø‰Ê‰¹‚Ì’â~
 	SoundManager::GetInstance().StopSe(SoundType::SE::GRASS_LAND);

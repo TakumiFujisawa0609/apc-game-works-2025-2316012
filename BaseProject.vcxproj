@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Object\Actor\Stage\Sub\BillboardObjectBase.cpp" />
+    <ClCompile Include="Src\Object\Actor\Stage\Sub\Human.cpp" />
+    <ClCompile Include="Src\Object\System\Anomaly\AnomalyCrowd.cpp" />
     <ClCompile Include="Src\Manager\Game\ShadowManager.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectChromaticAberration.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectFilmBurn.cpp" />
@@ -178,6 +181,9 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Object\Actor\Stage\Sub\BillboardObjectBase.h" />
+    <ClInclude Include="Src\Object\Actor\Stage\Sub\Human.h" />
+    <ClInclude Include="Src\Object\System\Anomaly\AnomalyCrowd.h" />
     <ClInclude Include="Src\Manager\Game\ShadowManager.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectChromaticAberration.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectFilmBurn.h" />
