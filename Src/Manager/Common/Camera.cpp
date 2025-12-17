@@ -26,6 +26,7 @@ Camera::Camera(void) :
 	changeModeMap_.emplace(MODE::FOLLOW, std::bind(&Camera::ChangeModeFollow, this));
 	changeModeMap_.emplace(MODE::FPS, std::bind(&Camera::ChangeModeFps, this));
 	changeModeMap_.emplace(MODE::FREE, std::bind(&Camera::ChangeModeFree, this));	
+	changeModeMap_.emplace(MODE::SHADOW, std::bind(&Camera::ChangeModeShadow, this));	
 	
 	// カメラの初期設定
 	ChangeMode(MODE::FIXED_POINT);
@@ -328,6 +329,41 @@ void Camera::ProcessRotFree()
 	targetPos_ = VAdd(pos_, localPos);
 }
 
+void Camera::ProcessRotShadow()
+{
+	// 任意の定数
+	const float CAMERA_MOVE_SPEED = 4.0f;
+	const float CAMERA_ROTATE_SPEED = 0.01f;
+	const float CAMERA_DISTANCE = 50.0f; // 注視点からカメラまでの距離
+
+	// キーボード入力による回転
+	if (CheckHitKey(KEY_INPUT_RIGHT)) angles_.y += CAMERA_ROTATE_SPEED;
+	if (CheckHitKey(KEY_INPUT_LEFT))  angles_.y -= CAMERA_ROTATE_SPEED;
+	if (CheckHitKey(KEY_INPUT_UP))    angles_.x -= CAMERA_ROTATE_SPEED;
+	if (CheckHitKey(KEY_INPUT_DOWN))  angles_.x += CAMERA_ROTATE_SPEED;
+
+	// 角度の制限
+	if (angles_.x <= LIMIT_X_UP_RAD_FPS) { angles_.x = LIMIT_X_UP_RAD_FPS; }
+	else if (angles_.x >= LIMIT_X_DW_RAD_FPS) { angles_.x = LIMIT_X_DW_RAD_FPS; }
+
+	// キーボード入力による注視点の移動
+	if (CheckHitKey(KEY_INPUT_W)) shadowLightPos_ = VAdd(shadowLightPos_, VScale(Quaternion::Quaternion(angles_).GetForward(), CAMERA_MOVE_SPEED));
+	if (CheckHitKey(KEY_INPUT_S)) shadowLightPos_ = VAdd(shadowLightPos_, VScale(Quaternion::Quaternion(angles_).GetBack(), CAMERA_MOVE_SPEED));
+	if (CheckHitKey(KEY_INPUT_A)) shadowLightPos_ = VAdd(shadowLightPos_, VScale(Quaternion::Quaternion(angles_).GetLeft(), CAMERA_MOVE_SPEED));
+	if (CheckHitKey(KEY_INPUT_D)) shadowLightPos_ = VAdd(shadowLightPos_, VScale(Quaternion::Quaternion(angles_).GetRight(), CAMERA_MOVE_SPEED));
+	if (CheckHitKey(KEY_INPUT_Q)) shadowLightPos_ = VAdd(shadowLightPos_, VScale(Quaternion::Quaternion(angles_).GetDown(), CAMERA_MOVE_SPEED));
+	if (CheckHitKey(KEY_INPUT_E)) shadowLightPos_ = VAdd(shadowLightPos_, VScale(Quaternion::Quaternion(angles_).GetUp(), CAMERA_MOVE_SPEED));
+
+	//角度を計算
+	rot_ = (Quaternion::Quaternion(angles_));
+
+	// 注視点からカメラ位置までの相対座標を計算
+	VECTOR localPos = rot_.PosAxis(LOCAL_F2T_POS_FOLLOW);
+
+	// 注視点を更新
+	shadowLighTarget_ = VAdd(shadowLightPos_, localPos);
+}
+
 void Camera::ChangeModeNone()
 {
 	beforeDrawFunc_ = std::bind(&Camera::SetBeforeDrawNone, this);
@@ -354,6 +390,11 @@ void Camera::ChangeModeFps()
 void Camera::ChangeModeFree()
 {
 	beforeDrawFunc_ = std::bind(&Camera::SetBeforeDrawFree, this);
+}
+
+void Camera::ChangeModeShadow()
+{
+	beforeDrawFunc_ = std::bind(&Camera::SetBeforeDrawShadow, this);
 }
 
 void Camera::SetBeforeDrawFixedPoint()
@@ -384,4 +425,9 @@ void Camera::SetBeforeDrawFree()
 {
 	//カメラ操作
 	ProcessRotFree();
+}
+
+void Camera::SetBeforeDrawShadow()
+{
+	ProcessRotShadow();
 }

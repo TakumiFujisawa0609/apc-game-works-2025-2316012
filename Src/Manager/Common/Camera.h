@@ -54,7 +54,8 @@ public:
 		FOLLOW,			// 追従
 		FPS,			// FPS視点
 		FREE,			// 自由
-		TRANSITION		// トランジション
+		TRANSITION,		// トランジション
+		SHADOW			// 影
 	};
 
 	/// <summary>
@@ -277,6 +278,7 @@ private:
 	void ProcessRotFollow();	// 追従モードの回転操作
 	void ProcessRotFps();		// FPSモードの回転操作
 	void ProcessRotFree();		// 自由モードの回転操作
+	void ProcessRotShadow();	// 自由モードの回転操作
 
 	//モード別状態遷移処理
 	void ChangeModeNone();
@@ -284,6 +286,7 @@ private:
 	void ChangeModeFollow();
 	void ChangeModeFps();
 	void ChangeModeFree();
+	void ChangeModeShadow();
 
 	// モード別更新ステップ
 	void SetBeforeDrawNone() {};
@@ -291,4 +294,5 @@ private:
 	void SetBeforeDrawFollow();
 	void SetBeforeDrawFps();
 	void SetBeforeDrawFree();
+	void SetBeforeDrawShadow();
 };

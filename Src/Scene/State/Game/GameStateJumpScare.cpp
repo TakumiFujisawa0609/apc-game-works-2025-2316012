@@ -31,7 +31,7 @@ void GameStateJumpScare::Update()
 void GameStateJumpScare::Draw()
 {
 	// âeï`âÊ
-	shadowMng_.Draw();
+	//shadowMng_.Draw();
 
 	// ÉXÉeÅ[ÉWï`âÊ
 	stageMng_.Draw();

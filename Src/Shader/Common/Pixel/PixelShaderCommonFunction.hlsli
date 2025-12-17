@@ -97,22 +97,34 @@ float Rand(float2 co)
 
 float ShadowCalculation(float3 lightAtPos, Texture2D tex, SamplerState texSampler, float3 normal, float3 lightDir)
 {
-    float shadow = 1.0f; // 初期値は影なし
+    float blurScale = 2.0f;
     float2 depthUV;
     depthUV.x = (lightAtPos.x + 1.0f) / 2.0f;
- 
-	// yは更に上下反転
     depthUV.y = 1.0f - (lightAtPos.y + 1.0f) / 2.0f;
- 
-	// 深度バッファテクスチャから深度を取得
-    float depth = tex.Sample(texSampler, depthUV).r;
-    float bias = 0.001f; // ストライプ（アクネ）を防ぐためのオフセット
- 
-	// テクスチャに記録されている深度よりＺ値が大きかったら奥にあるということで輝度を半分にする
-    if (lightAtPos.z > depth + bias)
+
+    // シャドウマップの解像度に合わせてテクセルサイズを計算
+    float size = 16000.0f;
+    float2 texelSize = float2(1.0f / size, 1.0f / size);
+
+    float shadowAccum = 0.0f;
+    float bias = 0.005f; // ストライプ（アクネ）を防ぐためのオフセット
+
+    // 3x3の範囲でサンプリング
+    [unroll]
+    for (int x = -1; x <= 1; ++x)
     {
-        shadow = 0.5f;
+        for (int y = -1; y <= 1; ++y)
+        {
+            // 周辺ピクセルの座標を計算
+            float2 offset = float2(x, y) * texelSize * blurScale;
+            float pcfDepth = tex.Sample(texSampler, depthUV + offset).r;
+            
+            // 現在の深度と比較
+            // 影なら 0.5f、光が当たっていれば 1.0f を加算
+            shadowAccum += (lightAtPos.z > pcfDepth + bias) ? 0.5f : 1.0f;
+        }
     }
-    
-    return shadow;
+
+    // 9点の平均を返す
+    return shadowAccum / 9.0f;
 }

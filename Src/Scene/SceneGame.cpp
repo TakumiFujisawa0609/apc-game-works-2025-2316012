@@ -181,12 +181,12 @@ void SceneGame::DebugUpdate()
 		switch (mainCamera.GetMode())
 		{
 		case Camera::MODE::FPS:
-			mainCamera.ChangeMode(Camera::MODE::FOLLOW);
-			break;
-		case Camera::MODE::FOLLOW:
 			mainCamera.ChangeMode(Camera::MODE::FREE);
 			break;
 		case Camera::MODE::FREE:
+			mainCamera.ChangeMode(Camera::MODE::SHADOW);
+			break;
+		case Camera::MODE::SHADOW:
 			mainCamera.ChangeMode(Camera::MODE::FPS);
 			break;
 		default:
@@ -209,6 +209,8 @@ void SceneGame::DebugDraw()
 	VECTOR cPos = mainCamera.GetPos();
 	VECTOR cTarget = mainCamera.GetTargetPos();
 	VECTOR cAngles = mainCamera.GetAngles();
+	VECTOR shadowPos = mainCamera.GetShadowLightPos();
+	VECTOR shadowTarget = mainCamera.GetShadowLightTarget();
 
 	// プレイヤー情報の取得
 	auto& player = CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER);
@@ -225,6 +227,10 @@ void SceneGame::DebugDraw()
 	DrawFormatString(0, posY, UtilityCommon::RED, L"プレイヤー位置：%2f,%2f,%2f", playerPos.x, playerPos.y, playerPos.z);
 	posY += OFFSET_Y;
 	DrawFormatString(0, posY, UtilityCommon::RED, L"移動量：%2f", movePow);
+	posY += OFFSET_Y;
+	DrawFormatString(0, posY, UtilityCommon::RED, L"影の座標：%2f,%2f,%2f", shadowPos.x, shadowPos.y, shadowPos.z);
+	posY += OFFSET_Y;
+	DrawFormatString(0, posY, UtilityCommon::RED, L"影の注視点：%2f,%2f,%2f", shadowTarget.x, shadowTarget.y, shadowTarget.z);
 	posY += OFFSET_Y;
 
 	AnomalyManager::GetInstance().DebugDraw();
