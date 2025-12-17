@@ -48,7 +48,13 @@ public:
 	/// 透過描画判定(順番を後半に回すか)
 	/// </summary>
 	/// <returns>trueの場合順番を後半に回す</returns>
-	const bool IsTranslucent() const { return isTrans_; }		
+	const bool IsTranslucent() const { return isTrans_; }
+
+	/// <summary>
+	/// 座標位置を設定
+	/// </summary>
+	/// <param name="pos">座標</param>
+	void SetPos(const VECTOR& pos) { transform_.pos = pos; }
 	
 	// ステージキー
 	const std::string STAGE_KEY;

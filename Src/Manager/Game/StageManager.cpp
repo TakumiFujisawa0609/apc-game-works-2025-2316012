@@ -297,6 +297,17 @@ void StageManager::AddGrass(std::unique_ptr<Grass> grass)
 	grassList_.push_back(std::move(grass));
 }
 
+std::vector<std::unique_ptr<StageObjectBase>>& StageManager::GetStageObjects(const std::string& key)
+{
+	return stageObjectsMap_[key];
+	//auto it = stageObjectsMap_.find(key);
+	//if (it != stageObjectsMap_.end())
+	//{
+	//	return &(it->second);
+	//}
+	//return nullptr;
+}
+
 const Json& StageManager::GetStageObjectColliderParam(const std::string& key) const
 {
 	// マップから指定されたキーの要素を検索

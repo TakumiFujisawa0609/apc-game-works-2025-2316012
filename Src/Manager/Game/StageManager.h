@@ -80,7 +80,7 @@ public:
 	/// </summary>
 	/// <param name="key">ステージの種類</param>
 	/// <returns>ステージオブジェクトの配列</returns>
-	std::vector<std::unique_ptr<StageObjectBase>>& GetStageObjects(const std::string& key) { return stageObjectsMap_[key]; }
+	std::vector<std::unique_ptr<StageObjectBase>>& GetStageObjects(const std::string& key);
 
 	/// <summary>
 	/// 指定したステージオブジェクトのコライダー情報を返す
