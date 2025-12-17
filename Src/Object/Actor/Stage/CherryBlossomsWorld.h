@@ -39,6 +39,11 @@ public:
 	/// </summary>
 	void Refresh() override;
 
+	/// <summary>
+	/// MV1描画処理
+	/// </summary>
+	void Mv1Draw() override;
+
 private:
 
 	void DrawMain() override;
@@ -48,6 +53,9 @@ private:
 
 	// プレイヤーのリセット用位置
 	const VECTOR RESET_PLAYER_POS;
+
+	// 影の描画を行わないフレーム番号
+	static constexpr int NO_SHADOW_FRAME = 95;
 
 };
 

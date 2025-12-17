@@ -8,7 +8,8 @@
 #include "StageMain.h"
 
 StageMain::StageMain(const std::string& key, const Json& mapParam, const Json& colliderParam):
-	StageGimmickObjectBase(key, mapParam, colliderParam)
+	StageGimmickObjectBase(key, mapParam, colliderParam),
+	shadowFrameList_(colliderParam["shadowDrawFrameList"].get<std::vector<int>>())
 {
 }
 
@@ -49,4 +50,17 @@ bool StageMain::CheckCameraViewClip()
 	}
 	// ‹ŠE‚É“ü‚Á‚Ä‚¢‚é
 	return true;
+}
+
+void StageMain::Mv1Draw()
+{
+	// Šˆ“®ó‘Ô‚Ìê‡
+	if (isActive_)
+	{
+		// w’è‚µ‚½ƒtƒŒ[ƒ€‚Ì‚İ•`‰æ
+		for (const int index : shadowFrameList_)
+		{
+			MV1DrawFrame(transform_.modelId, index);
+		}
+	}
 }

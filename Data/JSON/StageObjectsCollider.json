@@ -15,7 +15,8 @@
       "x": -420,
       "y": 0,
       "z": -650
-    }
+    },
+    "shadowDrawFrameList": [ 66, 67, 68, 74, 75, 76, 77, 78, 79, 80, 81, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99 ]
   },
   "RoomB": {
     "collisionTag": "none",
@@ -29,7 +30,8 @@
       "x": 1380,
       "y": 0,
       "z": -1630
-    }
+    },
+    "shadowDrawFrameList": [ 2, 33, 34, 35, 39 ]
   },
   "RoomC": {
     "collisionTag": "none",
@@ -43,7 +45,8 @@
       "x": 645,
       "y": 0,
       "z": -1630
-    }
+    },
+    "shadowDrawFrameList": [ 21, 22, 23, 24, 25, 26, 31 ]
   },
   "RoomD": {
     "collisionTag": "none",
@@ -57,7 +60,8 @@
       "x": 1375,
       "y": 0,
       "z": -2154
-    }
+    },
+    "shadowDrawFrameList": [ 35, 36, 38, 39, 40, 41, 42 ]
   },
   "RoomE": {
     "collisionTag": "none",
@@ -71,7 +75,8 @@
       "x": -380,
       "y": 0,
       "z": -1900
-    }
+    },
+    "shadowDrawFrameList": [ 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108 ]
   },
   "CorriderA": {
     "collisionTag": "none",
@@ -85,7 +90,8 @@
       "x": 1420,
       "y": 0,
       "z": -880
-    }
+    },
+    "shadowDrawFrameList": []
   },
   "CorriderB": {
     "collisionTag": "none",
@@ -99,7 +105,8 @@
       "x": -90,
       "y": 0,
       "z": -2080
-    }
+    },
+    "shadowDrawFrameList": []
   },
   "CorriderC": {
     "collisionTag": "none",
@@ -113,7 +120,8 @@
       "x": -360,
       "y": 0,
       "z": -2110
-    }
+    },
+    "shadowDrawFrameList": []
   },
   "Roof": {
     "collisionTag": "none",
@@ -127,7 +135,8 @@
       "x": 1500,
       "y": 250,
       "z": -2160
-    }
+    },
+    "shadowDrawFrameList": []
   },
   "Chair01": {
     "collisionTag": "stageGimmick",
@@ -238,7 +247,8 @@
       "x": 2500,
       "y": 0,
       "z": -2500
-    }
+    },
+    "shadowDrawFrameList": []
   },
   "CherryBlossomsWorldMesh": {
     "collisionTag": "stageMain",

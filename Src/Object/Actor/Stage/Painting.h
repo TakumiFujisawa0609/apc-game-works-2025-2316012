@@ -25,6 +25,11 @@ public:
 	/// </summary>
 	void Refresh() override;
 
+	/// <summary>
+	/// MV1DrawModel‚ğg—p‚µ‚½•`‰æˆ—
+	/// </summary>
+	void Mv1Draw() override {};
+
 private:
 
 	/// <summary>

@@ -107,7 +107,7 @@ float ShadowCalculation(float3 lightAtPos, Texture2D tex, SamplerState texSample
     float2 texelSize = float2(1.0f / size, 1.0f / size);
 
     float shadowAccum = 0.0f;
-    float bias = 0.005f; // ストライプ（アクネ）を防ぐためのオフセット
+    float bias = 0.001f; // ストライプ（アクネ）を防ぐためのオフセット
 
     // 3x3の範囲でサンプリング
     [unroll]

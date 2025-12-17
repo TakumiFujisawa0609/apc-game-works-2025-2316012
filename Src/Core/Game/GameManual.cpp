@@ -47,8 +47,8 @@ void GameManual::Init()
 	textOnOff_.fontHandle = font;
 	textOnOff_.color = UtilityCommon::WHITE;
 
-	// 初期状態は表示状態
-	isText_ = true;
+	// 初期状態は非表示状態
+	isText_ = false;
 
 	// 初期時の接続状況を確認
 	Update();

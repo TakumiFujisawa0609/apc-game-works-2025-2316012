@@ -40,10 +40,6 @@ void Camera::Init(void)
 
 void Camera::SetBeforeDraw(void)
 {
-
-	// クリップ距離を設定する(SetDrawScreenでリセットされる)
-	SetCameraNearFar(CAMERA_NEAR, CAMERA_FAR);
-
 	// カメラモードごとの描画前処理
 	beforeDrawFunc_();
 
@@ -56,6 +52,9 @@ void Camera::SetBeforeDraw(void)
 
 void Camera::CameraSetting()
 {
+	// クリップ距離を設定する(SetDrawScreenでリセットされる)
+	SetCameraNearFar(CAMERA_NEAR, CAMERA_FAR);
+
 	// カメラの設定(位置と注視点による制御)
 	SetCameraPositionAndTargetAndUpVec(
 		pos_,

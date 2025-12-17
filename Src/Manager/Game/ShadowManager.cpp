@@ -115,4 +115,5 @@ ShadowManager::ShadowManager() :
 
 ShadowManager::~ShadowManager()
 {
+	DeleteGraph(shadowMapTexture_);
 }
