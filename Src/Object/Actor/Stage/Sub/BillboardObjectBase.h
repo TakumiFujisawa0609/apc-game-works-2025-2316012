@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <DxLib.h>
+#include "../../../../Common/Vector2.h"
 
 class SceneManager;
 class ResourceManager;

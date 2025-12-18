@@ -92,7 +92,7 @@ void GrassRoom::SetAnomaly()
 	StageManager& stageMng = StageManager::GetInstance();
 	for (int i = 0; i < CREATE_GRASS; i++)
 	{
-		stageMng.AddGrass(std::move(std::make_unique<Grass>(GetRespownGrassPos(), *this)));
+		stageMng.AddBillboardObject(StageManager::BILLBOARD_OBJ_TYPE::GRASS, std::move(std::make_unique<Grass>(GetRespownGrassPos(), *this)));
 	}
 }
 
@@ -107,7 +107,7 @@ void GrassRoom::Refresh()
 	distance_ = 0.0f;
 
 	// ‘‚Ìíœ
-	StageManager::GetInstance().DeleteBillboardObjects();
+	StageManager::GetInstance().DeleteBillboardObjects(StageManager::BILLBOARD_OBJ_TYPE::GRASS);
 
 	// Œø‰Ê‰¹‚Ì’â~
 	SoundManager::GetInstance().StopSe(SoundType::SE::GRASS_LAND);

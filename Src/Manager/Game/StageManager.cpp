@@ -112,7 +112,7 @@ void StageManager::Update()
 		}
 	}
 
-	for (const auto obj : billboardObjectsMap_)
+	for (const auto& obj : billboardObjectsMap_)
 	{
 		for (const auto& billboard : obj.second)
 		{
@@ -158,7 +158,7 @@ void StageManager::Draw()
 		}
 	}
 
-	for (const auto obj : billboardObjectsMap_)
+	for (const auto& obj : billboardObjectsMap_)
 	{
 		for (const auto& billboard : obj.second)
 		{
@@ -295,7 +295,19 @@ void StageManager::Add(const std::string& type, std::unique_ptr<StageObjectBase>
 
 void StageManager::AddBillboardObject(const BILLBOARD_OBJ_TYPE type, std::unique_ptr<BillboardObjectBase> billboardObject)
 {
-	billboardObjectsMap_.at(type).push_back(std::move(billboardObject));
+	// 指定されたキーがマップに存在しない場合
+	if (billboardObjectsMap_.count(type) == 0)
+	{
+		// 新たに配列を生成して追加
+		std::vector<std::unique_ptr<BillboardObjectBase>> objs;
+		objs.push_back(std::move(billboardObject));
+		billboardObjectsMap_.emplace(type, std::move(objs));
+	}
+	else
+	{
+		// そのまま追加
+		billboardObjectsMap_.at(type).push_back(std::move(billboardObject));
+	}
 }
 
 std::vector<std::unique_ptr<StageObjectBase>>& StageManager::GetStageObjects(const std::string& key)

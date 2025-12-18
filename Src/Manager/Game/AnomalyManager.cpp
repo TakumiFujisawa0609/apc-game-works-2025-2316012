@@ -80,6 +80,7 @@ void AnomalyManager::Update()
 
 			// ˆÙ•Ï”­¶
 			OccurAnomaly(GetRandType());
+			//OccurAnomaly(AnomalyManager::TYPE::GRASS_ROOM);
 
 			// ŽŸ‰ñ‚Ü‚Å‚ÌŽžŠÔ‚ðƒ‰ƒ“ƒ_ƒ€Ý’è
 			timer_->SetGoalTime(timeMin_ + GetRand(timeMax_ - timeMin_));
