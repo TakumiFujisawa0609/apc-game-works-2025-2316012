@@ -1,6 +1,6 @@
 {
   "Param": {
-    "firstTime": 50,
+    "firstTime": 10,
     "timeMax": 40,
     "timeMin": 20,
     "Weights": {
@@ -9,7 +9,8 @@
       "ChairMountain": 1,
       "BloodyRoom": 2,
       "GrassRoom": 1,
-      "ReverseFall": 1
+      "ReverseFall": 1,
+      "Crowd": 1
     }
   },
   "Painting": {
@@ -223,6 +224,11 @@
       "z": 1.0
     },
     "tag": "B",
+    "madnessValue": 10,
+    "maxVolume": 20,
+    "minVolume": 50
+  },
+"Crowd": {
     "madnessValue": 10,
     "maxVolume": 20,
     "minVolume": 50

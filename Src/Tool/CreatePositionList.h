@@ -50,4 +50,3 @@ private:
 	// ƒtƒ@ƒCƒ‹‚Ì¶¬
 	void Create();
 };
-

@@ -31,6 +31,7 @@ public:
 		APPEARANCE,		// èoåª
 		GRASS_ROOM,		// ëêÇÃïîâÆ
 		REVERSE_FALL,	// îΩì]óéâ∫
+		CROWD,			// åQèO
 		MAX
 	};
 
@@ -47,6 +48,7 @@ public:
 		{TYPE::APPEARANCE,"Appearance"},
 		{TYPE::GRASS_ROOM,"GrassRoom"},
 		{TYPE::REVERSE_FALL,"ReverseFall"},
+		{TYPE::CROWD,"Crowd"},
 	};
 	
 	/// <summary>
