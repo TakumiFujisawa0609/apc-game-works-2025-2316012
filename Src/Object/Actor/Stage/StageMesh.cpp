@@ -8,9 +8,3 @@ StageMesh::StageMesh(const std::string& key, const Json& mapParam, const Json& c
 StageMesh::~StageMesh()
 {
 }
-
-void StageMesh::Draw()
-{
-	// ƒƒbƒVƒ…‚Í•`‰æ‚µ‚È‚¢
-	return;
-}

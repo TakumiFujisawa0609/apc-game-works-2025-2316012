@@ -55,6 +55,11 @@ public:
 	void Draw();
 
 	/// <summary>
+	/// 影用の描画処理
+	/// </summary>
+	void DrawShadow();
+
+	/// <summary>
 	/// 不要のキャラクターの削除
 	/// </summary>
 	void Sweep();

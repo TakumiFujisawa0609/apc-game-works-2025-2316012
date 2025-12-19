@@ -360,6 +360,10 @@ void AnomalyReverseFall::CreateStage()
 	main->Load();
 	main->Init();
 
+	// 現在のプレイヤー位置を中心とする
+	mesh->SetPos(prePlayerPos_);
+	main->SetPos(prePlayerPos_);
+
 	// 追加
 	stageMng_.Add(KEY_MESH, std::move(mesh));
 	stageMng_.Add(KEY_MAIN, std::move(main));

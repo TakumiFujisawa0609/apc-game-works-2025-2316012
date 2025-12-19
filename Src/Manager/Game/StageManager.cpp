@@ -112,9 +112,12 @@ void StageManager::Update()
 		}
 	}
 
-	for (auto& grass : grassList_)
+	for (const auto& obj : billboardObjectsMap_)
 	{
-		grass->Update();
+		for (const auto& billboard : obj.second)
+		{
+			billboard->Update();
+		}
 	}
 
 	// カメラ範囲か調べる
@@ -155,9 +158,47 @@ void StageManager::Draw()
 		}
 	}
 
-	for (auto& grass : grassList_)
+	// ビルボード描画
+	BillboardDraw();
+}
+
+void StageManager::DrawShadow()
+{
+	for (const auto& obj : opaqueList_)
 	{
-		grass->Draw();
+		for (const auto& tag : drawTagList_)
+		{
+			if ("Roof" == obj->GetStageKey())
+			{
+				continue;
+			}
+
+			// プレイヤーのタグがオブジェクトと一致する場合
+			if (tag == obj->GetRoomTag())
+			{
+				// オブジェクトの描画
+				obj->Mv1Draw();
+
+				// 次へ
+				continue;
+			}
+		}
+	}
+
+	for (const auto& obj : translucentList_)
+	{
+		for (const auto& tag : drawTagList_)
+		{
+			// プレイヤーのタグがオブジェクトと一致する場合
+			if (tag == obj->GetRoomTag() && "Carpet01" != obj->GetStageKey() && "Carpet03" != obj->GetStageKey())
+			{
+				// オブジェクトの描画
+				obj->Mv1Draw();
+
+				// 次へ
+				continue;
+			}
+		}
 	}
 }
 
@@ -198,9 +239,9 @@ void StageManager::Sweep()
 	}
 }
 
-void StageManager::DeleteGrass()
+void StageManager::DeleteBillboardObjects(const BILLBOARD_OBJ_TYPE type)
 {
-	grassList_.clear();
+	billboardObjectsMap_.at(type).clear();
 }
 
 void StageManager::SetIsActiveByAllObjects(const bool isActive)
@@ -247,9 +288,26 @@ void StageManager::Add(const std::string& type, std::unique_ptr<StageObjectBase>
 	}
 }
 
-void StageManager::AddGrass(std::unique_ptr<Grass> grass)
+void StageManager::AddBillboardObject(const BILLBOARD_OBJ_TYPE type, std::unique_ptr<BillboardObjectBase> billboardObject)
 {
-	grassList_.push_back(std::move(grass));
+	// 指定されたキーがマップに存在しない場合
+	if (billboardObjectsMap_.count(type) == 0)
+	{
+		// 新たに配列を生成して追加
+		std::vector<std::unique_ptr<BillboardObjectBase>> objs;
+		objs.push_back(std::move(billboardObject));
+		billboardObjectsMap_.emplace(type, std::move(objs));
+	}
+	else
+	{
+		// そのまま追加
+		billboardObjectsMap_.at(type).push_back(std::move(billboardObject));
+	}
+}
+
+std::vector<std::unique_ptr<StageObjectBase>>& StageManager::GetStageObjects(const std::string& key)
+{
+	return stageObjectsMap_[key];
 }
 
 const Json& StageManager::GetStageObjectColliderParam(const std::string& key) const
@@ -280,6 +338,50 @@ void StageManager::CheckMainRoomInClipCameraView()
 		}
 	}
 	drawTagList_.push_back(TAG_ABSOLUTE);
+}
+
+void StageManager::BillboardDraw()
+{
+	// 中身が空の場合実行しない
+	if (billboardObjectsMap_.empty())
+	{
+		return;
+	}
+
+	// 配列の中身を空にする
+	sortBillboards_.clear();
+
+	// プレイヤー位置を取得
+	VECTOR playerPos = CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform().pos;
+
+	for (const auto& [id, billboardList] : billboardObjectsMap_) 
+	{
+		for (const auto& billboardPtr : billboardList) 
+		{
+			// 距離計算
+			VECTOR pos = billboardPtr->GetPos();
+			float dx = pos.x - playerPos.x;
+			float dy = pos.y - playerPos.y;
+			float dz = pos.z - playerPos.z;
+			float dSq = dx * dx + dy * dy + dz * dz;
+
+			// 生ポインタを取得して追加
+			sortBillboards_.push_back({ dSq, billboardPtr.get() });
+		}
+	}
+
+	// 距離でソート
+	std::sort(sortBillboards_.begin(), sortBillboards_.end(), [](const SortBillboard& a, const SortBillboard& b)
+		{
+		// 遠い順に描画を行うようにソート
+		return a.distanceSq > b.distanceSq;
+		});
+
+	// 描画
+	for (const auto& entry : sortBillboards_)
+	{
+		entry.billboardObj->Draw();
+	}
 }
 
 StageManager::StageManager()

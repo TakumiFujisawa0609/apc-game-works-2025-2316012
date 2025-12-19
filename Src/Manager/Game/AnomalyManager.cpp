@@ -7,6 +7,7 @@
 #include "../../Object/System/Anomaly/AnomalyBloodyRoom.h"
 #include "../../Object/System/Anomaly/AnomalyGrassRoom.h"
 #include "../../Object/System/Anomaly/AnomalyReverseFall.h"
+#include "../../Object/System/Anomaly/AnomalyCrowd.h"
 #include "../../Utility/UtilityLoad.h"
 #include "../../Core/Common/Timer.h"
 #include "AnomalyManager.h"
@@ -23,6 +24,7 @@ void AnomalyManager::Load()
 	anomalyMap_[TYPE::BLOODY_ROOM] = std::make_unique<AnomalyBloodyRoom>(anomalyFile_["BloodyRoom"].front());
 	anomalyMap_[TYPE::GRASS_ROOM] = std::make_unique<AnomalyGrassRoom>(anomalyFile_["GrassRoom"].front());
 	anomalyMap_[TYPE::REVERSE_FALL] = std::make_unique<AnomalyReverseFall>(anomalyFile_["ReverseFall"].front());
+	anomalyMap_[TYPE::CROWD] = std::make_unique<AnomalyCrowd>(anomalyFile_["Crowd"].front());
 
 	// ŠeŽíˆÙ•Ï‚Ì“Ç‚Ýž‚Ýˆ—
 	auto& paramFile = anomalyFile_["Param"].front();
@@ -79,8 +81,8 @@ void AnomalyManager::Update()
 			}
 
 			// ˆÙ•Ï”­¶
-			OccurAnomaly(TYPE::REVERSE_FALL);
-			//OccurAnomaly(GetRandType());
+			OccurAnomaly(GetRandType());
+			//OccurAnomaly(AnomalyManager::TYPE::CROWD);
 
 			// ŽŸ‰ñ‚Ü‚Å‚ÌŽžŠÔ‚ðƒ‰ƒ“ƒ_ƒ€Ý’è
 			timer_->SetGoalTime(timeMin_ + GetRand(timeMax_ - timeMin_));

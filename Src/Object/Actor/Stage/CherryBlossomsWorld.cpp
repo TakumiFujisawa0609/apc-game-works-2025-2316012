@@ -103,6 +103,27 @@ void CherryBlossomsWorld::Refresh()
 	AnomalyManager::GetInstance().SetUpdateType(AnomalyManager::TYPE::MAX);
 }
 
+void CherryBlossomsWorld::Mv1Draw()
+{
+	const int frameCount = MV1GetFrameNum(transform_.modelId);
+
+	// 活動状態の場合
+	if (isActive_)
+	{
+		for (int i = 0; i < frameCount; i++)
+		{
+			// 影の描画を行わないフレームはスキップ
+			if (i == NO_SHADOW_FRAME)
+			{
+				continue;
+			}
+
+			// 指定したフレームのみ描画
+			MV1DrawFrame(transform_.modelId, i);
+		}
+	}
+}
+
 void CherryBlossomsWorld::DrawMain()
 {
 	draw_->Draw();

@@ -47,6 +47,11 @@ public:
 	virtual void Draw();
 
 	/// <summary>
+	/// Mv1DrawModelを使用した描画処理
+	/// </summary>
+	virtual void Mv1Draw();
+
+	/// <summary>
 	/// 衝突後の処理
 	/// </summary>
 	/// <param name="opponentCollider">衝突相手のコライダー</param>

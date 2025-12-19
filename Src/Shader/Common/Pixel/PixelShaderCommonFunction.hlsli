@@ -94,3 +94,37 @@ float Rand(float2 co)
 {
     return frac(sin(dot(co.xy, float2(12.9898, 78.233))) * 43758.5453) * 0.5 + 0.5;
 }
+
+float ShadowCalculation(float3 lightAtPos, Texture2D tex, SamplerState texSampler, float3 normal, float3 lightDir)
+{
+    float blurScale = 2.0f;
+    float2 depthUV;
+    depthUV.x = (lightAtPos.x + 1.0f) / 2.0f;
+    depthUV.y = 1.0f - (lightAtPos.y + 1.0f) / 2.0f;
+
+    // シャドウマップの解像度に合わせてテクセルサイズを計算
+    float size = 16000.0f;
+    float2 texelSize = float2(1.0f / size, 1.0f / size);
+
+    float shadowAccum = 0.0f;
+    float bias = 0.001f; // ストライプ（アクネ）を防ぐためのオフセット
+
+    // 3x3の範囲でサンプリング
+    [unroll]
+    for (int x = -1; x <= 1; ++x)
+    {
+        for (int y = -1; y <= 1; ++y)
+        {
+            // 周辺ピクセルの座標を計算
+            float2 offset = float2(x, y) * texelSize * blurScale;
+            float pcfDepth = tex.Sample(texSampler, depthUV + offset).r;
+            
+            // 現在の深度と比較
+            // 影なら 0.5f、光が当たっていれば 1.0f を加算
+            shadowAccum += (lightAtPos.z > pcfDepth + bias) ? 0.5f : 1.0f;
+        }
+    }
+
+    // 9点の平均を返す
+    return shadowAccum / 9.0f;
+}

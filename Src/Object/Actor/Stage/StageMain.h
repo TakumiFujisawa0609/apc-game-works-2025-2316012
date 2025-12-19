@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include "StageGimmickObjectBase.h"
 
 class ColliderModel;
@@ -36,9 +37,17 @@ public:
 	/// <returns>trueの場合カメラ内, そうでない場合flase</returns>
 	bool CheckCameraViewClip();
 
+	/// <summary>
+	/// MV1描画処理
+	/// </summary>
+	void Mv1Draw() override;
+
 protected:
 
 	// コライダーモデル
 	std::shared_ptr<ColliderModel> colliderModel_;
+
+	// 影を描画するリスト
+	std::vector<int> shadowFrameList_;
 };
 

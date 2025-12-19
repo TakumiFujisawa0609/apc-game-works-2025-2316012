@@ -41,6 +41,12 @@ void CollisionManager::Update()
 			const auto& tag1 = colliders_[i]->GetTag();
 			const auto& tag2 = colliders_[j]->GetTag();
 
+			if (tag1 == CollisionTags::TAG::ANOMALY && tag2 == CollisionTags::TAG::REPORT ||
+				tag1 == CollisionTags::TAG::REPORT && tag2 == CollisionTags::TAG::ANOMALY)
+			{
+				int a = 0;
+			}
+
 			// Õ“Ë”»’è‚ª•s—v‚È‘g‚İ‡‚í‚¹‚Ìê‡
 			if (!collTagMatrix_[static_cast<int>(tag1)][static_cast<int>(tag2)])
 			{

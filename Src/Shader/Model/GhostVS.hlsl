@@ -88,7 +88,6 @@ VS_OUTPUT main(VS_INPUT VSInput)
     // ワールド座標をビュー座標に変換
     lViewPosition.w = 1.0f;
     lViewPosition.xyz = mul(lWorldPosition, g_base.viewMatrix);
-    ret.vwPos.xyz = lViewPosition.xyz;
     
     // ビュー座標を射影座標に変換
     ret.svPos = mul(lViewPosition, g_base.projectionMatrix);

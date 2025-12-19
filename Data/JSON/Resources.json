@@ -814,11 +814,54 @@
       "soundType": "se"
     },
     {
+      "key": "seCrowd",
+      "sceneId": 3,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeCrowd.mp3",
+      "soundType": "se"
+    },
+    {
       "key": "seAnomalyCameraRoll",
       "sceneId": 3,
       "type": "sound",
       "path": "Data/Sound/SE/SeAnomalyCameraRoll.mp3",
       "soundType": "se"
+    },
+    {
+      "key": "shadowPs",
+      "sceneId": 3,
+      "type": "pixelShader",
+      "path": "Data/Shader/ShadowPS.cso"
+    },
+    {
+      "key": "shadowMeshVs",
+      "sceneId": 3,
+      "type": "vertexShader",
+      "path": "Data/Shader/ShadowMeshVS.cso"
+    },
+    {
+      "key": "shadowSkinnedMeshVs",
+      "path": "Data/Shader/ShadowSkinnedMeshVs.cso",
+      "sceneId": 3,
+      "type": "vertexShader"
+    },
+    {
+      "key": "human",
+      "path": "Data/Image/Anomaly/Human.png",
+      "sceneId": 3,
+      "type": "texture"
+    },
+    {
+      "key": "humanPs",
+      "path": "Data/Shader/HumanPS.cso",
+      "sceneId": 3,
+      "type": "pixelShader"
+    },
+    {
+      "key": "humanVs",
+      "path": "Data/Shader/HumanVS.cso",
+      "sceneId": 3,
+      "type": "vertexShader"
     }
   ]
 }

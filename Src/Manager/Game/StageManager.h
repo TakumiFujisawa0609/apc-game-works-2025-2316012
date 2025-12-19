@@ -9,6 +9,7 @@
 class GrassRoom;
 class StageObjectBase;
 class StageMain;
+class BillboardObjectBase;
 class Grass;
 
 // JSON名前空間
@@ -20,6 +21,16 @@ class StageManager : public Singleton<StageManager>
 	friend class Singleton<StageManager>;
 
 public:
+
+	/// <summary>
+	/// ビルボード種類
+	/// </summary>
+	enum class BILLBOARD_OBJ_TYPE
+	{
+		GRASS,
+		HUMAN,
+		MAX
+	};
 
 	/// <summary>
 	/// 読み込み処理
@@ -42,14 +53,19 @@ public:
 	void Draw();
 
 	/// <summary>
+	/// 影用の描画処理
+	/// </summary>
+	void DrawShadow();
+
+	/// <summary>
 	/// 不要のオブジェクトの削除
 	/// </summary>
 	void Sweep();
 
 	/// <summary>
-	/// 草の削除
+	/// ビルボードオブジェクトの削除
 	/// </summary>
-	void DeleteGrass();
+	void DeleteBillboardObjects(const BILLBOARD_OBJ_TYPE type);
 
 	/// <summary>
 	/// 全てのオブジェクトの活動状態を設定
@@ -65,17 +81,17 @@ public:
 	void Add(const std::string& type, std::unique_ptr<StageObjectBase> stageObject);
 
 	/// <summary>
-	/// 草の追加
+	/// ビルポートオブジェクトの追加
 	/// </summary>
-	/// <param name="grass"></param>
-	void AddGrass(std::unique_ptr<Grass> grass);
+	/// <param name="billboardObject">ビルポートオブジェクト</param>
+	void AddBillboardObject(const BILLBOARD_OBJ_TYPE type, std::unique_ptr<BillboardObjectBase> billboardObject);
 
 	/// <summary>
 	/// 指定したステージオブジェクトの配列を返す
 	/// </summary>
 	/// <param name="key">ステージの種類</param>
 	/// <returns>ステージオブジェクトの配列</returns>
-	std::vector<std::unique_ptr<StageObjectBase>>& GetStageObjects(const std::string& key) { return stageObjectsMap_[key]; }
+	std::vector<std::unique_ptr<StageObjectBase>>& GetStageObjects(const std::string& key);
 
 	/// <summary>
 	/// 指定したステージオブジェクトのコライダー情報を返す
@@ -109,6 +125,17 @@ private:
 	// 必ず描画を行うタグ
 	const std::string TAG_ABSOLUTE = "absolute";
 
+	// ビルボードの描画順をソートする用の構造体
+	struct SortBillboard
+	{
+		float distanceSq;					// 距離の2乗
+		BillboardObjectBase* billboardObj;	// オブジェクトのポインタ
+	};
+
+	// ビルボードオブジェクトの描画順をソートした配列
+	std::vector<SortBillboard> sortBillboards_;
+
+	// ステージ情報を管理するマップ
 	std::unordered_map<std::string, std::vector<Json>> paramStageMap_;
 
 	// 描画するタグリスト
@@ -123,8 +150,8 @@ private:
 	// 透過描画リスト
 	std::vector<StageObjectBase*> translucentList_;
 
-	// 草の部屋
-	std::vector<std::unique_ptr<Grass>> grassList_;
+	// ビルボードオブジェク管理マップ
+	std::unordered_map<BILLBOARD_OBJ_TYPE, std::vector<std::unique_ptr<BillboardObjectBase>>> billboardObjectsMap_;
 
 	// ステージオブジェクトの管理マップ
 	std::unordered_map<std::string, std::vector<std::unique_ptr<StageObjectBase>>> stageObjectsMap_;
@@ -134,6 +161,9 @@ private:
 
 	// メインルームがカメラ範囲内か調べる
 	void CheckMainRoomInClipCameraView();
+
+	// ビルボードオブジェクトを描画
+	void BillboardDraw();
 
 	//コンストラクタ
 	StageManager();

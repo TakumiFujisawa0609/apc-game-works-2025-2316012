@@ -1,7 +1,7 @@
 #include "../Application.h"
 #include "ModelMaterial.h"
 
-ModelMaterial::ModelMaterial(int vertexShader, int constBufFloat4SizeVS, int pixelShader, int constBufFloat4SizePS)
+ModelMaterial::ModelMaterial(const int vertexShader, const int constBufFloat4SizeVS, const int pixelShader, const int constBufFloat4SizePS, const int constBufMatrixSizeVS)
 {
 	// 頂点シェーダの格納
 	shaderVS_ = vertexShader;
@@ -20,6 +20,12 @@ ModelMaterial::ModelMaterial(int vertexShader, int constBufFloat4SizeVS, int pix
 
 	// ピクセルシェーダー用の定数バッファを作成
 	constBufPS_ = CreateShaderConstantBuffer(sizeof(FLOAT4) * constBufFloat4SizePS);
+
+	// 頂点定数バッファマトリックスの確保サイズ(MATRIXをいくつ作るか)
+	constBufMatrixSizeVs_ = constBufMatrixSizeVS;
+
+	// 頂点シェーダー用のマトリックス定数バッファを作成
+	constBufVSMatrix_ = CreateShaderConstantBuffer(sizeof(MATRIX) * constBufMatrixSizeVS);
 
 	// テクスチャアドレス
 	texAddress_ = TEXADDRESS::CLAMP;
@@ -43,6 +49,14 @@ void ModelMaterial::AddConstBufPS(const FLOAT4& contBuf)
 		constBufsPS_.emplace_back(contBuf);
 	}
 
+}
+
+void ModelMaterial::AddConstBufVSMatrix(const MATRIX& matrix)
+{
+	if (constBufMatrixSizeVs_ > constBufsVSMatrix_.size())
+	{
+		constBufsVSMatrix_.emplace_back(matrix);
+	}
 }
 
 void ModelMaterial::SetConstBufVS(int idx, const FLOAT4& contBuf)
@@ -69,6 +83,16 @@ void ModelMaterial::SetConstBufPS(int idx, const FLOAT4& contBuf)
 
 }
 
+void ModelMaterial::SetConstBufVSMatrix(int idx, const MATRIX& matrix)
+{
+	if (idx >= constBufsVSMatrix_.size())
+	{
+		return;
+	}
+
+	constBufsVSMatrix_[idx] = matrix;
+}
+
 void ModelMaterial::SetTextureBuf(int slot, int texDiffuse)
 {
 
@@ -91,6 +115,11 @@ const std::vector<FLOAT4>& ModelMaterial::GetConstBufsVS(void) const
 const std::vector<FLOAT4>& ModelMaterial::GetConstBufsPS(void) const
 {
 	return constBufsPS_;
+}
+
+const std::vector<MATRIX>& ModelMaterial::GetConstBufsVSMatrix(void) const
+{
+	return constBufsVSMatrix_;
 }
 
 const std::map<int, int>& ModelMaterial::GetTextures(void) const
@@ -128,12 +157,15 @@ int ModelMaterial::GetConstBufPS(void) const
 	return constBufPS_;
 }
 
+int ModelMaterial::GetConstBufVSMatrix(void) const
+{
+	return constBufVSMatrix_;
+}
+
 ModelMaterial::~ModelMaterial(void)
 {
 	DeleteShaderConstantBuffer(constBufVS_);
 	DeleteShaderConstantBuffer(constBufPS_);
-
-
-	//DeleteShader(shaderVS_);
-	//DeleteShader(shaderPS_);
+	DeleteShaderConstantBuffer(constBufVSMatrix_);
+	
 }

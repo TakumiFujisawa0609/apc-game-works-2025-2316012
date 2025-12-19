@@ -1,5 +1,6 @@
 #include "../../../Manager/Game/CharacterManager.h"
 #include "../../../Manager/Game/StageManager.h"
+#include "../../../Manager/Game/ShadowManager.h"
 #include "../../../Object/Actor/Stage/StageObjectBase.h"
 #include "../../../Object/Actor/Character/CharacterBase.h"
 #include "GameStateMadnessEnd.h"
@@ -27,6 +28,9 @@ void GameStateMadnessEnd::Update()
 
 void GameStateMadnessEnd::Draw()
 {
+	// ‰e•`‰æ
+	shadowMng_.Draw();
+
 	// ƒXƒe[ƒW•`‰æ
 	stageMng_.Draw();
 

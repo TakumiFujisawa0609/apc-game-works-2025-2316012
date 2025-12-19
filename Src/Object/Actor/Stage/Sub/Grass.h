@@ -1,6 +1,5 @@
 #pragma once
-#include <DxLib.h>
-#include <memory>
+#include "BillboardObjectBase.h"
 #include "../Common/Vector2.h"
 
 class SceneManager;
@@ -8,7 +7,7 @@ class ModelMaterial;
 class BillboardRenderer;
 class GrassRoom;
 
-class Grass
+class Grass : public BillboardObjectBase
 {
 public:
 
@@ -20,22 +19,22 @@ public:
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~Grass();
+	~Grass() override;
 
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Init();
+	void Init() override;
 
 	/// <summary>
 	/// メインの更新
 	/// </summary>
-	void Update();
+	void Update() override;
 
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw();
+	void Draw() override;
 
 private:
 
@@ -45,33 +44,12 @@ private:
 	// 揺れの周期
 	static constexpr float WIND_FREQUENCY = 10.0f;
 
-	// シーン管理クラス
-	SceneManager& scnMng_;
-
 	// 親インスタンス
 	GrassRoom& parent_;
-
-	// ステップ
-	float step_;
-
-	// 活動状態
-	bool isActive_;
 
 	// アルファ値
 	float alpha_;
 
-	// 座標
-	VECTOR pos_;
-
 	// 開始位置
 	VECTOR startPos_;
-
-	// サイズ
-	Vector2 size_;
-
-	// マテリアル
-	std::unique_ptr<ModelMaterial> material_;
-
-	// レンダラー
-	std::unique_ptr<BillboardRenderer> renderer_;
 };

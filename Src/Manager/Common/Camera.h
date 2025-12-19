@@ -39,6 +39,10 @@ public:
 	//FPS視点のカメラのX回転上限度角
 	static constexpr float LIMIT_X_UP_RAD_FPS = -20.0f * (DX_PI_F / 180.0f);
 	static constexpr float LIMIT_X_DW_RAD_FPS = 50.0f * (DX_PI_F / 180.0f);
+
+	// 影用ライトの初期位置と注視点
+	static constexpr VECTOR LIGHT_POS = { 0, 3000, 0 };
+	static constexpr VECTOR LIGHT_TARGET = { 6000, 0, 6000 };
 	
 	/// <summary>
 	/// カメラのモード
@@ -50,7 +54,8 @@ public:
 		FOLLOW,			// 追従
 		FPS,			// FPS視点
 		FREE,			// 自由
-		TRANSITION		// トランジション
+		TRANSITION,		// トランジション
+		SHADOW			// 影
 	};
 
 	/// <summary>
@@ -86,6 +91,11 @@ public:
 	/// カメラの設定
 	/// </summary>
 	void CameraSetting();
+
+	/// <summary>
+	/// 影用のカメラの設定
+	/// </summary>
+	void CameraSettingShadow();
 		
 	/// <summary>
 	/// 描画処理
@@ -160,6 +170,18 @@ public:
 	const VECTOR& GetCameraLightPos() const;
 
 	/// <summary>
+	/// 影のライト位置を返す
+	/// </summary>
+	/// <returns>影のライト位置</returns>
+	const VECTOR GetShadowLightPos() const { return shadowLightPos_; }
+
+	/// <summary>
+	/// 影のライト注視点位置を返す
+	/// </summary>
+	/// <returns>影のライト注視点位置</returns>
+	const VECTOR GetShadowLightTarget() const { return shadowLighTarget_; }
+
+	/// <summary>
 	/// カメラ位置の設定
 	/// </summary>
 	/// <param name="pos">座標</param>
@@ -187,10 +209,23 @@ public:
 	/// カメラ上方向ベクトルの設定
 	/// </summary>
 	/// <param name="cameraUpVector">カメラ方向</param>
-	void SetCameraUpVector(const VECTOR& cameraUpVector);
+	void SetCameraUpVector(const VECTOR& cameraUpVector);	
+	
+	/// <summary>
+	/// 影のライト位置を設定
+	/// </summary>
+	/// <param name="pos">影のライト位置</param>
+	void SetShadowLightPos(const VECTOR& pos) { shadowLightPos_ = pos; }
+
+	/// <summary>
+	/// 影のライト注視点位置を設定
+	/// </summary>
+	/// <param name="pos">影のライト注視点位置</param>
+	void SetShadowLightTarget(const VECTOR& pos) { shadowLighTarget_ = pos; }
 
 private:
 
+	// 入力管理クラスの参照
 	InputManager& input_;
 
 	// カメラが追従対象とするTransform
@@ -226,6 +261,12 @@ private:
 	// モード遷移処理
 	std::unordered_map<MODE, std::function<void()>> changeModeMap_;
 
+	// 影用ライト位置と注視点
+	VECTOR shadowLightPos_;
+
+	// 影用ライト注視点
+	VECTOR shadowLighTarget_;
+
 	// カメラを初期位置に戻す
 	void SetDefault();
 
@@ -237,6 +278,7 @@ private:
 	void ProcessRotFollow();	// 追従モードの回転操作
 	void ProcessRotFps();		// FPSモードの回転操作
 	void ProcessRotFree();		// 自由モードの回転操作
+	void ProcessRotShadow();	// 自由モードの回転操作
 
 	//モード別状態遷移処理
 	void ChangeModeNone();
@@ -244,6 +286,7 @@ private:
 	void ChangeModeFollow();
 	void ChangeModeFps();
 	void ChangeModeFree();
+	void ChangeModeShadow();
 
 	// モード別更新ステップ
 	void SetBeforeDrawNone() {};
@@ -251,4 +294,5 @@ private:
 	void SetBeforeDrawFollow();
 	void SetBeforeDrawFps();
 	void SetBeforeDrawFree();
+	void SetBeforeDrawShadow();
 };

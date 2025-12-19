@@ -1,7 +1,8 @@
 #include "../../../Manager/Common/SceneManager.h"
 #include "../../../Manager/Common/Camera.h"
-#include "../../../Manager/Game/CharacterManager.h"
 #include "../../../Manager/Common/ResourceManager.h"
+#include "../../../Manager/Game/CharacterManager.h"
+#include "../../../Manager/Game/ShadowManager.h"
 #include "../../../Render/ModelMaterial.h"
 #include "../../../Render/ModelRenderer.h"
 #include "ControllerDrawEnemy.h"
@@ -18,7 +19,7 @@ ControllerDrawEnemy::~ControllerDrawEnemy()
 void ControllerDrawEnemy::Load()
 {
 	// マテリアル生成
-	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("enemyVs"), BUFFER_VS_SIZE, resMng_.GetHandle("enemyPs"), BUFFER_PS_SIZE);
+	material_ = std::make_unique<ModelMaterial>(resMng_.GetHandle("enemyVs"), BUFFER_VS_SIZE, resMng_.GetHandle("enemyPs"), BUFFER_PS_SIZE, BUFFER_MATRIX_SIZE);
 
 	// レンダラー生成
 	renderer_ = std::make_unique<ModelRenderer>(model_, *material_);
@@ -52,6 +53,10 @@ void ControllerDrawEnemy::Load()
 	material_->AddConstBufPS(FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
 	material_->AddConstBufPS(FLOAT4{ cameraPos.x, cameraPos.y,cameraPos.z, isSwitch });
 	material_->AddConstBufPS(FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,0.0f });
+
+	// マトリックスバッファーの追加
+	material_->AddConstBufVSMatrix(shadowMng_.GetLightViewMatrix());
+	material_->AddConstBufVSMatrix(shadowMng_.GetLightProjectionMatrix());
 }
 
 void ControllerDrawEnemy::UpdateBuffer()
@@ -85,4 +90,11 @@ void ControllerDrawEnemy::UpdateBuffer()
 	material_->SetConstBufPS(1, FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
 	material_->SetConstBufPS(2, FLOAT4{ cameraPos.x, cameraPos.y,cameraPos.z, isSwitch });
 	material_->SetConstBufPS(3, FLOAT4{ spotLightDir.x, spotLightDir.y,spotLightDir.z,0.0f });
+
+	// マトリックスバッファーの設定
+	material_->SetConstBufVSMatrix(0, shadowMng_.GetLightViewMatrix());
+	material_->SetConstBufVSMatrix(1, shadowMng_.GetLightProjectionMatrix());
+
+	// シャドウマップの設定
+	material_->SetTextureBuf(TEX_SHADOW_INDEX, shadowMng_.GetShadowMapTexture());
 }

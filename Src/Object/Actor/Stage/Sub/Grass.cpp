@@ -8,9 +8,8 @@
 #include "Grass.h"
 
 Grass::Grass(const VECTOR& pos, GrassRoom& parent) :
-	pos_(pos),
-	parent_(parent),
-	scnMng_(SceneManager::GetInstance())
+	BillboardObjectBase(pos),
+	parent_(parent)
 {
 	alpha_ = 0.0f;
 	isActive_ = false;

@@ -3,6 +3,7 @@
 #include "../../../Manager/Game/CollisionManager.h"
 #include "../../../Manager/Game/GameSystemManager.h"
 #include "../../../Manager/Game/AnomalyManager.h"
+#include "../../../Manager/Game/ShadowManager.h"
 #include "../../../Manager/Game/GameEffectManager.h"
 #include "../../../Object/Actor/Stage/StageObjectBase.h"
 #include "../../../Object/Actor/Character/CharacterBase.h"
@@ -48,6 +49,9 @@ void GameStatePlay::Update()
 
 void GameStatePlay::Draw()
 {
+	// âeï`âÊ
+	shadowMng_.Draw();
+
 	// ÉXÉeÅ[ÉWï`âÊ
 	stageMng_.Draw();
 
