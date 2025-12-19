@@ -38,6 +38,12 @@ public:
 	/// </summary>
 	virtual void Draw();
 
+	/// <summary>
+	/// 座標を返す
+	/// </summary>
+	/// <returns>座標</returns>
+	const VECTOR& GetPos() const { return pos_; }
+
 protected:
 
 	// シーン管理クラス

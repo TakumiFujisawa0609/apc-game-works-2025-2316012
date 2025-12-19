@@ -37,5 +37,18 @@ public:
 
 private:
 
+	// グリッチの強さ
+	static constexpr float GLITCH_STRENGTH = 0.5f;
+
+	// 最小サイズ
+	static constexpr int SIZE_MIN_X = 100;
+	static constexpr int SIZE_MIN_Y = 200;
+
+	// 最大サイズ
+	static constexpr int SIZE_MAX_X = 300;
+	static constexpr int SIZE_MAX_Y = 200;
+
+	// 大きさをランダムで返す
+	const Vector2& GetRandSize() const;
 };
 

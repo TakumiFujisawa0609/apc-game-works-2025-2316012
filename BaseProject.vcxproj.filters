@@ -528,6 +528,18 @@
     <ClCompile Include="Src\Manager\Game\ShadowManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Stage\Sub\BillboardObjectBase.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Stage\Sub\Human.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\System\Anomaly\AnomalyCrowd.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Object\Actor\Stage\CrowdRoom.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Fader.h">
@@ -1142,6 +1154,18 @@
     <ClInclude Include="Src\Manager\Game\ShadowManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Stage\Sub\BillboardObjectBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Stage\Sub\Human.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\System\Anomaly\AnomalyCrowd.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Object\Actor\Stage\CrowdRoom.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\PostEffect\Vignette.hlsl" />
@@ -1176,6 +1200,8 @@
     <FxCompile Include="Src\Shader\Model\ShadowMeshVS.hlsl" />
     <FxCompile Include="Src\Shader\Model\ShadowPS.hlsl" />
     <FxCompile Include="Src\Shader\Model\ShadowSkinnedMeshVs.hlsl" />
+    <FxCompile Include="Src\Shader\Model\HumanPS.hlsl" />
+    <FxCompile Include="Src\Shader\Model\HumanVS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\Shader\Common\Pixel\PixelShader2DHeader.hlsli" />

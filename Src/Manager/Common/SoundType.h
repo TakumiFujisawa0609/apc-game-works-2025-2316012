@@ -59,6 +59,7 @@ public:
 		GRASS_LAND,
 		EARTHQUAKE,
 		ANOMALY_CAMERA_ROLL,
+		CROWD,
 		MAX
 	};
 

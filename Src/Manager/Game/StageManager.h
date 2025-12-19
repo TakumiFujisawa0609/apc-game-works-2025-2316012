@@ -125,6 +125,17 @@ private:
 	// 必ず描画を行うタグ
 	const std::string TAG_ABSOLUTE = "absolute";
 
+	// ビルボードの描画順をソートする用の構造体
+	struct SortBillboard
+	{
+		float distanceSq;					// 距離の2乗
+		BillboardObjectBase* billboardObj;	// オブジェクトのポインタ
+	};
+
+	// ビルボードオブジェクトの描画順をソートした配列
+	std::vector<SortBillboard> sortBillboards_;
+
+	// ステージ情報を管理するマップ
 	std::unordered_map<std::string, std::vector<Json>> paramStageMap_;
 
 	// 描画するタグリスト
@@ -150,6 +161,9 @@ private:
 
 	// メインルームがカメラ範囲内か調べる
 	void CheckMainRoomInClipCameraView();
+
+	// ビルボードオブジェクトを描画
+	void BillboardDraw();
 
 	//コンストラクタ
 	StageManager();

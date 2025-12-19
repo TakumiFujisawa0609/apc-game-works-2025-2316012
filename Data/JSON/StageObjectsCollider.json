@@ -253,5 +253,20 @@
   "CherryBlossomsWorldMesh": {
     "collisionTag": "stageMain",
     "colliderType": "model"
+  },
+  "CrowdRoom": {
+    "collisionTag": "anomaly",
+    "colliderType": "box",
+    "colliderTopPos": {
+      "x": 1372,
+      "y": 300,
+      "z": 400
+    },
+    "colliderEndPos": {
+      "x": -420,
+      "y": 0,
+      "z": -650
+    },
+    "shadowDrawFrameList": []
   }
 }

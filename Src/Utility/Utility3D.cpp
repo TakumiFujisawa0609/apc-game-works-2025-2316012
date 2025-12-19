@@ -382,7 +382,7 @@ bool Utility3D::CheckHitBox_Line(const ColliderBox::OBB& obb, const VECTOR& boxP
     VECTOR localCenter = VScale(VAdd(obb.vMin, obb.vMax), 0.5f);
 
     // OBB のワールド中心を計算：axisで回転して pos_ を加算
-    VECTOR worldCenter = VAdd(
+ /*   VECTOR worldCenter = VAdd(
         VAdd(
             VAdd(
                 VScale(obb.axis[0], localCenter.x),
@@ -391,7 +391,9 @@ bool Utility3D::CheckHitBox_Line(const ColliderBox::OBB& obb, const VECTOR& boxP
             VScale(obb.axis[2], localCenter.z)
         ),
         boxPos
-    );
+    );*/
+
+    VECTOR worldCenter = boxPos;
 
     // 線分をOBB空間に変換（ワールド中心 → ローカル）
     VECTOR rel1 = VSub(lineTopPos, worldCenter);

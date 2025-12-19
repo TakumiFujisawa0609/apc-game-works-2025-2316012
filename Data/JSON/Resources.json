@@ -814,6 +814,13 @@
       "soundType": "se"
     },
     {
+      "key": "seCrowd",
+      "sceneId": 3,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeCrowd.mp3",
+      "soundType": "se"
+    },
+    {
       "key": "seAnomalyCameraRoll",
       "sceneId": 3,
       "type": "sound",
@@ -843,6 +850,18 @@
       "path": "Data/Image/Anomaly/Human.png",
       "sceneId": 3,
       "type": "texture"
+    },
+    {
+      "key": "humanPs",
+      "path": "Data/Shader/HumanPS.cso",
+      "sceneId": 3,
+      "type": "pixelShader"
+    },
+    {
+      "key": "humanVs",
+      "path": "Data/Shader/HumanVS.cso",
+      "sceneId": 3,
+      "type": "vertexShader"
     }
   ]
 }

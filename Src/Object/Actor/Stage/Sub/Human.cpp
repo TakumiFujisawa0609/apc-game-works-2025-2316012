@@ -29,23 +29,37 @@ void Human::Init()
 	material_->SetTextureAddress(ModelMaterial::TEXADDRESS::BORDER);
 
 	// バッファーの追加
-	material_->AddConstBufPS(FLOAT4(0.0f, 0.0f, 0.0f, 0.0f));
+	material_->AddConstBufPS(FLOAT4(0.0f, GLITCH_STRENGTH, 0.0f, 0.0f));
 
 	// サイズ定義
-	size_ = { 300, 400 };
+	size_ = GetRandSize();
 
 	// 頂点生成
 	renderer_->MakeSquereVertex(pos_, size_);
+
 }
 
 void Human::Update()
 {
+	step_ += scnMng_.GetDeltaTime();
 }
 
 void Human::Draw()
 {
 	if (isActive_)
 	{
+		// バッファー設定
+		material_->SetConstBufPS(0, FLOAT4{ step_, GLITCH_STRENGTH, 0, 0 });
+
+		// 描画
 		renderer_->Draw();
 	}
+}
+
+const Vector2& Human::GetRandSize() const
+{
+	Vector2 size;
+	size.x =  SIZE_MIN_X + GetRand(SIZE_MAX_X - SIZE_MIN_X);
+	size.y =  SIZE_MIN_Y + GetRand(SIZE_MAX_Y - SIZE_MIN_Y);
+	return size;
 }

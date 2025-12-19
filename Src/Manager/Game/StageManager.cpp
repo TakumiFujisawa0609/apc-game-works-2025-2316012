@@ -158,13 +158,8 @@ void StageManager::Draw()
 		}
 	}
 
-	for (const auto& obj : billboardObjectsMap_)
-	{
-		for (const auto& billboard : obj.second)
-		{
-			billboard->Draw();
-		}
-	}
+	// ビルボード描画
+	BillboardDraw();
 }
 
 void StageManager::DrawShadow()
@@ -343,6 +338,50 @@ void StageManager::CheckMainRoomInClipCameraView()
 		}
 	}
 	drawTagList_.push_back(TAG_ABSOLUTE);
+}
+
+void StageManager::BillboardDraw()
+{
+	// 中身が空の場合実行しない
+	if (billboardObjectsMap_.empty())
+	{
+		return;
+	}
+
+	// 配列の中身を空にする
+	sortBillboards_.clear();
+
+	// プレイヤー位置を取得
+	VECTOR playerPos = CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform().pos;
+
+	for (const auto& [id, billboardList] : billboardObjectsMap_) 
+	{
+		for (const auto& billboardPtr : billboardList) 
+		{
+			// 距離計算
+			VECTOR pos = billboardPtr->GetPos();
+			float dx = pos.x - playerPos.x;
+			float dy = pos.y - playerPos.y;
+			float dz = pos.z - playerPos.z;
+			float dSq = dx * dx + dy * dy + dz * dz;
+
+			// 生ポインタを取得して追加
+			sortBillboards_.push_back({ dSq, billboardPtr.get() });
+		}
+	}
+
+	// 距離でソート
+	std::sort(sortBillboards_.begin(), sortBillboards_.end(), [](const SortBillboard& a, const SortBillboard& b)
+		{
+		// 遠い順に描画を行うようにソート
+		return a.distanceSq > b.distanceSq;
+		});
+
+	// 描画
+	for (const auto& entry : sortBillboards_)
+	{
+		entry.billboardObj->Draw();
+	}
 }
 
 StageManager::StageManager()

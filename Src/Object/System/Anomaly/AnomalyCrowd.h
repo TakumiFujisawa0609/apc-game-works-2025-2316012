@@ -21,5 +21,11 @@ public:
 	void Occurrence() override;
 
 private:
+
+	// マップ情報
+	const Json& MAP_PARAM;
+
+	// 生成するステージネーム
+	const std::string KEY = "CrowdRoom";
 };
 
