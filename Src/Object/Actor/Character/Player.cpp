@@ -19,9 +19,9 @@
 #include "../../Controller/ControllerLight.h"
 #include "Player.h"
 
-const std::string Player::ANIM_JUMP = "jump";	//ジャンプ
-const std::string Player::ANIM_DIE = "die";		//死ぬ
-const std::string Player::ANIM_SLEEP = "sleep";	//眠る
+const std::string Player::ANIM_JUMP = "jump";				//ジャンプ
+const std::string Player::ANIM_DIE = "die";					//死ぬ
+const std::string Player::ANIM_SLEEP = "sleep";				//眠る
 const std::string Player::ANIM_LOOK_AROUND = "lookAround";	// 周りを見る
 
 Player::Player(const Json& param) :
