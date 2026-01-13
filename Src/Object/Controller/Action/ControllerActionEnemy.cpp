@@ -516,7 +516,7 @@ void ControllerActionEnemy::UpdateAction()
 	VECTOR diffVec = VSub(nextPointPos_, myPos);
 
 	// 距離を計算
-	float distance = Utility3D::Distance(nextPointPos_, myPos);
+	float distance = static_cast<float>(Utility3D::Distance(nextPointPos_, myPos));
 
 	// 移動方向の取得
 	VECTOR dir = VScale(diffVec, (1.0f / distance));
@@ -538,8 +538,6 @@ void ControllerActionEnemy::NewTargetPoint()
 
 		// 新しいルートの探索
 		pathFinder_.FindPath(startIndex, goalIndex_, ADJACENT_NODE_DIST, points_);
-
-		int size = points_.size();
 	}
 
 	// 次のポイントを目的地に設定
@@ -622,7 +620,7 @@ bool ControllerActionEnemy::IsSearchTarget()
 bool ControllerActionEnemy::CheckRangeToTarget(const float range)
 {
 	// 距離を求める
-	float distance = Utility3D::Distance(owner_.GetTransform().pos, targetTransform_.pos);
+	float distance = static_cast<float>(Utility3D::Distance(owner_.GetTransform().pos, targetTransform_.pos));
 
 	// 距離が大きい場合
 	if (distance > range)
@@ -675,7 +673,7 @@ void ControllerActionEnemy::HeartBeat()
 	float distanceSq = VDot(toTarget, toTarget);
 
 	// ターゲットとの距離に合わせて音量を調整
-	int clampDistance = static_cast<int>(std::min(CHASE_RANGE, std::max(NEAR_RANGE, distanceSq)));
+	float clampDistance = static_cast<float>(std::min(CHASE_RANGE, std::max(NEAR_RANGE, distanceSq)));
 
 	// 音量を線形補間
 	int volume = UtilityCommon::Lerp(HEART_BEAT_MIN_VOLUME, HEART_BEAT_MAX_VOLUME, clampDistance);

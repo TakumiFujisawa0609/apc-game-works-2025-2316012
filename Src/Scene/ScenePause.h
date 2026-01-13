@@ -26,10 +26,10 @@ public:
 	~ScenePause() override;
 
 	//読み込み処理
-	void Load()override;
+	void Load()override {};
 
 	//初期化処理
-	void Init()override;
+	void Init()override {};
 
 	//更新関数
 	void NormalUpdate()override;
@@ -63,4 +63,3 @@ private:
 	//リスト選択テーブル
 	std::unordered_map<LIST, std::function<void()>> listFuncTable_;
 };
-

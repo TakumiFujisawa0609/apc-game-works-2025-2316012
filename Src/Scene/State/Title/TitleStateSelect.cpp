@@ -49,7 +49,7 @@ void TitleStateSelect::Init()
 	// 画像の設定
 	selectBack_.handleId = resMng_.GetHandle("selectBack");
 	selectBack_.pos = selectTexts_[0].pos;
-	selectBack_.size.x = selectTexts_[0].string.length() * FONT_SIZE;
+	selectBack_.size.x = static_cast<int>(selectTexts_[0].string.length()) * FONT_SIZE;
 	selectBack_.size.y = SELECT_BACK_SIZE_Y;
 
 	// 選択後のテキスト設定
@@ -134,7 +134,7 @@ void TitleStateSelect::UpdateSelect()
 	constexpr int OFFSET_POS_Y = 25;
 	selectBack_.pos = selectTexts_[type_].pos;
 	selectBack_.pos.y += OFFSET_POS_Y;
-	selectBack_.size.x = selectTexts_[type_].string.length() * FONT_SIZE;
+	selectBack_.size.x = static_cast<int>(selectTexts_[type_].string.length()) * FONT_SIZE;
 	selectBack_.size.y = FONT_SIZE;
 }
 

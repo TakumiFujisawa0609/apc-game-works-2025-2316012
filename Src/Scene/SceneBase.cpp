@@ -27,19 +27,17 @@ SceneBase::~SceneBase()
 void SceneBase::Load()
 {
 	// 効果音の再生
-	sndMng_.PlaySe(SoundType::SE::TV_NOISE_SNOW, true, 50);
+	sndMng_.PlaySe(SoundType::SE::TV_NOISE_SNOW, true, TV_NOISE_SNOW_VOLUME);
 
 	// 非同期読み込み開始
 	loading_.StartASyncLoad();
 	
 	// シーン内のリソースを読み込む
-	resMng_.SceneChangeResource(static_cast<int>(scnMng_.GetSceneID()));
+	resMng_.SceneChangeResource(static_cast<int>(scnMng_.GetSceneID()));	
 }
 
 void SceneBase::Init()
 {
-	// サウンドのリソースの切り替え
-	sndMng_.SceneChangeResources();
 }
 
 void SceneBase::Update()
@@ -63,6 +61,9 @@ void SceneBase::LoadingUpdate()
 	}
 
 	// ローディング完了後の処理
+	// サウンドのリソースの切り替え
+	sndMng_.SceneChangeResources();	
+	
 	// 初期化
 	Init();
 

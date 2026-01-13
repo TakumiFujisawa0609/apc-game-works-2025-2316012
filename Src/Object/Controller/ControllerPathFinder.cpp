@@ -27,7 +27,7 @@ void ControllerPathFinder::Init()
 	for (auto& stage : stageMng.GetStageObjects("AreaB")) { models_.push_back(stage->GetModelId()); }
 	for (auto& stage : stageMng.GetStageObjects("AreaC")) { models_.push_back(stage->GetModelId()); }
 
-	int size = models_.size();
+	int size = static_cast<int>(models_.size());
 }
 
 void ControllerPathFinder::Update()
@@ -37,7 +37,7 @@ void ControllerPathFinder::Update()
 
 bool ControllerPathFinder::FindPath(const int startIndex, const int goalIndex, float maxMoveDistance, std::vector<int>& path)
 {
-	int size = models_.size();
+	int size = static_cast<int>(models_.size());
 
 	// 開始ノードと終了ノードが同じ場合、開始ノードを経路に追加して終了
     if (startIndex == goalIndex) 
@@ -99,7 +99,8 @@ bool ControllerPathFinder::FindPath(const int startIndex, const int goalIndex, f
 		// 隣接ノードの探索
         const VECTOR& currentPos = points_[currentIndex];
 
-		for (int i = 0; i < points_.size(); ++i)
+		const int pointSize = static_cast<int>(points_.size());
+		for (int i = 0; i < pointSize; ++i)
 		{
 			// 自分自身はスキップ
 			if (i == currentIndex)
@@ -145,6 +146,9 @@ bool ControllerPathFinder::FindPath(const int startIndex, const int goalIndex, f
 			}
 		}
     }
+
+	// 経路が見つからなかった場合
+	return false;
 }
 
 int ControllerPathFinder::GetNearNodeIndex(const VECTOR& pos)
@@ -162,13 +166,13 @@ int ControllerPathFinder::GetNearNodeIndex(const VECTOR& pos)
 	// インデックス
 	int index = -1;
 
-	const int size = points_.size();
+	const int size = static_cast<int>(points_.size());
 	for (int i = 0; i < size; i++)
 	{
-		const auto& point = points_[i];
+		const VECTOR& point = points_[i];
 
 		// 距離を求める
-		float distance = Utility3D::Distance(point, pos);
+		float distance = static_cast<float>(Utility3D::Distance(point, pos));
 
 		// 値が小さい場合
 		if (distance < minDistance)

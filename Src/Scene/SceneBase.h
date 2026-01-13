@@ -56,4 +56,9 @@ protected:
 
 	//ローディング処理から通常処理へ
 	virtual void ChangeNormal();
+
+private:
+	
+	// テレビノイズ音量
+	static constexpr int TV_NOISE_SNOW_VOLUME = 50; 
 };

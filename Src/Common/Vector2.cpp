@@ -32,13 +32,13 @@ Vector2F Vector2::ToVector2F(void)
 
 Vector2 Vector2::Normalize(void) const
 {
-	float len = Length();
+	int len = static_cast<int>(Length());
 	return (len != 0) ? Vector2(x / len, y / len) : Vector2(0, 0);
 }
 
 float Vector2::Length(void) const
 {
-	return std::sqrt(x * x + y * y);
+	return static_cast<float>(std::sqrt(x * x + y * y));
 }
 
 bool Vector2::IsVector2(const Vector2 value1, const Vector2 value2)

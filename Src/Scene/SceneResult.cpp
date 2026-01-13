@@ -32,15 +32,8 @@ SceneResult::~SceneResult()
 {
 }
 
-void SceneResult::Load()
-{
-	SceneBase::Load();
-}
-
 void SceneResult::Init()
 {	
-	SceneBase::Init();
-
 	// ƒtƒHƒ“ƒg‚Ìì¬
 	const std::wstring FONT_NAME = resMng_.GetFontName("fontKazuki");
 	const int titleFont = fontMng_.CreateMyFont(FONT_NAME, TITLE_FONT_SIZE, 0);

@@ -2,8 +2,9 @@
 #include "../../../Manager/Game/GameStateManager.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../Actor/Character/Player.h"
-#include "../../Collider/ColliderModel.h"
 #include "../../Actor/Character/Enemy.h"
+#include "../../Collider/ColliderModel.h"
+#include "../../Collider/ColliderCapsule.h"
 #include "../Action/ControllerActionEnemy.h"
 #include "ControllerOnHitEnemy.h"
 
@@ -38,8 +39,10 @@ void ControllerOnHitEnemy::OnHitMainStage(const std::weak_ptr<ColliderBase>& opp
 
 		for (int tryCnt = 0; tryCnt < 10; tryCnt++)
 		{
+			const auto& capsule = owner_.GetColliderCapsule();
+
 			int pHit = HitCheck_Capsule_Triangle(
-				owner_.GetCapsuleTopPos(), owner_.GetCapsuleDownPos(), owner_.GetCapsuleRadius(),
+				capsule->GetPosTop(), capsule->GetPosDown(), capsule->GetRadius(),
 				hit.Position[0], hit.Position[1], hit.Position[2]);
 
 			if (pHit)

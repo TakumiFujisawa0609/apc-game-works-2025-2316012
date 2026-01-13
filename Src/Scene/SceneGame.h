@@ -25,11 +25,6 @@ public:
 	~SceneGame();
 
 	/// <summary>
-	/// “Ç‚İ‚İˆ—
-	/// </summary>
-	void Load() override;
-
-	/// <summary>
 	/// ‰Šú‰»ˆ—
 	/// </summary>
 	void Init() override;

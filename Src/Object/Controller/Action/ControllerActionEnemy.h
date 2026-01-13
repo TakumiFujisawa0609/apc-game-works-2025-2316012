@@ -94,7 +94,7 @@ private:
 	static constexpr float CHANGE_POINT_TIME = 2.0f;
 
 	// 画面シェイク強さ
-	static constexpr float SHAKE_POWER = 10.0f;
+	static constexpr int SHAKE_POWER = 10;
 
 	// 画面シェイク時間
 	static constexpr float SHAKE_TIME = 3.0f;

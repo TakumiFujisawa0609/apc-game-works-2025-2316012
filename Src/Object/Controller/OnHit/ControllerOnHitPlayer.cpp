@@ -4,6 +4,7 @@
 #include "../../Actor/Character/Player.h"
 #include "../../Actor/Stage/StageObjectBase.h"
 #include "../../Collider/ColliderModel.h"
+#include "../../Collider/ColliderCapsule.h"
 #include "../ControllerAnimation.h"
 #include "ControllerOnHitPlayer.h"
 
@@ -37,8 +38,10 @@ void ControllerOnHitPlayer::OnHitMainStage(const std::weak_ptr<ColliderBase>& op
 
 		for (int tryCnt = 0; tryCnt < 10; tryCnt++)
 		{
+			const auto& capsule = owner_.GetColliderCapsule();
+
 			int pHit = HitCheck_Capsule_Triangle(
-				owner_.GetCapsuleTopPos(), owner_.GetCapsuleDownPos(), owner_.GetCapsuleRadius(),
+				capsule->GetPosTop(), capsule->GetPosDown(), capsule->GetRadius(),
 				hit.Position[0], hit.Position[1], hit.Position[2]);
 
 			if (pHit)

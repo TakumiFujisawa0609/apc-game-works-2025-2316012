@@ -13,8 +13,8 @@ ScreenShake::ScreenShake()
 {
 	isEnd_ = false;
 	shakeTime_ = 0.0f;
-	strength_ = 0.0f;
-	step_ = 0.0f;
+	step_ = 0.0f;	
+	strength_ = -1;
 }
 
 ScreenShake::~ScreenShake()
@@ -25,8 +25,8 @@ void ScreenShake::Init()
 {
 	isEnd_ = false;
 	shakeTime_ = 0.0f;
-	strength_ = 0.0f;
-	step_ = 0.0f;
+	step_ = 0.0f;	
+	strength_ = 0;
 }
 
 void ScreenShake::Update()
@@ -44,7 +44,8 @@ void ScreenShake::Update()
 		std::uniform_real_distribution<float> dist(-1.0f, 1.0f);
 
 		// ƒ‰ƒ“ƒ_ƒ€‚ÅÀ•W‚ğ‚¸‚ç‚·
-		pos = {
+		pos = 
+		{
 			static_cast<int>(dist(shakeRandom)* strength_),
 			static_cast<int>(dist(shakeRandom)* strength_)
 		};

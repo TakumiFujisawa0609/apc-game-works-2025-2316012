@@ -44,14 +44,6 @@ ScenePause::~ScenePause()
 {
 }
 
-void ScenePause::Load()
-{
-}
-
-void ScenePause::Init()
-{	
-}
-
 void ScenePause::NormalUpdate()
 {
 

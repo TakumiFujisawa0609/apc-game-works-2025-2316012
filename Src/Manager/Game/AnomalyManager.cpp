@@ -9,6 +9,7 @@
 #include "../../Object/System/Anomaly/AnomalyReverseFall.h"
 #include "../../Object/System/Anomaly/AnomalyCrowd.h"
 #include "../../Utility/UtilityLoad.h"
+#include "../../Utility/UtilityCommon.h"
 #include "../../Core/Common/Timer.h"
 #include "AnomalyManager.h"
 
@@ -82,10 +83,9 @@ void AnomalyManager::Update()
 
 			// 異変発生
 			OccurAnomaly(GetRandType());
-			//OccurAnomaly(AnomalyManager::TYPE::CROWD);
 
 			// 次回までの時間をランダム設定
-			timer_->SetGoalTime(timeMin_ + GetRand(timeMax_ - timeMin_));
+			timer_->SetGoalTime(static_cast<float>(timeMin_ + GetRand(timeMax_ - timeMin_)));
 
 			// タイマー初期化
 			timer_->InitCountUp();
@@ -96,7 +96,7 @@ void AnomalyManager::Update()
 void AnomalyManager::DebugDraw()
 {
 	constexpr int POS_Y = 400;
-	DrawFormatString(0, POS_Y, 0xff0000, L"発生までの時間：%d", timer_->GetCount());
+	DrawFormatString(0, POS_Y, UtilityCommon::RED, L"発生までの時間：%d", timer_->GetCount());
 }
 
 void AnomalyManager::OccurAnomaly(const TYPE type)
@@ -149,13 +149,16 @@ const AnomalyManager::TYPE AnomalyManager::GetRandType()
 			}
 		}
 	}
+
+	// エラー時用
+	return TYPE::MAX;
 }
 
 AnomalyManager::AnomalyManager()
 {
 	firstTime_ = 0.0f;
-	timeMin_ = 0.0f;
-	timeMax_ = 0.0f;
+	timeMin_ = -1;
+	timeMax_ = -1;
 	isOccurrence_ = false;
 	updateType_ = TYPE::MAX;
 }

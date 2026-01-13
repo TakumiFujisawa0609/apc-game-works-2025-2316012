@@ -27,10 +27,6 @@ void Loading::Init()
 	// エフェクトのリソースの切り替え
 	EffectManager::GetInstance().SceneChangeResources();
 
-	// 効果音の再生
-	constexpr int VOLUME = 50;
-	SoundManager::GetInstance().PlaySe(SoundType::SE::TV_NOISE_SNOW, true, VOLUME);
-
 	//ローディング用文字列設定
 	constexpr int FONT_SIZE = 32;
 	const std::wstring& fontName = ResourceManager::GetInstance().GetFontName("fontKazuki");

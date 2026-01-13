@@ -1,11 +1,13 @@
+#include <algorithm>
+#include "../../Utility/UtilityCommon.h"
 #include "ModelMaterial.h"
 #include "BillboardRenderer.h"
 
 BillboardRenderer::BillboardRenderer(ModelMaterial& material) :
 	modelMaterial_(material)
 {
-	for (WORD& index : indexes_) { index = 0; }
-	for (auto& vertex : vertexs_) { vertex = {}; }
+	std::fill(std::begin(indexes_), std::end(indexes_), 0);
+	std::fill(std::begin(vertexs_), std::end(vertexs_), VERTEX3DSHADER{});
 	pos_ = {};
 	size_ = {};
 }
@@ -17,6 +19,8 @@ BillboardRenderer::~BillboardRenderer()
 
 void BillboardRenderer::MakeSquereVertex(const VECTOR& pos, const Vector2& size)
 {
+	constexpr int NUM_VERTEX = 4;
+	constexpr int MAX_COLOR = 255;
 
 	pos_ = pos;
 	size_ = size;
@@ -41,11 +45,10 @@ void BillboardRenderer::MakeSquereVertex(const VECTOR& pos, const Vector2& size)
 	};
 
 	// ÇSí∏ì_ÇÃèâä˙âª
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < NUM_VERTEX; i++)
 	{
-		//vertexs_[i].rhw = 1.0f;
-		vertexs_[i].dif = GetColorU8(255, 255, 255, 255);
-		vertexs_[i].spc = GetColorU8(255, 255, 255, 255);
+		vertexs_[i].dif = GetColorU8(MAX_COLOR, MAX_COLOR, MAX_COLOR, MAX_COLOR);
+		vertexs_[i].spc = GetColorU8(MAX_COLOR, MAX_COLOR, MAX_COLOR, MAX_COLOR);
 		vertexs_[i].su = 0.0f;
 		vertexs_[i].sv = 0.0f;
 		vertexs_[i].norm = VGet(0.0f, 0.0f, -1.0f);
@@ -103,7 +106,6 @@ void BillboardRenderer::MakeSquereVertex(const VECTOR& pos, const Vector2& size)
 	// âÒì]ê¨ï™Çíäèo
 	auto rot = MGetRotElem(mat);
 
-	const int NUM_VERTEX = 4;
 	for (int i = 0; i < NUM_VERTEX; i++)
 	{
 		vertexs_[i].pos = VAdd(pos_, VTransform(vertexs_[i].pos, rot));
@@ -156,7 +158,7 @@ void BillboardRenderer::Draw(const VECTOR& pos, const Vector2& size)
 	SetTextureAddressModeUV(texAType, texAType);
 
 	// ï`âÊ
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)UtilityCommon::ALPHA_MAX);
 	DrawPolygonIndexed3DToShader(vertexs_, NUM_VERTEX, indexes_, NUM_POLYGON);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 

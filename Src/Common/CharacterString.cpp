@@ -29,7 +29,7 @@ void CharacterString::DrawCenter(void) const
 	swprintf(buffer, BUFFER_SIZE, string.c_str());
 
 	// フォーマット済み文字列の幅を取得
-	int strWidth = GetDrawStringWidthToHandle(buffer, wcslen(buffer), fontHandle);
+	int strWidth = GetDrawStringWidthToHandle(buffer, static_cast<int>(wcslen(buffer)), fontHandle);
 
 	// 幅の直後に次の文字列を描画
 	DrawStringToHandle(pos.x - strWidth / 2, pos.y, string.c_str(), color, fontHandle);
@@ -43,7 +43,7 @@ void CharacterString::DrawFormatCenter(void) const
 	swprintf_s(buffer, BUFFER_SIZE, string.c_str(), data1, data2);
 
 	// フォーマット済み文字列の幅を取得
-	int strWidth = GetDrawStringWidthToHandle(buffer, wcslen(buffer), fontHandle);
+	int strWidth = GetDrawStringWidthToHandle(buffer, static_cast<int>(wcslen(buffer)), fontHandle);
 
 	// 中央に描画
 	DrawStringToHandle(pos.x - strWidth / 2, pos.y, buffer, color, fontHandle);

@@ -68,7 +68,7 @@ private:
 	const float SCREEN_SHAKE_TIME;
 
 	// ‰æ–Ê—h‚ê‹­‚³
-	const float SCREEN_SHAKE_POW;
+	const int SCREEN_SHAKE_POW;
 
 	// ‰º‚°‚éˆÚ“®—Ê
 	const float CAMERA_DOWN_POW;

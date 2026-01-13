@@ -57,7 +57,7 @@ void Grass::Update()
 	step_ += scnMng_.GetDeltaTime();
 
 	// ‹——£‚ğŒvZ
-	float distance = Utility3D::Distance(pos_, parent_.GetStartPos());
+	float distance = static_cast<float>(Utility3D::Distance(pos_, parent_.GetStartPos()));
 
 	// ‹——£‚É‰‚¶‚ÄŠˆ“®ó‘Ô‚ğ”½‰f
 	if (distance < parent_.GetDistance() && !CheckCameraViewClip(pos_))

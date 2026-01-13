@@ -5,6 +5,7 @@
 #include "../../../Common/Quaternion.h"
 #include "../../../Manager/Game/CollisionTags.h"
 
+class ColliderCapsule;
 class ColliderLine;
 class ControllerAnimation;
 class ControllerActionBase;
@@ -92,12 +93,6 @@ public:
 	const float GetStepRotTime() const { return rotStep_; }
 
 	/// <summary>
-	/// コライダーカプセルの半径を返す
-	/// </summary>
-	/// <returns>カプセルの半径</returns>
-	const float GetCapsuleRadius() const;
-
-	/// <summary>
 	/// 目標回転角度を返す
 	/// </summary>
 	/// <returns>目標回転角度</returns>
@@ -122,22 +117,16 @@ public:
 	const VECTOR& GetPrePos() const { return prePos_; }
 
 	/// <summary>
-	/// カプセル座標の上部分を返す
+	/// カプセル情報を返す
 	/// </summary>
-	/// <returns>カプセル座標の上</returns>
-	const VECTOR& GetCapsuleTopPos() const;
-
-	/// <summary>
-	/// カプセル座標の下部分を返す
-	/// </summary>
-	/// <returns>カプセル座標の下</returns>
-	const VECTOR& GetCapsuleDownPos() const;
+	/// <returns>カプセル情報</returns>
+	const ColliderCapsule* GetColliderCapsule() const;
 
 	/// <summary>
 	/// アニメーション制御クラスを返す
 	/// </summary>
 	/// <returns>アニメーション制御クラス</returns>
-	ControllerAnimation& GetControllerAnimation() const { return *animation_; }
+	ControllerAnimation& GetControllerAnimation() { return *animation_; }
 
 	/// <summary>
 	/// 座標の設定

@@ -29,16 +29,8 @@ SceneTitle::~SceneTitle()
 {
 }
 
-void SceneTitle::Load()
-{
-	SceneBase::Load();
-}
-
 void SceneTitle::Init()
 {
-	// Šî’êƒNƒ‰ƒX‚Ì‰Šú‰»
-	SceneBase::Init();
-
 	// ó‘Ô•Êˆ—‚Ì¶¬
 	stateMap_.emplace(STATE::MAIN, std::make_unique<TitleStateMain>(*this));
 	stateMap_.emplace(STATE::EXPLANATION, std::make_unique<TitleStateExplanation>(*this));

@@ -34,7 +34,7 @@ Player::Player(const Json& param) :
 	madnessUpdateStep_(param["madnessUpdateStepDefault"])
 {	
 	stepJump_ = 0.0f;
-	madnessValue_ = 0.0f;
+	madnessValue_ = 0;
 	reportPer_ = 0;
 	isJump_ = false;
 	state_ = STATE::NONE;

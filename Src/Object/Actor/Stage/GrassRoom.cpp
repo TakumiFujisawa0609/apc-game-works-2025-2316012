@@ -119,8 +119,8 @@ VECTOR GrassRoom::GetRespownGrassPos()
 	constexpr int OFFSET_Z = 100;
 
 	VECTOR ret = Utility3D::VECTOR_ZERO;
-	ret.x = rectMin_.x + OFFSET_X + GetRand(rectMax_.x - rectMin_.x - 1);
+	ret.x = rectMin_.x + OFFSET_X + GetRand(static_cast<int>(rectMax_.x - rectMin_.x - 1));
 	ret.y = rectMin_.y;
-	ret.z = rectMin_.z + OFFSET_Z + GetRand(rectMax_.z - rectMin_.z - 1 - OFFSET_Z);
+	ret.z = rectMin_.z + OFFSET_Z + GetRand(static_cast<int>(rectMax_.z - rectMin_.z - 1 - OFFSET_Z));
 	return ret;
 }

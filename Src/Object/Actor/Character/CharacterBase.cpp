@@ -150,20 +150,11 @@ void CharacterBase::DebugDraw()
 	collider_->DebugDraw();
 }
 
-const float CharacterBase::GetCapsuleRadius() const 
+const ColliderCapsule* CharacterBase::GetColliderCapsule() const
 {
-	const auto& colliderModel = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
-	return colliderModel->GetRadius();
-}
+	// キャスト結果を取得
+	auto capsule = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
 
-const VECTOR& CharacterBase::GetCapsuleTopPos() const
-{
-	const auto& colliderModel = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
-	return colliderModel->GetPosTop();
-}
-
-const VECTOR& CharacterBase::GetCapsuleDownPos() const
-{
-	const auto& colliderModel = std::dynamic_pointer_cast<ColliderCapsule>(collider_);
-	return colliderModel->GetPosDown();
+	// 成功時はポインタを返す、失敗時はnullptrを返す
+	return capsule.get();
 }

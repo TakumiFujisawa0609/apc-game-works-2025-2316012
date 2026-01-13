@@ -425,7 +425,7 @@ std::wstring UtilityCommon::GetWStringFromString(const std::string& str)
         CP_ACP,									//現在のコードページ
         MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,	//エラーしたら情報を返す
         str.c_str(),							//元の文字列へのポインタ
-        str.length(),							//元の文字列の長さ
+        (int)str.length(),							//元の文字列の長さ
         nullptr,								//変換先の文字列のバッファ
         0										//最後の引数をnullptr,0にすることで
     );											//wstringに必要な文字列数を返している
@@ -441,9 +441,9 @@ std::wstring UtilityCommon::GetWStringFromString(const std::string& str)
         CP_ACP,									// 文字コード
         MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,
         str.c_str(),							// 変換元の文字列
-        str.length(),							// 得られたワイド文字列を入れるアドレス
+        (int)str.length(),						// 得られたワイド文字列を入れるアドレス
         ret.data(),								// 得られたワイド文字列を入れるメモリサイズ
-        ret.size()								// 変換先の文字列のバッファのサイズ
+        (int)ret.size()							// 変換先の文字列のバッファのサイズ
     );
 
     return ret;
@@ -451,13 +451,15 @@ std::wstring UtilityCommon::GetWStringFromString(const std::string& str)
 
 std::string UtilityCommon::ConvertUtf8ToSjis(const std::string& utf8_str)
 {
+	constexpr int CP_SJIS = 932;
+
     int wlen = MultiByteToWideChar(CP_UTF8, 0, utf8_str.c_str(), -1, nullptr, 0);
     std::wstring wstr(wlen, L'\0');
     MultiByteToWideChar(CP_UTF8, 0, utf8_str.c_str(), -1, &wstr[0], wlen);
 
-    int sjlen = WideCharToMultiByte(932, 0, wstr.c_str(), -1, nullptr, 0, nullptr, nullptr);
+    int sjlen = WideCharToMultiByte(CP_SJIS, 0, wstr.c_str(), -1, nullptr, 0, nullptr, nullptr);
     std::string sjis(sjlen, '\0');
-    WideCharToMultiByte(932, 0, wstr.c_str(), -1, &sjis[0], sjlen, nullptr, nullptr);
+    WideCharToMultiByte(CP_SJIS, 0, wstr.c_str(), -1, &sjis[0], sjlen, nullptr, nullptr);
     return sjis;
 }
 
@@ -467,7 +469,7 @@ float UtilityCommon::NormalizeMinMax(const float value, const float min, const f
     {
         return 0.0; // 分母が0になる場合は0を返すなどのエラー処理
     }
-    double normalized = (value - min) / (max - min);
+    float normalized = (value - min) / (max - min);
 
     // 0から1の範囲にクランプ（収める）する
     if (normalized < 0.0) return 0.0;

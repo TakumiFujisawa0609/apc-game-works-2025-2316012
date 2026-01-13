@@ -58,17 +58,8 @@ SceneGame::~SceneGame()
 	ShadowManager::GetInstance().Destroy();
 }
 
-void SceneGame::Load()
-{
-	// 親クラスの読み込み
-	SceneBase::Load();	
-}
-
 void SceneGame::Init()
 {
-	// 基底クラスの初期化
-	SceneBase::Init();
-
 	// キャラクター
 	CharacterManager::GetInstance().Load();
 
@@ -89,7 +80,7 @@ void SceneGame::Init()
 	ScenePause_->Load();
 
 #ifdef _DEBUG	
-	// テスト用の座標リスト作成クラス
+	// 敵用の座標リスト作成クラス
 	createPositionList_ = std::make_unique<CreatePositionList>("EnemyPosList", CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform());
 #endif 
 
