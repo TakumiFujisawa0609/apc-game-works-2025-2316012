@@ -1,11 +1,12 @@
 #include <chrono>
 #include "../../Application.h"
 #include "../../Manager/Common/SceneManager.h"
-#include "../../Manager/Game/GameStateManager.h"
 #include "../../Manager/Common/ResourceManager.h"
 #include "../../Manager/Common/FontManager.h"
-#include "../../Manager/Game/GameSystemManager.h"
 #include "../../Manager/Common/ScoreManager.h"
+#include "../../Manager/Game/GameSystemManager.h"
+#include "../../Manager/Game/GameStateManager.h"
+#include "../../Manager/Game/CharacterManager.h"
 #include "../../Utility/UtilityCommon.h"
 #include "../Common/Timer.h"
 #include "Message.h"
@@ -16,11 +17,13 @@ GameTime::GameTime(const Json& param) :
 	FONT_SIZE(param["fontSize"]),
 	FONT_THICK(param["fontThick"]),
 	GAME_TIME(param["gameTime"]),
+	ENEMY_APPEAR_TIME(param["enemyAppearTime"]),
 	DATE_POS{ param["datePos"]["x"], param["datePos"]["y"] },
 	TIME_POS{ param["timePos"]["x"], param["timePos"]["y"] },
 	stateMng_(GameStateManager::GetInstance())
 {
 	isEvent_ = false;
+	isEnemyAppear_ = false;
 	todayText_ = CharacterString();
 	text_ = CharacterString();
 }
@@ -71,10 +74,23 @@ void GameTime::Update()
 		return;
 	}
 
+	// 1分経過後
 	if (timer_->GetCount() >= ONE_MINUTES && !isEvent_)
 	{
 		systemMng_.ChangeMessage(Message::TYPE::ONE_MINNUTES_LATER);
 		isEvent_ = true;
+	}
+
+	// 敵出現時間に達した場合
+	if (timer_->GetCount() >= ENEMY_APPEAR_TIME && !isEnemyAppear_)
+	{
+		// 敵の生成
+		CharacterManager::GetInstance().RespownEnemy();
+
+		// 状態変更
+		stateMng_.ChangeState(GameStateManager::STATE::RESPOWN_ENEMY);
+
+		isEnemyAppear_ = true;
 	}
 
 }

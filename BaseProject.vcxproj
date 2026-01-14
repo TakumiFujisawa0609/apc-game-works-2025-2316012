@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Scene\State\Game\GameStateEnemyRespown.cpp" />
+    <ClCompile Include="Src\Object\Controller\Action\ControllerActionEnemyRespown.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\CrowdRoom.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Sub\BillboardObjectBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Sub\Human.cpp" />
@@ -182,6 +184,8 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Scene\State\Game\GameStateEnemyRespown.h" />
+    <ClInclude Include="Src\Object\Controller\Action\ControllerActionEnemyRespown.h" />
     <ClInclude Include="Src\Object\Actor\Stage\CrowdRoom.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Sub\BillboardObjectBase.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Sub\Human.h" />

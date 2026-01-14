@@ -22,6 +22,7 @@ public:
 		JUMP_SCARE,			// ジャンプスケア
 		MADNESS_END,		// 恐怖圧迫死
 		REVERES_FALL,		// 反転落下
+		RESPOWN_ENEMY,		// 敵出現
 	};
 
 	/// <summary>

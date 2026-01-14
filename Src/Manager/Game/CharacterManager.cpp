@@ -4,6 +4,7 @@
 #include "../../Object/Actor/Character/Enemy.h"
 #include "../../Object/Actor/Character/Ghost.h"
 #include "../../Object/Controller/ControllerLight.h"
+#include "GameStateManager.h"
 #include "CharacterManager.h"
 
 void CharacterManager::Load()
@@ -15,11 +16,6 @@ void CharacterManager::Load()
 	std::unique_ptr<Player> player = std::make_unique<Player>(paramMap_[NAME_LIST[static_cast<int>(TYPE::PLAYER)]].front());
 	player->Load();	// ƒvƒŒƒCƒ„[“Ç‚İ‚İ
 	characterMap_[TYPE::PLAYER].push_back(std::move(player));
-
-	// “G‚Ì¶¬
-	std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(paramMap_[NAME_LIST[static_cast<int>(TYPE::ENEMY)]].front());
-	enemy->Load();	// “G“Ç‚İ‚İ
-	characterMap_[TYPE::ENEMY].push_back(std::move(enemy));
 }
 
 void CharacterManager::Init()
@@ -123,6 +119,15 @@ void CharacterManager::AddCharacter(const TYPE type, std::unique_ptr<CharacterBa
 		characterMap_.emplace(type, std::move(characters));
 		return;
 	}
+}
+
+void CharacterManager::RespownEnemy()
+{
+	// “G‚Ì¶¬
+	std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(paramMap_[NAME_LIST[static_cast<int>(TYPE::ENEMY)]].front());
+	enemy->Load();	// “Ç‚İ‚İ
+	enemy->Init();	// ‰Šú‰»
+	AddCharacter(TYPE::ENEMY, std::move(enemy));
 }
 
 const VECTOR& CharacterManager::GetPlayerLightPos() const

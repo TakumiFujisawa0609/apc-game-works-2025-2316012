@@ -3,6 +3,7 @@
 #include "../../Scene/State/Game/GameStatePlay.h"
 #include "../../Scene/State/Game/GameStateReporting.h"
 #include "../../Scene/State/Game/GameStateMadnessEnd.h"
+#include "../../Scene/State/Game/GameStateEnemyRespown.h"
 #include "../Common/SoundManager.h"
 #include "../Common/ScoreManager.h"
 #include "../Common/SceneManager.h"
@@ -25,6 +26,10 @@ void GameStateManager::Load()
 	// ‹¶‹CI—¹ˆ—‚Ì¶¬
 	auto madnessEnd = std::make_unique<GameStateMadnessEnd>();
 	stateMap_.emplace(STATE::MADNESS_END, std::move(madnessEnd));
+
+	// “GoŒ»ˆ—‚Ì¶¬
+	auto respownEnemy = std::make_unique<GameStateEnemyRespown>();
+	stateMap_.emplace(STATE::RESPOWN_ENEMY, std::move(respownEnemy));
 }
 
 void GameStateManager::Init()

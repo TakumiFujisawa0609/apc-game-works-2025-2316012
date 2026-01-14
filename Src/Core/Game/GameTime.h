@@ -53,6 +53,9 @@ private:
 	// ゲーム時間
 	const float GAME_TIME;
 
+	// 敵の出現時間
+	const float ENEMY_APPEAR_TIME;
+
 	// 日付の表示位置
 	const Vector2 DATE_POS;
 
@@ -64,6 +67,9 @@ private:
 
 	// イベントフラグ
 	bool isEvent_;
+
+	// 敵の出現フラグ
+	bool isEnemyAppear_;
 
 	// 状態管理クラスの参照
 	GameStateManager& stateMng_;

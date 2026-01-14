@@ -72,6 +72,11 @@ public:
 	void AddCharacter(const TYPE type, std::unique_ptr<CharacterBase> character);
 
 	/// <summary>
+	/// 敵を生成する
+	/// </summary>
+	void RespownEnemy();
+
+	/// <summary>
 	/// 指定したキャラクターを返す
 	/// </summary>
 	/// <param name="type">キャラクター種類</param>
