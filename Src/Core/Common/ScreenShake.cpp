@@ -67,3 +67,9 @@ void ScreenShake::Set(const float time, const int strength)
 	step_ = 0.0f;
 	isEnd_ = false;
 }
+
+void ScreenShake::Reset()
+{
+	// ‰æ–ÊˆÊ’u‚ð–ß‚·
+	scnMng_.SetScreenPos({ 0,0 });
+}

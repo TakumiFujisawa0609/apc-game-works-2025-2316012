@@ -127,6 +127,7 @@ void CharacterManager::RespownEnemy()
 	std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(paramMap_[NAME_LIST[static_cast<int>(TYPE::ENEMY)]].front());
 	enemy->Load();	// “Ç‚Ýž‚Ý
 	enemy->Init();	// ‰Šú‰»
+	enemy->ChangeState(Enemy::STATE::RESPOWN);
 	AddCharacter(TYPE::ENEMY, std::move(enemy));
 }
 

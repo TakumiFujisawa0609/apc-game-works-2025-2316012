@@ -34,7 +34,15 @@ public:
 	/// </summary>
 	virtual void Draw();
 
+	/// <summary>
+	/// ステップの設定
+	/// </summary>
+	void SetStep(const float step) { step_ = step; }
+
 protected:
+
+	// ステップ
+	float step_;
 
 	// マテリアル
 	std::unique_ptr<PixelMaterial> material_;

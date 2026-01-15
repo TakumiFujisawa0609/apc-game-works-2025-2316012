@@ -17,13 +17,15 @@
 #include "../../Controller/Draw/ControllerDrawEnemy.h"
 #include "Enemy.h"
 
-const std::string Enemy::ANIM_ACTION = "action";		// UŒ‚
+const std::string Enemy::ANIM_ACTION = "action";	// UŒ‚
+const std::string Enemy::ANIM_ROAR = "roar";		// ™ôšK
 
 Enemy::Enemy(const Json& param) :
 	CharacterBase(param),
 	FIRST_POS_INDEX(param["firstPosIndex"]),
 	VIEW_ANGLE(param["viewAngle"]),
-	VIEW_RANGE(param["viewRange"])
+	VIEW_RANGE(param["viewRange"]),
+	ANIM_ROAR_SPEED(param["animRoarSpeed"])
 {
 	pathFinder_ = nullptr;
 	onHitView_ = nullptr;
@@ -32,6 +34,7 @@ Enemy::Enemy(const Json& param) :
 	// ó‘ÔXVŠÖ”‚Ì“o˜^
 	RegisterStateUpdateFunc(STATE::NONE, std::bind(&Enemy::UpdateNone, this));
 	RegisterStateUpdateFunc(STATE::ALIVE, std::bind(&Enemy::UpdateAlive, this));
+	RegisterStateUpdateFunc(STATE::RESPOWN, std::bind(&Enemy::UpdateRespown, this));
 }
 
 Enemy::~Enemy()
@@ -88,6 +91,11 @@ void Enemy::Init()
 	rotStep_ = 0.1f;
 }
 
+void Enemy::ChangeState(const STATE state)
+{
+	state_ = state;
+}
+
 ControllerActionEnemy* Enemy::GetActionEnemy()
 {
 	// ƒAƒNƒVƒ‡ƒ“ƒNƒ‰ƒX‚ÌŽæ“¾
@@ -114,6 +122,7 @@ void Enemy::InitAnimation()
 	animation_->Add(ANIM_WALK, resMng_.GetHandle("enemyAnimationWalking"), ANIM_DEFAULT_SPEED);
 	animation_->Add(ANIM_RUN, resMng_.GetHandle("enemyAnimationFastRun"), ANIM_DEFAULT_SPEED);
 	animation_->Add(ANIM_ACTION, resMng_.GetHandle("enemyAnimationAction"), ANIM_DEFAULT_SPEED);
+	animation_->Add(ANIM_ROAR, resMng_.GetHandle("enemyAnimationRoar"), ANIM_ROAR_SPEED);
 
 	// ‰ŠúƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶
 	animation_->Play(ANIM_IDLE);
@@ -133,6 +142,15 @@ void Enemy::InitTransform()
 void Enemy::RegisterStateUpdateFunc(const STATE state, std::function<void()> update)
 {
 	stateUpdateFuncMap_[state] = update;	
+}
+
+void Enemy::UpdateRespown()
+{
+	// ‰ñ“]
+	rotate_->Update();
+
+	// ˆÚ“®
+	move_->Update();
 }
 
 void Enemy::UpdateAlive()

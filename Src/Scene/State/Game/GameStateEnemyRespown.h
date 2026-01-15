@@ -1,9 +1,13 @@
 #pragma once
+#include <memory>
 #include <functional>
 #include <unordered_map>
 #include "GameStateBase.h"
 
 class Enemy;
+class Timer;
+class ScreenShake;
+class ControllerCameraBase;
 class CharacterManager;
 class ResourceManager;
 class GameSystemManager;
@@ -18,7 +22,7 @@ public:
 	/// </summary>
 	enum class STATE
 	{
-		NONE,
+		WAIT,
 		START,					// 開始
 		WALK,					// 歩く
 		MOVE_CAMERA_FORWARD,	// カメラを前方向に移動
@@ -66,9 +70,18 @@ private:
 	// 更新処理
 	std::function<void()> update_;
 
+	// 時間
+	std::unique_ptr<Timer> timer_;
+
+	// 画面シェイク
+	std::unique_ptr<ScreenShake> screenShake_;
+
+	// カメラ制御
+	std::unique_ptr<ControllerCameraBase> cameraController_;
+
 	// 各種状態別遷移処理
 	void ChangeState(const STATE state);
-	void ChangeStateNone();
+	void ChangeStateWait();
 	void ChangeStateStart();
 	void ChangeStateWalk();
 	void ChangeStateMoveCameraForward();
@@ -77,7 +90,7 @@ private:
 	void ChangeStateEnd();
 
 	// 各種状態別更新処理
-	void UpdateNone() {};
+	void UpdateWait();
 	void UpdateStart();
 	void UpdateWalk();
 	void UpdateMoveCameraForward();

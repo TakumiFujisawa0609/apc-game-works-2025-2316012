@@ -46,6 +46,7 @@
     "gravity": 25,
     "timeRot": 1,
     "animationDefaultSpeed": 20,
+    "animRoarSpeed": 25,
     "firstPosIndex": 0,
     "colliderRadius": 20.0,
     "viewRange": 600.0,

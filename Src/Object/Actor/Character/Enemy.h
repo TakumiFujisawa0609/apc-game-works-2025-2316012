@@ -15,11 +15,13 @@ public:
 	enum class STATE
 	{
 		NONE,
-		ALIVE,	// 生存
+		ALIVE,		// 生存
+		RESPOWN,	// 出現
 	};
 
 	//アニメ種別キー
-	static const std::string ANIM_ACTION;		//攻撃
+	static const std::string ANIM_ACTION;		// 攻撃
+	static const std::string ANIM_ROAR;			// 咆哮
 
 	/// <summary>
 	/// コンストラクタ
@@ -41,6 +43,12 @@ public:
 	/// 初期化処理
 	/// </summary>
 	void Init() override;
+
+	/// <summary>
+	/// 状態遷移
+	/// </summary>
+	/// <param name="state">状態</param>
+	void ChangeState(const STATE state);
 
 	/// <summary>
 	/// 初期位置用のインデックスを返す
@@ -88,6 +96,9 @@ private:
 	// 視野角の範囲
 	const float VIEW_RANGE;
 
+	// 咆哮用アニメーション速度
+	const float ANIM_ROAR_SPEED;
+
 	// カメラ位置
 	static constexpr VECTOR JUMP_SCARE_CAMERA_POS = { 71.0f, 125.0f, -2.0f };
 
@@ -123,6 +134,7 @@ private:
 
 	// 状態別更新処理	
 	void UpdateNone() {};	// 何もしない
+	void UpdateRespown();	// 出現
 	void UpdateAlive();		// 生存
 
 	// デバッグ描画

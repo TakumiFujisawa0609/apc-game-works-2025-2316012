@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Core\PostEffect\PostEffectFireTransition.cpp" />
     <ClCompile Include="Src\Scene\State\Game\GameStateEnemyRespown.cpp" />
     <ClCompile Include="Src\Object\Controller\Action\ControllerActionEnemyRespown.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\CrowdRoom.cpp" />
@@ -184,6 +185,7 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Core\PostEffect\PostEffectFireTransition.h" />
     <ClInclude Include="Src\Scene\State\Game\GameStateEnemyRespown.h" />
     <ClInclude Include="Src\Object\Controller\Action\ControllerActionEnemyRespown.h" />
     <ClInclude Include="Src\Object\Actor\Stage\CrowdRoom.h" />
@@ -519,6 +521,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\Shader\PostEffect\FireTransition.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Src\Shader\PostEffect\GameScreenEffect.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

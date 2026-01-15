@@ -330,6 +330,12 @@
       "path": "Data/Model/Enemy/Animation/Attack.mv1"
     },
     {
+      "key": "enemyAnimationRoar",
+      "sceneId": 3,
+      "type": "model",
+      "path": "Data/Model/Enemy/Animation/Roar.mv1"
+    },
+    {
       "key": "cameraFrame",
       "sceneId": 3,
       "type": "texture",

@@ -1,22 +1,22 @@
 #pragma once
 #include "PostEffectBase.h"
 
-class PostEffectFilmBurn : public PostEffectBase
+class PostEffectFireTransition : public PostEffectBase
 {
 public:
 
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	PostEffectFilmBurn();
+	PostEffectFireTransition();
 
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~PostEffectFilmBurn() override;
+	~PostEffectFireTransition() override;
 
 	/// <summary>
-	/// 初期化処理
+	/// 初期化
 	/// </summary>
 	void Init() override;
 
@@ -27,10 +27,7 @@ public:
 
 private:
 
-	// 時間
-	static constexpr float TIME = 2.0f;
-
 	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 1;
+	static constexpr int CONST_BUFFER_SIZE = 2;
 };
 

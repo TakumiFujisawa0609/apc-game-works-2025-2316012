@@ -34,6 +34,11 @@ public:
 	void Set(const float time, const int strength);
 
 	/// <summary>
+	/// リセット
+	/// </summary>
+	void Reset();
+
+	/// <summary>
 	/// 終了判定
 	/// </summary>
 	/// <returns></returns>

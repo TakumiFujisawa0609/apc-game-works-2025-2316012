@@ -20,7 +20,7 @@
   },
   "gameTimer": {
     "gameTime": 300,
-    "enemyAppearTime": 10,
+    "enemyAppearTime": 7,
     "fontSize": 24,
     "fontThick": 0,
     "fontName": "fontKazuki",
