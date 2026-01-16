@@ -18,7 +18,8 @@ public:
 		GAME_SCREEN,// 通常描画のゲームスクリーン
 		CRACKS,		// ひび割れ
 		FILM_BURN,	// 写真焼き
-		CHROMATIC_ABERRATION, // 色収差
+		CHROMATIC_ABERRATION,	// 色収差
+		FIRE_TRANSITION,		// 火のエフェクト遷移
 	};
 
 	/// <summary>
@@ -43,7 +44,19 @@ public:
 	/// <returns>エフェクトの種類</returns>
 	const TYPE GetType() const { return type_; }
 
-	void SetStep(const float step);
+	/// <summary>
+	/// ステップの設定
+	/// </summary>
+	/// <param name="type">種類</param>
+	/// <param name="step">ステップ</param>
+	void SetStep(const TYPE type, const float step);
+
+	/// <summary>
+	/// サブテクスチャの設定
+	/// </summary>
+	/// <param name="type">種類</param>
+	/// <param name="subTexture">サブテクスチャ</param>
+	void SetSubTexture(const TYPE type, const int subTexture);
 
 private:	
 

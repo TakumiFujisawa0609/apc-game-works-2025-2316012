@@ -868,6 +868,39 @@
       "path": "Data/Shader/HumanVS.cso",
       "sceneId": 3,
       "type": "vertexShader"
+    },
+    {
+      "key": "fireTransitionEffect",
+      "path": "Data/Shader/FireTransitionEffect.cso",
+      "sceneId": 3,
+      "type": "pixelShader"
+    },
+    {
+      "key": "fireTransitionTexture",
+      "path": "Data/Shader/Noise.png",
+      "sceneId": 3,
+      "type": "texture"
+    },
+    {
+      "key": "seEnemyRoar",
+      "sceneId": 3,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeEnemyRoar.mp3",
+      "soundType": "se"
+    },
+    {
+      "key": "seFireTransition",
+      "sceneId": 3,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeFireTransition.mp3",
+      "soundType": "se"
+    },
+    {
+      "key": "seEnemyGroan",
+      "sceneId": 3,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeEnemyGroan.mp3",
+      "soundType": "se"
     }
   ]
 }

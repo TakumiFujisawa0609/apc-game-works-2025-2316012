@@ -39,7 +39,16 @@ public:
 	/// </summary>
 	void SetStep(const float step) { step_ = step; }
 
+	/// <summary>
+	/// サブテクスチャの設定
+	/// </summary>
+	/// <param name="subTexture">サブテクスチャ</param>
+	void SetSubTexture(const int subTexture) { subTexture_ = subTexture; }
+
 protected:
+
+	// サブテクスチャ
+	int subTexture_;
 
 	// ステップ
 	float step_;
@@ -49,5 +58,4 @@ protected:
 
 	// レンダラー
 	std::unique_ptr<PixelRenderer> renderer_;
-
 };

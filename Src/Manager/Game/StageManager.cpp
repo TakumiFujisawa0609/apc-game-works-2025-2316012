@@ -1,7 +1,6 @@
 #include "../../Object/Actor/Stage/StageObjectBase.h"
 #include "../../Object/Actor/Stage/StageObjectFactory.h"
 #include "../../Object/Actor/Stage/StageMain.h"
-#include "../../Object/System/Load/ParameterLoad.h"
 #include "../../Utility/UtilityLoad.h"
 #include "../../Object/Actor/Stage/Sub/Grass.h"
 #include "CharacterManager.h"

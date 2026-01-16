@@ -1,4 +1,5 @@
 #include "../Common/Pixel/PixelShader2DHeader.hlsli"
+#include "../Common/Pixel/PixelShaderCommonFunction.hlsli"
 
 // 円周率
 static const float PI = 3.14159;
@@ -18,10 +19,9 @@ static const float3x3 NOISE_MATRIX = float3x3
 cbuffer cbParam : register(b4)
 {
     float g_time;
-    //float g_resolution;
+    float g_progress;
+    float g_bokeh_level;
     float dummy;
-    
-    float2 g_mouse_pos; // マウス位置
 };
 
 // サブテクスチャ
@@ -29,6 +29,12 @@ Texture2D subTex : register(t1);
 
 // サブサンプラー
 SamplerState subTexSampler : register(s1);
+
+// ノイズテクスチャ
+Texture2D noiseTex : register(t2);
+
+// ノイズサンプラー
+SamplerState noiseTexSampler : register(s2);
 
 float hash(float n)
 {
@@ -60,39 +66,35 @@ float myfbm(float3 p)
     f += 0.2500 * noise(p);
     p = mul(NOISE_MATRIX, p) * 2.03;
     f += 0.1250 * noise(p);
-    p = mul(NOISE_MATRIX, p) * 2.01;
-    f += 0.0625 * noise(p);
-    p = mul(NOISE_MATRIX, p) * 2.04;
-    f += 0.03125 * noise(p);
-    p = mul(NOISE_MATRIX, p) * 2.03;
-    f += 0.015625 * noise(p);
     return f;
 }
 
 float4 main(PS_INPUT PSInput) : SV_TARGET
 {
-    // UV値取得
     float2 uv = PSInput.uv;
+    float3 p = 4.0 * float3(uv, 0.0) + g_time * float3(0, 0, 1);
     
-    // ノイズ計算
-    float3 dir = float3(0.0, 0.0, 1.0);
-    float3 p = 4.0 * float3(uv, 0.0) + g_time * dir;
+    // ノイズの値を 0.0 ~ 1.0 に収まりやすく調整
     float x = myfbm(p);
-
-    // パラメータ取得
-    float2 val = g_mouse_pos.xy;
     
-    // 境界のシェーピング
-    x = smoothstep(-val.y + val.x, 1.0 - val.y + 1.0 - val.x, x);
+    // ノイズに基づいたマスクを生成
+    float mask = smoothstep(g_progress - g_bokeh_level, g_progress + g_bokeh_level, x);
     
-    // テクスチャのサンプリング
+    // 変化後のテクスチャを取得
     float3 mainColor = tex.Sample(texSampler, uv).rgb;
+    
+    // 変化前のテクスチャを取得
     float3 subColor = subTex.Sample(subTexSampler, uv).rgb;
+    
+    // テクスチャの合成
+    float3 color = lerp(mainColor, subColor, mask);
+    
+    // 境界線部分を抽出して炎の色を加える
+    float edge = 1.0 - abs(mask - 0.5) * 2.0;
+    
+    // 境界を光らせる
+    edge = pow(max(0.0, edge), 3.0);
+    color += FIRE_COLOR * edge * 2.0; 
 
-    // 合成
-    float3 color = lerp(mainColor, subColor + FIRE_COLOR, x);
-    float k = (1.0 - pow(0.5 + 0.5 * cos(PI * (x - 0.5)), 3.0));
-    color += lerp(FIRE_COLOR, color, k);
- 
     return float4(color, 1.0);
 }
