@@ -91,7 +91,7 @@ private:
 	static constexpr float ENEMY_MOVE_SPEED = 0.5f;
 
 	// 遷移用エフェクトの速度倍率
-	static constexpr float TRANSITION_EFFECT_SPEED_RATE = 0.8f;
+	static constexpr float TRANSITION_EFFECT_SPEED_RATE = 0.7f;
 
 	// 出現する敵のインスタンス
 	Enemy* target_;

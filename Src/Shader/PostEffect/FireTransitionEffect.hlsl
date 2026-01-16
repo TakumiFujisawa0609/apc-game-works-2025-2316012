@@ -64,8 +64,8 @@ float myfbm(float3 p)
     f = 0.5000 * noise(p);
     p = mul(NOISE_MATRIX, p) * 2.02;
     f += 0.2500 * noise(p);
-    p = mul(NOISE_MATRIX, p) * 2.03;
-    f += 0.1250 * noise(p);
+    //p = mul(NOISE_MATRIX, p) * 2.03;
+    //f += 0.1250 * noise(p);
     return f;
 }
 
