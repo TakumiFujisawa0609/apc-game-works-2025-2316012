@@ -1,6 +1,9 @@
 #include "../../../Manager/Game/GameStateManager.h"
-#include "../../../Manager/Common/SoundManager.h"
 #include "../../../Manager/Game/GameSystemManager.h"
+#include "../../../Manager/Common/SoundManager.h"
+#include "../../../Manager/Common/EffectManager.h"
+#include "../../../Manager/Common/SceneManager.h"
+#include "../../../Manager/Common/Camera.h"
 #include "../../../Core/Game/ReportSystem.h"
 #include "../../../Object/Actor/Stage/StageObjectBase.h"
 #include "../../../Object/Actor/Stage/StageGimmickObjectBase.h"
@@ -58,4 +61,7 @@ void ControllerOnHitReport::OnHitCommon()
 
 	// サウンド再生
 	sndMng_.PlaySe(SoundType::SE::REPORTING);
+
+	// オーブエフェクトの停止
+	EffectManager::GetInstance().Stop(EffectType::TYPE::ORB);
 }

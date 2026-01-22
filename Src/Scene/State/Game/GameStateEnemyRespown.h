@@ -85,13 +85,25 @@ private:
 	static constexpr float SCREEN_SHAKE_TIME = 4.0f;
 
 	// 画面揺れ強さ
-	static constexpr float SCREEN_SHAKE_POWER = 8.0f;
+	static constexpr float SCREEN_SHAKE_POWER =12.0f;
 
 	// 敵の移動速度
 	static constexpr float ENEMY_MOVE_SPEED = 0.5f;
 
 	// 遷移用エフェクトの速度倍率
 	static constexpr float TRANSITION_EFFECT_SPEED_RATE = 0.7f;
+
+	// 咆哮エフェクトのスケール
+	static constexpr VECTOR ROAR_EFFECT_SCALE = { 20.0f, 20.0f, 20.0f };
+
+	// 咆哮エフェクトのオフセット
+	static constexpr float ROAR_EFFECT_OFFSET = 80.0f;
+
+	// 咆哮エフェクトの再生速度
+	static constexpr float ROAR_EFFECT_PLAY_SPEED = 0.8f;
+
+	// ターゲット頭インデックス
+	static constexpr int TARGET_HEAD_INDEX = 6;
 
 	// 出現する敵のインスタンス
 	Enemy* target_;
@@ -105,10 +117,14 @@ private:
 	// 状態
 	STATE state_;
 
+	// 切り替え前のテクスチャハンドル
 	int oldTexture_;
 
 	// 炎のトランジション用ステップ
 	float fireStep_;
+
+	// 咆哮用再生判定
+	bool isPlayRoar_;
 
 	// 状態変更関数管理
 	std::unordered_map<STATE, std::function<void()>> changeStateMap_;

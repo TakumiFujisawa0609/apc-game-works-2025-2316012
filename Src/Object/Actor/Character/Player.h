@@ -6,6 +6,7 @@
 class ControllerOnHitReport;
 class ControllerLight;
 class ControllerCameraPlayerDead;
+class Timer;
 
 class Player : public CharacterBase
 {
@@ -181,6 +182,15 @@ private:
 	// 狂気更新用ステップ値の追加値
 	const float MADNESS_UPDATE_STEP_ADD;
 
+	// オーブエフェクト位置オフセット
+	const float ORB_EFFECT_OFFSET;
+
+	// オーブエフェクト拡大率
+	const VECTOR ORB_EFFECT_SCALE;
+
+	// オーブエフェクトインターバル
+	const float ORB_EFFECT_INTERVAL;
+
 	// 狂気値
 	int madnessValue_;
 
@@ -201,6 +211,9 @@ private:
 
 	// 状態
 	STATE state_;
+
+	// エフェクト制御用タイマー
+	std::unique_ptr<Timer> effectTimer_;
 
 	// ライト
 	std::unique_ptr<ControllerLight> light_;

@@ -85,23 +85,22 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
         // 法線の絶対値をブレンドウェイトとして使用
         float3 blend_weights = abs(normal);
 
-        // ウェイトを正規化（合計を1.0にする）
-        // エッジでの切り替わりを滑らかにするため、ウェイトを累乗しても良い (例: pow(abs(normal), 2.0))
+        // ウェイトを正規化して合計を1にする
         float weight_sum = blend_weights.x + blend_weights.y + blend_weights.z;
         blend_weights /= weight_sum;
 
         // 最終的な色をブレンドして決定
-        float4 subColor = color_xz * blend_weights.y + // Y軸支配(床/天井)
-                  color_yz * blend_weights.x + // X軸支配(壁)
-                  color_xy * blend_weights.z; // Z軸支配(壁)
+        float4 subColor = color_xz * blend_weights.y +  // Y軸支配
+                  color_yz * blend_weights.x +          // X軸支配
+                  color_xy * blend_weights.z;           // Z軸支配
         
         // 色を加算
         material = subColor.rgb;
         
-        // 拡大距離に対する現在のdistanceの比率
+        // 拡大距離に対する現在の距離の比率
         float ratio = distance / g_distance;
         
-        // 境界付近でピークになるように計算(smoothstep(最小値, 最大値, 現在の値))
+        // 境界付近で光るように計算(smoothstep(最小値, 最大値, 現在の値)）
         highlightIntensity = 0.5f * (1.0f - smoothstep(0.8f, 1.0f, 1.0f - (1.0f - ratio) * 2.0f));
         
         // 境界からの距離

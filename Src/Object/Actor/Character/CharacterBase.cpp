@@ -1,8 +1,9 @@
 #include <DxLib.h>
-#include "../../../Manager/Common/SceneManager.h"
 #include "../../../Manager/Game/CollisionManager.h"
 #include "../../../Manager/Game/CollisionTags.h"
+#include "../../../Manager/Common/SceneManager.h"
 #include "../../../Manager/Common/Camera.h"
+#include "../../../Manager/Common/EffectManager.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Render/ModelMaterial.h"
@@ -29,7 +30,8 @@ CharacterBase::CharacterBase(const Json& param) :
 	SPEED_RUN(param["dashSpeed"]),
 	GRAVITY(param["gravity"]),
 	TIME_ROT(param["timeRot"]),
-	ANIM_DEFAULT_SPEED(param["animationDefaultSpeed"])
+	ANIM_DEFAULT_SPEED(param["animationDefaultSpeed"]),
+	effectMng_(EffectManager::GetInstance())
 {
 	rotStep_ = 0.0f;	
 	moveSpeed_ = 0.0f;

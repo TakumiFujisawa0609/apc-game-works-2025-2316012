@@ -4,8 +4,10 @@
 #include "../../../Manager/Common/Camera.h"
 #include "../../../Manager/Common/ResourceManager.h"
 #include "../../../Manager/Common/SoundManager.h"
+#include "../../../Manager/Common/EffectManager.h"
 #include "../../../Utility/Utility3D.h"
 #include "../../../Utility/UtilityCommon.h"
+#include "../../../Core/Common/Timer.h"
 #include "../../Controller/ControllerAnimation.h"
 #include "../../Controller/ControllerMove.h"
 #include "../../Controller/ControllerRotate.h"
@@ -31,6 +33,9 @@ Player::Player(const Json& param) :
 	ANIM_JUMP_SPEED(param["animationJumpSpeed"]),
 	REPORT_INPUT_TIME(param["reportInputTime"]),
 	MADNESS_UPDATE_STEP_ADD(param["madnessUpdateStepAdd"]),
+	ORB_EFFECT_OFFSET(param["orbEffectOffset"]),
+	ORB_EFFECT_SCALE({ param["orbEffectScale"]["x"],param["orbEffectScale"]["y"], param["orbEffectScale"]["z"] }),
+	ORB_EFFECT_INTERVAL(param["orbEffectInterval"]),
 	madnessUpdateStep_(param["madnessUpdateStepDefault"])
 {	
 	stepJump_ = 0.0f;
@@ -67,6 +72,9 @@ void Player::Load()
 	// カメラ制御クラス
 	cameraDead_ = std::make_unique<ControllerCameraPlayerDead>();
 
+	// エフェクト制御用タイマークラス
+	effectTimer_ = std::make_unique<Timer>(ORB_EFFECT_INTERVAL);
+
 	// 衝突後の処理クラス
 	onHitMap_[CollisionTags::TAG::PLAYER] = std::make_unique<ControllerOnHitPlayer>(*this);
 	onHitMap_[CollisionTags::TAG::REPORT] = std::make_unique<ControllerOnHitReport>(*this);
@@ -93,12 +101,25 @@ void Player::Init()
 
 	// ライトの初期更新
 	light_->Init();
+
+	// プレイヤーが常備纏うエフェクトの設定
+	VECTOR pos = VAdd(transform_.pos, VScale(mainCamera.GetForward(), ORB_EFFECT_OFFSET));
+	pos.y = 0.0f;
+	effectMng_.Play(EffectType::TYPE::ORB, pos, ORB_EFFECT_SCALE, Quaternion());
 }
 
 void Player::UpdateBody()
 {
 	// 状態別更新処理
 	stateUpdateFuncMap_[state_]();
+
+	// エフェクトの追従
+	if (effectTimer_->CountUp())
+	{
+		VECTOR pos = VAdd(transform_.pos, VScale(mainCamera.GetForward(), ORB_EFFECT_OFFSET));
+		pos.y = 0.0f;
+		effectMng_.Play(EffectType::TYPE::ORB, pos, ORB_EFFECT_SCALE, Quaternion());
+	}
 }
 
 void Player::DrawMain()

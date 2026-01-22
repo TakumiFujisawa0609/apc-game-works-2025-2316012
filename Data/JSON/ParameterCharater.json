@@ -12,8 +12,15 @@
     "colliderRadius": 30.0,
     "madnessUpdateStepDefault": 0.01,
     "madnessUpdateStepAdd": 0.001,
+    "orbEffectOffset": 500,
+    "orbEffectInterval": 0.5,
     "collisionTag": "player",
     "colliderType": "capsule",
+    "orbEffectScale": {
+      "x": 10,
+      "y": 10,
+      "z": 10
+    },
     "initPos": {
       "x": 200,
       "y": 0,

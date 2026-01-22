@@ -14,6 +14,7 @@ class ControllerRotate;
 class ControllerGravity;
 class ControllerOnHitBase;
 class ControllerDrawBase;
+class EffectManager;
 
 class CharacterBase : public ActorBase
 {
@@ -192,6 +193,9 @@ protected:
 
 	// デフォルトのアニメーション速度
 	const float ANIM_DEFAULT_SPEED;
+
+	// エフェクト管理クラス
+	EffectManager& effectMng_;
 
 	// 移動速度
 	float moveSpeed_;

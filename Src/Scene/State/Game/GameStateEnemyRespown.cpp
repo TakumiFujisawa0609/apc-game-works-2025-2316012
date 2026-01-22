@@ -2,6 +2,7 @@
 #include "../../../Manager/Common/Camera.h"
 #include "../../../Manager/Common/SceneManager.h"
 #include "../../../Manager/Common/SoundManager.h"
+#include "../../../Manager/Common/EffectManager.h"
 #include "../../../Manager/Game/CharacterManager.h"
 #include "../../../Manager/Game/StageManager.h"
 #include "../../../Manager/Game/CollisionManager.h"
@@ -28,6 +29,7 @@ GameStateEnemyRespown::GameStateEnemyRespown() :
 	target_ = nullptr;
 	fireStep_ = 0.0f;
 	oldTexture_ = -1;
+	isPlayRoar_ = false;
 
 	// 状態変更関数管理
 	changeStateMap_.emplace(STATE::WAIT, std::bind(&GameStateEnemyRespown::ChangeStateWait, this));
@@ -312,19 +314,37 @@ void GameStateEnemyRespown::UpdateZoomOut()
 }
 
 void GameStateEnemyRespown::UpdateRoar()
-{
+{		
 	// 画面揺れを行う時間になった場合
 	if (timer_->GetCount() > 1.0f)
-	{
-		// SEが再生されていない場合
-		if (!sndMng_.IsCheckPlaySe(SoundType::SE::ENEMY_ROAR))
+	{		
+		// 画面揺れ更新
+		screenShake_->Update();
+		
+		// 初回のみ
+		if (!isPlayRoar_)
 		{
 			// SEの再生
 			sndMng_.PlaySe(SoundType::SE::ENEMY_ROAR);
+
+			// エフェクト再生
+			const Transform& tar = target_->GetTransform();
+			VECTOR pos = VAdd(MV1GetFramePosition(tar.modelId, TARGET_HEAD_INDEX), VScale(tar.GetForward(), ROAR_EFFECT_OFFSET));
+			Quaternion qua = Quaternion::LookRotation(tar.GetForward());
+			EffectManager::GetInstance().Play(EffectType::TYPE::ROAR, pos, ROAR_EFFECT_SCALE, qua, ROAR_EFFECT_PLAY_SPEED);
+
+			// 判定をオンにする
+			isPlayRoar_ = true;
+		}
+		else
+		{
+			// エフェクト追従
+			const Transform& tar = target_->GetTransform();
+			VECTOR pos = VAdd(MV1GetFramePosition(tar.modelId, TARGET_HEAD_INDEX), VScale(tar.GetForward(), ROAR_EFFECT_OFFSET));
+			Quaternion qua = Quaternion::LookRotation(tar.GetForward());
+			EffectManager::GetInstance().Sync(EffectType::TYPE::ROAR, pos, ROAR_EFFECT_SCALE, qua, ROAR_EFFECT_PLAY_SPEED);
 		}
 
-		// 画面揺れ更新
-		screenShake_->Update();
 	}
 	// 時間に達した場合
 	if (timer_->CountUp())

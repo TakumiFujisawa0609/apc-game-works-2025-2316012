@@ -788,6 +788,18 @@
       "path": "Data/Effect/PetalFall.efkefc"
     },
     {
+      "key": "orb",
+      "sceneId": 0,
+      "type": "effect",
+      "path": "Data/Effect/Orb.efkefc"
+    },    
+    {
+      "key": "roar",
+      "sceneId": 0,
+      "type": "effect",
+      "path": "Data/Effect/Roar.efkefc"
+    },
+    {
       "key": "filmBurnTexture",
       "sceneId": 3,
       "type": "texture",
