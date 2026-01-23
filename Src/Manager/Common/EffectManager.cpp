@@ -115,7 +115,7 @@ void EffectManager::Sync(const TYPE type, const VECTOR& pos, const VECTOR& scale
 	// ÉpÉâÉÅÅ[É^ÇÃîΩâf
 	SetPosPlayingEffekseer3DEffect(effectData.playHandle, effectData.pos.x, effectData.pos.y, effectData.pos.z);
 	const VECTOR rot = effectData.quaRot.ToEuler();
-	SetRotationPlayingEffekseer3DEffect(effectData.playHandle, effectData.scl.x, effectData.scl.y, effectData.scl.z);
+	SetRotationPlayingEffekseer3DEffect(effectData.playHandle, rot.x, rot.y, rot.z);
 	SetScalePlayingEffekseer3DEffect(effectData.playHandle, effectData.scl.x, effectData.scl.y, effectData.scl.z);
 	SetSpeedPlayingEffekseer3DEffect(effectData.playHandle, effectData.speed);
 }

@@ -37,7 +37,7 @@ void PostEffectFilmBurn::Init()
 void PostEffectFilmBurn::Draw()
 {
 	// バッファーの設定
-	material_->SetConstBuf(0, FLOAT4{ step_, 0.0f, 0.5f, 0.0f });
+	material_->SetConstBuf(0, FLOAT4{ step_, TIME, 0.0f, 0.0f });
 
 	// 基底クラスの処理
 	PostEffectBase::Draw();

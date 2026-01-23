@@ -178,7 +178,7 @@ void AnomalyReverseFall::UpdateReverseFall()
 
 	// ポストエフェクトの値を更新
 	filmStep_ = filmStep_ >= CAMERA_DOWN_TIME ? CAMERA_DOWN_TIME : filmStep_ + scnMng_.GetDeltaTime();
-	gameEffMng_.SetStep(filmStep_);
+	gameEffMng_.SetStep(GameEffectManager::TYPE::FILM_BURN, filmStep_);
 }
 
 void AnomalyReverseFall::UpdateReverseUp()
@@ -197,7 +197,7 @@ void AnomalyReverseFall::UpdateReverseUp()
 
 	// ポストエフェクトの値を更新
 	filmStep_ = filmStep_ < 0.0f ? 0.0f : filmStep_ - scnMng_.GetDeltaTime();
-	gameEffMng_.SetStep(filmStep_);
+	gameEffMng_.SetStep(GameEffectManager::TYPE::FILM_BURN, filmStep_);
 }
 
 void AnomalyReverseFall::UpdateCameraBack()

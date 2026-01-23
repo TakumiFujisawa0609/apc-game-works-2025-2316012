@@ -1220,7 +1220,7 @@
     <FxCompile Include="Src\Shader\Model\ShadowSkinnedMeshVs.hlsl" />
     <FxCompile Include="Src\Shader\Model\HumanPS.hlsl" />
     <FxCompile Include="Src\Shader\Model\HumanVS.hlsl" />
-    <FxCompile Include="Src\Shader\PostEffect\FireTransition.hlsl" />
+    <FxCompile Include="Src\Shader\PostEffect\FireTransitionEffect.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\Shader\Common\Pixel\PixelShader2DHeader.hlsli" />

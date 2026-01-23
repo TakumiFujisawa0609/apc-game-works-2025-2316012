@@ -6,6 +6,8 @@
 
 PostEffectBase::PostEffectBase()
 {
+	step_ = 0.0f;
+	subTexture_ = -1;
 	material_ = nullptr;
 	renderer_ = nullptr;
 }

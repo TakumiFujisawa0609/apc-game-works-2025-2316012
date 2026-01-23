@@ -44,4 +44,7 @@ const std::map<std::string, SoundType::SE> SoundType::KEY_SE_MAP =
 	{"seGrassLand", SoundType::SE::GRASS_LAND},
 	{"seEarthquake", SoundType::SE::EARTHQUAKE},
 	{"seCrowd", SoundType::SE::CROWD},
+	{"seEnemyRoar", SoundType::SE::ENEMY_ROAR},
+	{"seEnemyGroan", SoundType::SE::ENEMY_GROAN},
+	{"seFireTransition", SoundType::SE::FIRE_TRANSITION},
 };

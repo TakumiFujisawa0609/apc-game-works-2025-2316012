@@ -5,6 +5,7 @@
 #include "../../Core/PostEffect/PostEffectGameScreen.h"
 #include "../../Core/PostEffect/PostEffectFilmBurn.h"
 #include "../../Core/PostEffect/PostEffectChromaticAberration.h"
+#include "../../Core/PostEffect/PostEffectFireTransition.h"
 #include "GameEffectManager.h"
 
 void GameEffectManager::Init()
@@ -24,6 +25,10 @@ void GameEffectManager::Init()
 	// 色収差
 	auto color = std::make_unique<PostEffectChromaticAberration>();
 	effectMap_.emplace(TYPE::CHROMATIC_ABERRATION, std::move(color));
+
+	// 炎のエフェクト
+	auto fire = std::make_unique<PostEffectFireTransition>();
+	effectMap_.emplace(TYPE::FIRE_TRANSITION, std::move(fire));
 
 	// 読み込み処理
 	for (auto& effect : effectMap_)
@@ -60,9 +65,14 @@ void GameEffectManager::Draw()
 	DrawGraph(0, 0, effectScreen_, false);
 }
 
-void GameEffectManager::SetStep(const float step)
+void GameEffectManager::SetStep(const TYPE type, const float step)
 {
-	effectMap_[TYPE::FILM_BURN]->SetStep(step);
+	effectMap_[type]->SetStep(step);
+}
+
+void GameEffectManager::SetSubTexture(const TYPE type, const int subTexture)
+{
+	effectMap_[type]->SetSubTexture(subTexture);
 }
 
 GameEffectManager::GameEffectManager()

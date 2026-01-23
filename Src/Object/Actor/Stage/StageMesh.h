@@ -28,6 +28,11 @@ public:
 	/// </summary>
 	void Mv1Draw() override {};
 
+	/// <summary>
+	/// íœ”»’è
+	/// </summary>
+	void SetDelete() override;
+
 private:
 
 

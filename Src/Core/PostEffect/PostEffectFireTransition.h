@@ -28,6 +28,12 @@ public:
 private:
 
 	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 2;
+	static constexpr int CONST_BUFFER_SIZE = 1;
+
+	// ボケレベル
+	static constexpr float BLUR_LEVEL = 0.1f;
+
+	// 時間
+	float time_;
 };
 
