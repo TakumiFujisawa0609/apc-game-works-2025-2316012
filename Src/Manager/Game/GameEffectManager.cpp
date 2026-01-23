@@ -62,9 +62,7 @@ void GameEffectManager::Draw()
 
 void GameEffectManager::SetStep(const float step)
 {
-	PostEffectBase* base = effectMap_[TYPE::FILM_BURN].get();
-	PostEffectFilmBurn* effect = dynamic_cast<PostEffectFilmBurn*>(base);
-	effect->SetStep(step);
+	effectMap_[TYPE::FILM_BURN]->SetStep(step);
 }
 
 GameEffectManager::GameEffectManager()

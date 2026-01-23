@@ -28,7 +28,7 @@ void PostEffectFilmBurn::Init()
 
 	// テクスチャ設定
 	material_->AddTextureBuf(scnMng_.GetMainScreen());
-	material_->AddTextureBuf(resMng_.GetHandle("fireTransitionEffect"));
+	material_->AddTextureBuf(resMng_.GetHandle("filmBurnTexture"));
 
 	// 基底クラスの初期化
 	PostEffectBase::Init();
