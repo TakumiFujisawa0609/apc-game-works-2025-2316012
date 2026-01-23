@@ -71,9 +71,12 @@ void CherryBlossomsWorld::Refresh()
 
 	// 衝突判定用のメッシュも削除
 	auto& objects = stageMng.GetStageObjects(DELETE_MESH_KEY);
-	if (!objects.empty() && objects[0]) 
+	if (!objects.empty()) 
 	{
-		objects[0]->SetDelete();
+		for (auto& obj : objects) 
+		{
+			obj->SetDelete();
+		}
 	}
 
 	// メインステージの復元

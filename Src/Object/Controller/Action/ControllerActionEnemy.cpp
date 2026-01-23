@@ -140,14 +140,12 @@ void ControllerActionEnemy::DebugDraw()
 	DrawTriangle3D(leftPos, forwardPos, centerPos, color, TRUE);
 
 	// îÕàÕÇÃï`âÊ
-	DrawSphere3D(owner_.GetTransform().pos, NEAR_RANGE, 16, UtilityCommon::YELLOW, UtilityCommon::YELLOW, false);
-	DrawSphere3D(owner_.GetTransform().pos, CHASE_RANGE, 16, UtilityCommon::YELLOW, UtilityCommon::YELLOW, false);
-
-	DrawFormatString(0, 240, UtilityCommon::WHITE, L"é©êgÇÃèÛë‘ : %d", static_cast<int>(state_));
+	constexpr int DIV_NUM = 16;
+	DrawSphere3D(owner_.GetTransform().pos, NEAR_RANGE, DIV_NUM, UtilityCommon::YELLOW, UtilityCommon::YELLOW, false);
+	DrawSphere3D(owner_.GetTransform().pos, CHASE_RANGE, DIV_NUM, UtilityCommon::YELLOW, UtilityCommon::YELLOW, false);
 
 	constexpr int OFFSET = 50;
 	constexpr float RADIUS = 10.0f;
-	constexpr int DIV_NUM = 16;
 
 	for (auto& pos : movePosList_)
 	{
