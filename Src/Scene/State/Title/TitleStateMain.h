@@ -3,6 +3,7 @@
 
 class TitleLogo;
 class TitleButton;
+class TitleOrb;
 class PostEffectRipples;
 
 class TitleStateMain : public TitleStateBase
@@ -60,6 +61,9 @@ private:
 
 	// ボタン
 	std::unique_ptr<TitleButton> button_;
+
+	// オーブ
+	std::unique_ptr<TitleOrb> orb_;
 
 	// 波紋エフェクト
 	std::unique_ptr<PostEffectRipples> ripples_;

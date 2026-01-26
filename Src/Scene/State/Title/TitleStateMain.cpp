@@ -3,6 +3,7 @@
 #include "../../../Manager/Common/InputManager.h"
 #include "../../../Manager/Common/SoundManager.h"
 #include "../../../Core/Title/TitleButton.h"
+#include "../../../Core/Title/TitleOrb.h"
 #include "../../../Core/Title/TitleLogo.h"
 #include "../../../Core/PostEffect/PostEffectRipples.h"
 #include "../../../Core/Common/GlitchScreen.h"
@@ -17,6 +18,7 @@ TitleStateMain::TitleStateMain(SceneTitle& parent) :
 	screenAlpha_ = 0.0f;
 	step_ = 0.0f;
 	logo_ = nullptr;
+	orb_ = nullptr;
 	button_ = nullptr;
 }
 
@@ -34,6 +36,10 @@ void TitleStateMain::Init()
 	// ボタン
 	button_ = std::make_unique<TitleButton>();
 	button_->Init();
+
+	// オーブ
+	orb_ = std::make_unique<TitleOrb>();
+	orb_->Init();
 
 	// ポストエフェクト
 	ripples_ = std::make_unique<PostEffectRipples>();
@@ -57,6 +63,9 @@ void TitleStateMain::Update()
 {
 	// 一部状態別処理
 	update_();
+
+	// オーブの更新
+	orb_->Update();
 }
 
 void TitleStateMain::Draw()
@@ -77,7 +86,10 @@ void TitleStateMain::Draw()
 	logo_->Draw();
 
 	// ボタン描画
-	button_->Draw();
+	button_->Draw();	
+	
+	// オーブの描画
+	orb_->Draw();
 	
 	//スクリーンの設定
 	SetDrawScreen(effectScreen_);

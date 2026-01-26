@@ -33,7 +33,7 @@ private:
 	int logo_;
 
 	// •`‰æˆÊ’u
-	static constexpr int POS_X = 320;
+	static constexpr int POS_X = 240;
 	static constexpr int POS_Y = 260;
 
 };

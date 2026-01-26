@@ -40,7 +40,7 @@ private:
 	static constexpr float LINE_ACTIVE = 1.0f;
 
 	// グリッチの強さ
-	static constexpr float GLITCH_STRENGTH = 10.0f;
+	static constexpr float GLITCH_STRENGTH = 0.2f;
 	
 	// 波紋タイマーに乗じる速度係数
 	static constexpr float RIPPLES_WAVE_SPEED = 0.2f;    
@@ -52,23 +52,14 @@ private:
 	static constexpr float FILM_GRAIN_STRENGTH = 0.1f;
 
 	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 3;
+	static constexpr int CONST_BUFFER_SIZE = 2;
 
 	// リップル用ステップ
 	float ripplesStep_;
 
 	// フィルムグレイン用のステップ
 	float filmGrainStep_;
-
-	// ライン用ステップ
-	float lineStep_;
-
-	// ラインの到達時間
-	float lineGoalTime_;	
 	
 	// 波紋の開始判定
 	bool isRepples_;
-
-	// 線の活動状態
-	bool isLineActive_;
 };

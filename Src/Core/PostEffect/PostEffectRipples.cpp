@@ -11,9 +11,6 @@ PostEffectRipples::PostEffectRipples()
 {
 	ripplesStep_ = 0.0f;
 	filmGrainStep_ = 0.0f;
-	lineStep_ = 0.0f;
-	lineGoalTime_ = 0.0f;
-	isLineActive_ = false;
 	isRepples_ = false;
 }
 
@@ -28,17 +25,11 @@ void PostEffectRipples::Init()
 	renderer_ = std::make_unique<PixelRenderer>(*material_);
 
 	// マテリアル設定
-	material_->AddConstBuf(FLOAT4{ ripplesStep_,0.0f, 0.0f,FILM_GRAIN_STRENGTH });
-	material_->AddConstBuf(FLOAT4{ 0.0f,Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y,1.0f });
-	material_->AddConstBuf(FLOAT4{ 0.0f,GLITCH_STRENGTH,0.0f,0.0f });
+	material_->AddConstBuf(FLOAT4{ ripplesStep_,0.0f, 0.0f,0.0f });
+	material_->AddConstBuf(FLOAT4{ GLITCH_STRENGTH,0.0f, 0.0f, 0.0f });
 
 	// テクスチャ設定
 	material_->AddTextureBuf(scnMng_.GetMainScreen());
-
-	// 初期化
-	lineStep_ = 0.0f;
-	lineGoalTime_ = LINE_INACTIVE;
-	isLineActive_ = true;	// 初期時は表示する
 
 	// 基底クラスの初期化
 	PostEffectBase::Init();
@@ -53,28 +44,13 @@ void PostEffectRipples::Draw()
 	constexpr float ASPECT_RATIO = Application::SCREEN_SIZE_X / Application::SCREEN_SIZE_Y;
 
 	// 各種ステップの更新
-	filmGrainStep_ += step;
-	lineStep_ += step;
-
-	// 線の状態を決定する
-	if (lineGoalTime_ <= lineStep_)
-	{
-		// 初期化
-		lineStep_ = 0.0f;
-
-		// 状態の変更
-		isLineActive_ = !isLineActive_;
-
-		// 到達時間の変更
-		lineGoalTime_ = isLineActive_ ? LINE_INACTIVE : LINE_ACTIVE;
-	}
-
-	// ラインの状態を数値に変換
-	const float lineActive = isLineActive_ ? 1.0f : 0.0f;
+	filmGrainStep_ += step * 0.1f;
 
 	// エフェクトの開始条件を満たしている場合
 	if (isRepples_)
 	{
+		filmGrainStep_ = 0.0f;
+
 		// タイマーの更新
 		ripplesStep_ += scnMng_.GetDeltaTime();
 
@@ -86,9 +62,8 @@ void PostEffectRipples::Draw()
 	}
 
 	// マテリアル設定
-	material_->SetConstBuf(0, FLOAT4{ ripplesStep_,wave, ratio, FILM_GRAIN_STRENGTH });
-	material_->SetConstBuf(1, FLOAT4{ filmGrainStep_,Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, lineActive });
-	material_->SetConstBuf(2, FLOAT4{ 1.0f - lineActive,GLITCH_STRENGTH, 0.0f,0.0f });
+	material_->SetConstBuf(0, FLOAT4{ ripplesStep_,wave, ratio, filmGrainStep_ });
+	material_->SetConstBuf(1, FLOAT4{ GLITCH_STRENGTH,0.0f, 0.0f, 0.0f });
 
 	// 基底クラスの処理
 	PostEffectBase::Draw();

@@ -806,6 +806,12 @@
       "path": "Data/Image/Anomaly/FilmBurnTexture.jpg"
     },
     {
+      "key": "titleOrb",
+      "sceneId": 1,
+      "type": "texture",
+      "path": "Data/Image/Title/TitleOrb.png"
+    },
+    {
       "key": "filmBurnEffect",
       "sceneId": 3,
       "type": "pixelShader",
