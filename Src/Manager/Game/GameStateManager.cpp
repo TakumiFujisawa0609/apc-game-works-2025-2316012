@@ -7,6 +7,7 @@
 #include "../Common/SoundManager.h"
 #include "../Common/ScoreManager.h"
 #include "../Common/SceneManager.h"
+#include "../Common/EffectManager.h"
 #include "GameStateManager.h"
 
 void GameStateManager::Load()
@@ -82,6 +83,9 @@ void GameStateManager::SetGameClear()
 	SoundManager& sndMng = SoundManager::GetInstance();
 	sndMng.StopAllSe();
 	sndMng.StopBgm(SoundType::BGM::GAME);
+
+	// エフェクトの停止
+	EffectManager::GetInstance().Stop(EffectType::TYPE::ORB);
 }
 
 void GameStateManager::SetGameOver()
@@ -98,6 +102,9 @@ void GameStateManager::SetGameOver()
 	// サウンドの停止
 	SoundManager::GetInstance().StopAllSe();
 	SoundManager::GetInstance().StopBgm(SoundType::BGM::GAME);
+
+	// エフェクトの停止
+	EffectManager::GetInstance().Stop(EffectType::TYPE::ORB);
 }
 
 GameStateManager::GameStateManager()
