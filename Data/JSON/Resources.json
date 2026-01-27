@@ -671,15 +671,22 @@
       "soundType": "se"
     },
     {
+      "key": "seDisplayExplan",
+      "sceneId": 3,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeDisplayExplan.mp3",
+      "soundType": "se"
+    },    
+    {
       "key": "seSelect",
-      "sceneId": 1,
+      "sceneId": 0,
       "type": "sound",
       "path": "Data/Sound/SE/SeSelect.mp3",
       "soundType": "se"
     },
     {
       "key": "seDecision",
-      "sceneId": 1,
+      "sceneId": 0,
       "type": "sound",
       "path": "Data/Sound/SE/SeDecision.mp3",
       "soundType": "se"

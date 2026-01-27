@@ -63,6 +63,7 @@ public:
 		ENEMY_ROAR,
 		ENEMY_GROAN,
 		FIRE_TRANSITION,
+		DISPLAY_EXPLAN,
 		MAX
 	};
 

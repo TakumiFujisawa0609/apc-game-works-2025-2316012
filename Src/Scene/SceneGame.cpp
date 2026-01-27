@@ -121,7 +121,17 @@ void SceneGame::NormalUpdate()
 	// ポーズ画面
 	if (inputMng_.IsTrgDown(InputManager::TYPE::PAUSE))
 	{
+		// ポーズ画面へ遷移
 		scnMng_.PushScene(ScenePause_);
+
+		// カメラを固定
+		mainCamera.ChangeMode(Camera::MODE::FIXED_POINT);
+
+		// マウス表示
+		SetMouseDispFlag(true);
+
+		// 効果音再生
+		sndMng_.PlaySe(SoundType::SE::DECISION);
 		return;
 	}
 

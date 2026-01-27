@@ -3,6 +3,7 @@
 #include "../../Manager/Common/ResourceManager.h"
 #include "../../Manager/Common/FontManager.h"
 #include "../../Manager/Common/InputManager.h"
+#include "../../Manager/Common/SoundManager.h"
 #include "../../Utility/UtilityCommon.h"
 #include "GameManual.h"
 
@@ -75,6 +76,9 @@ void GameManual::Update()
 	{
 		// Œ»İ‚Ìó‘Ô‚ğØ‚è‘Ö‚¦
 		isText_ = !isText_;
+
+		// Œø‰Ê‰¹Ä¶
+		sndMng_.PlaySe(SoundType::SE::DISPLAY_EXPLAN);
 	}
 }
 

@@ -16,7 +16,7 @@ CrowdRoom::~CrowdRoom()
 
 void CrowdRoom::Draw()
 {
-	collider_->DebugDraw();
+	//collider_->DebugDraw();
 }
 
 void CrowdRoom::SetAnomaly()
