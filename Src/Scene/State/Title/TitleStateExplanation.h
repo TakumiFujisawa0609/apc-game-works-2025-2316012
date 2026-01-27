@@ -105,13 +105,13 @@ private:
 	static constexpr float END_POS_X = -128;
 
 	// 画像生成クールタイム
-	static constexpr float WINDOW_CREATE_COOL_TIME = 0.08f;
+	static constexpr float WINDOW_CREATE_COOL_TIME = 0.04f;
 
 	// 画像を見送るスプライト番号
 	const std::vector<int> SKIP_INDEXS = { 0, 1, 3, 5, 13 };
 
 	// 画像生成拡大サイズ
-	const std::vector<float> IMG_SCALES = { 0.7f, 0.9f, 1.0f, 1.2f, 1.3f };
+	const std::vector<float> IMG_SCALES = { 1.1f, 1.3f, 1.5f, 1.7f, 2.0f };
 
 	// スキップ用テキスト
 	const std::wstring SKIP_TEXT = L"Enterでスキップ";

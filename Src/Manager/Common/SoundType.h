@@ -64,6 +64,7 @@ public:
 		ENEMY_GROAN,
 		FIRE_TRANSITION,
 		DISPLAY_EXPLAN,
+		TV_ERROR,
 		MAX
 	};
 

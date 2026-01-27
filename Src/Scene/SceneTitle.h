@@ -18,6 +18,7 @@ public:
 		MAIN,
 		EXPLANATION,
 		SELECT,
+		TV_ERROR,
 	};
 
 	// コンストラクタ

@@ -12,6 +12,7 @@
 #include "State/Title/TitleStateExplanation.h"
 #include "State/Title/TitleStateMain.h"
 #include "State/Title/TitleStateSelect.h"
+#include "State/Title/TitleStateTvError.h"
 #include "SceneTitle.h"
 
 SceneTitle::SceneTitle()
@@ -34,7 +35,8 @@ void SceneTitle::Init()
 	// ó‘Ô•Êˆ—‚Ì¶¬
 	stateMap_.emplace(STATE::MAIN, std::make_unique<TitleStateMain>(*this));
 	stateMap_.emplace(STATE::EXPLANATION, std::make_unique<TitleStateExplanation>(*this));
-	stateMap_.emplace(STATE::SELECT, std::make_unique<TitleStateSelect>(*this));
+	//stateMap_.emplace(STATE::SELECT, std::make_unique<TitleStateSelect>(*this));
+	stateMap_.emplace(STATE::TV_ERROR, std::make_unique<TitleStateTvError>(*this));
 
 	// Šeí‰Šú‰»ˆ—
 	for (const auto& it : stateMap_)

@@ -90,10 +90,12 @@ void TitleStateExplanation::Update()
 	if (inputMng_.IsTrgDown(InputManager::TYPE::EXPLANTION_SKIP))
 	{
 		// ƒV[ƒ“‘JˆÚ
-		parent_.ChangeState(SceneTitle::STATE::SELECT);
+		parent_.ChangeState(SceneTitle::STATE::TV_ERROR);
 		// BGM’âŽ~
 		sndMng_.StopBgm(SoundType::BGM::TITLE_EXPLANATION);
+		// Œø‰Ê‰¹‚ÌÄ¶	
 		sndMng_.PlayBgm(SoundType::BGM::TITLE_SELECT);
+		sndMng_.PlaySe(SoundType::SE::TV_ERROR);
 		return;
 	}
 
@@ -247,9 +249,10 @@ void TitleStateExplanation::UpdateBug()
 
 	if (windows_.size() > CREATE_COUNT)
 	{
-		parent_.ChangeState(SceneTitle::STATE::SELECT);
+		parent_.ChangeState(SceneTitle::STATE::TV_ERROR);
 		sndMng_.StopAllSe();
 		sndMng_.PlayBgm(SoundType::BGM::TITLE_SELECT);
+		sndMng_.PlaySe(SoundType::SE::TV_ERROR);
 		return;
 	}
 }

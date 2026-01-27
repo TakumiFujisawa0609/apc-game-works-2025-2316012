@@ -676,7 +676,7 @@
       "type": "sound",
       "path": "Data/Sound/SE/SeDisplayExplan.mp3",
       "soundType": "se"
-    },    
+    },
     {
       "key": "seSelect",
       "sceneId": 0,
@@ -799,7 +799,7 @@
       "sceneId": 0,
       "type": "effect",
       "path": "Data/Effect/Orb.efkefc"
-    },    
+    },
     {
       "key": "roar",
       "sceneId": 0,
@@ -926,6 +926,25 @@
       "type": "sound",
       "path": "Data/Sound/SE/SeEnemyGroan.mp3",
       "soundType": "se"
+    },   
+    {
+      "key": "seTvError",
+      "sceneId": 1,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeTvError.mp3",
+      "soundType": "se"
+    },
+    {
+      "key": "textureTvError",
+      "sceneId": 1,
+      "type": "texture",
+      "path": "Data/Image/Title/TextureTvError.png"
+    },
+    {
+      "key": "tvErrorEffect",
+      "path": "Data/Shader/TvErrorEffect.cso",
+      "sceneId": 1,
+      "type": "pixelShader"
     }
   ]
 }
