@@ -43,6 +43,8 @@ void AnomalyManager::Load()
 
 	// タイマー
 	timer_ = std::make_unique<Timer>(firstTime_);
+
+	res_ = 0;
 }
 
 void AnomalyManager::Init()
@@ -81,15 +83,28 @@ void AnomalyManager::Update()
 				return;
 			}
 
-			// 異変発生
-			//OccurAnomaly(AnomalyManager::TYPE::REVERSE_FALL);
-			OccurAnomaly(GetRandType());
+			//// 異変発生
+			//OccurAnomaly(GetRandType());
 
-			// 次回までの時間をランダム設定
-			timer_->SetGoalTime(static_cast<float>(timeMin_ + GetRand(timeMax_ - timeMin_)));
+			//// 次回までの時間をランダム設定
+			//timer_->SetGoalTime(static_cast<float>(timeMin_ + GetRand(timeMax_ - timeMin_)));
 
-			// タイマー初期化
+			//// タイマー初期化
+			//timer_->InitCountUp();
+			std::vector<TYPE> AnomalyList =
+				{ TYPE::PAINTING, TYPE::REVERSE_FALL, TYPE::PAINTING, TYPE::GHOST, TYPE::BLOODY_ROOM, TYPE::CHAIR_MOUNTAIN, TYPE::GRASS_ROOM, TYPE::PAINTING, TYPE::GHOST, TYPE::CROWD, TYPE::PAINTING, TYPE::GHOST, TYPE::BLOODY_ROOM, TYPE::GHOST, TYPE::PAINTING};
+
+			OccurAnomaly(AnomalyList[res_]);
+
+			std::vector<int> timeList = 
+				{ 20, 25, 10, 20, 30, 15, 22, 28, 30, 28, 35, 40, 40, 40, 40 };
+
+			timer_->SetGoalTime(static_cast<float>(timeList[res_]));
 			timer_->InitCountUp();
+
+			res_++;
+
+
 		}
 	}
 }

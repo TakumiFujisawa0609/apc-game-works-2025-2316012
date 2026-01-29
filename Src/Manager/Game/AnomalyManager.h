@@ -85,6 +85,8 @@ public:
 
 private:
 
+	int res_;
+
 	// ˆÙ•Ïî•ñƒtƒ@ƒCƒ‹–¼
 	const std::string ANOMALY_FILE = "Anomalies";	
 	

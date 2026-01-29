@@ -89,6 +89,9 @@ void CherryBlossomsWorld::Refresh()
 	systemMng.SetIsActiveSystem(GameSystemManager::TYPE::SCREEN, true);
 	systemMng.SetIsActiveSystem(GameSystemManager::TYPE::MANUAL, true);
 
+	// 異変発生開始
+	AnomalyManager::GetInstance().SetIsOccurrence(true);
+
 	// 敵の更新開始
 	charaMng.SetIsActive(CharacterManager::TYPE::ENEMY, true);
 
