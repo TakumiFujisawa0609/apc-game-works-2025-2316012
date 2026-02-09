@@ -7,6 +7,7 @@
 #include "../../Core/Game/GameTime.h"
 #include "../../Core/Game/CameraScreen.h"
 #include "../../Core/Game/Message.h"
+#include "../../Core/Game/MadnessGauge.h"
 #include "../../Utility/UtilityLoad.h"
 #include "GameSystemManager.h"
 
@@ -38,6 +39,10 @@ void GameSystemManager::Load()
 	// マニュアルの生成
 	auto manual = std::make_unique<GameManual>(paramMap[NAME_LIST[static_cast<int>(TYPE::MANUAL)]].front());
 	systemsMap_.emplace(TYPE::MANUAL, std::move(manual));
+
+	// ゲージの生成
+	auto gauge = std::make_unique<MadnessGauge>(paramMap[NAME_LIST[static_cast<int>(TYPE::GAUGE)]].front(), player);	// プレイヤークラスの取得
+	systemsMap_.emplace(TYPE::GAUGE, std::move(gauge));
 
 	// 読み込み
 	for (auto& system : systemsMap_)

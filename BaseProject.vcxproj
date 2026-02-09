@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Core\Game\MadnessGauge.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectTvError.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectFireTransition.cpp" />
     <ClCompile Include="Src\Scene\State\Game\GameStateEnemyRespown.cpp" />
-    <ClCompile Include="Src\Object\Controller\Action\ControllerActionEnemyRespown.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\CrowdRoom.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Sub\BillboardObjectBase.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Sub\Human.cpp" />
@@ -188,10 +188,10 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateTvError.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Core\Game\MadnessGauge.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectTvError.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectFireTransition.h" />
     <ClInclude Include="Src\Scene\State\Game\GameStateEnemyRespown.h" />
-    <ClInclude Include="Src\Object\Controller\Action\ControllerActionEnemyRespown.h" />
     <ClInclude Include="Src\Object\Actor\Stage\CrowdRoom.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Sub\BillboardObjectBase.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Sub\Human.h" />

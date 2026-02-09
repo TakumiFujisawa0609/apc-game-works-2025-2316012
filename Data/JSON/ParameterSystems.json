@@ -18,11 +18,33 @@
     },
     "switchIconScale": 0.7
   },
+  "gauge": {
+    "gaugePos": {
+      "x": 1220,
+      "y": 360
+    },
+    "stringSunPos": {
+      "x": 1220,
+      "y": 140
+    },
+    "stringDiePos": {
+      "x": 1220,
+      "y": 558
+    },
+    "pinPosX": 1200,
+    "pinPosYMax": 168,
+    "pinPosYMin": 552,
+    "stringSun": "正気度",
+    "stringDie": "絶命",
+    "fontName": "fontKazuki",
+    "fontSize": 20,
+    "fontThick": 1
+  },
   "gameTimer": {
     "gameTime": 300,
-    "enemyAppearTime": 6,
-    "fontSize": 24,
-    "fontThick": 0,
+    "enemyAppearTime": 150,
+    "fontSize": 20,
+    "fontThick": 1,
     "fontName": "fontKazuki",
     "datePos": {
       "x": 0,

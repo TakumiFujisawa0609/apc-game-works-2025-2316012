@@ -540,9 +540,6 @@
     <ClCompile Include="Src\Object\Actor\Stage\CrowdRoom.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Object\Controller\Action\ControllerActionEnemyRespown.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Scene\State\Game\GameStateEnemyRespown.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -556,6 +553,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Src\Core\PostEffect\PostEffectTvError.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Game\MadnessGauge.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1184,9 +1184,6 @@
     <ClInclude Include="Src\Object\Actor\Stage\CrowdRoom.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Object\Controller\Action\ControllerActionEnemyRespown.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Scene\State\Game\GameStateEnemyRespown.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -1200,6 +1197,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Core\PostEffect\PostEffectTvError.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Game\MadnessGauge.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

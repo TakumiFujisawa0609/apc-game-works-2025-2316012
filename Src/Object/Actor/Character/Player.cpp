@@ -36,7 +36,8 @@ Player::Player(const Json& param) :
 	ORB_EFFECT_OFFSET(param["orbEffectOffset"]),
 	ORB_EFFECT_SCALE({ param["orbEffectScale"]["x"],param["orbEffectScale"]["y"], param["orbEffectScale"]["z"] }),
 	ORB_EFFECT_INTERVAL(param["orbEffectInterval"]),
-	madnessUpdateStep_(param["madnessUpdateStepDefault"])
+	madnessUpdateStep_(param["madnessUpdateStepDefault"]),
+	MADNESS_UPDATE_STEP_ADD_MAX(param["madnessUpdateStepAddMax"])
 {	
 	stepJump_ = 0.0f;
 	madnessValue_ = 0;
@@ -272,5 +273,23 @@ void Player::AddMadnessValue(const int madnessValue)
 	{
 		// 0‚É‚·‚é
 		madnessValue_ = 0;
+	}
+}
+
+void Player::AddMadnessUpdateStep()
+{
+	madnessUpdateStep_ += MADNESS_UPDATE_STEP_ADD;
+	if (madnessUpdateStep_ > MADNESS_UPDATE_STEP_ADD_MAX)
+	{
+		madnessUpdateStep_ = MADNESS_UPDATE_STEP_ADD_MAX;
+	}
+}
+
+void Player::SubMadnessUpdateStep()
+{
+	madnessUpdateStep_ -= MADNESS_UPDATE_STEP_ADD;
+	if (madnessUpdateStep_ < 0.0f)
+	{
+		madnessUpdateStep_ = 0.0f;
 	}
 }

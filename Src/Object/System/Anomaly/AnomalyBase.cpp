@@ -32,7 +32,7 @@ void AnomalyBase::Occurrence()
 {	
 	// プレイヤーの狂気更新値を上昇させる
 	const auto & player = dynamic_cast<Player*>(&charaMng_.GetCharacter(CharacterManager::TYPE::PLAYER));
-	player->AddMadnessValue(MADNESS_VALUE);
+	player->AddMadnessUpdateStep();
 }
 
 void AnomalyBase::Update()

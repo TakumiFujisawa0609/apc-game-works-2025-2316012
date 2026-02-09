@@ -125,6 +125,9 @@ void AnomalyReverseFall::Occurrence()
 
 	// 状態変更
 	ChangeState(STATE::CAMERA_PULL);
+
+	// 基底クラスの処理
+	AnomalyBase::Occurrence();
 }
 
 void AnomalyReverseFall::Update()
@@ -225,14 +228,6 @@ void AnomalyReverseFall::UpdateMadnessTime()
 
 	// エフェクトの更新
 	effectMng_.Sync(EffectType::TYPE::PETAL_FALL, pos, EFFECT_SCALE, Quaternion(), 1.0f);
-
-	// 更新時間になった場合
-	if (timer_->CountUp())
-	{
-		// プレイヤーの狂気値を上昇させる
-		const auto& player = dynamic_cast<Player*>(&charaMng_.GetCharacter(CharacterManager::TYPE::PLAYER));
-		player->AddMadnessValue(1);
-	}
 }
 
 void AnomalyReverseFall::ChangeState(const STATE state)

@@ -153,12 +153,12 @@ public:
 	/// <summary>
 	/// 狂気更新用ステップの追加
 	/// </summary>
-	void AddMadnessUpdateStep() { madnessUpdateStep_ += MADNESS_UPDATE_STEP_ADD; }
+	void AddMadnessUpdateStep();
 
 	/// <summary>
 	/// 狂気更新用ステップの減少
 	/// </summary>
-	void SubMadnessUpdateStep() { madnessUpdateStep_ -= MADNESS_UPDATE_STEP_ADD; }
+	void SubMadnessUpdateStep();
 
 	/// <summary>
 	/// ライト座標の設定
@@ -181,6 +181,9 @@ private:
 	
 	// 狂気更新用ステップ値の追加値
 	const float MADNESS_UPDATE_STEP_ADD;
+
+	// 狂気更新用ステップ値の追加値上限
+	const float MADNESS_UPDATE_STEP_ADD_MAX;
 
 	// オーブエフェクト位置オフセット
 	const float ORB_EFFECT_OFFSET;

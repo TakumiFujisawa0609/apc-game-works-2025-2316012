@@ -23,6 +23,7 @@ public:
 		GAME_TIMER,		// タイマー
 		MANUAL,			// 操作説明
 		SCREEN,			// スクリーン
+		GAUGE,			// 狂気ゲージ
 		MAX,
 	};
 
@@ -34,6 +35,7 @@ public:
 		"gameTimer",
 		"manual",
 		"screen",
+		"gauge",
 	};
 
 	/// <summary>

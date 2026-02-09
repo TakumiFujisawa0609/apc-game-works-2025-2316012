@@ -53,7 +53,10 @@ void ControllerOnHitReport::OnHitCommon()
 	// ゲーム状態変更
 	stateMng_.ChangeState(GameStateManager::STATE::REPORTING);
 
-	// 狂気値を減らす
+	// 狂気値を更新する値を減らす
+	owner_.SubMadnessUpdateStep();
+
+	// 狂気値を回復
 	owner_.AddMadnessValue(MADNESS_DECREASE_VALUE);
 
 	// 全ての効果音停止

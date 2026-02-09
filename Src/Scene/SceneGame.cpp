@@ -17,6 +17,7 @@
 #include "../Manager/Game/ShadowManager.h"
 #include "../Utility/UtilityCommon.h"
 #include "../Object/Actor/Character/CharacterBase.h"
+#include "../Object/Actor/Character/Player.h"
 #include "../Object/Actor/Stage/StageObjectBase.h"
 #include "../Object/Collider/ColliderFactory.h"
 #include "../Core/Game/ReportSystem.h"
@@ -217,6 +218,7 @@ void SceneGame::DebugDraw()
 	auto& player = CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER);
 	VECTOR playerPos = player.GetTransform().pos;
 	float movePow = player.GetMoveSpeed();
+	Player* playerPtr = dynamic_cast<Player*>(&player);
 
 	// 描画
 	DrawFormatString(0, posY, UtilityCommon::RED, L"カメラ位置：%2f,%2f,%2f", cPos.x, cPos.y, cPos.z);
@@ -229,9 +231,11 @@ void SceneGame::DebugDraw()
 	posY += OFFSET_Y;
 	DrawFormatString(0, posY, UtilityCommon::RED, L"移動量：%2f", movePow);
 	posY += OFFSET_Y;
-	DrawFormatString(0, posY, UtilityCommon::RED, L"影の座標：%2f,%2f,%2f", shadowPos.x, shadowPos.y, shadowPos.z);
-	posY += OFFSET_Y;
-	DrawFormatString(0, posY, UtilityCommon::RED, L"影の注視点：%2f,%2f,%2f", shadowTarget.x, shadowTarget.y, shadowTarget.z);
+	//DrawFormatString(0, posY, UtilityCommon::RED, L"影の座標：%2f,%2f,%2f", shadowPos.x, shadowPos.y, shadowPos.z);
+	//posY += OFFSET_Y;
+	//DrawFormatString(0, posY, UtilityCommon::RED, L"影の注視点：%2f,%2f,%2f", shadowTarget.x, shadowTarget.y, shadowTarget.z);
+	//posY += OFFSET_Y;
+	DrawFormatString(0, posY, UtilityCommon::RED, L"正気度更新値：%2f", playerPtr->GetMadnessUpdateStep());
 	posY += OFFSET_Y;
 
 	AnomalyManager::GetInstance().DebugDraw();

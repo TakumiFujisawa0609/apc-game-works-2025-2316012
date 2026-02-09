@@ -49,6 +49,9 @@ void ControllerActionPlayer::Update()
 	// レポート操作処理
 	ProcessReport();
 
+	// 狂気値の更新
+	UpdateMadness();
+
 	// 狂気値の警告
 	WarningMadness();
 }
@@ -132,21 +135,8 @@ void ControllerActionPlayer::ProcessMove()
 		// 歩く移動速度取得
 		speed = player_.GetSpeedMove();
 
-		// ステップを更新
-		madnessStep_ += player_.GetMadnessUpdateStep();
-
-		// ステップが最大に達したら
-		if (madnessStep_ > 1.0f)
-		{
-			// 狂気値追加
-			player_.AddMadnessValue(MADNESS_ADD_VALUE);
-
-			// ステップを初期化
-			madnessStep_ = 0.0f;
-		}
-
-		// ダッシュ中かつ狂気値が一定未満の場合
-		if (isDash && MADNSEE_CONDITION > player_.GetMadnessValue())
+		// ダッシュ中の場合
+		if (isDash)
 		{
 			// 速度を変更
 			speed = player_.GetSpeedRun();
@@ -403,6 +393,22 @@ void ControllerActionPlayer::WarningMadness()
 	if (!sndMng_.IsCheckPlaySe(SoundType::SE::BREATHING))
 	{
 		sndMng_.PlaySe(SoundType::SE::BREATHING, true, volume);
+	}
+}
+
+void ControllerActionPlayer::UpdateMadness()
+{
+	// ステップを更新
+	madnessStep_ += player_.GetMadnessUpdateStep();
+
+	// ステップが最大に達したら
+	if (madnessStep_ > 1.0f)
+	{
+		// 狂気値追加
+		player_.AddMadnessValue(MADNESS_ADD_VALUE);
+
+		// ステップを初期化
+		madnessStep_ = 0.0f;
 	}
 }
 
