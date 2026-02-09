@@ -24,6 +24,18 @@ public:
 	void Draw();
 
 	/// <summary>
+	/// ライトのビュー行列を設定
+	/// </summary>
+	/// <param name="lightViewMat">ビュー行列</param>
+	void SetLightViewMatrix(const MATRIX& lightViewMat) { lightViewMatrix_ = lightViewMat; }
+
+	/// <summary>
+	/// ライトのプロジェクション行列を設定
+	/// </summary>
+	/// <param name="lightProjectionMatrix">プロジェクション行列</param>
+	void SetLightProjectionMatrix(const MATRIX& lightProjectionMatrix) { lightProjectionMatrix_ = lightProjectionMatrix; }
+
+	/// <summary>
 	/// シャドウマップテクスチャを返す
 	/// </summary>
 	/// <returns>シャドウマップテクスチャ</returns>
@@ -74,6 +86,9 @@ private:
 
 	// プロジェクション行列
 	MATRIX lightProjectionMatrix_;
+
+	// イベント用ライト設定判定
+	bool isEvent_;
 
 	// シェーダーリセット
 	void ResetShader();

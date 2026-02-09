@@ -74,6 +74,9 @@ void GameStateEnemyRespown::Update()
 
 	// ターゲットの更新
 	if (target_) { target_->Update(); }
+
+	// ステージの更新
+	stageMng_.Update();
 }
 
 void GameStateEnemyRespown::Draw()

@@ -64,7 +64,7 @@ float4 main(PS_INPUT PSInput) : SV_TARGET0
     // サブテクスチャ色の取得
     float4 subTexColor = subTexture.Sample(subSampler, uv);
     litColor += subTexColor.rgb;
-   
+      
     // フォグ適用
     float3 foggedColor = ApplyFog(litColor, PSInput.fogFactor);
     

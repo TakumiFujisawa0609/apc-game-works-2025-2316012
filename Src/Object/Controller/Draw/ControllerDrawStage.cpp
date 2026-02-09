@@ -84,11 +84,12 @@ void ControllerDrawStage::UpdateBuffer()
 	// ライトの方向
 	VECTOR lightDir = GetLightDirection();
 
-	// PSマテリアル設定
+
+	// VSマテリアル設定
 	material_->SetConstBufVS(0, FLOAT4{ cameraPos.x,cameraPos.y,cameraPos.z, fogStart });
 	material_->SetConstBufVS(1, FLOAT4{ lightPos.x,lightPos.y,lightPos.z, fogEnd });
 
-	// VSマテリアル設定
+	// PSマテリアル設定 
 	material_->SetConstBufPS(0, FLOAT4{ lightDir.x, lightDir.y, lightDir.z, 0.0f });
 	material_->SetConstBufPS(1, FLOAT4{ AMBIENT.x, AMBIENT.y, AMBIENT.z, 0.0f });
 	material_->SetConstBufPS(2, FLOAT4{ cameraPos.x, cameraPos.y,cameraPos.z, isSwitch });

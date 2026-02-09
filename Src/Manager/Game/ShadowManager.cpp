@@ -49,9 +49,13 @@ void ShadowManager::Draw()
 	// シャドウカメラの設定
 	mainCamera.CameraSettingShadow();
 
-	// 設定したカメラのビュー行列と射影行列を取得しておく
-	lightViewMatrix_ = GetCameraViewMatrix();
-	lightProjectionMatrix_ = GetCameraProjectionMatrix();
+	// イベント時以外
+	if (!isEvent_)
+	{
+		// 設定したカメラのビュー行列と射影行列を取得しておく
+		lightViewMatrix_ = GetCameraViewMatrix();
+		lightProjectionMatrix_ = GetCameraProjectionMatrix();
+	}
 
 	// オリジナルシェーダー使用の設定
 	MV1SetUseOrigShader(TRUE);
@@ -111,6 +115,7 @@ ShadowManager::ShadowManager() :
 	shadowSkinnedMeshVs_ = -1;
 	lightViewMatrix_ = MATRIX{};
 	lightProjectionMatrix_ = MATRIX{};
+	isEvent_ = false;
 }
 
 ShadowManager::~ShadowManager()

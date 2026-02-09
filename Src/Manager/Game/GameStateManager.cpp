@@ -86,6 +86,7 @@ void GameStateManager::SetGameClear()
 
 	// エフェクトの停止
 	EffectManager::GetInstance().Stop(EffectType::TYPE::ORB);
+	EffectManager::GetInstance().Stop(EffectType::TYPE::PETAL_FALL);
 }
 
 void GameStateManager::SetGameOver()
@@ -105,6 +106,7 @@ void GameStateManager::SetGameOver()
 
 	// エフェクトの停止
 	EffectManager::GetInstance().Stop(EffectType::TYPE::ORB);
+	EffectManager::GetInstance().Stop(EffectType::TYPE::PETAL_FALL);
 }
 
 GameStateManager::GameStateManager()
