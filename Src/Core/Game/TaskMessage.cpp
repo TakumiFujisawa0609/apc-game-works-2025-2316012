@@ -20,7 +20,9 @@ TaskMessage::TaskMessage(const Json& param) :
 	GHOST_TEXT_OFFSET_X(param["ghostTextOffsetX"]),
 	FONT_NAME(param["fontName"]),
 	FONT_SIZE(param["fontSize"]),
-	FONT_THICK(param["fontThick"])
+	FONT_THICK(param["fontThick"]),
+	GHOST_SHAKE_AMPLITUDE(param["ghostShakeAmplitude"]),
+	GHOST_SHAKE_SPEED(param["ghostShakeSpeed"])
 {
 	endPosX_ = 0.0f;
 	moveStep_ = 0.0f;
@@ -73,6 +75,10 @@ void TaskMessage::Init()
 void TaskMessage::Update()
 {
 	updateFunc_();
+
+	// ÉSÅ[ÉXÉgÇÃóhÇÍèàóù
+	ghostShakeStep_ += scnMng_.GetDeltaTime();
+	imgGhost_.pos.y = UtilityCommon::GetShake(GHOST_POS_Y, ghostShakeStep_, GHOST_SHAKE_SPEED, GHOST_SHAKE_AMPLITUDE);
 }
 
 void TaskMessage::Draw()

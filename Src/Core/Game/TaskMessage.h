@@ -101,6 +101,12 @@ private:
 
 	// ゴーストとテキストの位置調整
 	const int GHOST_TEXT_OFFSET_X;
+	
+	//揺れの振幅
+	const float GHOST_SHAKE_SPEED;		
+	
+	//揺れの速さ
+	const float GHOST_SHAKE_AMPLITUDE;	
 
 	// フォントサイズ
 	const int FONT_SIZE;
@@ -122,6 +128,9 @@ private:
 
 	// ステップ
 	float moveStep_;
+
+	// ゴーストシェイク用ステップ
+	float ghostShakeStep_;
 
 	// 表示位置
 	float startPosX_;

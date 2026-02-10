@@ -476,3 +476,8 @@ float UtilityCommon::NormalizeMinMax(const float value, const float min, const f
     if (normalized > 1.0) return 1.0;
     return normalized;
 }
+
+float UtilityCommon::GetShake(const float value, float time, const float speed, const float amplitude)
+{
+    return value + std::sin(time * speed) * amplitude;
+}

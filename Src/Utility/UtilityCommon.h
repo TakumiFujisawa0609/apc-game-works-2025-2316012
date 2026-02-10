@@ -161,4 +161,14 @@ public:
 	/// <param name="max">Å‘å’l</param>
 	/// <returns>0.0f~1.0f‚Ì’l</returns>
 	static float NormalizeMinMax(const float value, const float min, const float max);
+
+	/// <summary>
+	///	—h‚ç‚·ŒvZ‚µ‚½’l‚ğ•Ô‚·
+	/// </summary>
+	/// <param name="_value">—h‚ç‚µ‚½‚¢’l</param>
+	/// <param name="_time">ŠÔ</param>
+	/// <param name="_speed">‘¬“x</param>
+	/// <param name="_amplitude">U•</param>
+	/// <returns></returns>—h‚ç‚·ŒvZ‚µ‚½’l
+	static float GetShake(const float value, float time, const float speed, const float amplitude);
 };
