@@ -3,6 +3,7 @@
 #include "../../Template/Singleton.h"
 #include "../../Scene/SceneGame.h"
 #include "../../Core/Game/Message.h"
+#include "../../Core/Game/TaskMessage.h"
 
 class CoreGameBase;
 
@@ -24,6 +25,7 @@ public:
 		MANUAL,			// 操作説明
 		SCREEN,			// スクリーン
 		GAUGE,			// 狂気ゲージ
+		TASK_MESSAGE,	// タスクメッセージ
 		MAX,
 	};
 
@@ -36,6 +38,7 @@ public:
 		"manual",
 		"screen",
 		"gauge",
+		"taskMessage",
 	};
 
 	/// <summary>
@@ -63,6 +66,13 @@ public:
 	/// </summary>
 	/// <param name="type">メッセージの変更種類</param>
 	void ChangeMessage(const Message::TYPE type);
+
+	/// <summary>
+	/// タスクメッセージの変更
+	/// </summary>
+	/// <param name="type">タスクメッセージの種類</param>
+	/// <param name="delayTime">遅れ時間</param>
+	void ChangeTaskMessage(const TaskMessage::TYPE type, const float delayTime = 0.0f);
 
 	/// <summary>
 	/// 各システムの活動状態の変更

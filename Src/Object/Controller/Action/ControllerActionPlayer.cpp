@@ -339,14 +339,21 @@ void ControllerActionPlayer::CreateLineCollider()
 
 void ControllerActionPlayer::WarningMadness()
 {
+	// 狂気値を取得
 	const int madndess = player_.GetMadnessValue();
+
+	// システム管理クラスの参照
+	GameSystemManager& sysMng = GameSystemManager::GetInstance();
 
 	// 狂気値が一定未満の場合
 	if (madndess >= MADNSEE_CONDITION && !isWarningMadness_)
 	{	
 		// メッセージを表示 
-		GameSystemManager::GetInstance().ChangeMessage(Message::TYPE::MADNESS);
+		sysMng.ChangeMessage(Message::TYPE::MADNESS);
 		isWarningMadness_ = true;
+
+		// タスクメッセージの表示
+		sysMng.ChangeTaskMessage(static_cast<TaskMessage::TYPE>(GetRandTipsIndex()), TIPS_DELAY_TIME);
 
 		// 呼吸音を再生開始(初期時は音量0)
 		sndMng_.PlaySe(SoundType::SE::BREATHING, true, 0);
@@ -425,4 +432,19 @@ const float ControllerActionPlayer::GetApplyMadnessToSpeed(float speed)
 
 	//乗算
 	return speed * (1.0f - rate);
+}
+
+int ControllerActionPlayer::GetRandTipsIndex()
+{
+	// ヒントの種類リスト
+	const std::vector<TaskMessage::TYPE> tipsTypeList =
+	{
+		TaskMessage::TYPE::TIPS_GHOST,
+		TaskMessage::TYPE::TIPS_PAINT,
+		TaskMessage::TYPE::TIPS_SOUND,
+	};
+
+	// タスクメッセージの種類数を取得
+	const int typeCount = GetRand(static_cast<int>(tipsTypeList.size()) - 1);
+	return static_cast<int>(tipsTypeList[typeCount]);
 }

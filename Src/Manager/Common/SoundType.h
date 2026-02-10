@@ -65,6 +65,7 @@ public:
 		FIRE_TRANSITION,
 		DISPLAY_EXPLAN,
 		TV_ERROR,
+		TASK_MESSAGE,
 		MAX
 	};
 

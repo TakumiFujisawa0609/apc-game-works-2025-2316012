@@ -85,7 +85,10 @@ public:
 
 private:
 
-	int res_;
+	int res_;	
+	
+	// イベントメッセージの遅れ時間
+	static constexpr float EVENT_MESSAGE_DELAY_TIME = 5.0f;
 
 	// 異変情報ファイル名
 	const std::string ANOMALY_FILE = "Anomalies";	
@@ -102,6 +105,10 @@ private:
 	// 発生判定
 	bool isOccurrence_;
 
+	// 初期時
+	bool isFirst_;
+
+	// 更新種類
 	TYPE updateType_;
 
 	// 異変情報

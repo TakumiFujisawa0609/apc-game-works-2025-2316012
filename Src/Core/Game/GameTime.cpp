@@ -17,11 +17,12 @@ GameTime::GameTime(const Json& param) :
 	FONT_SIZE(param["fontSize"]),
 	FONT_THICK(param["fontThick"]),
 	GAME_TIME(param["gameTime"]),
-	ENEMY_APPEAR_TIME(param["enemyAppearTime"]),
 	DATE_POS{ param["datePos"]["x"], param["datePos"]["y"] },
 	TIME_POS{ param["timePos"]["x"], param["timePos"]["y"] },
+	EVENT_TIME_LIST{ param["eventTimeList"].begin(), param["eventTimeList"].end() },
 	stateMng_(GameStateManager::GetInstance())
 {
+	eventStep_ = 0;
 	isEvent_ = false;
 	isEnemyAppear_ = false;
 	todayText_ = CharacterString();
@@ -62,6 +63,9 @@ void GameTime::Init()
 
 	// イベント設定
 	isEvent_ = false;
+
+	// 初期イベント処理
+	eventFunc_ = std::bind(&GameTime::EventStartExplan, this);
 }
 
 void GameTime::Update()
@@ -73,26 +77,20 @@ void GameTime::Update()
 		stateMng_.SetGameClear();
 		return;
 	}
-
-	// 1分経過後
-	if (timer_->GetCount() >= ONE_MINUTES && !isEvent_)
+	
+	// イベント実行数が最大まで満たしてない場合
+	if (eventStep_ < static_cast<int>(EVENT_TIME_LIST.size()))
 	{
-		systemMng_.ChangeMessage(Message::TYPE::ONE_MINNUTES_LATER);
-		isEvent_ = true;
+		// イベント発生時間を超えた場合
+		if (EVENT_TIME_LIST[eventStep_] <= timer_->GetCount())
+		{
+			// ステップの更新
+			eventStep_++;
+
+			// イベント処理の実行
+			eventFunc_();
+		}
 	}
-
-	// 敵出現時間に達した場合
-	if (timer_->GetCount() >= ENEMY_APPEAR_TIME && !isEnemyAppear_)
-	{
-		// 敵の生成
-		CharacterManager::GetInstance().RespownEnemy();
-
-		// 状態変更
-		stateMng_.ChangeState(GameStateManager::STATE::RESPOWN_ENEMY);
-
-		isEnemyAppear_ = true;
-	}
-
 }
 
 void GameTime::Draw()
@@ -132,4 +130,64 @@ std::wstring GameTime::GetYmdWstring()
 
 	// 文字列を返す
 	return ymdString;
+}
+
+void GameTime::EventStartExplan()
+{
+	// タスクメッセージの表示
+	systemMng_.ChangeTaskMessage(TaskMessage::TYPE::START);
+
+	// 次のイベント設定
+	eventFunc_ = std::bind(&GameTime::EventNightViewExplan, this);
+}
+
+void GameTime::EventNightViewExplan()
+{
+	// タスクメッセージの表示
+	systemMng_.ChangeTaskMessage(TaskMessage::TYPE::NIGHT_VIEW);
+
+	// 次のイベント設定
+	eventFunc_ = std::bind(&GameTime::EventSanityExplan, this);
+}
+
+void GameTime::EventSanityExplan()
+{
+	// タスクメッセージの表示
+	systemMng_.ChangeTaskMessage(TaskMessage::TYPE::MADNESS);
+
+	// 次のイベント設定
+	eventFunc_ = std::bind(&GameTime::EventOneMinutesLater, this);
+}
+
+void GameTime::EventOneMinutesLater()
+{
+	// メッセージの変更
+	systemMng_.ChangeMessage(Message::TYPE::ONE_MINNUTES_LATER);
+
+	// 次のイベント設定
+	eventFunc_ = std::bind(&GameTime::EventEnemyAppear, this);
+}
+
+void GameTime::EventEnemyAppear()
+{
+	// 敵の生成
+	CharacterManager::GetInstance().RespownEnemy();
+
+	// 状態変更
+	stateMng_.ChangeState(GameStateManager::STATE::RESPOWN_ENEMY);
+
+	// タスクメッセージの表示
+	systemMng_.ChangeTaskMessage(TaskMessage::TYPE::ENEMY, TASK_EVENT_DELAY_TIME);
+
+	// 次のイベント設定
+	eventFunc_ = std::bind(&GameTime::EventFinalWarning, this);
+}
+
+void GameTime::EventFinalWarning()
+{
+	// タスクメッセージの表示
+	systemMng_.ChangeTaskMessage(TaskMessage::TYPE::FINAL_WARNING);	
+	
+	// 次のイベント設定
+	eventFunc_ = std::bind(&GameTime::EventNone, this);
 }
