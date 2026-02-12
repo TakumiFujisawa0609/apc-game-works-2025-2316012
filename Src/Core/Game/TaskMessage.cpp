@@ -27,6 +27,7 @@ TaskMessage::TaskMessage(const Json& param) :
 	endPosX_ = 0.0f;
 	moveStep_ = 0.0f;
 	startPosX_ = 0.0f;
+	ghostShakeStep_ = 0.0f;
 	timer_ = nullptr;
 	state_ = STATE::WAIT;
 	type_ = TYPE::MAX;

@@ -74,7 +74,6 @@ private:
 		"textMadness",
 		"textAnomaly",
 		"textEnemy",
-		"textAnomaly",
 		"textFinalWarning",
 		"textPaintTips",
 		"textSoundTips",
