@@ -11,6 +11,7 @@
 #include "../../Utility/UtilityLoad.h"
 #include "../../Utility/UtilityCommon.h"
 #include "../../Core/Common/Timer.h"
+#include "GameSystemManager.h"
 #include "AnomalyManager.h"
 
 void AnomalyManager::Load()
@@ -92,7 +93,7 @@ void AnomalyManager::Update()
 			//// タイマー初期化
 			//timer_->InitCountUp();
 			std::vector<TYPE> AnomalyList =
-				{ TYPE::PAINTING, TYPE::REVERSE_FALL, TYPE::PAINTING, TYPE::GHOST, TYPE::BLOODY_ROOM, TYPE::CHAIR_MOUNTAIN, TYPE::GRASS_ROOM, TYPE::PAINTING, TYPE::GHOST, TYPE::CROWD, TYPE::PAINTING, TYPE::GHOST, TYPE::BLOODY_ROOM, TYPE::GHOST, TYPE::PAINTING};
+				{ TYPE::PAINTING, TYPE::GRASS_ROOM, TYPE::PAINTING, TYPE::GHOST, TYPE::BLOODY_ROOM, TYPE::CHAIR_MOUNTAIN, TYPE::REVERSE_FALL, TYPE::PAINTING, TYPE::GHOST, TYPE::CROWD, TYPE::PAINTING, TYPE::GHOST, TYPE::BLOODY_ROOM, TYPE::GHOST, TYPE::PAINTING};
 
 			OccurAnomaly(AnomalyList[res_]);
 
@@ -104,7 +105,11 @@ void AnomalyManager::Update()
 
 			res_++;
 
-
+			if (isFirst_)
+			{
+				isFirst_ = false;
+				GameSystemManager::GetInstance().ChangeTaskMessage(TaskMessage::TYPE::ANOMALY, EVENT_MESSAGE_DELAY_TIME);
+			}
 		}
 	}
 }
@@ -175,7 +180,9 @@ AnomalyManager::AnomalyManager()
 	firstTime_ = 0.0f;
 	timeMin_ = -1;
 	timeMax_ = -1;
+	res_ = -1;
 	isOccurrence_ = false;
+	isFirst_ = true;
 	updateType_ = TYPE::MAX;
 }
 

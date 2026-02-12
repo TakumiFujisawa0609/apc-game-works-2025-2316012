@@ -926,12 +926,19 @@
       "type": "sound",
       "path": "Data/Sound/SE/SeEnemyGroan.mp3",
       "soundType": "se"
-    },   
+    },
     {
       "key": "seTvError",
       "sceneId": 1,
       "type": "sound",
       "path": "Data/Sound/SE/SeTvError.mp3",
+      "soundType": "se"
+    },
+    {
+      "key": "seTaskMessage",
+      "sceneId": 3,
+      "type": "sound",
+      "path": "Data/Sound/SE/SeTaskMessage.mp3",
       "soundType": "se"
     },
     {
@@ -945,6 +952,12 @@
       "path": "Data/Shader/TvErrorEffect.cso",
       "sceneId": 1,
       "type": "pixelShader"
+    },
+    {
+      "key": "ghostImage",
+      "path": "Data/Image/Game/Ghost.png",
+      "sceneId": 3,
+      "type": "texture"
     }
   ]
 }

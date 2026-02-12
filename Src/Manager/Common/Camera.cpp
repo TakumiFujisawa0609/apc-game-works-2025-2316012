@@ -68,6 +68,7 @@ void Camera::CameraSettingShadow()
 	constexpr float SIZE = 13250.0f;
 	constexpr float S_NEAR = 10.0f;
 	constexpr float S_FAR = 13050.0f;
+	constexpr float TARGET_LIMIT_Y = 0;
 
 	// カメラのタイプを正射影タイプにセット、描画範囲も指定
 	SetupCamera_Ortho(SIZE);
@@ -75,8 +76,12 @@ void Camera::CameraSettingShadow()
 	// 描画する奥行き範囲をセット
 	SetCameraNearFar(S_NEAR, S_FAR);
 
-	//SetCameraPositionAndTarget_UpVecY(LIGHT_POS, LIGHT_TARGET);
-	SetCameraPositionAndTarget_UpVecY(pos_, targetPos_);
+	// 注視点に制限を設ける
+	VECTOR target = targetPos_;
+	if (target.y > TARGET_LIMIT_Y) { target.y = TARGET_LIMIT_Y; }
+
+	// カメラの視点、注視点を設定
+	SetCameraPositionAndTarget_UpVecY(pos_, target);
 }
 
 void Camera::SetFollow(const Transform* follow)

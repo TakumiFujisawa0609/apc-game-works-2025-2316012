@@ -8,6 +8,7 @@
 #include "../../Core/Game/CameraScreen.h"
 #include "../../Core/Game/Message.h"
 #include "../../Core/Game/MadnessGauge.h"
+#include "../../Core/Game/TaskMessage.h"
 #include "../../Utility/UtilityLoad.h"
 #include "GameSystemManager.h"
 
@@ -43,6 +44,10 @@ void GameSystemManager::Load()
 	// ゲージの生成
 	auto gauge = std::make_unique<MadnessGauge>(paramMap[NAME_LIST[static_cast<int>(TYPE::GAUGE)]].front(), player);	// プレイヤークラスの取得
 	systemsMap_.emplace(TYPE::GAUGE, std::move(gauge));
+
+	// タスク表示メッセージの生成
+	auto taskMessage = std::make_unique<TaskMessage>(paramMap[NAME_LIST[static_cast<int>(TYPE::TASK_MESSAGE)]].front());
+	systemsMap_.emplace(TYPE::TASK_MESSAGE, std::move(taskMessage));
 
 	// 読み込み
 	for (auto& system : systemsMap_)
@@ -93,7 +98,17 @@ void GameSystemManager::ChangeMessage(const Message::TYPE type)
 	{
 		message->ChangeMessage(type);
 	}
-	
+}
+
+void GameSystemManager::ChangeTaskMessage(const TaskMessage::TYPE type, const float delayTime)
+{
+	CoreGameBase* system = systemsMap_.at(TYPE::TASK_MESSAGE).get();
+	TaskMessage* message = dynamic_cast<TaskMessage*>(system);
+
+	if (message != nullptr)
+	{
+		message->ChangeMessageType(type, delayTime);
+	}
 }
 
 void GameSystemManager::SetIsActiveSystem(const TYPE type, const bool isActive)

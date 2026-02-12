@@ -1,3 +1,4 @@
+#include "../Game/GameSystemManager.h"
 #include "ScoreManager.h"
 
 void ScoreManager::Init()
@@ -21,6 +22,11 @@ void ScoreManager::AddScore(const int score)
 	{
 		score_ = 0;
 	}
+
+	/*if (score_ == 1 && isEvent_)
+	{
+		GameSystemManager::GetInstance().ChangeTaskMessage(TaskMessage::TYPE::ANOMALY);
+	}*/
 }
 
 ScoreManager::ScoreManager()

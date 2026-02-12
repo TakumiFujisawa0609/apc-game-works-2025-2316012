@@ -59,6 +59,9 @@ private:
 	static constexpr float ANIM_END_STEP = 23.0f;
 	static constexpr float ANIM_LOOP_END_STEP = 25.0f;
 
+	// ヒントの表示時間
+	static constexpr float TIPS_DELAY_TIME = 5.0f;
+
 	// レポート入力時間
 	const float REPORT_INPUT_TIME;
 
@@ -110,4 +113,7 @@ private:
 
 	// 狂気値の影響から速度を取得
 	const float GetApplyMadnessToSpeed(float speed);
+
+	// ランダムでヒントのインデックスを取得
+	int GetRandTipsIndex();
 };
