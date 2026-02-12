@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Scene\SceneTips.cpp" />
+    <ClCompile Include="Src\Scene\SceneExplanation.cpp" />
     <ClCompile Include="Src\Core\Game\MadnessGauge.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectTvError.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectFireTransition.cpp" />
@@ -188,6 +190,8 @@
     <ClCompile Include="Src\Scene\State\Title\TitleStateTvError.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Scene\SceneTips.h" />
+    <ClInclude Include="Src\Scene\SceneExplanation.h" />
     <ClInclude Include="Src\Core\Game\MadnessGauge.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectTvError.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectFireTransition.h" />

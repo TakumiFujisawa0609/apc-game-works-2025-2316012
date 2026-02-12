@@ -34,6 +34,6 @@ private:
 
 	// •`‰æˆÊ’u
 	static constexpr int POS_X = 240;
-	static constexpr int POS_Y = 260;
+	static constexpr int POS_Y = 200;
 
 };

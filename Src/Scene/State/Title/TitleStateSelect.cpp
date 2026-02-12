@@ -177,7 +177,6 @@ void TitleStateSelect::DrawSelect()
 	selectBack_.DrawRota();
 	for (int i = 0; i < TYPE_MAX; i++)
 	{
-
 		// •`‰æ
 		selectTexts_[i].DrawCenter();
 	}
