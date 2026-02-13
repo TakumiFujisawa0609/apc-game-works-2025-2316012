@@ -11,6 +11,8 @@
 #include "../../../Core/Common/GlitchScreen.h"
 #include "../../../Utility/UtilityCommon.h"
 #include "../../SceneTitle.h"
+#include "../../SceneExplanation.h"
+#include "../../SceneTips.h"
 #include "TitleStateMain.h"
 
 TitleStateMain::TitleStateMain(SceneTitle& parent) :
@@ -325,12 +327,18 @@ void TitleStateMain::ChangeMenuExplanation()
 {
 	// Œø‰Ê‰¹Ä¶
 	sndMng_.PlaySe(SoundType::SE::DECISION);
+
+	// à–¾‰æ–Ê‚Ö‘JˆÚ
+	scnMng_.PushScene(std::make_unique<SceneExplanation>());
 }
 
 void TitleStateMain::ChangeMenuTips()
 {
 	// Œø‰Ê‰¹Ä¶
 	sndMng_.PlaySe(SoundType::SE::DECISION);
+
+	// ƒqƒ“ƒg‰æ–Ê‚Ö‘JˆÚ
+	scnMng_.PushScene(std::make_unique<SceneTips>());
 }
 
 void TitleStateMain::ChangeMenuSetting()

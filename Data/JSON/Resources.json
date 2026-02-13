@@ -958,6 +958,48 @@
       "path": "Data/Image/Game/Ghost.png",
       "sceneId": 3,
       "type": "texture"
+    },
+    {
+      "key": "operationExplanationIcon",
+      "path": "Data/Image/Common/OperationExplanationIcon.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "playExplanationIcon",
+      "path": "Data/Image/Common/PlayExplanationIcon.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "sceneBack",
+      "path": "Data/Image/Common/SceneBack.jpeg",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "keyboardExplanation",
+      "path": "Data/Image/Common/KeyboardExplanation.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "controllerExplanation",
+      "path": "Data/Image/Common/ControllerExplanation.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "changeIcon",
+      "path": "Data/Image/Common/ChangeIcon.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "selectFrame",
+      "path": "Data/Image/Common/SelectFrame.png",
+      "sceneId": 0,
+      "type": "texture"
     }
   ]
 }
