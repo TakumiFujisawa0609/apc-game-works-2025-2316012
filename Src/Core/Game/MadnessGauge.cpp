@@ -52,10 +52,19 @@ void MadnessGauge::Init()
 
 void MadnessGauge::Update()
 {
+	constexpr float GAUGE_MAX = 100.0f;
+
 	// ゲージのピン位置の更新
 	int value = player_.GetMadnessValue();
-	int addPosY = static_cast<float>((PIN_POS_Y_MIN - PIN_POS_Y_MAX) / 100) * value;
-	imgPin_.pos.y = PIN_POS_Y_MAX + addPosY;
+
+	// 差分を計算
+	float range = static_cast<float>(PIN_POS_Y_MIN - PIN_POS_Y_MAX);
+
+	// 調整分の値を取得
+	float offset = range * (static_cast<float>(value) / GAUGE_MAX);
+
+	// ピンの位置を更新
+	imgPin_.pos.y = PIN_POS_Y_MAX + static_cast<int>(offset);
 }
 
 void MadnessGauge::Draw()

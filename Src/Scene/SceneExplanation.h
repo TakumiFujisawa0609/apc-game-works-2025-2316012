@@ -5,6 +5,8 @@
 #include "../Common/Image.h"
 #include "../Common/CharacterString.h"
 
+class SceneBackGround;
+
 class SceneExplanation : public SceneBase
 {
 public:
@@ -47,6 +49,50 @@ private:
 		SELECT,					// 操作説明か遊び方説明か選ぶ画面
 		PLAY_EXPLANATION,		// 遊び方説明画面
 		OPERATION_EXPLANATION,	// 操作説明画面
+	};	
+	
+	// 座標・サイズ関連
+	static constexpr int SCREEN_Y_TOP_MARGIN = 80;
+	static constexpr int SCREEN_Y_BOTTOM_MARGIN = 24;
+	static constexpr int MESSAGE_TEXT_POS_Y = 600;
+	static constexpr int PAGE_TEXT_POS_X = 1200;
+	static constexpr int OPERATION_ICON_OFFSET_X = 250;
+	static constexpr int PLAY_ICON_OFFSET_X = 250;
+	static constexpr int CHANGE_ICON_OFFSET_X = 450;
+
+	// フォントサイズ関連
+	static constexpr int FONT_SIZE_TITLE = 52;
+	static constexpr int FONT_SIZE_MESSAGE = 28;
+	static constexpr int FONT_SIZE_OPERATION = 20;
+
+	// フォント太さ関連
+	static constexpr int FONT_THICK_TITLE = 6;
+	static constexpr int FONT_THICK_COMMON = 4;
+
+	// 回転角度
+	static constexpr float ANGLE_FLIP_DEG = 180.0f;
+
+	// 切り替えアイコンの数
+	static constexpr int CHANGE_ICON_MAX = 2;
+
+	// 説明の種類数
+	static constexpr int EXPLANATION_TYPE_MAX = 2;
+
+	// 遊び方の総ページ数
+	static constexpr int TOTAL_PAGE_COUNT = 9;
+
+	// リソースネーム
+	const std::string RESOURCE_NAMES[TOTAL_PAGE_COUNT] =
+	{
+		"explanation1",		
+		"explanation2",			
+		"explanation3",			
+		"explanation4",
+		"explanation5",		
+		"explanation6",			
+		"explanation7",			
+		"explanation8",			
+		"explanation9",			
 	};
 
 	// 各状態の見出し
@@ -82,14 +128,9 @@ private:
 	} },
 	};
 
-	// 切り替えアイコンの数
-	static constexpr int CHANGE_ICON_MAX = 2;
-
-	// 説明の種類数
-	static constexpr int EXPLANATION_TYPE_MAX = 2;
-
-	// 遊び方の総ページ数
-	static constexpr int TOTAL_PAGE_COUNT = 9;
+	// 画面の操作方法
+	const std::wstring OPERATION_MESSAGE_KEY = L"A・Dで選択/Spaceで決定/BackSpaceで戻る";
+	const std::wstring OPERATION_MESSAGE_PAD = L"左スティックで選択/Bで決定/Aで戻る";
 
 	// 現在の状態
 	STATE state_;	
@@ -107,13 +148,16 @@ private:
 	std::function<void()> draw_;
 
 	// 背景
-	Image background_;	
+	std::unique_ptr<SceneBackGround> backGround_;
 
 	// 操作説明アイコン
 	Image operationIcon_;
 
 	// 遊び方説明アイコン
 	Image playIcon_;
+
+	// 遊び方説明画像
+	Image playExpanation_;
 
 	// 操作方法説明画像
 	Image operationExpanation_;
@@ -132,6 +176,9 @@ private:
 
 	// ページ数
 	CharacterString pageText_;
+
+	// 画面の操作方法
+	CharacterString screenOperationMessage_;
 
 	// 状態遷移処理の管理
 	std::unordered_map<STATE, std::function<void()>> stateChangeMap_;
@@ -160,4 +207,7 @@ private:
 
 	// ページ更新処理
 	void UpdatePage();
+
+	// 画面の操作方法の切り替え処理
+	const std::wstring GetOperationMessage() const;
 };

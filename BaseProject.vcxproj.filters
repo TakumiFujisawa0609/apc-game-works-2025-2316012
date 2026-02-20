@@ -564,6 +564,12 @@
     <ClCompile Include="Src\Scene\SceneTips.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Core\Game\TaskMessage.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Core\Common\SceneBackGround.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Common\Fader.h">
@@ -1214,6 +1220,12 @@
     <ClInclude Include="Src\Scene\SceneTips.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Core\Game\TaskMessage.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Core\Common\SceneBackGround.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\Shader\PostEffect\Vignette.hlsl" />
@@ -1252,6 +1264,8 @@
     <FxCompile Include="Src\Shader\Model\HumanVS.hlsl" />
     <FxCompile Include="Src\Shader\PostEffect\FireTransitionEffect.hlsl" />
     <FxCompile Include="Src\Shader\PostEffect\TvErrorEffect.hlsl" />
+    <FxCompile Include="Src\Shader\Sprite\Tips.hlsl" />
+    <FxCompile Include="Src\Shader\Sprite\BackGround.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\Shader\Common\Pixel\PixelShader2DHeader.hlsli" />

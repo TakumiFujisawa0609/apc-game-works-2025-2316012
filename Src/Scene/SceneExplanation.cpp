@@ -5,6 +5,7 @@
 #include "../Manager/Common/InputManager.h"
 #include "../Manager/Common/SoundManager.h"
 #include "../Utility/UtilityCommon.h"
+#include "../Core/Common/SceneBackGround.h"
 #include "SceneExplanation.h"
 
 SceneExplanation::SceneExplanation()
@@ -33,52 +34,71 @@ SceneExplanation::~SceneExplanation()
 void SceneExplanation::Init()
 {
 	// フォント作成
-	int titleFont = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), 52, 6);
-	int messageFont = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), 24, 4);
+	int titleFont = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), FONT_SIZE_TITLE, FONT_THICK_TITLE);
+	int messageFont = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), FONT_SIZE_MESSAGE, FONT_THICK_COMMON);
+	int screenOperationMessageFont = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), FONT_SIZE_OPERATION, FONT_THICK_COMMON);
 
 	// 各種テキストの設定
 	titleText_.fontHandle = titleFont;
 	titleText_.color = UtilityCommon::WHITE;
-	titleText_.pos = { Application::SCREEN_HALF_X, 100 };
+	titleText_.pos = { Application::SCREEN_HALF_X, SCREEN_Y_TOP_MARGIN };
 	titleText_.string = STATE_TITLES.at(STATE::SELECT);
 
 	messageText_.fontHandle = messageFont;
 	messageText_.color = UtilityCommon::WHITE;
-	messageText_.pos = { Application::SCREEN_HALF_X, 650 };
+	messageText_.pos = { Application::SCREEN_HALF_X, MESSAGE_TEXT_POS_Y };
 	messageText_.string = STATE_MESSAGES.at(STATE::SELECT)[selectIndex_];
 
 	pageText_.fontHandle = messageFont;
 	pageText_.color = UtilityCommon::WHITE;
-	pageText_.pos = { 1200, Application::SCREEN_SIZE_Y - 24 };
+	pageText_.pos = { PAGE_TEXT_POS_X, Application::SCREEN_SIZE_Y - SCREEN_Y_BOTTOM_MARGIN };
 	pageText_.string = L"%d/%d";
 	pageText_.data1 = 1;
 	pageText_.data2 = TOTAL_PAGE_COUNT;
 
+	screenOperationMessage_.fontHandle = screenOperationMessageFont;
+	screenOperationMessage_.color = UtilityCommon::WHITE;
+	screenOperationMessage_.pos = { 0, Application::SCREEN_SIZE_Y - SCREEN_Y_BOTTOM_MARGIN };
+	screenOperationMessage_.string = GetOperationMessage();
+
+
 	// 各種テクスチャの設定
 	// 背景
-	background_.handleId = resMng_.GetHandle("sceneBack");
-	background_.pos = { 0,0 };
-	background_.size = { Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y };
+	backGround_ = std::make_unique<SceneBackGround>();
+	backGround_->Init();
 
 	// 操作説明アイコン
 	operationIcon_.handleId = resMng_.GetHandle("operationExplanationIcon");
-	operationIcon_.pos = { Application::SCREEN_HALF_X + 250, Application::SCREEN_HALF_Y };
+	operationIcon_.pos = { Application::SCREEN_HALF_X + OPERATION_ICON_OFFSET_X, Application::SCREEN_HALF_Y };
 
 	// 遊び方説明アイコン
 	playIcon_.handleId = resMng_.GetHandle("playExplanationIcon");
-	playIcon_.pos = { Application::SCREEN_HALF_X - 250, Application::SCREEN_HALF_Y };
+	playIcon_.pos = { Application::SCREEN_HALF_X - PLAY_ICON_OFFSET_X, Application::SCREEN_HALF_Y };
 
 	// 選択フレーム
 	selectFrame_.handleId = resMng_.GetHandle("selectFrame");
 	selectFrame_.pos = playIcon_.pos;
+
+	// 遊び方説明
+	playExpanation_.handleId = resMng_.GetHandle(RESOURCE_NAMES[pageCount_]);
+	playExpanation_.pos = { Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y };
 
 	// 操作説明
 	operationExpanation_.handleId = resMng_.GetHandle("keyboardExplanation");
 	operationExpanation_.pos = { Application::SCREEN_HALF_X, Application::SCREEN_HALF_Y };
 
 	// 切り替えアイコン
-	constexpr int CHANGE_ICON_POS_X[] = { Application::SCREEN_HALF_X - 450,Application::SCREEN_HALF_X + 450 };
-	constexpr float CHANGE_ICON_ANGLE_DEG[] = { 0.0f,180.0f };
+	constexpr int CHANGE_ICON_POS_X[] =
+	{
+		Application::SCREEN_HALF_X - CHANGE_ICON_OFFSET_X,
+		Application::SCREEN_HALF_X + CHANGE_ICON_OFFSET_X
+	};
+	constexpr float CHANGE_ICON_ANGLE_DEG[] =
+	{
+		0.0f,
+		ANGLE_FLIP_DEG
+	};
+
 	for (int i = 0; i < CHANGE_ICON_MAX; i++)
 	{
 		changeIcon_[i].handleId = resMng_.GetHandle("changeIcon");
@@ -92,13 +112,17 @@ void SceneExplanation::Init()
 
 void SceneExplanation::NormalUpdate()
 {
+	// パッドの接続状況を確認して、画面の操作方法を更新
+	screenOperationMessage_.string = GetOperationMessage();
+
+	// 状態別更新
 	update_();
 }
 
 void SceneExplanation::NormalDraw()
 {
 	// 背景描画
-	background_.DrawExtend();
+	backGround_->Draw();
 
 	// 見出しの描画
 	titleText_.DrawCenter();
@@ -108,6 +132,9 @@ void SceneExplanation::NormalDraw()
 
 	// 状態別描画
 	draw_();
+
+	// 画面の操作方法の描画
+	screenOperationMessage_.Draw();
 }
 
 void SceneExplanation::UpdateSelect()
@@ -234,7 +261,7 @@ void SceneExplanation::DrawOperationExplanation()
 void SceneExplanation::DrawPlayExplanation()
 {
 	// 遊び方説明描画
-	//
+	playExpanation_.DrawRota();
 
 	// 切り替えアイコン描画
 	for (int i = 0; i < CHANGE_ICON_MAX; i++)
@@ -310,8 +337,20 @@ void SceneExplanation::UpdatePage()
 	messageText_.string = STATE_MESSAGES.at(STATE::PLAY_EXPLANATION)[pageCount_];
 	
 	// 説明画像の更新
-	//
+	playExpanation_.handleId = resMng_.GetHandle(RESOURCE_NAMES[pageCount_]);
 
 	// ページ数の更新
 	pageText_.data1 = pageCount_ + 1;
+}
+
+const std::wstring SceneExplanation::GetOperationMessage() const
+{
+	if (GetJoypadNum() > 0)
+	{
+		return OPERATION_MESSAGE_PAD;
+	}
+	else
+	{
+		return OPERATION_MESSAGE_KEY;
+	}
 }

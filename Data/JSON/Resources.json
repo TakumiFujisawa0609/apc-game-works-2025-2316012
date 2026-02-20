@@ -1000,6 +1000,114 @@
       "path": "Data/Image/Common/SelectFrame.png",
       "sceneId": 0,
       "type": "texture"
+    },
+    {
+      "key": "explanation1",
+      "path": "Data/Image/Common/Explanation/Explanation1.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "explanation2",
+      "path": "Data/Image/Common/Explanation/Explanation2.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "explanation3",
+      "path": "Data/Image/Common/Explanation/Explanation3.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "explanation4",
+      "path": "Data/Image/Common/Explanation/Explanation4.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "explanation5",
+      "path": "Data/Image/Common/Explanation/Explanation5.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "explanation6",
+      "path": "Data/Image/Common/Explanation/Explanation6.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "explanation7",
+      "path": "Data/Image/Common/Explanation/Explanation7.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "explanation8",
+      "path": "Data/Image/Common/Explanation/Explanation8.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "explanation9",
+      "path": "Data/Image/Common/Explanation/Explanation9.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "tips1",
+      "path": "Data/Image/Common/Tips/Tips1.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "tips2",
+      "path": "Data/Image/Common/Tips/Tips2.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "tips3",
+      "path": "Data/Image/Common/Tips/Tips3.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "tips4",
+      "path": "Data/Image/Common/Tips/Tips4.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "tips5",
+      "path": "Data/Image/Common/Tips/Tips5.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "tips6",
+      "path": "Data/Image/Common/Tips/Tips6.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "tips7",
+      "path": "Data/Image/Common/Tips/Tips7.png",
+      "sceneId": 0,
+      "type": "texture"
+    },
+    {
+      "key": "tipsShader",
+      "path": "Data/Shader/Tips.cso",
+      "sceneId": 0,
+      "type": "pixelShader"
+    },
+    {
+      "key": "backGroundShader",
+      "path": "Data/Shader/BackGround.cso",
+      "sceneId": 0,
+      "type": "pixelShader"
     }
   ]
 }
