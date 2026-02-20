@@ -68,6 +68,12 @@ void TitleStateMain::Init()
 	ripples_->Load();
 	ripples_->Init();
 
+	int screenOperationMessageFont = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), FONT_SIZE_OPERATION, FONT_THICK_OPERATION);
+	screenOperationMessage_.fontHandle = screenOperationMessageFont;
+	screenOperationMessage_.color = UtilityCommon::BLACK;
+	screenOperationMessage_.pos = { 0, SCREEN_OPERATION_HEIGHT };
+	screenOperationMessage_.string = GetOperationMessage();
+
 	// BGMの再生
 	sndMng_.PlayBgm(SoundType::BGM::TITLE_MAIN);
 
@@ -379,6 +385,9 @@ void TitleStateMain::DrawSelect()
 	{
 		text.DrawCenter();
 	}
+
+	// 画面の操作説明
+	screenOperationMessage_.Draw();
 }
 
 void TitleStateMain::UpdateSelectTextColor()
@@ -406,4 +415,16 @@ void TitleStateMain::UpdateBox()
 	
 	// サイズの幅のみ変更
 	boxSize_.x = menuTexts_[menuIndex_].string.length() * FONT_SIZE + BOX_PADDING_X;
+}
+
+const std::wstring TitleStateMain::GetOperationMessage() const
+{
+	if (GetJoypadNum() > 0)
+	{
+		return OPERATION_MESSAGE_PAD;
+	}
+	else
+	{
+		return OPERATION_MESSAGE_KEY;
+	}
 }

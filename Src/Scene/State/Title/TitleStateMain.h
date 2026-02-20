@@ -67,14 +67,23 @@ private:
 		L"戻る",
 	};
 
+	// 画面の操作方法
+	const std::wstring OPERATION_MESSAGE_KEY = L"W・Sで選択/Spaceで決定";
+	const std::wstring OPERATION_MESSAGE_PAD = L"左スティックで選択/Bで決定";
+
+	// 操作説明高さ
+	static constexpr int SCREEN_OPERATION_HEIGHT = 696;
+
 	// メニュー項目数
 	static constexpr int MENU_MAX = static_cast<int>(MENU_TYPE::MAX);
 
 	// フォントサイズ
 	static constexpr int FONT_SIZE = 36;
+	static constexpr int FONT_SIZE_OPERATION = 20;
 	
 	// フォントの太さ
 	static constexpr int FONT_THICK = 5;
+	static constexpr int FONT_THICK_OPERATION = 4;
 
 	// ボックスのパディング
 	static constexpr int BOX_PADDING_X = 40;
@@ -100,6 +109,9 @@ private:
 
 	// 文字列
 	CharacterString menuTexts_[MENU_MAX];
+
+	// 画面の操作方法
+	CharacterString screenOperationMessage_;
 
 	// ボックス
 	Vector2 boxPos_;
@@ -168,4 +180,7 @@ private:
 
 	// ボックスの更新
 	void UpdateBox();
+
+	// 画面の操作方法の切り替え処理
+	const std::wstring GetOperationMessage() const;
 };
