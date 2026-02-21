@@ -111,7 +111,7 @@ void SceneGame::Init()
 
 	// カメラ設定
 	mainCamera.SetFollow(&CharacterManager::GetInstance().GetCharacter(CharacterManager::TYPE::PLAYER).GetTransform());
-	mainCamera.ChangeMode(Camera::MODE::FPS); 
+	mainCamera.ChangeMode(Camera::MODE::FIXED_POINT); 
 
 	// BGMの再生
 	sndMng_.PlayBgm(SoundType::BGM::GAME);
@@ -165,7 +165,7 @@ void SceneGame::ChangeNormal()
 	drawFunc_ = std::bind(&SceneGame::NormalDraw, this);
 
 	//フェードイン開始
-	scnMng_.StartFadeIn();
+	scnMng_.StartFadeIn(Fader::STATE::FADE_IN);
 }
 
 void SceneGame::DebugUpdate()

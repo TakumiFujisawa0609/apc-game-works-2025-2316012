@@ -1,4 +1,5 @@
 #pragma once
+#include <DxLib.h>
 #include "../Template/Singleton.h"
 
 // ˆÈ‰º‚ÌƒNƒ‰ƒX‚ª¶¬‚³‚ê‚Ä‚©‚çShadowManager‚ğ¶¬‚·‚é

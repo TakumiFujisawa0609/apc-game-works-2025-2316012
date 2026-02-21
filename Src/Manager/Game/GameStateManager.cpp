@@ -1,4 +1,5 @@
 #include "../../Scene/State/Game/GameStateBase.h"
+#include "../../Scene/State/Game/GameStateStart.h"
 #include "../../Scene/State/Game/GameStateJumpScare.h"
 #include "../../Scene/State/Game/GameStatePlay.h"
 #include "../../Scene/State/Game/GameStateReporting.h"
@@ -12,6 +13,10 @@
 
 void GameStateManager::Load()
 {
+	// ゲーム開始時処理の生成
+	auto start = std::make_unique<GameStateStart>();
+	stateMap_.emplace(STATE::START, std::move(start));
+
 	// プレイ状態処理の生成
 	auto play = std::make_unique<GameStatePlay>();
 	stateMap_.emplace(STATE::PLAY, std::move(play));
@@ -42,7 +47,7 @@ void GameStateManager::Init()
 	}
 
 	// 初期状態
-	state_ = STATE::PLAY;
+	state_ = STATE::START;
 }
 
 void GameStateManager::Update()

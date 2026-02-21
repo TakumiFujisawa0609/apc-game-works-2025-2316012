@@ -17,6 +17,7 @@ public:
 	enum class STATE
 	{
 		NONE,
+		START,				// 開始
 		PLAY,				// 通常プレイ
 		REPORTING,			// 報告中
 		JUMP_SCARE,			// ジャンプスケア

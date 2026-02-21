@@ -67,6 +67,7 @@ public:
 		TV_ERROR,
 		TASK_MESSAGE,
 		WAGE_DISPLAY,
+		FIRE_BURN,
 		MAX
 	};
 

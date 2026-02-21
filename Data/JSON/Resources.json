@@ -1115,6 +1115,25 @@
       "sceneId": 4,
       "type": "sound",
       "soundType": "se"
+    },
+    {
+      "key": "seFireBurn",
+      "path": "Data/Sound/SE/SeBurnFire.mp3",
+      "sceneId": 3,
+      "type": "sound",
+      "soundType": "se"
+    },
+    {
+      "key": "gameStart",
+      "path": "Data/Image/Game/GameStart.png",
+      "sceneId": 3,
+      "type": "texture"
+    },
+    {
+      "key": "gameStartShader",
+      "path": "Data/Shader/GameStart.cso",
+      "sceneId": 3,
+      "type": "pixelShader"
     }
   ]
 }

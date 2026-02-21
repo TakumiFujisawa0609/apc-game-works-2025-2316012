@@ -9,15 +9,6 @@ cbuffer ConstantBuffer : register(b4)
     float dummy;
 };
 
-// 簡易的な擬似ノイズ関数
-float2 GetRandomDir(float2 p)
-{
-    // 座標からランダムな方向ベクトルを生成
-    float x = frac(sin(dot(p, float2(127.1, 311.7))) * 43758.5453);
-    float y = frac(sin(dot(p, float2(269.5, 183.3))) * 43758.5453);
-    return float2(x, y) * 2.0 - 1.0;
-}
-
 float4 main(PS_INPUT PSInput) : SV_TARGET
 {
     // UV値を取得
