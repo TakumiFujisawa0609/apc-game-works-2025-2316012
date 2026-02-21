@@ -50,4 +50,5 @@ const std::map<std::string, SoundType::SE> SoundType::KEY_SE_MAP =
 	{"seFireTransition", SoundType::SE::FIRE_TRANSITION},
 	{"seTaskMessage", SoundType::SE::TASK_MESSAGE},
 	{"seTvError", SoundType::SE::TV_ERROR},
+	{"seWageDisplay", SoundType::SE::WAGE_DISPLAY},
 };

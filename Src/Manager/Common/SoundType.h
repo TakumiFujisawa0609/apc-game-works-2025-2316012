@@ -66,6 +66,7 @@ public:
 		DISPLAY_EXPLAN,
 		TV_ERROR,
 		TASK_MESSAGE,
+		WAGE_DISPLAY,
 		MAX
 	};
 

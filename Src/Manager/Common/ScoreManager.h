@@ -6,17 +6,10 @@ class ScoreManager : public Singleton<ScoreManager>
 	//シングルトンにだけ共有する
 	friend class Singleton<ScoreManager>;
 
-public:
-
-	/// <summary>
-	/// 終了状態
-	/// </summary>
-	enum class END_STATE
-	{
-		CLEAR,	// クリア
-		DEAD,	// 死亡
-		MAX
-	};
+public:	
+	
+	// 通常スコア（基本給）
+	static constexpr int DEFAULT_SCORE = 10000;
 
 	/// <summary>
 	/// 初期化処理
@@ -24,44 +17,47 @@ public:
 	void Init();
 
 	/// <summary>
-	/// ゲームの終了状態を設定
+	/// ボーナスの加算
 	/// </summary>
-	/// <returns></returns>
-	const END_STATE GetEndState() const { return state_; }
+	/// <param name="score">追加ボーナス量</param>
+	void AddBonusScore(const int score) { bonusScore_ += score; }
 
 	/// <summary>
-	/// スコアを返す
+	/// 減点の加算
 	/// </summary>
-	/// <returns>スコア</returns>
-	const int GetScore() const { return score_; }
+	/// <param name="score">追加減点量</param>
+	void AddCutScore(const int score) { cutScore_ += score; }
 
 	/// <summary>
-	/// 終了状態の設定
+	/// ボーナスを返す
 	/// </summary>
-	/// <param name="state">終了状態</param>
-	void SetEndState(const END_STATE state);
+	/// <returns>ボーナス量</returns>
+	const int GetBonusScore() const { return bonusScore_; }
 
 	/// <summary>
-	/// スコアの追加
+	/// 減点量を返す
 	/// </summary>
-	/// <param name="score">スコア</param>
-	void AddScore(const int score);
+	/// <returns>減点量</returns>
+	const int GetCutScore() const { return cutScore_; } 
 
 	/// <summary>
-	/// スコアを0にする
+	/// 合計スコアを返す
 	/// </summary>
-	void DeadScore() { score_ = 0; }
+	/// <returns>合計スコア</returns>
+	const int GetTotalScore() const;
+
+	/// <summary>
+	/// 死亡時のスコア処理
+	/// </summary>
+	void DeadScore();
+
+	// 合計スコアを計算する
 
 private:
 
-	// 通常スコア
-	static constexpr int DEFAULT_SCORE = 10000;
-
-	// 終了状態
-	END_STATE state_;
-
 	// ゲームスコア
-	int score_;
+	int bonusScore_;	// 報告時の加算スコア（ボーナス）
+	int cutScore_;		// 誤報告時の減点スコア
 
 	// コンストラクタ
 	ScoreManager();

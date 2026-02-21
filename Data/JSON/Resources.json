@@ -1108,6 +1108,13 @@
       "path": "Data/Shader/BackGround.cso",
       "sceneId": 0,
       "type": "pixelShader"
+    },
+    {
+      "key": "seWageDisplay",
+      "path": "Data/Sound/SE/SeWageDisplay.mp3",
+      "sceneId": 4,
+      "type": "sound",
+      "soundType": "se"
     }
   ]
 }

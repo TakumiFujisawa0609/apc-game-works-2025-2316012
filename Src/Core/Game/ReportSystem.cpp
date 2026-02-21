@@ -122,8 +122,8 @@ void ReportSystem::UpdateWait()
 		// テキストをミスに設定
 		systemMng_.ChangeMessage(Message::TYPE::REPORT_MISS);
 
-		// ミスしたとき用にスコアを減算
-		scoreMng_.AddScore(SCORE_MISS);
+		// ミスしたとき用に減点スコアを加算
+		scoreMng_.AddCutScore(SCORE_MISS);
 	}
 }
 
@@ -148,8 +148,11 @@ void ReportSystem::UpdateReporting()
 		// 効果音の停止
 		sndMng_.StopSe(SoundType::SE::REPORTING);
 
-		// 成功したときのスコア加算
-		scoreMng_.AddScore(SCORE_SUCCESS);
+		// 成功したとき減点量を戻す
+		scoreMng_.AddCutScore(-SCORE_MISS);
+
+		// ボーナススコアを加算
+		scoreMng_.AddBonusScore(SCORE_SUCCESS);
 		return;
 	}
 

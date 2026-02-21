@@ -3,34 +3,31 @@
 
 void ScoreManager::Init()
 {
-	// 通常のスコアを設定
-	score_ = DEFAULT_SCORE;
+	bonusScore_ = 0;
+	cutScore_ = 0;
 }
 
-void ScoreManager::SetEndState(const END_STATE state)
+const int ScoreManager::GetTotalScore() const
 {
-	state_ = state;
-}
-
-void ScoreManager::AddScore(const int score)
-{
-	// スコアを追加
-	score_ += score;
-
-	// スコアが0未満の場合は0にする
-	if (score_ < 0)
+	int score = DEFAULT_SCORE + bonusScore_ - cutScore_;
+	if (score < 0)
 	{
-		score_ = 0;
+		return 0;
 	}
+	return score;
+}
 
-	/*if (score_ == 1 && isEvent_)
-	{
-		GameSystemManager::GetInstance().ChangeTaskMessage(TaskMessage::TYPE::ANOMALY);
-	}*/
+void ScoreManager::DeadScore()
+{
+	// ボーナスはゼロにする
+	bonusScore_ = 0;
+
+	// 減点は基本給量分減らす
+	cutScore_ = DEFAULT_SCORE;
 }
 
 ScoreManager::ScoreManager()
 {
-	state_ = END_STATE::MAX;
-	score_ = 0;
+	bonusScore_ = 0;
+	cutScore_ = 0;
 }
