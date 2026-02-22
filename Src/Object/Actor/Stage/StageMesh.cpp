@@ -9,9 +9,3 @@ StageMesh::StageMesh(const std::string& key, const Json& mapParam, const Json& c
 StageMesh::~StageMesh()
 {
 }
-
-void StageMesh::SetDelete()
-{
-	isDelete_ = true;
-	collider_->SetDelete();
-}

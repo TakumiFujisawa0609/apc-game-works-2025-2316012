@@ -85,13 +85,22 @@ public:
 
 private:
 
-	int res_;	
+	// 固定イベント種類リスト
+	const std::vector<TYPE> TYPE_LIST =
+	{ TYPE::PAINTING, TYPE::GRASS_ROOM, TYPE::PAINTING, TYPE::GHOST, TYPE::BLOODY_ROOM, TYPE::CHAIR_MOUNTAIN, TYPE::REVERSE_FALL, TYPE::PAINTING, TYPE::GHOST, TYPE::CROWD, TYPE::PAINTING, TYPE::GHOST, TYPE::BLOODY_ROOM, TYPE::GHOST, TYPE::PAINTING };
+
+	// 固定イベント出現時間リスト
+	const std::vector<int> TIME_LIST =
+	{ 20, 25, 10, 20, 30, 15, 22, 28, 30, 28, 35, 40, 40, 40, 40 };
 	
 	// イベントメッセージの遅れ時間
 	static constexpr float EVENT_MESSAGE_DELAY_TIME = 5.0f;
 
 	// 異変情報ファイル名
-	const std::string ANOMALY_FILE = "Anomalies";	
+	const std::string ANOMALY_FILE = "Anomalies";		
+	
+	// 固定イベント用インデックス
+	int eventIndex_;	
 	
 	// 初期異変発生開始時間
 	float firstTime_;
@@ -114,6 +123,9 @@ private:
 	// 異変情報
 	Json anomalyFile_;
 
+	// 出現処理
+	std::function<void()> appearance_;
+
 	// 各異変ごとの確率重みマップ
 	std::unordered_map<TYPE, int> anomalyWeightMap_;
 
@@ -128,6 +140,12 @@ private:
 
 	// ランダムで異変の種類を返す
 	const TYPE GetRandType();
+
+	// 固定で出現
+	void FixedAppearance();
+
+	// ランダムで出現
+	void RandomApperance();
 
 	// コンストラクタ
 	AnomalyManager();

@@ -108,6 +108,17 @@ void ActorBase::AddCollider()
 	collMng_.Add(collider_);
 }
 
+void ActorBase::SetDelete()
+{
+	isDelete_ = true;
+
+	// コライダーの削除
+	if (collider_ != nullptr)
+	{
+		collider_->SetDelete();
+	}
+}
+
 void ActorBase::OnHit(const std::weak_ptr<ColliderBase>& opponentCollider)
 {
 	MV1RefreshCollInfo(transform_.modelId);

@@ -27,15 +27,5 @@ public:
 	/// MV1DrawModel‚ğg—p‚µ‚½•`‰æˆ—
 	/// </summary>
 	void Mv1Draw() override {};
-
-	/// <summary>
-	/// íœ”»’è
-	/// </summary>
-	void SetDelete() override;
-
-private:
-
-
-
 };
 

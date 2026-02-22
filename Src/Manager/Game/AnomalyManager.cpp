@@ -45,7 +45,16 @@ void AnomalyManager::Load()
 	// タイマー
 	timer_ = std::make_unique<Timer>(firstTime_);
 
-	res_ = 0;
+	// 異変発生処理の設定
+	eventIndex_ = 0;
+	// 種類の取得
+	const std::string appearanceType = paramFile.at("appearanceType");
+	// ランダム発生を設定
+	if (appearanceType == "random") { appearance_ = std::bind(&AnomalyManager::RandomApperance, this); }
+	// 固定発生を設定
+	else if (appearanceType == "fixed") { appearance_ = std::bind(&AnomalyManager::FixedAppearance, this); }
+	// 正しい文字列を取得できなかった場合ランダムに設定
+	else { appearance_ = std::bind(&AnomalyManager::RandomApperance, this); }
 }
 
 void AnomalyManager::Init()
@@ -84,27 +93,10 @@ void AnomalyManager::Update()
 				return;
 			}
 
-			//// 異変発生
-			//OccurAnomaly(GetRandType());
+			// 異変発生
+			appearance_();
 
-			//// 次回までの時間をランダム設定
-			//timer_->SetGoalTime(static_cast<float>(timeMin_ + GetRand(timeMax_ - timeMin_)));
-
-			//// タイマー初期化
-			//timer_->InitCountUp();
-			std::vector<TYPE> AnomalyList =
-				{ TYPE::PAINTING, TYPE::GRASS_ROOM, TYPE::PAINTING, TYPE::GHOST, TYPE::BLOODY_ROOM, TYPE::CHAIR_MOUNTAIN, TYPE::REVERSE_FALL, TYPE::PAINTING, TYPE::GHOST, TYPE::CROWD, TYPE::PAINTING, TYPE::GHOST, TYPE::BLOODY_ROOM, TYPE::GHOST, TYPE::PAINTING};
-
-			OccurAnomaly(AnomalyList[res_]);
-
-			std::vector<int> timeList = 
-				{ 20, 25, 10, 20, 30, 15, 22, 28, 30, 28, 35, 40, 40, 40, 40 };
-
-			timer_->SetGoalTime(static_cast<float>(timeList[res_]));
-			timer_->InitCountUp();
-
-			res_++;
-
+			// 最初の異変発生時
 			if (isFirst_)
 			{
 				isFirst_ = false;
@@ -175,12 +167,37 @@ const AnomalyManager::TYPE AnomalyManager::GetRandType()
 	return TYPE::MAX;
 }
 
+void AnomalyManager::FixedAppearance()
+{
+	// 異変発生
+	OccurAnomaly(TYPE_LIST[eventIndex_]);
+
+	// タイマーの設定
+	timer_->SetGoalTime(static_cast<float>(TIME_LIST[eventIndex_]));
+	timer_->InitCountUp();
+
+	// インデックス更新
+	eventIndex_++;
+}
+
+void AnomalyManager::RandomApperance()
+{
+	// 異変発生
+	OccurAnomaly(GetRandType());
+
+	// 次回までの時間をランダム設定
+	timer_->SetGoalTime(static_cast<float>(timeMin_ + GetRand(timeMax_ - timeMin_)));
+
+	// タイマー初期化
+	timer_->InitCountUp();
+}
+
 AnomalyManager::AnomalyManager()
 {
 	firstTime_ = 0.0f;
 	timeMin_ = -1;
 	timeMax_ = -1;
-	res_ = -1;
+	eventIndex_ = -1;
 	isOccurrence_ = false;
 	isFirst_ = true;
 	updateType_ = TYPE::MAX;

@@ -78,7 +78,7 @@ public:
 	/// <summary>
 	/// íœ”»’è‚ğİ’è
 	/// </summary>
-	virtual void SetDelete() { isDelete_ = true; }
+	void SetDelete();
 
 	/// <summary>
 	/// Šˆ“®ó‘Ô”»’è‚ğİ’è
