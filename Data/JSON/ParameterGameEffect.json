@@ -1,0 +1,51 @@
+{
+  "screen": {
+    "framePos": {
+      "x": 640,
+      "y": 360
+    },
+    "frameSize": {
+      "x": 1280,
+      "y": 720
+    },
+    "switchIconPos": {
+      "x": 1200,
+      "y": 656
+    },
+    "switchIconSize": {
+      "x": 128,
+      "y": 128
+    },
+    "switchIconScale": 0.7
+  },
+  "chromaticAberration": {
+    "constBufferSize": 1,
+    "colorOffset": {
+      "x": 0.008,
+      "y": 0.002
+    }
+  },
+  "cracks": {
+    "constBufferSize": 1
+  },
+  "filmBurn": {
+    "constBufferSize": 1,
+    "totalTime": 2.0,
+    "sepiaColor": {
+      "r": 0.8,
+      "g": 0.4,
+      "b": 0.2
+    }
+  },
+  "fireTransition": {
+    "constBufferSize": 1,
+    "blurLevel": 0.1
+  },
+  "gameScreen": {
+    "constBufferSize": 2,
+    "blurCondition": 50,
+    "maxBlurDistance": 10.0,
+    "maxFlashPower": 2.0,
+    "blurSpeed": 0.1
+  }
+}

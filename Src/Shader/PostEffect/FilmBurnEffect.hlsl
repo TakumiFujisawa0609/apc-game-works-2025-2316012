@@ -11,7 +11,8 @@ cbuffer cbParam : register(b4)
 {
     float g_time;
     float g_total_time;
-    float2 dummy;
+    float3 g_sepia_color;
+    float3 dummy;
 };
 
 // サブテクスチャ
@@ -43,7 +44,7 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
     float3 color = tex.Sample(texSampler, uv * (0.7f + pow(dist, 2.0f) * 0.3f)).rgb;
     
     // 色調整（セピア調）
-    float3 sepia = color * SEPIA_COLOR;
+    float3 sepia = color * g_sepia_color;
     
     // 最終的な色味とマスクを組み合わせて出力
     return float4(lerp(sepia, color, col) * mask, 1.0);

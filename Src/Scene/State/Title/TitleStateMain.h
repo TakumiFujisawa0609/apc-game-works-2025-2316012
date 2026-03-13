@@ -53,7 +53,6 @@ private:
 		START,			// 開始
 		EXPLANATION,	// 説明
 		TIPS,			// TIPS
-		//SETTING,		// 設定
 		EXIT,			// 戻る
 		MAX,
 	};
@@ -63,7 +62,6 @@ private:
 		L"開始",
 		L"遊び方",
 		L"ヒント",
-		//L"設定",
 		L"戻る",
 	};
 

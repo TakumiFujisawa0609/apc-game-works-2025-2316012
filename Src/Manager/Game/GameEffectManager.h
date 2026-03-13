@@ -60,6 +60,9 @@ public:
 
 private:	
 
+	// ƒtƒ@ƒCƒ‹–¼
+	const std::string FILE_NAME = "ParameterGameEffect";
+
 	// Ží—Þ
 	TYPE type_;
 	

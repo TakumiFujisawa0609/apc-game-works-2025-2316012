@@ -40,7 +40,6 @@ TitleStateMain::TitleStateMain(SceneTitle& parent) :
 	menuChangeMap_.emplace(MENU_TYPE::START, std::bind(&TitleStateMain::ChangeMenuStart, this));
 	menuChangeMap_.emplace(MENU_TYPE::EXPLANATION, std::bind(&TitleStateMain::ChangeMenuExplanation, this));
 	menuChangeMap_.emplace(MENU_TYPE::TIPS, std::bind(&TitleStateMain::ChangeMenuTips, this));
-	//menuChangeMap_.emplace(MENU_TYPE::SETTING, std::bind(&TitleStateMain::ChangeMenuSetting, this));
 	menuChangeMap_.emplace(MENU_TYPE::EXIT, std::bind(&TitleStateMain::ChangeMenuExit, this));
 }
 

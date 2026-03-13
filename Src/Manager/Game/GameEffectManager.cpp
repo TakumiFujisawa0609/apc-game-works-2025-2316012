@@ -6,10 +6,14 @@
 #include "../../Core/PostEffect/PostEffectFilmBurn.h"
 #include "../../Core/PostEffect/PostEffectChromaticAberration.h"
 #include "../../Core/PostEffect/PostEffectFireTransition.h"
+#include "../../Utility/UtilityLoad.h"
 #include "GameEffectManager.h"
 
 void GameEffectManager::Init()
 {
+	// パラメータ読み込み
+	auto paramMap = UtilityLoad::GetJsonMapArrayData(FILE_NAME);
+
 	// ゲームスクリーン
 	auto game = std::make_unique<PostEffectGameScreen>();
 	effectMap_.emplace(TYPE::GAME_SCREEN, std::move(game));

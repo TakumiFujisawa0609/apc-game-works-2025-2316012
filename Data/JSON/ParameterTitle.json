@@ -1,0 +1,62 @@
+{
+  "main": {
+    "menuStrings": [
+      "開始",
+      "遊び方",
+      "ヒント",
+      "戻る"
+    ],
+    "operationMessageKey": "W・Sで選択/Spaceで決定",
+    "operationMessagePad": "左スティックで選択/Bで決定",
+    "screenOperationHeight": 696,
+    "menuMax": 4,
+    "fontSize": 36,
+    "fontSizeOperation": 20,
+    "fontThick": 5,
+    "fontThickOperation": 4,
+    "boxPaddingX": 40,
+    "boxPaddingY": 16,
+    "fadeAlphaRate": 3.0,
+    "effectAlphaRate": 1.39
+  },
+  "explanation": {
+    "texts": [
+      "従業員の皆さんへ",
+      "これから仕事について説明します",
+      "皆さんにはこの家の中で",
+      "異変探しをしてもらいます",
+      "異変を見つけた際は",
+      "素早く報告してください",
+      "暗視でしか見つけれない異変もあるので",
+      "うまく使い分けてくださいね",
+      "業務中体調が悪化する可能性があります",
+      "もし体調が悪い場合は異変を報告して回復しましょう",
+      "また、異変探索中別生命体に会う場合があります",
+      "それは異変ではないので速やかに逃げましょう",
+      "以上で仕事の説明は終了になります",
+      "皆さんのご健闘を心よりお祈り申し上げます"
+    ],
+    "mainFontSize": 24,
+    "skipFontSize": 48,
+    "textAnimationSpeed": 0.12,
+    "skipTextPosX": 900,
+    "skipTextPosY": 670,
+    "backBoxSizeX": 1280,
+    "backBoxSizeY": 60,
+    "backBoxPosX": 0,
+    "backBoxPosY": 330,
+    "backBoxAlpha": 128,
+    "waitTime": 1.5,
+    "textDisplayTime": 2.0,
+    "animTime": 1.5,
+    "moveSpeed": 5.0,
+    "endPosX": -128.0,
+    "windowCreateCoolTime": 0.04,
+    "skipIndexs": [ 0, 1, 3, 5, 13 ],
+    "imgScales": [ 1.1, 1.3, 1.5, 1.7, 2.0 ],
+    "skipText": "Enterでスキップ"
+  },
+  "tvError": {
+    "time": 2.0
+  }
+}
