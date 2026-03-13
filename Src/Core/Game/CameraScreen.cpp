@@ -8,8 +8,6 @@
 #include "../../Manager/Game/GameEffectManager.h"
 #include "../../Object/Actor/Character/Ghost.h"
 #include "../../Utility/UtilityCommon.h"
-#include "../PostEffect/PostEffectGameNormal.h"
-#include "../PostEffect/PostEffectNightView.h"
 #include "CameraScreen.h"
 
 using G_TYPE = GameEffectManager::TYPE;

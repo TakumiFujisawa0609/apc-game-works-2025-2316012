@@ -76,8 +76,6 @@
     <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitStageObject.cpp" />
     <ClCompile Include="Src\Object\Actor\Stage\Painting.cpp" />
     <ClCompile Include="Src\Object\Controller\OnHit\ControllerOnHitGravity.cpp" />
-    <ClCompile Include="Src\Core\PostEffect\PostEffectNightView.cpp" />
-    <ClCompile Include="Src\Core\PostEffect\PostEffectGameNormal.cpp" />
     <ClCompile Include="Src\Core\PostEffect\PostEffectBase.cpp" />
     <ClCompile Include="Src\Core\Game\CoreGameBase.cpp" />
     <ClCompile Include="Src\Core\Game\CameraScreen.cpp" />
@@ -250,8 +248,6 @@
     <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitStageObject.h" />
     <ClInclude Include="Src\Object\Actor\Stage\Painting.h" />
     <ClInclude Include="Src\Object\Controller\OnHit\ControllerOnHitGravity.h" />
-    <ClInclude Include="Src\Core\PostEffect\PostEffectNightView.h" />
-    <ClInclude Include="Src\Core\PostEffect\PostEffectGameNormal.h" />
     <ClInclude Include="Src\Core\PostEffect\PostEffectBase.h" />
     <ClInclude Include="Src\Core\Game\CoreGameBase.h" />
     <ClInclude Include="Src\Core\Game\CameraScreen.h" />
@@ -550,34 +546,14 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="Src\Shader\PostEffect\LensDistortion.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
     <FxCompile Include="Src\Shader\PostEffect\Monotone.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Src\Shader\PostEffect\NightViewEffect.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Src\Shader\PostEffect\NormalEffect.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Src\Shader\PostEffect\RipplisEffect.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Src\Shader\PostEffect\ScanLine.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Src\Shader\PostEffect\SnowNoiseEffect.hlsl">
@@ -597,10 +573,6 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Src\Shader\PostEffect\Vignette.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Src\Shader\Sprite\BackGround.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
