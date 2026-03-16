@@ -6,13 +6,14 @@
 #include "../Manager/Common/FontManager.h"
 #include "../Manager/Common/EffectManager.h"
 #include "../Utility/UtilityCommon.h"
+#include "../Utility/UtilityLoad.h"
 #include "../Core/PostEffect/PostEffectSnowNoise.h"
 #include "Loading.h"
 
 void Loading::Init()
 {
 	// ポストエフェクトの生成
-	snowNoiseEffect_ = std::make_unique<PostEffectSnowNoise>();
+	snowNoiseEffect_ = std::make_unique<PostEffectSnowNoise>(POST_EFFECT_PARAM);
 	snowNoiseEffect_->Init();
 
 	// ポストエフェクトスクリーン
@@ -29,11 +30,11 @@ void Loading::Init()
 
 	//ローディング用文字列設定
 	constexpr int FONT_SIZE = 32;
-	const std::wstring& fontName = ResourceManager::GetInstance().GetFontName("fontKazuki");
+	const std::wstring& fontName = ResourceManager::GetInstance().GetFontName(FONT_NAME);
 	loadingString_.fontHandle = FontManager::GetInstance().CreateMyFont(fontName, FONT_SIZE, 0);
 	loadingString_.color = UtilityCommon::RED;
-	loadingString_.pos = { LOADING_STRING_POS_X, LOADING_STRING_POS_Y };
-	loadingString_.string = L"Now loading";
+	loadingString_.pos = { TEXT_POS.x, TEXT_POS.y };
+	loadingString_.string = TEXT;
 }
 
 void Loading::Update()
@@ -95,8 +96,8 @@ void Loading::DrawNowLoading(void)
 	int count = static_cast<int>(time / COMMA_TIME);
 	count %= COMMA_MAX_NUM;
 
-	loadingString_.string = L"Now Loading";
-	std::wstring dotStr = L".";
+	loadingString_.string = TEXT;
+	std::wstring dotStr = COMMA;
 
 	//テキストの設定
 	for (int i = 0; i < count; i++)
@@ -110,6 +111,21 @@ void Loading::DrawNowLoading(void)
 
 Loading::Loading()
 {
+	auto paramMap = UtilityLoad::GetJsonMapArrayData(FILE_NAME);
+	auto param = paramMap[FILE_NAME].front();
+
+	// 情報の格納
+	TEXT = UtilityCommon::GetWStringFromString(UtilityCommon::ConvertUtf8ToSjis(param["text"]));
+	COMMA = UtilityCommon::GetWStringFromString(UtilityCommon::ConvertUtf8ToSjis(param["comma"]));
+	LOADING_TIME = param["loadingTime"];
+	FONT_NAME = param["fontName"];
+	FONT_SIZE = param["fontSize"];
+	COMMA_MAX_NUM = param["commaMaxNum"];
+	COMMA_TIME = param["commaTime"];
+	TEXT_POS = { param["textPos"]["x"],param["textPos"]["y"] };
+	POST_EFFECT_PARAM = param["postEffectParam"];
+
+	// 初期化
 	loadingTime_ = 0.0f;
 	loadingScreen_ = -1;
 	isLoading_ = false;

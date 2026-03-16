@@ -13,7 +13,8 @@ public:
 	/// コンストラクタ
 	/// </summary>
 	/// <param name="parent">親インスタンス</param>
-	TitleStateTvError(SceneTitle& parent);
+	/// <param name="param">パラメータ情報</param>
+	TitleStateTvError(SceneTitle& parent, const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -38,7 +39,10 @@ public:
 private:
 
 	// 時間
-	static constexpr float TIME = 2.0f;
+	const float TIME;
+
+	// ポストエフェクト用情報
+	const Json& POST_EFFECT_PARAM;
 
 	// TVエラー画面
 	int screen_;

@@ -34,13 +34,13 @@ void TitleStateSelect::Init()
 	int font = fontMng_.CreateMyFont(resMng_.GetFontName("fontKazuki"), FONT_SIZE, 0);
 
 	// テキストの設定
-	CharacterString& selectTextStart = selectTexts_[static_cast<int>(TYPE::START)];
+	CharacterString& selectTextStart = selecttextList_[static_cast<int>(TYPE::START)];
 	selectTextStart.pos = { Application::SCREEN_HALF_X, Application::SCREEN_SIZE_Y / (static_cast<int>(TYPE::MAX) + 1) * (static_cast<int>(TYPE::START) + 1) };
 	selectTextStart.color = UtilityCommon::WHITE;
 	selectTextStart.fontHandle = font;
 	selectTextStart.string = L"開始する";
 
-	CharacterString& selectTextEnd = selectTexts_[static_cast<int>(TYPE::END)];
+	CharacterString& selectTextEnd = selecttextList_[static_cast<int>(TYPE::END)];
 	selectTextEnd.pos = { Application::SCREEN_HALF_X, Application::SCREEN_SIZE_Y / (static_cast<int>(TYPE::MAX) + 1) * (static_cast<int>(TYPE::END) + 1) };
 	selectTextEnd.color = UtilityCommon::WHITE;
 	selectTextEnd.fontHandle = font;
@@ -48,8 +48,8 @@ void TitleStateSelect::Init()
 
 	// 画像の設定
 	selectBack_.handleId = resMng_.GetHandle("selectBack");
-	selectBack_.pos = selectTexts_[0].pos;
-	selectBack_.size.x = static_cast<int>(selectTexts_[0].string.length()) * FONT_SIZE;
+	selectBack_.pos = selecttextList_[0].pos;
+	selectBack_.size.x = static_cast<int>(selecttextList_[0].string.length()) * FONT_SIZE;
 	selectBack_.size.y = SELECT_BACK_SIZE_Y;
 
 	// 選択後のテキスト設定
@@ -132,9 +132,9 @@ void TitleStateSelect::UpdateSelect()
 	}
 
 	constexpr int OFFSET_POS_Y = 25;
-	selectBack_.pos = selectTexts_[type_].pos;
+	selectBack_.pos = selecttextList_[type_].pos;
 	selectBack_.pos.y += OFFSET_POS_Y;
-	selectBack_.size.x = static_cast<int>(selectTexts_[type_].string.length()) * FONT_SIZE;
+	selectBack_.size.x = static_cast<int>(selecttextList_[type_].string.length()) * FONT_SIZE;
 	selectBack_.size.y = FONT_SIZE;
 }
 
@@ -178,7 +178,7 @@ void TitleStateSelect::DrawSelect()
 	for (int i = 0; i < TYPE_MAX; i++)
 	{
 		// 描画
-		selectTexts_[i].DrawCenter();
+		selecttextList_[i].DrawCenter();
 	}
 }
 

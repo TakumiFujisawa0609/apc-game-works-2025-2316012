@@ -9,7 +9,8 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	PostEffectRipples();
+	/// <param name="param">パラメータ情報</param>
+	PostEffectRipples(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -34,25 +35,41 @@ public:
 private:
 
 	// 線が消える時間
-	static constexpr float LINE_INACTIVE = 3.0f;
+	const float LINE_INACTIVE;
 
 	// 線を表示する時間
-	static constexpr float LINE_ACTIVE = 1.0f;
+	const float LINE_ACTIVE;
 
 	// グリッチの強さ
-	static constexpr float GLITCH_STRENGTH = 0.2f;
+	const float GLITCH_STRENGTH;
 	
 	// 波紋タイマーに乗じる速度係数
-	static constexpr float RIPPLES_WAVE_SPEED = 0.2f;    
+	const float RIPPLES_WAVE_SPEED;    
 	
 	// 波紋が消えるまでの最大距離
-	static constexpr float RIPPLES_WAVE_MAX = 1.5f;      
+	const float RIPPLES_WAVE_MAX;      
 
 	// フィルムグレインの強さ
-	static constexpr float FILM_GRAIN_STRENGTH = 0.1f;
+	const float FILM_GRAIN_STRENGTH;
 
-	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 2;
+	// 波の速度
+	const float TIME_FACTOR;
+
+	// 波の密度の細かさ
+	const float DISTANCE_FACTOR;
+
+	// 歪みの全体の強さ
+	const float TOTAL_FACTOR;
+
+	// 波紋の幅
+	const float WAVE_WIDTH;
+
+	// 開始位置
+	const float START_UV_X;
+	const float START_UV_Y;
+
+	// ブロックの分割数
+	const float BLOCK_SIZE_Y;
 
 	// リップル用ステップ
 	float ripplesStep_;

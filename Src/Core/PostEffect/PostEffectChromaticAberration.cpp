@@ -7,7 +7,9 @@
 #include "../Utility/UtilityCommon.h"
 #include "PostEffectChromaticAberration.h"
 
-PostEffectChromaticAberration::PostEffectChromaticAberration()
+PostEffectChromaticAberration::PostEffectChromaticAberration(const Json& param) :
+	PostEffectBase(param),
+	COLOR_OFFSET({ param["colorOffset"]["x"], param["colorOffset"]["y"]})
 {
 }
 
@@ -22,7 +24,7 @@ void PostEffectChromaticAberration::Init()
 	renderer_ = std::make_unique<PixelRenderer>(*material_);
 
 	// マテリアル設定
-	material_->AddConstBuf(COLOR_OFFSET);
+	material_->AddConstBuf(FLOAT4{ COLOR_OFFSET.x, COLOR_OFFSET.y, 0.0f, 0.0f });
 
 	// テクスチャ設定
 	material_->AddTextureBuf(scnMng_.GetMainScreen());

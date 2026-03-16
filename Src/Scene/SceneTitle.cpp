@@ -9,6 +9,7 @@
 #include "../Manager/Common/FontManager.h"
 #include "../Render/PixelMaterial.h"
 #include "../Render/PixelRenderer.h"
+#include "../Utility/UtilityLoad.h"
 #include "State/Title/TitleStateExplanation.h"
 #include "State/Title/TitleStateMain.h"
 #include "State/Title/TitleStateSelect.h"
@@ -32,10 +33,13 @@ SceneTitle::~SceneTitle()
 
 void SceneTitle::Init()
 {
+	// パラメータ読み込み
+	auto paramMap = UtilityLoad::GetJsonMapArrayData(FILE_NAME);
+
 	// 状態別処理の生成
-	stateMap_.emplace(STATE::MAIN, std::make_unique<TitleStateMain>(*this));
-	stateMap_.emplace(STATE::EXPLANATION, std::make_unique<TitleStateExplanation>(*this));
-	stateMap_.emplace(STATE::TV_ERROR, std::make_unique<TitleStateTvError>(*this));
+	stateMap_.emplace(STATE::MAIN, std::make_unique<TitleStateMain>(*this, paramMap[NAME_LIST.at(STATE::MAIN)].front()));
+	stateMap_.emplace(STATE::EXPLANATION, std::make_unique<TitleStateExplanation>(*this, paramMap[NAME_LIST.at(STATE::EXPLANATION)].front()));
+	stateMap_.emplace(STATE::TV_ERROR, std::make_unique<TitleStateTvError>(*this, paramMap[NAME_LIST.at(STATE::TV_ERROR)].front()));
 
 	// 各種初期化処理
 	for (const auto& it : stateMap_)

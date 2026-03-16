@@ -8,7 +8,8 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	PostEffectFilmBurn();
+	/// <param name="param">パラメーター情報</param>
+	PostEffectFilmBurn(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -28,9 +29,10 @@ public:
 private:
 
 	// 時間
-	static constexpr float TIME = 2.0f;
+	const float TIME;
 
-	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 1;
+	// セピア色
+	const VECTOR SEPIA_COLOR;
+
 };
 

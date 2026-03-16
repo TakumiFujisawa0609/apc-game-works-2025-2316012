@@ -8,8 +8,10 @@
 #include "../Utility/UtilityCommon.h"
 #include "PostEffectFireTransition.h"
 
-PostEffectFireTransition::PostEffectFireTransition()
-{
+PostEffectFireTransition::PostEffectFireTransition(const Json& param):
+	PostEffectBase(param),
+	BLUR_LEVEL(param["blurLevel"])
+{	
 	time_ = 0;
 }
 

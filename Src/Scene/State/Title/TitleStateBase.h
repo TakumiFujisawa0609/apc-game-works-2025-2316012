@@ -1,4 +1,5 @@
 #pragma once
+#include <nlohmann/json.hpp>
 #include <memory>
 
 class SceneTitle;
@@ -6,6 +7,9 @@ class SceneManager;
 class InputManager;
 class SoundManager;
 class FontManager;
+
+// JSON–¼‘O‹óŠÔ
+using Json = nlohmann::json;
 
 class TitleStateBase
 {

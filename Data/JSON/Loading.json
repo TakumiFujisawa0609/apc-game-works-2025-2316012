@@ -1,0 +1,19 @@
+{
+  "Loading": {
+    "text": "Now Loading",
+    "comma": ".",
+    "loadingTime": 2,
+    "fontName": "fontKazuki",
+    "fontSize": 28,
+    "commaMaxNum": 7,
+    "commaTime": 0.5,
+    "textPos": {
+      "x": 980,
+      "y": 680
+    },
+    "postEffectParam": {
+      "constBufferSize": 1,
+      "blurDistance": 3.0
+    }
+  }
+}

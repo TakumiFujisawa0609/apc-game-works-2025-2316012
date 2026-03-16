@@ -38,6 +38,17 @@ private:
 	// 状態
 	STATE state_;
 
+	// ファイル名
+	const std::string FILE_NAME = "ParameterTitle";
+
+	// ファイルオブジェクト用名前
+	const std::unordered_map<STATE, std::string> NAME_LIST =
+	{
+		{STATE::MAIN, "main"},
+		{STATE::TV_ERROR, "tvError"},
+		{STATE::EXPLANATION, "explanation"}
+	};
+
 	// 状態管理
 	std::unordered_map<STATE, std::unique_ptr<TitleStateBase>> stateMap_;
 

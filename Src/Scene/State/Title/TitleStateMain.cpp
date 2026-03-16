@@ -15,9 +15,29 @@
 #include "../../SceneTips.h"
 #include "TitleStateMain.h"
 
-TitleStateMain::TitleStateMain(SceneTitle& parent) :
-	TitleStateBase(parent)
+TitleStateMain::TitleStateMain(SceneTitle& parent, const Json& param) :
+	TitleStateBase(parent),
+	OPERATION_MESSAGE_KEY(UtilityCommon::GetWStringFromString(UtilityCommon::ConvertUtf8ToSjis(param["operationMessageKey"].get<std::string>()))),
+	OPERATION_MESSAGE_PAD(UtilityCommon::GetWStringFromString(UtilityCommon::ConvertUtf8ToSjis(param["operationMessagePad"].get<std::string>()))),
+	SCREEN_OPERATION_HEIGHT(param["screenOperationHeight"].get<int>()),
+	FONT_SIZE(param["fontSize"].get<int>()),
+	FONT_SIZE_OPERATION(param["fontSizeOperation"].get<int>()),
+	FONT_THICK(param["fontThick"].get<int>()),
+	FONT_THICK_OPERATION(param["fontThickOperation"].get<int>()),
+	BOX_PADDING_X(param["boxPaddingX"].get<int>()),
+	BOX_PADDING_Y(param["boxPaddingY"].get<int>()),
+	FADE_ALPHA_RATE(param["fadeAlphaRate"].get<float>()),
+	EFFECT_ALPHA_RATE(param["effectAlphaRate"].get<float>()),
+	POST_EFFECT_PARAM(param["ripples"])
 {
+	// テキストの登録
+	const auto& textArray = param["menuStrings"].get<std::vector<std::string>>();
+	for (auto& text : textArray)
+	{
+		std::wstring wstr = UtilityCommon::GetWStringFromString(UtilityCommon::ConvertUtf8ToSjis(text));
+		textList_.push_back(wstr);
+	}
+
 	effectScreen_ = -1;
 	menuIndex_ = -1;
 	screenAlpha_ = 0.0f;
@@ -63,7 +83,7 @@ void TitleStateMain::Init()
 	orb_->Init();
 
 	// ポストエフェクト
-	ripples_ = std::make_unique<PostEffectRipples>();
+	ripples_ = std::make_unique<PostEffectRipples>(POST_EFFECT_PARAM);
 	ripples_->Load();
 	ripples_->Init();
 
@@ -88,19 +108,19 @@ void TitleStateMain::Init()
 	constexpr int OFFSET = 60;
 	for (int i = 0; i < MENU_MAX; i++)
 	{
-		menuTexts_[i].fontHandle = font;
-		menuTexts_[i].string = MENU_STRINGS[i];
-		menuTexts_[i].color = UtilityCommon::BLACK;
-		menuTexts_[i].pos = { Application::SCREEN_HALF_X, FIRST_POS_Y + i * OFFSET };
+		menutextList_[i].fontHandle = font;
+		menutextList_[i].string = textList_[i];
+		menutextList_[i].color = UtilityCommon::BLACK;
+		menutextList_[i].pos = { Application::SCREEN_HALF_X, FIRST_POS_Y + i * OFFSET };
 	}
 
 	// 初期選択位置の設定
 	menuIndex_ = 0;
-	menuTexts_[menuIndex_].color = UtilityCommon::WHITE;
+	menutextList_[menuIndex_].color = UtilityCommon::WHITE;
 
 	// 選択ボックスの設定
-	boxPos_ = { Application::SCREEN_HALF_X, menuTexts_[menuIndex_].pos.y + FONT_SIZE / 2 };
-	boxSize_ = { static_cast<int>(menuTexts_[menuIndex_].string.length()) * FONT_SIZE + BOX_PADDING_X, FONT_SIZE + BOX_PADDING_Y };
+	boxPos_ = { Application::SCREEN_HALF_X, menutextList_[menuIndex_].pos.y + FONT_SIZE / 2 };
+	boxSize_ = { static_cast<int>(menutextList_[menuIndex_].string.length()) * FONT_SIZE + BOX_PADDING_X, FONT_SIZE + BOX_PADDING_Y };
 
 	// 初期更新処理の登録
 	ChangeState(STATE::WAIT);
@@ -380,7 +400,7 @@ void TitleStateMain::DrawSelect()
 	);
 	
 	// 各種テキスト描画
-	for (const auto& text : menuTexts_)
+	for (const auto& text : menutextList_)
 	{
 		text.DrawCenter();
 	}
@@ -395,11 +415,11 @@ void TitleStateMain::UpdateSelectTextColor()
 	{
 		if (i == menuIndex_)
 		{
-			menuTexts_[i].color = UtilityCommon::WHITE;
+			menutextList_[i].color = UtilityCommon::WHITE;
 		}
 		else
 		{
-			menuTexts_[i].color = UtilityCommon::BLACK;
+			menutextList_[i].color = UtilityCommon::BLACK;
 		}
 	}
 
@@ -410,10 +430,10 @@ void TitleStateMain::UpdateSelectTextColor()
 void TitleStateMain::UpdateBox()
 {
 	// 位置の高さのみ変更
-	boxPos_.y = menuTexts_[menuIndex_].pos.y + FONT_SIZE / 2;
+	boxPos_.y = menutextList_[menuIndex_].pos.y + FONT_SIZE / 2;
 	
 	// サイズの幅のみ変更
-	boxSize_.x = menuTexts_[menuIndex_].string.length() * FONT_SIZE + BOX_PADDING_X;
+	boxSize_.x = menutextList_[menuIndex_].string.length() * FONT_SIZE + BOX_PADDING_X;
 }
 
 const std::wstring TitleStateMain::GetOperationMessage() const

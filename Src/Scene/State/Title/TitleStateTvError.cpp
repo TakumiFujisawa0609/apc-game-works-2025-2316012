@@ -7,8 +7,10 @@
 #include "../../SceneTitle.h"
 #include "TitleStateTvError.h"
 
-TitleStateTvError::TitleStateTvError(SceneTitle& parent) :
-	TitleStateBase(parent)
+TitleStateTvError::TitleStateTvError(SceneTitle& parent, const Json& param) :
+	TitleStateBase(parent),
+	TIME(param["time"]),
+	POST_EFFECT_PARAM(param["postEffectParam"])
 {
 	screen_ = 0;
 	postEffectTvError_ = nullptr;
@@ -24,7 +26,7 @@ void TitleStateTvError::Init()
 {
 	screen_ = MakeScreen(Application::SCREEN_SIZE_X, Application::SCREEN_SIZE_Y, true);
 
-	postEffectTvError_ = std::make_unique<PostEffectTvError>();
+	postEffectTvError_ = std::make_unique<PostEffectTvError>(POST_EFFECT_PARAM);
 	postEffectTvError_->Init();
 
 	timer_ = std::make_unique<Timer>(TIME);

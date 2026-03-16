@@ -1,34 +1,23 @@
 #include "../Common/Pixel/PixelShader2DHeader.hlsli"
 
-// 波の速度
-static const float TIME_FACTOR = 5.0f;
-
-// 波の密度の細かさ
-static const float DISTANCE_FACTOR = 60.0f;
-
-// 歪みの全体の強さ
-static const float TOTAL_FACTOR = 1.0f;
-
-// 波紋の幅
-static const float WAVE_WIDTH = 0.1f;
-
-// 開始位置
-static const float2 START_UV = { 0.5f, 0.5f };
-
-// ブロックの分割数
-static const float BLOCK_SIZE_Y = 20.0f;
-
 // スロット4番目(b4)に登録
 cbuffer cbParam : register(b4)
 {
-    float g_ripplis_step; // リップル更新用
-    float g_wave_distance; // 波紋が発生している中心からの距離
-    float g_aspect_ratio; // 画面アスペクト比
-    float g_glitch_step; // グリッチ更新用
+    float g_ripplis_step;       // リップル更新用
+    float g_wave_distance;      // 波紋が発生している中心からの距離
+    float g_aspect_ratio;       // 画面アスペクト比
+    float g_glitch_step;        // グリッチ更新用
     
-    float g_glitch_strength; // グリッチの強さ (0.0～1.0)
-    float3 dummy;
+    float g_glitch_strength;    // グリッチの強さ (0.0～1.0)
+    float g_time_factor;        // 波の速度
+    float g_distacne_factor;    // 波の密度
+    float g_total_factor;       // 歪み全体の強さ
+    
+    float g_wave_width;         // 波紋幅
+    float2 g_start_uv;          // 波紋開始位置
+    float g_block_size_y;       // ブロック分割数Y
 };
+    
 
 // ランダム関数
 float Random(float2 uv, float time)
@@ -40,24 +29,24 @@ float Random(float2 uv, float time)
 
 float4 main(PS_INPUT PSInput) : SV_TARGET
 {
-    // --- 1. 準備 ---
+    // 準備
     float2 uv = PSInput.uv;
     float glitchIntensity = g_glitch_strength;
     
-    // --- 2. 波紋エフェクトの計算 (既存ロジックの維持) ---
-    float2 uvToVec = START_UV.xy - uv;
+    // 波紋エフェクトの計算
+    float2 uvToVec = g_start_uv.xy - uv;
     uvToVec.x = uvToVec.x * g_aspect_ratio;
     float dis = length(uvToVec);
-    float sinFactor = sin(dis * DISTANCE_FACTOR + g_ripplis_step * TIME_FACTOR) * TOTAL_FACTOR * 0.01f;
-    float discardFactor = clamp(WAVE_WIDTH - abs(g_wave_distance - dis), 0.0f, 1.0f) / WAVE_WIDTH;
+    float sinFactor = sin(dis * g_distacne_factor + g_ripplis_step * g_time_factor) * g_total_factor * 0.01f;
+    float discardFactor = clamp(g_wave_width - abs(g_wave_distance - dis), 0.0f, 1.0f) / g_wave_width;
     float2 vec = (dis < 0.0001f) ? float2(0.0f, 0.0f) : normalize(uvToVec);
     float2 rippleOffset = vec * sinFactor * discardFactor;
     
     // 波紋適用後のUV
     float2 warpedUv = uv + rippleOffset;
 
-  // --- 3. ニーア風グリッチの計算 ---
-    float blockId = floor(warpedUv.y * BLOCK_SIZE_Y);
+    // グリッチの計算
+    float blockId = floor(warpedUv.y * g_block_size_y);
     float lineNoise = Random(float2(blockId, g_glitch_step * 0.1f), 0.0f);
     
     float glitchOffset = 0.0f;
@@ -69,7 +58,7 @@ float4 main(PS_INPUT PSInput) : SV_TARGET
     float splitAmount = glitchIntensity * 0.02f * Random(float2(g_glitch_step, 0.0f), 0.0f);
     float2 finalUv = warpedUv + float2(glitchOffset, 0.0f);
 
-    // 【修正箇所】UV座標が 0.0～1.0 の範囲を超えないように固定する
+    // UV座標が 0.0～1.0 の範囲を超えないように固定する
     float2 uvR = clamp(finalUv + float2(splitAmount, 0.0f), 0.0f, 1.0f);
     float2 uvG = clamp(finalUv, 0.0f, 1.0f);
     float2 uvB = clamp(finalUv - float2(splitAmount, 0.0f), 0.0f, 1.0f);

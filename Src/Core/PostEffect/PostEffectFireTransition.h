@@ -8,7 +8,8 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	PostEffectFireTransition();
+	/// <param name="pram">パラメーター</param>
+	PostEffectFireTransition(const Json& pram);
 
 	/// <summary>
 	/// デストラクタ
@@ -27,11 +28,8 @@ public:
 
 private:
 
-	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 1;
-
 	// ボケレベル
-	static constexpr float BLUR_LEVEL = 0.1f;
+	const float BLUR_LEVEL;
 
 	// 時間
 	float time_;

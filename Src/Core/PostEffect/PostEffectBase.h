@@ -1,9 +1,13 @@
 #pragma once
 #include <memory>
+#include <nlohmann/json.hpp>
 #include "../CoreBase.h"
 
 class PixelMaterial;
 class PixelRenderer;
+
+// JSON名前空間
+using Json = nlohmann::json;
 
 class PostEffectBase : public CoreBase
 {
@@ -12,7 +16,8 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	PostEffectBase();
+	/// <param name="param">パラメーター情報</param>
+	PostEffectBase(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -46,6 +51,9 @@ public:
 	void SetSubTexture(const int subTexture) { subTexture_ = subTexture; }
 
 protected:
+
+	// バッファーサイズ
+	const int CONST_BUFFER_SIZE;
 
 	// サブテクスチャ
 	int subTexture_;

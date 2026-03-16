@@ -1,5 +1,6 @@
 #pragma once
 #include "PostEffectBase.h"
+#include "../../Common/Vector2F.h"
 
 class PostEffectChromaticAberration : public PostEffectBase
 {
@@ -8,7 +9,8 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	PostEffectChromaticAberration();
+	/// <param name="param">パラメーター情報</param>
+	PostEffectChromaticAberration(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -27,10 +29,7 @@ public:
 
 private:
 
-	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 1;
-
 	// 色差分調整
-	static constexpr FLOAT4 COLOR_OFFSET = { 0.008f,0.002f, 0.0f,0.0f };
+	const Vector2F COLOR_OFFSET = { 0.008f,0.002f };
 };
 

@@ -1,10 +1,14 @@
 #pragma once
 #include <unordered_map>
-#include "../Application.h"
+#include <nlohmann/json.hpp>
+#include "../Common/Vector2.h"
 #include "../Template/Singleton.h"
 #include "../Common/CharacterString.h"
 
 class PostEffectSnowNoise;
+
+// JSON名前空間
+using Json = nlohmann::json;
 
 class Loading : public Singleton<Loading>
 {
@@ -41,17 +45,35 @@ public:
 
 private:
 
-	//最低ローディング時間
-	static constexpr float LOADING_TIME = 2.0f;
+	// ファイル名
+	const std::string FILE_NAME = "Loading";
+
+	// ポストエフェクト用情報
+	Json POST_EFFECT_PARAM;
+
+	// 非同期中表示メッセージ
+	std::wstring TEXT;
+
+	// コンマ
+	std::wstring COMMA;
+
+	// 最低ローディング時間
+	float LOADING_TIME;
+
+	// フォント名
+	std::string FONT_NAME;
 
 	//フォントサイズ
-	static constexpr int FONT_SIZE = 28;
+	int FONT_SIZE;
 
-	//ローディング
-	static constexpr int COMMA_MAX_NUM = 7;											//「now loading......」のコンマの数
-	static constexpr float COMMA_TIME = 0.5f;										//「now loading......」のコンマ数を増やす時間
-	static constexpr int LOADING_STRING_POS_X = Application::SCREEN_SIZE_X - 300;	//「now loading......」の座標X
-	static constexpr int LOADING_STRING_POS_Y = Application::SCREEN_SIZE_Y - 40;	//「now loading......」の座標Y
+	// コンマ表示数
+	int COMMA_MAX_NUM;	
+
+	// コンマ表示時間
+	float COMMA_TIME;
+
+	// テキスト位置
+	Vector2 TEXT_POS;
 
 	// ローディング中ポストエフェクト
 	std::unique_ptr<PostEffectSnowNoise> snowNoiseEffect_;

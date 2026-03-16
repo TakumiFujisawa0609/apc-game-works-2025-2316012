@@ -6,8 +6,9 @@
 #include "../Render/PixelRenderer.h"
 #include "PostEffectCracks.h"
 
-PostEffectCracks::PostEffectCracks()
-{
+PostEffectCracks::PostEffectCracks(const Json& param) :
+	PostEffectBase(param)
+{	
 	step_ = 0.0f;
 }
 

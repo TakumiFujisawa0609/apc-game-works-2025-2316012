@@ -8,7 +8,8 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	PostEffectSnowNoise();
+	/// <param name="param">パラメーター情報</param>
+	PostEffectSnowNoise(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -27,11 +28,8 @@ public:
 
 private:
 
-	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 1;
-
 	//ブラーを掛ける距離
-	static constexpr float BLUR_DISTANCE = 3.0f;
+	const float BLUR_DISTANCE;
 
 	// ノイズ用ステップ
 	float noiseStep_;

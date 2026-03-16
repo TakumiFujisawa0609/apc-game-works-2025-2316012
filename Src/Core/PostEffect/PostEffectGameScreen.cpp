@@ -9,8 +9,13 @@
 #include "../Object/Actor/Character/Player.h"
 #include "PostEffectGameScreen.h"
 
-PostEffectGameScreen::PostEffectGameScreen()
-{
+PostEffectGameScreen::PostEffectGameScreen(const Json& param):
+	PostEffectBase(param),
+	BLUR_SPEED(param["blurSpeed"]),
+	BLUR_CONDITION(param["blurCondition"]),
+	MAX_BLUR_DISTANCE(param["maxBlurDistance"]),
+	MAX_FLASH_POWER(param["maxFlashPower"])
+{	
 	blurStep_ = 0.0f;
 	invertStep_ = 0.0f;
 	flashPower_ = 0.0f;

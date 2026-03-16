@@ -73,7 +73,7 @@ private:
 	Image selectBack_;
 
 	// 選択項目用テキスト
-	std::array<CharacterString, TYPE_MAX> selectTexts_;
+	std::array<CharacterString, TYPE_MAX> selecttextList_;
 
 	// 選択後に表示するテキスト
 	CharacterString afterText_;

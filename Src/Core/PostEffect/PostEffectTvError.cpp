@@ -8,7 +8,9 @@
 #include "../Utility/UtilityCommon.h"
 #include "PostEffectTvError.h"
 
-PostEffectTvError::PostEffectTvError()
+PostEffectTvError::PostEffectTvError(const Json& param) :
+	PostEffectBase(param),
+	STRNGTH(param["strngth"])
 {
 }
 

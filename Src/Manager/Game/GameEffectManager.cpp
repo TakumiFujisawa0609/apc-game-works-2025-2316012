@@ -15,23 +15,23 @@ void GameEffectManager::Init()
 	auto paramMap = UtilityLoad::GetJsonMapArrayData(FILE_NAME);
 
 	// ゲームスクリーン
-	auto game = std::make_unique<PostEffectGameScreen>();
+	auto game = std::make_unique<PostEffectGameScreen>(paramMap[NAME_LIST.at(TYPE::GAME_SCREEN)].front());
 	effectMap_.emplace(TYPE::GAME_SCREEN, std::move(game));
 
 	// ひび割れ
-	auto cracks = std::make_unique<PostEffectCracks>();
+	auto cracks = std::make_unique<PostEffectCracks>(paramMap[NAME_LIST.at(TYPE::CRACKS)].front());
 	effectMap_.emplace(TYPE::CRACKS, std::move(cracks));
 
 	// 写真焼き
-	auto filmBurn = std::make_unique<PostEffectFilmBurn>();
+	auto filmBurn = std::make_unique<PostEffectFilmBurn>(paramMap[NAME_LIST.at(TYPE::FILM_BURN)].front());
 	effectMap_.emplace(TYPE::FILM_BURN, std::move(filmBurn));
 
 	// 色収差
-	auto color = std::make_unique<PostEffectChromaticAberration>();
+	auto color = std::make_unique<PostEffectChromaticAberration>(paramMap[NAME_LIST.at(TYPE::CHROMATIC_ABERRATION)].front());
 	effectMap_.emplace(TYPE::CHROMATIC_ABERRATION, std::move(color));
 
 	// 炎のエフェクト
-	auto fire = std::make_unique<PostEffectFireTransition>();
+	auto fire = std::make_unique<PostEffectFireTransition>(paramMap[NAME_LIST.at(TYPE::FIRE_TRANSITION)].front());
 	effectMap_.emplace(TYPE::FIRE_TRANSITION, std::move(fire));
 
 	// 読み込み処理

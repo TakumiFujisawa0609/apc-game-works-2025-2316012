@@ -17,9 +17,36 @@ namespace
 	constexpr int START_POS_Y = Application::SCREEN_SIZE_Y - 150;
 }
 
-TitleStateExplanation::TitleStateExplanation(SceneTitle& parent) :
-	TitleStateBase(parent)
+TitleStateExplanation::TitleStateExplanation(SceneTitle& parent, const Json& param) :
+	TitleStateBase(parent),
+	MAIN_FONT_SIZE(param["mainFontSize"].get<int>()),
+	SKIP_FONT_SIZE(param["skipFontSize"].get<int>()),
+	TEXT_ANIMATION_SPEED(param["textAnimationSpeed"].get<float>()),
+	SKIP_TEXT_POS_X(param["skipTextPosX"].get<int>()),
+	SKIP_TEXT_POS_Y(param["skipTextPosY"].get<int>()),
+	BACK_BOX_SIZE_X(param["backBoxSizeX"].get<int>()),
+	BACK_BOX_SIZE_Y(param["backBoxSizeY"].get<int>()),
+	BACK_BOX_POS_X(param["backBoxPosX"].get<int>()),
+	BACK_BOX_POS_Y(param["backBoxPosY"].get<int>()),
+	BACK_BOX_ALPHA(param["backBoxAlpha"].get<int>()),
+	WAIT_TIME(param["waitTime"].get<float>()),
+	TEXT_DISPLAY_TIME(param["textDisplayTime"].get<float>()),
+	ANIM_TIME(param["animTime"].get<float>()),
+	MOVE_SPEED(param["moveSpeed"].get<float>()),
+	END_POS_X(param["endPosX"].get<float>()),
+	WINDOW_CREATE_COOL_TIME(param["windowCreateCoolTime"].get<float>()),
+	SKIP_INDEXS(param["skipIndexs"].get<std::vector<int>>()),
+	IMG_SCALES(param["imgScales"].get<std::vector<float>>()),
+	SKIP_TEXT(UtilityCommon::GetWStringFromString(param["skipText"].get<std::string>()))
 {
+	// テキストの登録
+	const auto& textArray = param["texts"].get<std::vector<std::string>>();
+	for (auto& text : textArray)
+	{
+		std::wstring wstr = UtilityCommon::GetWStringFromString(UtilityCommon::ConvertUtf8ToSjis(text));
+		textList_.push_back(wstr);
+	}
+
 	RegisterStateFunctions(STATE::WAIT, std::bind(&TitleStateExplanation::UpdateWait, this), std::bind(&TitleStateExplanation::DrawNone, this));
 	RegisterStateFunctions(STATE::TEXT_DISPLAY, std::bind(&TitleStateExplanation::UpdateTextDisplay, this), std::bind(&TitleStateExplanation::DrawTextDisplay, this));
 	RegisterStateFunctions(STATE::BUG, std::bind(&TitleStateExplanation::UpdateBug, this), std::bind(&TitleStateExplanation::DrawBug, this));
@@ -52,7 +79,7 @@ void TitleStateExplanation::Init()
 	mainSprite_.pos = { Application::SCREEN_HALF_X, subSprite_.pos.y };
 
 	// テキストの設定
-	text_.string = texts_.front();
+	text_.string = textList_.front();
 	text_.fontHandle = mainFont;
 	text_.pos = POS;
 	text_.color = UtilityCommon::WHITE;
@@ -150,10 +177,10 @@ void TitleStateExplanation::UpdateTextDisplay()
 			textIndex_++;
 
 			// テキストがまだ残っている場合
-			if (textIndex_ < static_cast<int>(texts_.size()))
+			if (textIndex_ < static_cast<int>(textList_.size()))
 			{
 				// 次のテキストに変更
-				text_.string = texts_[textIndex_];
+				text_.string = textList_[textIndex_];
 
 				// テキストアニメーションの再設定
 				textAnimationController_->SetCharacterString(text_);

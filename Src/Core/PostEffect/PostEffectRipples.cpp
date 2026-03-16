@@ -7,8 +7,22 @@
 #include "../Utility/UtilityCommon.h"
 #include "PostEffectRipples.h"
 
-PostEffectRipples::PostEffectRipples() 
-{
+PostEffectRipples::PostEffectRipples(const Json& param) :
+	PostEffectBase(param),
+	LINE_INACTIVE(param["lineInactive"]),
+	LINE_ACTIVE(param["lineActive"]),
+	GLITCH_STRENGTH(param["glitchStrength"]),
+	RIPPLES_WAVE_SPEED(param["ripplesWaveSpeed"]),
+	RIPPLES_WAVE_MAX(param["ripplesWaveMax"]),
+	FILM_GRAIN_STRENGTH(param["filmGrainStrength"]),
+	TIME_FACTOR(param["timeFactor"]),
+	DISTANCE_FACTOR(param["distanceFactor"]),
+	TOTAL_FACTOR(param["totalFactor"]),
+	WAVE_WIDTH(param["waveWidth"]),
+	START_UV_X(param["startUvX"]),
+	START_UV_Y(param["startUvY"]),
+	BLOCK_SIZE_Y(param["blcokSizeY"])
+{	
 	ripplesStep_ = 0.0f;
 	filmGrainStep_ = 0.0f;
 	isRepples_ = false;
@@ -26,7 +40,8 @@ void PostEffectRipples::Init()
 
 	// マテリアル設定
 	material_->AddConstBuf(FLOAT4{ ripplesStep_,0.0f, 0.0f,0.0f });
-	material_->AddConstBuf(FLOAT4{ GLITCH_STRENGTH,0.0f, 0.0f, 0.0f });
+	material_->AddConstBuf(FLOAT4{ GLITCH_STRENGTH, TIME_FACTOR, DISTANCE_FACTOR, TOTAL_FACTOR });
+	material_->AddConstBuf(FLOAT4{ WAVE_WIDTH, START_UV_X, START_UV_Y, BLOCK_SIZE_Y });
 
 	// テクスチャ設定
 	material_->AddTextureBuf(scnMng_.GetMainScreen());
@@ -63,7 +78,7 @@ void PostEffectRipples::Draw()
 
 	// マテリアル設定
 	material_->SetConstBuf(0, FLOAT4{ ripplesStep_,wave, ratio, filmGrainStep_ });
-	material_->SetConstBuf(1, FLOAT4{ GLITCH_STRENGTH,0.0f, 0.0f, 0.0f });
+	material_->SetConstBuf(1, FLOAT4{ GLITCH_STRENGTH, TIME_FACTOR, DISTANCE_FACTOR, TOTAL_FACTOR });
 
 	// 基底クラスの処理
 	PostEffectBase::Draw();

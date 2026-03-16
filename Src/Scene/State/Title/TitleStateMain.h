@@ -14,7 +14,9 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	TitleStateMain(SceneTitle& parent);
+	/// <param name="parent">親インスタンス</param>
+	/// <param name="param">パラメーター情報</param>
+	TitleStateMain(SceneTitle& parent, const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -57,41 +59,36 @@ private:
 		MAX,
 	};
 
-	const std::vector<std::wstring> MENU_STRINGS =
-	{
-		L"開始",
-		L"遊び方",
-		L"ヒント",
-		L"戻る",
-	};
-
-	// 画面の操作方法
-	const std::wstring OPERATION_MESSAGE_KEY = L"W・Sで選択/Spaceで決定";
-	const std::wstring OPERATION_MESSAGE_PAD = L"左スティックで選択/Bで決定";
-
-	// 操作説明高さ
-	static constexpr int SCREEN_OPERATION_HEIGHT = 696;
-
 	// メニュー項目数
 	static constexpr int MENU_MAX = static_cast<int>(MENU_TYPE::MAX);
 
+	// 画面の操作方法
+	const std::wstring OPERATION_MESSAGE_KEY;
+	const std::wstring OPERATION_MESSAGE_PAD;
+
+	// 操作説明高さ
+	const int SCREEN_OPERATION_HEIGHT;
+
 	// フォントサイズ
-	static constexpr int FONT_SIZE = 36;
-	static constexpr int FONT_SIZE_OPERATION = 20;
-	
+	const int FONT_SIZE;
+	const int FONT_SIZE_OPERATION;
+
 	// フォントの太さ
-	static constexpr int FONT_THICK = 5;
-	static constexpr int FONT_THICK_OPERATION = 4;
+	const int FONT_THICK;
+	const int FONT_THICK_OPERATION;
 
 	// ボックスのパディング
-	static constexpr int BOX_PADDING_X = 40;
-	static constexpr int BOX_PADDING_Y = 16;
+	const int BOX_PADDING_X;
+	const int BOX_PADDING_Y;
 
 	// フェード速度
-	static constexpr float FADE_ALPHA_RATE = 3.0f;
+	const float FADE_ALPHA_RATE;
 
 	// エフェクト用透過率減少速度
-	static constexpr float EFFECT_ALPHA_RATE = 1.39f;
+	const float EFFECT_ALPHA_RATE;
+
+	// ポストエフェクト用情報
+	const Json& POST_EFFECT_PARAM;
 
 	// ポストエフェクト用スクリーン
 	int effectScreen_;
@@ -103,10 +100,13 @@ private:
 	float step_;
 
 	// メニューインデックス
-	int menuIndex_;
+	int menuIndex_;	
+	
+	// 表示するテキスト一覧
+	std::vector<std::wstring> textList_;
 
 	// 文字列
-	CharacterString menuTexts_[MENU_MAX];
+	CharacterString menutextList_[MENU_MAX];
 
 	// 画面の操作方法
 	CharacterString screenOperationMessage_;

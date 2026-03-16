@@ -8,7 +8,7 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	PostEffectTvError();
+	PostEffectTvError(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -27,10 +27,7 @@ public:
 
 private:
 
-	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 1;
-
 	// 強さ
-	static constexpr float STRNGTH = 0.01f;
+	const float STRNGTH;
 };
 

@@ -8,7 +8,8 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	PostEffectGameScreen();
+	/// <param name="param">パラメーター情報</param>
+	PostEffectGameScreen(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -28,19 +29,16 @@ public:
 private:
 
 	// ブラーの条件値
-	static constexpr int BLUR_CONDITION = 50;
+	const int BLUR_CONDITION;
 
 	//ブラーを掛ける最大距離数
-	static constexpr float MAX_BLUR_DISTANCE = 10.0f;
+	const float MAX_BLUR_DISTANCE;
 
 	// フラッシュの最大強度
-	static constexpr float MAX_FLASH_POWER = 2.0f;
+	const float MAX_FLASH_POWER;
 
 	//ブラー速度
-	static constexpr float BLUR_SPEED = 0.1f;
-
-	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 2;
+	const float BLUR_SPEED;
 
 	// フラッシュ強さ
 	float flashPower_;

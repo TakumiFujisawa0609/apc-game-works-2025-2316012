@@ -4,8 +4,9 @@
 #include "../Render/PixelRenderer.h"
 #include "PostEffectBase.h"
 
-PostEffectBase::PostEffectBase()
-{
+PostEffectBase::PostEffectBase(const Json& param) :
+	CONST_BUFFER_SIZE(param["constBufferSize"])
+{	
 	step_ = 0.0f;
 	subTexture_ = -1;
 	material_ = nullptr;

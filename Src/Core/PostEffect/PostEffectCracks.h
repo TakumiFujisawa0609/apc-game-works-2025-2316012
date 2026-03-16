@@ -8,7 +8,8 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	PostEffectCracks();
+	/// <param name="param">パラメーター情報</param>
+	PostEffectCracks(const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -29,9 +30,5 @@ private:
 
 	// ステップ
 	float step_;
-
-	// バッファーサイズ
-	static constexpr int CONST_BUFFER_SIZE = 1;
-
 };
 

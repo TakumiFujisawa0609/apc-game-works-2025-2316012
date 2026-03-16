@@ -17,7 +17,9 @@ public:
 	/// <summary>
 	/// コンストラクタ
 	/// </summary>
-	TitleStateExplanation(SceneTitle& parent);
+	/// <param name="parent">親インスタンス</param>
+	/// <param name="param">パラメーター情報</param>
+	TitleStateExplanation(SceneTitle& parent, const Json& param);
 
 	/// <summary>
 	/// デストラクタ
@@ -49,72 +51,56 @@ private:
 	};
 
 	// 表示するテキスト一覧
-	std::vector<std::wstring> texts_ = 
-	{
-		L"従業員の皆さんへ",
-		L"これから仕事について説明します",
-		L"皆さんにはこの家の中で",
-		L"異変探しをしてもらいます",
-		L"異変を見つけた際は",
-		L"素早く報告してください",
-		L"暗視でしか見つけれない異変もあるので",
-		L"うまく使い分けてくださいね",
-		L"業務中体調が悪化する可能性があります",
-		L"もし体調が悪い場合は異変を報告して回復しましょう",
-		L"また、異変探索中別生命体に会う場合があります",
-		L"それは異変ではないので速やかに逃げましょう",
-		L"以上で仕事の説明は終了になります",
-		L"皆さんのご健闘を心よりお祈り申し上げます",
-	};
+	std::vector<std::wstring> textList_;
 
 	// フォントサイズ
-	static constexpr int MAIN_FONT_SIZE = 24;
-	static constexpr int SKIP_FONT_SIZE = 48;
+	const int MAIN_FONT_SIZE;
+	const int SKIP_FONT_SIZE;
 
 	// テキストアニメーション速度
-	static constexpr float TEXT_ANIMATION_SPEED = 0.12f;
+	const float TEXT_ANIMATION_SPEED;
 
 	// 説明スキップテキスト位置
-	static constexpr int SKIP_TEXT_POS_X = 900;
-	static constexpr int SKIP_TEXT_POS_Y = 670;
+	const int SKIP_TEXT_POS_X;
+	const int SKIP_TEXT_POS_Y;
 
 	// 背景のサイズ
-	static constexpr int BACK_BOX_SIZE_X = 1280;
-	static constexpr int BACK_BOX_SIZE_Y = 60;
+	const int BACK_BOX_SIZE_X;
+	const int BACK_BOX_SIZE_Y;
 
 	// 背景の位置
-	static constexpr int BACK_BOX_POS_X = 0;
-	static constexpr int BACK_BOX_POS_Y = 330;
+	const int BACK_BOX_POS_X;
+	const int BACK_BOX_POS_Y;
 
 	// 背景のアルファ値
-	static constexpr int BACK_BOX_ALPHA = 128;
+	const int BACK_BOX_ALPHA;
 
 	// 待機時間
-	static constexpr float WAIT_TIME = 1.5f;
+	const float WAIT_TIME;
 
 	// テキスト表示時間
-	static constexpr float TEXT_DISPLAY_TIME = 2.0f;
+	const float TEXT_DISPLAY_TIME;
 
-	//アニメーション時間
-	static constexpr float ANIM_TIME = 1.5f;
+	// アニメーション時間
+	const float ANIM_TIME;
 
 	// 移動速度
-	static constexpr float MOVE_SPEED = 5.0f;
+	const float MOVE_SPEED;
 
 	// メインの終了位置
-	static constexpr float END_POS_X = -128;
+	const float END_POS_X;
 
 	// 画像生成クールタイム
-	static constexpr float WINDOW_CREATE_COOL_TIME = 0.04f;
+	const float WINDOW_CREATE_COOL_TIME;
 
 	// 画像を見送るスプライト番号
-	const std::vector<int> SKIP_INDEXS = { 0, 1, 3, 5, 13 };
+	const std::vector<int> SKIP_INDEXS;
 
 	// 画像生成拡大サイズ
-	const std::vector<float> IMG_SCALES = { 1.1f, 1.3f, 1.5f, 1.7f, 2.0f };
+	const std::vector<float> IMG_SCALES;
 
 	// スキップ用テキスト
-	const std::wstring SKIP_TEXT = L"Enterでスキップ";
+	const std::wstring SKIP_TEXT;
 
 	// スキップテキスト
 	CharacterString skipText_;

@@ -17,7 +17,23 @@
     "boxPaddingX": 40,
     "boxPaddingY": 16,
     "fadeAlphaRate": 3.0,
-    "effectAlphaRate": 1.39
+    "effectAlphaRate": 1.39,
+    "ripples": {
+      "constBufferSize": 3,
+      "lineInactive": 3.0,
+      "lineActive": 1.0,
+      "glitchStrength": 0.2,
+      "ripplesWaveSpeed": 0.2,
+      "ripplesWaveMax": 1.5,
+      "filmGrainStrength": 0.1,
+      "timeFactor": 5.0,
+      "distanceFactor": 60.0,
+      "totalFactor": 1.0,
+      "waveWidth": 0.1,
+      "startUvX": 0.5,
+      "startUvY": 0.5,
+      "blcokSizeY": 20.0
+    }
   },
   "explanation": {
     "texts": [
@@ -57,6 +73,10 @@
     "skipText": "Enterでスキップ"
   },
   "tvError": {
-    "time": 2.0
+    "time": 2.0,
+    "postEffectParam": {
+      "constBufferSize": 1,
+      "strngth": 0.01
+    }
   }
 }

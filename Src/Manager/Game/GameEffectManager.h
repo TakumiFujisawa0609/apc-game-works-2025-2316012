@@ -63,6 +63,16 @@ private:
 	// ファイル名
 	const std::string FILE_NAME = "ParameterGameEffect";
 
+	// ファイルオブジェクト用名前
+	const std::unordered_map<TYPE, std::string> NAME_LIST =
+	{
+		{ TYPE::GAME_SCREEN, "gameScreen"},
+		{ TYPE::CRACKS, "cracks"},
+		{ TYPE::CHROMATIC_ABERRATION, "chromaticAberration"},
+		{ TYPE::FILM_BURN, "filmBurn"},
+		{ TYPE::FIRE_TRANSITION, "fireTransition"},
+	};
+
 	// 種類
 	TYPE type_;
 	

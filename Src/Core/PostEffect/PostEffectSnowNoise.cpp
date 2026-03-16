@@ -5,8 +5,10 @@
 #include "../Render/PixelRenderer.h"
 #include "PostEffectSnowNoise.h"
 
-PostEffectSnowNoise::PostEffectSnowNoise()
-{
+PostEffectSnowNoise::PostEffectSnowNoise(const Json& param) :
+	PostEffectBase(param),
+	BLUR_DISTANCE(param["blurDistance"])
+{	
 	noiseStep_ = 0.0f;
 }
 
