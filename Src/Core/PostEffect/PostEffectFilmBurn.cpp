@@ -27,8 +27,8 @@ void PostEffectFilmBurn::Init()
 	renderer_ = std::make_unique<PixelRenderer>(*material_);
 
 	// マテリアル設定
-	material_->AddConstBuf(FLOAT4{ 0.0f,TIME, SEPIA_COLOR.x,SEPIA_COLOR.y });
-	material_->AddConstBuf(FLOAT4{ SEPIA_COLOR.z,0.0f,0.0f,0.0f });
+	material_->AddConstBuf(FLOAT4{ 0.0f,TIME,0.0f,0.0f });
+	material_->AddConstBuf(FLOAT4{ SEPIA_COLOR.x,SEPIA_COLOR.y, SEPIA_COLOR.z,0.0f });
 
 	// テクスチャ設定
 	material_->AddTextureBuf(scnMng_.GetMainScreen());
@@ -41,8 +41,7 @@ void PostEffectFilmBurn::Init()
 void PostEffectFilmBurn::Draw()
 {
 	// バッファーの設定
-	material_->SetConstBuf(0, FLOAT4{ step_, TIME, SEPIA_COLOR.x,SEPIA_COLOR.y });
-	material_->SetConstBuf(0, FLOAT4{ SEPIA_COLOR.z,0.0f,0.0f,0.0f });
+	material_->SetConstBuf(0, FLOAT4{ step_, TIME, 0.0f, 0.0f });
 
 	// 基底クラスの処理
 	PostEffectBase::Draw();

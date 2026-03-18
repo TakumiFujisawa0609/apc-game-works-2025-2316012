@@ -11,8 +11,10 @@ cbuffer cbParam : register(b4)
 {
     float g_time;
     float g_total_time;
+    float2 dummy1;
+    
     float3 g_sepia_color;
-    float3 dummy;
+    float dummy2;
 };
 
 // サブテクスチャ

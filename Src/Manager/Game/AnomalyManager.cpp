@@ -170,7 +170,8 @@ const AnomalyManager::TYPE AnomalyManager::GetRandType()
 void AnomalyManager::FixedAppearance()
 {
 	// 異変発生
-	OccurAnomaly(TYPE_LIST[eventIndex_]);
+	//OccurAnomaly(TYPE_LIST[eventIndex_]);
+	OccurAnomaly(TYPE::REVERSE_FALL);
 
 	// タイマーの設定
 	timer_->SetGoalTime(static_cast<float>(TIME_LIST[eventIndex_]));
